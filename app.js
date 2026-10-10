@@ -453,7 +453,24 @@ function updateTraffic(dt){
 
 // V6.14 ambient life: birds over grass and fish that briefly jump from water.
 const wildlifeGroup=new THREE.Group();scene.add(wildlifeGroup);
-const birds=[],fish=[],ripples=[],crabs=[];let birdTimer=0,fishTimer=0,crabTimer=0;
+const birds=[],fish=[],ripples=[],crabs=[];
+// Every eligible tile has its own staggered cycle, including tiles restored from a save.
+const wildlifeCycles={bird:new WeakMap(),fish:new WeakMap(),crab:new WeakMap()};
+let wildlifeTime=0;
+function scheduleTileWildlife(kind,tiles,active,spawn,initialDelay,pause){
+ const cycles=wildlifeCycles[kind],occupied=new Set(active.map(a=>a.tile||a.center));
+ for(const tile of tiles){
+  let cycle=cycles.get(tile);
+  if(!cycle){cycle={next:wildlifeTime+Math.random()*initialDelay,active:false};cycles.set(tile,cycle);}
+  if(occupied.has(tile)){cycle.active=true;continue;}
+  if(cycle.active){cycle.active=false;cycle.next=wildlifeTime+pause[0]+Math.random()*(pause[1]-pause[0]);}
+  if(wildlifeTime>=cycle.next){spawn(tile);cycle.active=true;}
+ }
+}
+function removeWildlife(obj){
+ wildlifeGroup.remove(obj);
+ obj.traverse(node=>{if(node.geometry)node.geometry.dispose();if(node.material)for(const mat of (Array.isArray(node.material)?node.material:[node.material]))mat.dispose();});
+}
 function grassTiles(){return placed.filter(p=>p.asset.kind==='grass')}
 function waterTiles(){return placed.filter(p=>p.asset.cat==='Terrain'&&(/\bwater\b/i.test(p.asset.folderPath||p.asset.folder||'')||p.asset.kind==='water'))}
 function makeBird(){
@@ -461,21 +478,19 @@ function makeBird(){
  const wingGeo=new THREE.BufferGeometry();wingGeo.setAttribute('position',new THREE.Float32BufferAttribute([0,0,0,-7,0,-3,-2,0,1, 0,0,0,7,0,-3,2,0,1],3));
  const wings=new THREE.Mesh(wingGeo,mat);g.add(wings);g.userData.wings=wings;return g;
 }
-function spawnBird(){const gs=grassTiles();if(!gs.length||birds.length>=4)return;const t=gs[Math.floor(Math.random()*gs.length)],b=makeBird();wildlifeGroup.add(b);const r=55+Math.random()*42,a=Math.random()*Math.PI*2;b.position.set(t.root.position.x+Math.cos(a)*r,48+Math.random()*25,t.root.position.z+Math.sin(a)*r);birds.push({obj:b,center:t,angle:a,radius:r,speed:.45+Math.random()*.35,life:11+Math.random()*9,phase:Math.random()*6})}
+function spawnBird(t){const b=makeBird();wildlifeGroup.add(b);const r=55+Math.random()*42,a=Math.random()*Math.PI*2;b.position.set(t.root.position.x+Math.cos(a)*r,t.root.position.y+48+Math.random()*25,t.root.position.z+Math.sin(a)*r);birds.push({obj:b,center:t,angle:a,radius:r,speed:.45+Math.random()*.35,life:11+Math.random()*9,phase:Math.random()*6})}
 function makeFish(){const g=new THREE.Group();g.add(cartoonSprite('🐟',8));return g;}
 function makeRipple(x,z,y){const m=new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.9,side:THREE.DoubleSide,depthWrite:false});const r=new THREE.Mesh(new THREE.RingGeometry(3,3.4,40),m);r.rotation.x=-Math.PI/2;r.position.set(x,y,z);wildlifeGroup.add(r);ripples.push({obj:r,life:.7,max:.7})}
-function spawnFish(){const ws=waterTiles();if(!ws.length||fish.length>=3)return;const t=ws[Math.floor(Math.random()*ws.length)],f=makeFish([0xff8b3d,0xffd34e,0x4a7cff,0xf05d9b][Math.floor(Math.random()*4)]);wildlifeGroup.add(f);const ox=0,oz=0,baseY=t.root.position.y+(t.asset.h||5)+1;const ang=Math.random()*Math.PI*2;f.position.set(t.root.position.x+ox,baseY,t.root.position.z+oz);f.rotation.y=-ang;fish.push({obj:f,tile:t,ang,life:1.45,t:0,baseY,startX:f.position.x,startZ:f.position.z,splashed:false})}
+function spawnFish(t){const f=makeFish();wildlifeGroup.add(f);const baseY=t.root.position.y+(t.asset.h||5)+1,ang=Math.random()*Math.PI*2;f.position.set(t.root.position.x,baseY,t.root.position.z);f.rotation.y=-ang;fish.push({obj:f,tile:t,ang,life:1.45,t:0,baseY,splashed:false})}
 function sandTiles(){return placed.filter(p=>p.asset.cat==='Terrain'&&/\bsand\b/i.test((p.asset.folderPath||p.asset.folder||'').split('/')[1]||''));}
-function spawnCrab(){
- const tiles=sandTiles().filter(p=>!crabs.some(c=>c.tile===p));if(!tiles.length||crabs.length>=3)return;
- const tile=tiles[Math.floor(Math.random()*tiles.length)],obj=cartoonSprite('🦀',8,0);
+function spawnCrab(tile){
+ const obj=cartoonSprite('🦀',8,0);
  wildlifeGroup.add(obj);crabs.push({obj,tile,t:0,life:5.5+Math.random()*2,direction:Math.random()<.5?-1:1});
 }
 function updateCrabs(dt){
- crabTimer+=dt;if(crabTimer>5.5){crabTimer=0;spawnCrab();}
  for(let i=crabs.length-1;i>=0;i--){
   const c=crabs[i];c.t+=dt;
-  if(!placed.includes(c.tile)||c.t>=c.life){wildlifeGroup.remove(c.obj);c.obj.material.dispose();crabs.splice(i,1);continue;}
+  if(!placed.includes(c.tile)||c.t>=c.life){removeWildlife(c.obj);crabs.splice(i,1);continue;}
   const u=c.t/c.life,walking=u<.42||u>.58;
   const progress=u<.42?u/.84:u<.58?.5:.5+(u-.58)/.84;
   const distance=Math.min(12,Math.max(0,c.tile.asset.w/2-6)),x=(progress*2-1)*distance*c.direction,angle=c.tile.rotation;
@@ -485,11 +500,15 @@ function updateCrabs(dt){
  }
 }
 function updateWildlife(dt){
+ if(placementLoading)return;
+ wildlifeTime+=dt;
+ scheduleTileWildlife('bird',grassTiles(),birds,spawnBird,2,[.5,2]);
+ scheduleTileWildlife('fish',waterTiles(),fish,spawnFish,3,[1.2,3]);
+ scheduleTileWildlife('crab',sandTiles(),crabs,spawnCrab,2,[.6,2]);
  updateCrabs(dt);
- birdTimer+=dt;fishTimer+=dt;if(birdTimer>3.8){birdTimer=0;spawnBird()}if(fishTimer>4.2){fishTimer=0;spawnFish()}
- for(let i=birds.length-1;i>=0;i--){const b=birds[i];if(!placed.includes(b.center)||(b.life-=dt)<=0){wildlifeGroup.remove(b.obj);birds.splice(i,1);continue}b.angle+=b.speed*dt;b.obj.position.x=b.center.root.position.x+Math.cos(b.angle)*b.radius;b.obj.position.z=b.center.root.position.z+Math.sin(b.angle)*b.radius;b.obj.rotation.y=-b.angle;b.obj.userData.wings.rotation.x=Math.sin(performance.now()*.012+b.phase)*.45}
- for(let i=fish.length-1;i>=0;i--){const f=fish[i];if(!placed.includes(f.tile)){wildlifeGroup.remove(f.obj);fish.splice(i,1);continue}f.t+=dt;const u=Math.min(1,f.t/f.life),travel=0;f.obj.position.x=f.tile.root.position.x;f.obj.position.z=f.tile.root.position.z;f.obj.position.y=f.baseY+Math.sin(Math.PI*u)*12;f.obj.rotation.z=Math.sin(Math.PI*u)*.35;if(u>=1){if(!f.splashed){makeRipple(f.obj.position.x,f.obj.position.z,f.baseY+.7);f.splashed=true}wildlifeGroup.remove(f.obj);fish.splice(i,1)}}
- for(let i=ripples.length-1;i>=0;i--){const r=ripples[i];r.life-=dt;const u=1-r.life/r.max;r.obj.scale.setScalar(1+u*2);r.obj.material.opacity=Math.max(0,.85*(1-u));if(r.life<=0){wildlifeGroup.remove(r.obj);ripples.splice(i,1)}}
+ for(let i=birds.length-1;i>=0;i--){const b=birds[i];if(!placed.includes(b.center)||(b.life-=dt)<=0){removeWildlife(b.obj);birds.splice(i,1);continue}b.angle+=b.speed*dt;b.obj.position.x=b.center.root.position.x+Math.cos(b.angle)*b.radius;b.obj.position.z=b.center.root.position.z+Math.sin(b.angle)*b.radius;b.obj.rotation.y=-b.angle;b.obj.userData.wings.rotation.x=Math.sin(performance.now()*.012+b.phase)*.45}
+ for(let i=fish.length-1;i>=0;i--){const f=fish[i];if(!placed.includes(f.tile)){removeWildlife(f.obj);fish.splice(i,1);continue}f.t+=dt;const u=Math.min(1,f.t/f.life),travel=0;f.obj.position.x=f.tile.root.position.x;f.obj.position.z=f.tile.root.position.z;f.obj.position.y=f.baseY+Math.sin(Math.PI*u)*12;f.obj.rotation.z=Math.sin(Math.PI*u)*.35;if(u>=1){if(!f.splashed){makeRipple(f.obj.position.x,f.obj.position.z,f.baseY+.7);f.splashed=true}removeWildlife(f.obj);fish.splice(i,1)}}
+ for(let i=ripples.length-1;i>=0;i--){const r=ripples[i];r.life-=dt;const u=1-r.life/r.max;r.obj.scale.setScalar(1+u*2);r.obj.material.opacity=Math.max(0,.85*(1-u));if(r.life<=0){removeWildlife(r.obj);ripples.splice(i,1)}}
 }
 
 // V6.14 optional relaxing WebAudio ambience: soft pad/chimes plus occasional bird chirps.
