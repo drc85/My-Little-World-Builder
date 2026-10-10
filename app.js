@@ -1341,3 +1341,25 @@ document.getElementById('exportParts').onclick=async()=>{const text=partsText(),
  const left=document.querySelector('header .topLeft'),right=document.querySelector('header .topRight');
  left.append(...right.children);right.remove();
 }
+
+// The clock face is part of the logo image; account for object-fit and responsive sizing.
+{
+ const logo=document.querySelector('.topTitle>img'),title=logo.parentElement,clock=document.getElementById('worldClock');
+ const positionClock=()=>{
+  if(!logo.naturalWidth)return;
+  const box=logo.getBoundingClientRect(),parent=title.getBoundingClientRect(),scale=Math.min(box.width/logo.naturalWidth,box.height/logo.naturalHeight),w=logo.naturalWidth*scale,h=logo.naturalHeight*scale;
+  clock.style.setProperty('--clock-x',(box.left-parent.left+(box.width-w)/2+w*.498)+'px');
+  clock.style.setProperty('--clock-y',(box.top-parent.top+(box.height-h)/2+h*.864)+'px');
+  clock.style.setProperty('--clock-scale',String(w*.195/54));
+ };
+ const positionWeather=()=>{
+  if(!cloudDrop.classList.contains('open'))return;
+  const button=cloudBtn.getBoundingClientRect(),width=cloudDrop.getBoundingClientRect().width;
+  cloudDrop.style.setProperty('--weather-x',Math.max(16,Math.min(button.left,innerWidth-width-16))+'px');
+  cloudDrop.style.setProperty('--weather-y',(button.bottom+10)+'px');
+ };
+ new ResizeObserver(positionClock).observe(logo);
+ logo.addEventListener('load',positionClock);positionClock();
+ cloudBtn.addEventListener('click',positionWeather);
+ window.addEventListener('resize',()=>{positionClock();positionWeather();});
+}
