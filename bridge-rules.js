@@ -3,18 +3,18 @@ export const elevated=p=>['deck','rail'].includes(role(p));
 export function dimensions(p){const turn=Math.round(p.rotation/(Math.PI/2))%2;return turn?{w:p.asset.d,d:p.asset.w}:{w:p.asset.w,d:p.asset.d};}
 function direction(p,sign=1){const z=p.asset.bridgeAxis===2;const x=z?0:sign,v=z?sign:0,c=Math.cos(p.rotation),s=Math.sin(p.rotation);return {x:Math.round(x*c+v*s),z:Math.round(v*c-x*s)};}
 export function overlap(a,b){const x=dimensions(a),y=dimensions(b);return Math.abs(a.root.position.x-b.root.position.x)<(x.w+y.w)/2-.5&&Math.abs(a.root.position.z-b.root.position.z)<(x.d+y.d)/2-.5;}
-export function collides(a,b){if(a===b||a.asset.noCollision||b.asset.noCollision||!overlap(a,b))return false;const beam=role(a)==='beam'?a:role(b)==='beam'?b:null,deck=beam===a?b:a;if(beam&&elevated(deck)){const top=beam.root.position.y+Number(beam.asset.h),surface=deck.root.position.y+(deck.asset.roadSurface||5);if(top<=surface+.5&&beam.root.position.y<deck.root.position.y)return false;}const ay=a.root.position.y,by=b.root.position.y;return ay<by+(Number(b.asset.h)||5)-.5&&by<ay+(Number(a.asset.h)||5)-.5;}
+export function collides(a,b){if(a===b||!overlap(a,b))return false;const ground=p=>['Terrain','Streets'].includes(p.asset.cat)&&!role(p);if(ground(a)&&ground(b))return true;if(a.asset.noCollision||b.asset.noCollision)return false;const beam=role(a)==='beam'?a:role(b)==='beam'?b:null,deck=beam===a?b:a;if(beam&&elevated(deck)){const top=beam.root.position.y+Number(beam.asset.h),surface=deck.root.position.y+(deck.asset.roadSurface||5);if(top<=surface+.5&&beam.root.position.y<deck.root.position.y)return false;}const ay=a.root.position.y,by=b.root.position.y;return ay<by+(Number(b.asset.h)||5)-.5&&by<ay+(Number(a.asset.h)||5)-.5;}
 function length(p){return p.asset.bridgeAxis===2?p.asset.d:p.asset.w;}
-export function bridgeTarget(p,x,z,others){const candidates=[],axis=direction(p),half=length(p)/2;
+export function bridgeTarget(p,x,z,others){const candidates=[],half=length(p)/2;
  for(const q of others){if(q===p||(!elevated(q)&&role(q)!=='ramp'))continue;
   const sides=role(q)==='ramp'?[q.asset.highSide||-1]:[-1,1];
-  for(const side of sides){const d=direction(q,side);if(Math.abs(d.x*axis.x+d.z*axis.z)!==1)continue;const at=q.root.position,height=elevated(q)?q.deckHeight:at.y+q.asset.deckHeight;if(!Number.isFinite(height))continue;
-   candidates.push({x:at.x+d.x*(length(q)/2+half),z:at.z+d.z*(length(q)/2+half),y:height-(p.asset.roadSurface||5),height});
+  for(const side of sides){const d=direction(q,side);const rotation=q.rotation+(q.asset.bridgeAxis===2?Math.PI/2:0)-(p.asset.bridgeAxis===2?Math.PI/2:0);const at=q.root.position,height=elevated(q)?q.deckHeight:at.y+q.asset.deckHeight;if(!Number.isFinite(height))continue;
+   candidates.push({x:at.x+d.x*(length(q)/2+half),z:at.z+d.z*(length(q)/2+half),y:height-(p.asset.roadSurface||5),height,rotation});
   }
  }
  candidates.sort((a,b)=>Math.hypot(a.x-x,a.z-z)-Math.hypot(b.x-x,b.z-z));
- const old=p.root.position.clone();for(const c of candidates){if(Math.hypot(c.x-x,c.z-z)>Math.max(80,half))continue;p.root.position.set(c.x,c.y,c.z);if(!others.some(q=>collides(p,q))){p.deckHeight=c.height;return true;}}
- p.root.position.copy(old);return false;
+ const old=p.root.position.clone(),oldRotation=p.rotation;for(const c of candidates){if(Math.hypot(c.x-x,c.z-z)>Math.max(80,half))continue;p.rotation=c.rotation;if(p.root.rotation)p.root.rotation.y=c.rotation;p.root.position.set(c.x,c.y,c.z);if(!others.some(q=>collides(p,q))){p.deckHeight=c.height;return true;}}
+ p.root.position.copy(old);p.rotation=oldRotation;if(p.root.rotation)p.root.rotation.y=oldRotation;return false;
 }
 function baseTile(p){return !role(p)&&['Terrain','Streets'].includes(p.asset.cat)&&!p.asset.noCollision;}
 export function beamTarget(p,x,z,others){

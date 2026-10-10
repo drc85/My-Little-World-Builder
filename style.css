@@ -1317,3 +1317,34 @@ header .brandCredit .brandLogos img{height:16px!important;max-width:75px!importa
 header :is(#clearBtn,#loadBtn,#saveBtn,#partsBtn,#undoBtn,#centerBtn,#cloudBtn,#soundBtn,#helpBtn){transition:transform .16s ease,filter .16s ease!important;}
 header :is(#clearBtn,#loadBtn,#saveBtn,#partsBtn,#undoBtn,#centerBtn,#cloudBtn,#soundBtn,#helpBtn):hover:not(:disabled){transform:translateY(-2px) scale(1.08)!important;filter:brightness(1.15)!important;background:transparent!important;box-shadow:none!important;}
 @media(max-width:1200px){header .brandCredit{left:calc(50% + 110px)!important;top:72px!important;}}
+
+.dayModeControl{border:0;padding:0;margin:0 0 16px;min-width:0;}
+.dayModeControl legend{font-size:11px;font-weight:700;margin-bottom:7px;}
+.dayModeControl>div{display:flex;padding:3px;border-radius:18px;background:#ffffff0c;border:1px solid #ffffff20;}
+.dayModeControl label{flex:1;position:relative;margin:0!important;text-align:center;cursor:pointer;}
+.dayModeControl input{position:absolute;opacity:0;width:1px;height:1px;}
+.dayModeControl span{display:flex;align-items:center;justify-content:center;min-height:38px;border-radius:15px;font:600 10px/13px Arial,sans-serif;transition:background .2s;}
+.dayModeControl input:checked+span{background:#2fb68e;color:white;box-shadow:0 2px 6px #0003;}
+.dayModeControl input:focus-visible+span{outline:2px solid #adefff;}
+.dayModeControl:disabled{opacity:.35;}.dayModeControl:disabled label{cursor:default;}
+
+#cloudDrop.weatherDrop .dayModeControl>div{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:2px;width:100%;}
+#cloudDrop.weatherDrop .dayModeControl label{display:block!important;grid-template-columns:none!important;min-width:0!important;width:auto!important;margin:0!important;padding:0!important;}
+#cloudDrop.weatherDrop .dayModeControl span{width:100%;min-width:0;white-space:normal;}
+
+/* Rounded dark scrollbars for long lists and panels. The dock keeps its hidden bar. */
+html,body,.helpModal,.partsTableWrap,.controlDrop,.weatherDrop{scrollbar-width:thin;scrollbar-color:#344550 transparent;}
+*::-webkit-scrollbar{width:9px;height:9px;}
+*::-webkit-scrollbar-track{background:transparent;border-radius:12px;}
+*::-webkit-scrollbar-thumb{background:#344550;border:2px solid transparent;background-clip:padding-box;border-radius:12px;}
+*::-webkit-scrollbar-thumb:hover{background-color:#516571;}
+*::-webkit-scrollbar-corner{background:transparent;}
+.partsTableWrap::-webkit-scrollbar-thumb{background:#344550;border-radius:12px;}
+
+header .brandCredit{max-width:230px;}
+header .brandCredit .brandMade,header .brandCredit .brandMade span{font-size:10px!important;}
+header .brandCredit .brandMade b{font-size:12px!important;}
+header .brandCredit .brandLogos img{height:24px!important;max-width:100px!important;}
+header .brandCredit .brandLogos a{transition:transform .16s ease,filter .16s ease;}
+header .brandCredit .brandLogos a:hover{transform:translateY(-2px) scale(1.08);filter:brightness(1.15);}
+@media(min-width:1201px) and (max-width:1450px){header .brandCredit{top:72px!important;}}

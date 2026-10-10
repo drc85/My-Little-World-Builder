@@ -325,6 +325,7 @@ def save(payload):
             for key in ('makerworld','snapmaker'):
                 if key in changed:a[key]=validate_link(changed[key])
             if 'enabled' in changed:a['enabled']=bool(changed['enabled'])
+            if 'order' in changed:a['order']=int(changed['order'])
         for changed in payload.get('folders',[]):
             f=folders.get(changed.get('path'))
             if not f:raise ValueError('Unknown folder')
