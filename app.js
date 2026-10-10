@@ -1316,3 +1316,17 @@ function validModelLink(value){try{const u=new URL(value);return ['https:','http
 function platformLink(value,name,image){const href=validModelLink(value);return href?`<a class="modelLink" href="${catalogEscape(href)}" target="_blank" rel="noopener" title="Open on ${name}" aria-label="Open on ${name}"><img src="assets/IMG/${image}" alt="${name}"></a>`:'—';}
 function partsText(){const counts={};for(const {p} of sceneSnapshot())counts[p.asset.id]=(counts[p.asset.id]||0)+1;const pins=connectorPinStats();const lines=['My Little World Builder — Print list',''];for(const [id,n] of Object.entries(counts)){const a=byId[id];lines.push(`${a.name} — ${n} ×`, `Size: ${a.w/10} × ${a.d/10} cm`,`Pins: ${pins.byAsset[id]||0}`,`Colors: ${assetColors(a).join(', ')||'—'}`,`Print time: ${a.printTime||'—'}`,`Weight: ${a.weightG!=null?a.weightG*n+' g':'—'}`,`MakerWorld: ${validModelLink(a.makerworld)||'—'}`,`Snapmaker: ${validModelLink(a.snapmaker)||'—'}`,'');}lines.push(`Total parts: ${Object.values(counts).reduce((a,b)=>a+b,0)}`,`Total pins: ${pins.total}`);return lines.join('\r\n');}
 document.getElementById('exportParts').onclick=async()=>{const text=partsText(),status=document.getElementById('exportStatus');status.textContent='';try{if(window.showSaveFilePicker){const handle=await window.showSaveFilePicker({suggestedName:'my-little-world-print-list.txt',types:[{description:'Text file',accept:{'text/plain':['.txt']}}]});const writable=await handle.createWritable();await writable.write(text);await writable.close();status.textContent='List exported.';}else{const url=URL.createObjectURL(new Blob([text],{type:'text/plain;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download='my-little-world-print-list.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);status.textContent='List downloaded.';}}catch(error){if(error.name!=='AbortError')status.textContent='Export failed: '+error.message;}};
+
+// Center the credit block in the actual gap, including responsive logo sizes.
+{
+ const header=document.querySelector('header'),credit=header.querySelector('.brandCredit'),logo=header.querySelector('.topTitle>img'),firstIcon=document.getElementById('centerBtn');
+ const positionCredit=()=>{
+  const h=header.getBoundingClientRect(),l=logo.getBoundingClientRect(),r=firstIcon.getBoundingClientRect();
+  const gap=r.left-l.right,width=Math.min(200,Math.max(190,gap-28));
+  credit.style.setProperty('--credit-width',width+'px');
+  credit.style.setProperty('--credit-x',((l.right+r.left)/2-h.left-header.clientLeft)+'px');
+  credit.style.setProperty('--credit-y',(gap>=218?r.top+r.height/2-h.top-header.clientTop:h.height+29)+'px');
+ };
+ const observer=new ResizeObserver(positionCredit);observer.observe(header);observer.observe(logo);observer.observe(firstIcon);
+ logo.addEventListener('load',positionCredit);window.addEventListener('resize',positionCredit);document.fonts.ready.then(positionCredit);positionCredit();
+}
