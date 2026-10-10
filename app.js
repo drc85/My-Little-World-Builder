@@ -279,7 +279,7 @@ function updateWorldClock(now){
 function updateDayNight(now){const night=worldSettings.realtime?realTimeNightAmount():worldSettings.dayMode==='day'?0:worldSettings.dayMode==='night'?1:nightAmountAt((now-dayNightStart)/1000);if(now-skyTick>90){skyTick=now;updateSky(night)}updateNightLights(night);updateCarLights(night);updateWorldClock(now);updateSettingsClock();}
 
 const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.target.set(0,0,0);controls.enableRotate=false;controls.mouseButtons={LEFT:null,MIDDLE:null,RIGHT:null};controls.touches={ONE:null,TWO:THREE.TOUCH.DOLLY_PAN};
-const grid=new THREE.GridHelper(2000,40,0x9aa8b0,0x9aa8b0);grid.material.transparent=true;grid.material.opacity=.46;scene.add(grid);const ground=new THREE.Mesh(new THREE.PlaneGeometry(3000,3000),new THREE.MeshBasicMaterial({visible:false}));ground.rotation.x=-Math.PI/2;scene.add(ground);
+const grid=new THREE.GridHelper(2000,40,0x9aa8b0,0x9aa8b0);grid.material.transparent=true;grid.material.depthWrite=false;grid.renderOrder=-1;grid.material.opacity=.46;scene.add(grid);const ground=new THREE.Mesh(new THREE.PlaneGeometry(3000,3000),new THREE.MeshBasicMaterial({visible:false}));ground.rotation.x=-Math.PI/2;scene.add(ground);
 let placed=[],selected=null,selectedGroup=new Set(),multiMode=false,clipboard=[],dragging=null,draggingGroup=null,dragGroupStart=null,placingCopy=null,placingCopies=null,placingGroupAnchor=null,panning=false,panLast=null,offset=new THREE.Vector3(),idSeq=1;const ray=new THREE.Raycaster(),mouse=new THREE.Vector2();
 
 // V6.7 animated cloud / fog-of-world layer. Built areas reveal automatically.
@@ -304,7 +304,20 @@ const outerCloudPass=new ShaderPass({
  fragmentShader:`uniform sampler2D tDiffuse;uniform mat4 inverseCamera;uniform vec4 bounds;uniform float time;varying vec2 vUv;
  void main(){vec2 clip=vUv*2.-1.;vec4 a=inverseCamera*vec4(clip,-1.,1.),b=inverseCamera*vec4(clip,1.,1.);vec3 start=a.xyz/a.w,end=b.xyz/b.w;float t=-start.y/(end.y-start.y);vec2 p=mix(start,end,t).xz;vec2 center=vec2(bounds.x+bounds.y,bounds.z+bounds.w)*.5;vec2 halfSize=vec2(bounds.y-bounds.x,bounds.w-bounds.z)*.5;vec2 delta=abs(p-center)-halfSize;float distance=max(delta.x,delta.y);float puff=sin(p.x*.013+time*.04)*sin(p.y*.009-time*.025)*55.+sin(p.x*.027+p.y*.021)*22.;float alpha=smoothstep(-20.,220.,distance+puff);vec4 world=texture2D(tDiffuse,vUv);gl_FragColor=vec4(mix(world.rgb,vec3(.98,.985,1.),alpha),world.a);}`
 });composer.addPass(outerCloudPass);
-function updateOuterClouds(){outerCloudPass.uniforms.bounds.value.set(-1000,1000,-1000,1000);camera.updateMatrixWorld();outerCloudPass.uniforms.inverseCamera.value.multiplyMatrices(camera.matrixWorld,camera.projectionMatrixInverse);outerCloudPass.uniforms.time.value=performance.now()/1000;}
+// Keep the complete fixed world in front of the camera's clipping planes.
+// Moving an orthographic camera along its viewing axis preserves the framing.
+function fitWorldDepth(){
+ const direction=camera.getWorldDirection(new THREE.Vector3());
+ const height=Math.max(650,...placed.map(p=>p.root.position.y+(p.asset.h||0)+400));
+ let nearest=Infinity,farthest=-Infinity;
+ for(const x of [-1450,1450])for(const y of [-50,height])for(const z of [-1450,1450]){
+  const depth=new THREE.Vector3(x,y,z).sub(camera.position).dot(direction);nearest=Math.min(nearest,depth);farthest=Math.max(farthest,depth);
+ }
+ if(nearest<100){const shift=100-nearest;camera.position.addScaledVector(direction,-shift);farthest+=shift;}
+ if(farthest+200>camera.far){camera.far=farthest+400;camera.updateProjectionMatrix();}
+ camera.updateMatrixWorld();
+}
+function updateOuterClouds(){fitWorldDepth();outerCloudPass.uniforms.bounds.value.set(-1000,1000,-1000,1000);camera.updateMatrixWorld();outerCloudPass.uniforms.inverseCamera.value.multiplyMatrices(camera.matrixWorld,camera.projectionMatrixInverse);outerCloudPass.uniforms.time.value=performance.now()/1000;}
 // Distance to the actual built footprint, not just each tile's center.
 function cloudFootprints(){return placed.map(p=>{const d=dimsFor(p);return {x:p.root.position.x,z:p.root.position.z,w:d.w,d:d.d,top:p.root.position.y+(p.asset.h||0)};});}
 function cloudDensity(distance){
