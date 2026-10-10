@@ -1362,3 +1362,19 @@ header .brandCredit .brandMade b{font-size:16px!important;letter-spacing:.025em!
 header .brandCredit .brandLogos{display:flex!important;width:100%!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;}
 header .brandCredit .brandLogos a{min-width:0;}
 header .brandCredit .brandLogos img{height:25px!important;max-width:105px!important;}
+
+/* Floating controls with independent centered branding. */
+header{position:fixed!important;left:16px!important;right:16px!important;top:12px!important;width:auto!important;height:48px!important;align-items:flex-start!important;margin:0!important;padding:0!important;background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;pointer-events:none!important;}
+header::before,header::after{content:none!important;display:none!important;}
+header .topLeft{display:flex!important;flex-wrap:wrap!important;align-content:flex-start!important;gap:0!important;height:auto!important;width:396px!important;position:relative!important;z-index:30!important;}
+header .topLeft>.miniControl{display:contents!important;}
+header :is(#clearBtn,#loadBtn,#saveBtn,#partsBtn,#undoBtn,#centerBtn,#cloudBtn,#soundBtn,#helpBtn){pointer-events:auto!important;flex:0 0 44px!important;width:44px!important;min-width:44px!important;max-width:44px!important;height:48px!important;grid-template-rows:30px!important;padding:9px 7px!important;background:none!important;border:0!important;box-shadow:none!important;}
+header :is(#clearBtn,#loadBtn,#saveBtn,#partsBtn,#undoBtn,#centerBtn,#cloudBtn,#soundBtn,#helpBtn)::before{width:30px!important;height:30px!important;font-size:26px!important;line-height:1!important;background:none!important;border:0!important;box-shadow:none!important;text-shadow:0 2px 5px #0008!important;}
+header .topTitle{left:50%!important;top:0!important;transform:translateX(-50%)!important;width:min(240px,22vw)!important;height:160px!important;align-items:flex-start!important;}
+header .topTitle>img{max-height:160px!important;width:100%!important;height:auto!important;}
+header .brandCredit{left:auto!important;right:4px!important;top:8px!important;bottom:auto!important;transform:none!important;width:190px!important;filter:drop-shadow(0 1px 2px #000) drop-shadow(0 2px 5px #0009)!important;pointer-events:auto!important;}
+header .brandCredit .brandMade,header .brandCredit .brandMade span,header .brandCredit .brandMade b{color:#fff!important;}
+header .brandCredit .brandLogos img{filter:brightness(0) invert(1)!important;}
+header #cloudDrop{position:fixed!important;left:16px!important;right:auto!important;top:72px!important;max-width:calc(100vw - 32px)!important;max-height:calc(100vh - 100px)!important;overflow-y:auto!important;pointer-events:auto!important;}
+@media(max-width:1100px){header .topLeft{width:220px!important;}header #cloudDrop{top:116px!important;max-height:calc(100vh - 140px)!important;}}
+@media(max-width:650px){header .topTitle{top:100px!important;width:150px!important;height:110px!important;}header .brandCredit{width:170px!important;}header .brandCredit .brandMade b{font-size:14px!important;}header .brandCredit .brandMade span{font-size:10px!important;}header .brandCredit .brandLogos img{max-width:90px!important;height:22px!important;}}

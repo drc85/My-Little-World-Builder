@@ -478,7 +478,7 @@ function makeBird(){
  const wingGeo=new THREE.BufferGeometry();wingGeo.setAttribute('position',new THREE.Float32BufferAttribute([0,0,0,-7,0,-3,-2,0,1, 0,0,0,7,0,-3,2,0,1],3));
  const wings=new THREE.Mesh(wingGeo,mat);g.add(wings);g.userData.wings=wings;return g;
 }
-function spawnBird(t){const b=makeBird();wildlifeGroup.add(b);const r=55+Math.random()*42,a=Math.random()*Math.PI*2;b.position.set(t.root.position.x+Math.cos(a)*r,t.root.position.y+48+Math.random()*25,t.root.position.z+Math.sin(a)*r);birds.push({obj:b,center:t,angle:a,radius:r,speed:.45+Math.random()*.35,life:11+Math.random()*9,phase:Math.random()*6})}
+function spawnBird(t){const b=makeBird();wildlifeGroup.add(b);const r=55+Math.random()*42,a=Math.random()*Math.PI*2;b.position.set(t.root.position.x+Math.cos(a)*r,t.root.position.y+48+Math.random()*25,t.root.position.z+Math.sin(a)*r);birds.push({obj:b,center:t,angle:a,radius:r,speed:.45+Math.random()*.35,life:8+Math.random()*5,phase:Math.random()*6})}
 function makeFish(){const g=new THREE.Group();g.add(cartoonSprite('🐟',8));return g;}
 function makeRipple(x,z,y){const m=new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.9,side:THREE.DoubleSide,depthWrite:false});const r=new THREE.Mesh(new THREE.RingGeometry(3,3.4,40),m);r.rotation.x=-Math.PI/2;r.position.set(x,y,z);wildlifeGroup.add(r);ripples.push({obj:r,life:.7,max:.7})}
 function spawnFish(t){const f=makeFish();wildlifeGroup.add(f);const baseY=t.root.position.y+(t.asset.h||5)+1,ang=Math.random()*Math.PI*2;f.position.set(t.root.position.x,baseY,t.root.position.z);f.rotation.y=-ang;fish.push({obj:f,tile:t,ang,life:1.45,t:0,baseY,splashed:false})}
@@ -502,9 +502,9 @@ function updateCrabs(dt){
 function updateWildlife(dt){
  if(placementLoading)return;
  wildlifeTime+=dt;
- scheduleTileWildlife('bird',grassTiles(),birds,spawnBird,2,[.5,2]);
- scheduleTileWildlife('fish',waterTiles(),fish,spawnFish,3,[1.2,3]);
- scheduleTileWildlife('crab',sandTiles(),crabs,spawnCrab,2,[.6,2]);
+ scheduleTileWildlife('bird',grassTiles(),birds,spawnBird,40,[30,85]);
+ scheduleTileWildlife('fish',waterTiles(),fish,spawnFish,24,[8,24]);
+ scheduleTileWildlife('crab',sandTiles(),crabs,spawnCrab,30,[18,48]);
  updateCrabs(dt);
  for(let i=birds.length-1;i>=0;i--){const b=birds[i];if(!placed.includes(b.center)||(b.life-=dt)<=0){removeWildlife(b.obj);birds.splice(i,1);continue}b.angle+=b.speed*dt;b.obj.position.x=b.center.root.position.x+Math.cos(b.angle)*b.radius;b.obj.position.z=b.center.root.position.z+Math.sin(b.angle)*b.radius;b.obj.rotation.y=-b.angle;b.obj.userData.wings.rotation.x=Math.sin(performance.now()*.012+b.phase)*.45}
  for(let i=fish.length-1;i>=0;i--){const f=fish[i];if(!placed.includes(f.tile)){removeWildlife(f.obj);fish.splice(i,1);continue}f.t+=dt;const u=Math.min(1,f.t/f.life),travel=0;f.obj.position.x=f.tile.root.position.x;f.obj.position.z=f.tile.root.position.z;f.obj.position.y=f.baseY+Math.sin(Math.PI*u)*12;f.obj.rotation.z=Math.sin(Math.PI*u)*.35;if(u>=1){if(!f.splashed){makeRipple(f.obj.position.x,f.obj.position.z,f.baseY+.7);f.splashed=true}removeWildlife(f.obj);fish.splice(i,1)}}
@@ -1336,16 +1336,8 @@ function platformLink(value,name,image){const href=validModelLink(value);return 
 function partsText(){const counts={};for(const {p} of sceneSnapshot())counts[p.asset.id]=(counts[p.asset.id]||0)+1;const pins=connectorPinStats();const lines=['My Little World Builder — Print list',''];for(const [id,n] of Object.entries(counts)){const a=byId[id];lines.push(`${a.name} — ${n} ×`, `Size: ${a.w/10} × ${a.d/10} cm`,`Pins: ${pins.byAsset[id]||0}`,`Colors: ${assetColors(a).join(', ')||'—'}`,`Print time: ${a.printTime||'—'}`,`Weight: ${a.weightG!=null?a.weightG*n+' g':'—'}`,`MakerWorld: ${validModelLink(a.makerworld)||'—'}`,`Snapmaker: ${validModelLink(a.snapmaker)||'—'}`,'');}lines.push(`Total parts: ${Object.values(counts).reduce((a,b)=>a+b,0)}`,`Total pins: ${pins.total}`);return lines.join('\r\n');}
 document.getElementById('exportParts').onclick=async()=>{const text=partsText(),status=document.getElementById('exportStatus');status.textContent='';try{if(window.showSaveFilePicker){const handle=await window.showSaveFilePicker({suggestedName:'my-little-world-print-list.txt',types:[{description:'Text file',accept:{'text/plain':['.txt']}}]});const writable=await handle.createWritable();await writable.write(text);await writable.close();status.textContent='List exported.';}else{const url=URL.createObjectURL(new Blob([text],{type:'text/plain;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download='my-little-world-print-list.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);status.textContent='List downloaded.';}}catch(error){if(error.name!=='AbortError')status.textContent='Export failed: '+error.message;}};
 
-// Center the credit block in the actual gap, including responsive logo sizes.
+// Keep all controls together; branding has its own independent screen positions.
 {
- const header=document.querySelector('header'),credit=header.querySelector('.brandCredit'),logo=header.querySelector('.topTitle>img'),firstIcon=document.getElementById('centerBtn');
- const positionCredit=()=>{
-  const h=header.getBoundingClientRect(),l=logo.getBoundingClientRect(),r=firstIcon.getBoundingClientRect();
-  const gap=r.left-l.right,width=Math.min(200,Math.max(190,gap-28));
-  credit.style.setProperty('--credit-width',width+'px');
-  credit.style.setProperty('--credit-x',((l.right+r.left)/2-h.left-header.clientLeft)+'px');
-  credit.style.setProperty('--credit-y',(gap>=218?r.top+r.height/2-h.top-header.clientTop:h.height+29)+'px');
- };
- const observer=new ResizeObserver(positionCredit);observer.observe(header);observer.observe(logo);observer.observe(firstIcon);
- logo.addEventListener('load',positionCredit);window.addEventListener('resize',positionCredit);document.fonts.ready.then(positionCredit);positionCredit();
+ const left=document.querySelector('header .topLeft'),right=document.querySelector('header .topRight');
+ left.append(...right.children);right.remove();
 }
