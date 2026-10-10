@@ -1,4 +1,4 @@
-import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=beam-fix-1';
+import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261010';
 import {fitModel,gltfRoot} from './model-rules.js?v=light-preview-1';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
