@@ -1348,3 +1348,8 @@ header .brandCredit .brandLogos img{height:24px!important;max-width:100px!import
 header .brandCredit .brandLogos a{transition:transform .16s ease,filter .16s ease;}
 header .brandCredit .brandLogos a:hover{transform:translateY(-2px) scale(1.08);filter:brightness(1.15);}
 @media(min-width:1201px) and (max-width:1450px){header .brandCredit{top:72px!important;}}
+
+/* Icon-only top bar; native tooltips and accessible names remain available. */
+header :is(#clearBtn,#loadBtn,#saveBtn,#partsBtn,#undoBtn,#centerBtn,#cloudBtn,#soundBtn,#helpBtn){grid-template-rows:36px!important;gap:0!important;}
+header :is(#clearBtn,#loadBtn,#saveBtn,#partsBtn,#undoBtn,#centerBtn,#cloudBtn,#soundBtn,#helpBtn)>span{display:none!important;}
+header :is(#clearBtn,#loadBtn,#saveBtn,#partsBtn,#undoBtn,#centerBtn,#cloudBtn,#soundBtn,#helpBtn)::after{content:none!important;display:none!important;}

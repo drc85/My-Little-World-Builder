@@ -377,16 +377,19 @@ function vehicleForward(p){
  return p.asset._forwardYaw=Math.atan2(v.x,v.z);
 }
 function applyVehicleRoute(p,state){const u=THREE.MathUtils.clamp(state.distance/state.length,0,1),pos=state.curve.getPointAt(u),dir=state.curve.getTangentAt(u);p.rotation=Math.atan2(dir.x,dir.z)-vehicleForward(p);p.root.rotation.y=p.rotation;p.root.position.set(pos.x,roadY(state.tile,pos.x,pos.z),pos.z);}
-function vehicleTarget(p,x,z){
+function vehicleTarget(p,x,z,restoring=false){
  let best=null;
  for(const tile of placed.filter(drivable)){
   const size=dimsFor(tile);if(Math.abs(x-tile.root.position.x)>size.w/2||Math.abs(z-tile.root.position.z)>size.d/2)continue;
   const ports=roadDirections(tile);
-  for(const entry of ports)for(const exit of ports){if(sameDirection(entry,exit))continue;const route=laneRoute(tile,entry,exit);for(let i=0;i<=20;i++){const point=route.curve.getPointAt(i/20),d=(point.x-x)**2+(point.z-z)**2;if(!best||d<best.d)best={d,route,u:i/20};}}
+  for(const entry of ports)for(const exit of ports){if(sameDirection(entry,exit))continue;const route=laneRoute(tile,entry,exit);for(let i=0;i<=20;i++){const point=route.curve.getPointAt(i/20);let d=(point.x-x)**2+(point.z-z)**2+(restoring?Math.pow(roadY(tile,point.x,point.z)-p.root.position.y,2)*4:0);if(restoring){const tangent=route.curve.getTangentAt(i/20),heading=p.rotation+vehicleForward(p);d+=25*(1-tangent.x*Math.sin(heading)-tangent.z*Math.cos(heading));}if(!best||d<best.d)best={d,route,u:i/20};}}
  }
- if(!best)return false;p.drive=best.route;p.drive.distance=best.u*p.drive.length;applyVehicleRoute(p,p.drive);return true;
+ if(!best)return false;
+ if(restoring){let lo=Math.max(0,best.u-.05),hi=Math.min(1,best.u+.05);const dist=u=>{const point=best.route.curve.getPointAt(u);return (point.x-x)**2+(point.z-z)**2;};for(let i=0;i<18;i++){const a=lo+(hi-lo)/3,b=hi-(hi-lo)/3;if(dist(a)<dist(b))hi=b;else lo=a;}best.u=(lo+hi)/2;}
+ p.drive=best.route;p.drive.distance=best.u*p.drive.length;applyVehicleRoute(p,p.drive);return true;
 }
 function updatePlacedVehicles(dt){
+ if(placementLoading)return;
  for(const p of placed){
   if(!isVehicle(p)||p===placingCopy||placingCopies?.includes(p)||currentSelection().includes(p)||p.locked)continue;
   let state=p.drive;if(!state)continue;
@@ -636,6 +639,7 @@ function chooseCharacterTarget(p){
  p.walkWait=.8+Math.random()*1.8;
 }
 function updateCharacters(dt){
+ if(placementLoading)return;
  for(const p of placed){if(!p.asset.walk||p.locked||p.groupId||p===dragging)continue;if(p.walkTo){p.walkT+=dt/p.walkDuration;const t=Math.min(1,p.walkT),e=t*t*(3-2*t);p.root.position.lerpVectors(p.walkFrom,p.walkTo,e);p.root.position.y=p.walkFrom.y+(p.walkTo.y-p.walkFrom.y)*e+Math.sin(t*Math.PI*2)*.7;if(t>=1){p.root.position.copy(p.walkTo);p.walkTo=null;p.walkWait=1.2+Math.random()*3.2}}else{p.walkWait=(p.walkWait??(1+Math.random()*2))-dt;if(p.walkWait<=0)chooseCharacterTarget(p)}}
 }
 function pointer(e){const r=renderer.domElement.getBoundingClientRect();mouse.x=((e.clientX-r.left)/r.width)*2-1;mouse.y=-((e.clientY-r.top)/r.height)*2+1;ray.setFromCamera(mouse,camera)}
@@ -713,7 +717,7 @@ function select(p,additive=false){
  else{selectedGroup=new Set(members);selected=p;}
  refreshSelectionUI();
 }
-async function addAsset(assetId,x=0,z=0,rot=0,selectAfter=false,record=true){const a=byId[assetId];if(record){const requirement=assetRequirement(a);if(requirement){placementNotice(requirement);return null;}}const model=await loadModel(a);if(record)remember();const root=new THREE.Group();root.add(model);root.position.set(x,0,z);root.rotation.y=rot;root.userData.placedId=idSeq;scene.add(root);const p={id:idSeq++,asset:a,root,rotation:rot,locked:false,walkWait:a.walk?1+Math.random()*2:0};snapPlaced(p,x,z);if(record&&p.placementValid===false){scene.remove(root);return null;}placed.push(p);if(selectAfter)select(p);else if(record)select(null);updateParts();return p}
+async function addAsset(assetId,x=0,z=0,rot=0,selectAfter=false,record=true,restoring=false){const a=byId[assetId];if(record){const requirement=assetRequirement(a);if(requirement){placementNotice(requirement);return null;}}const model=await loadModel(a);if(record)remember();const root=new THREE.Group();root.add(model);root.position.set(x,0,z);root.rotation.y=rot;root.userData.placedId=idSeq;scene.add(root);const p={id:idSeq++,asset:a,root,rotation:rot,locked:false,walkWait:a.walk?1+Math.random()*2:0};if(!restoring)snapPlaced(p,x,z);if(record&&p.placementValid===false){scene.remove(root);return null;}placed.push(p);if(selectAfter)select(p);else if(record)select(null);updateParts();return p}
 // Undo stores scene objects and transforms, so restoring is instant and keeps model data.
 const undoStack=[];
 let placementLoading=false,placementEpoch=0,repeater=false,dragBefore=null;
@@ -1131,8 +1135,15 @@ async function loadProjectData(d){
  if(!d||!Array.isArray(d.placed)||d.placed.some(p=>!byId[p.assetId]))throw Error('Invalid project or missing assets');
  cancelPlacement();const before=sceneSnapshot();placementLoading=true;const epoch=++placementEpoch;updateUndo();
  try{placed.forEach(p=>scene.remove(p.root));placed=[];
- for(const p of d.placed){const q=await addAsset(p.assetId,p.x,p.z,p.r,false,false);q.locked=!!p.locked;q.groupId=typeof p.groupId==='string'?p.groupId:null;q.groupColor=q.groupId?colorValue(p.groupColor):null;if(Number.isFinite(p.y)&&role(q)!=='beam')q.root.position.y=p.y;if(Number.isFinite(p.deckHeight))q.deckHeight=p.deckHeight;q.lastValidPosition=q.root.position.clone();q.placementValid=true;}
+ for(const p of d.placed){const q=await addAsset(p.assetId,p.x,p.z,p.r,false,false,true);q.locked=!!p.locked;q.groupId=typeof p.groupId==='string'?p.groupId:null;q.groupColor=q.groupId?colorValue(p.groupColor):null;if(Number.isFinite(p.y)&&role(q)!=='beam')q.root.position.y=p.y;if(Number.isFinite(p.deckHeight))q.deckHeight=p.deckHeight;q.lastValidPosition=q.root.position.clone();q.placementValid=true;}
  for(const q of placed.filter(p=>role(p)==='beam'))snapPlaced(q,q.root.position.x,q.root.position.z);
+ // Reconnect moving actors only once the entire saved world exists.
+ for(const q of placed){
+  if(isVehicle(q)){const pos=q.root.position.clone(),rotation=q.rotation;q.drive=null;vehicleTarget(q,pos.x,pos.z,true);if(q.locked){q.root.position.copy(pos);q.rotation=rotation;q.root.rotation.y=rotation;}}
+  if(q.asset.walk){q.walkTo=null;q.walkFrom=null;q.walkT=0;q.walkWait=.2+Math.random()*.4;}
+  q.lastValidPosition=q.root.position.clone();
+ }
+
  if(epoch!==placementEpoch){restoreSnapshot(before);return;}
  remember(before);select(null);
  }catch(error){restoreSnapshot(before);throw error;}finally{placementLoading=false;updateParts();updateUndo();}
