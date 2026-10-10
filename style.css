@@ -1,0 +1,1319 @@
+*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;background:#eef2f4;color:#182329}header{height:58px;background:#fff;border-bottom:1px solid #d8e0e4;display:flex;align-items:center;padding:0 16px;gap:26px;box-shadow:0 2px 10px #0000000c;position:relative;z-index:5}.brand{display:flex;align-items:center;gap:10px;min-width:245px;letter-spacing:.7px}.logo{width:30px;height:30px;border-radius:8px;background:#168e68;color:white;display:grid;place-items:center}.project{display:flex;align-items:center;gap:8px;color:#718087;font-size:12px}.project input{border:1px solid #d9e2e5;border-radius:8px;padding:8px 10px;font-weight:650;color:#25353c;width:180px}.toolbar{margin-left:auto;display:flex;gap:7px}.toolbar button,.panelTitle button{border:1px solid #d7e0e3;background:#fff;border-radius:8px;padding:8px 11px;cursor:pointer;font-weight:650;color:#405158}.toolbar button:hover,.toolbar button.active{background:#e8f5ef;border-color:#8dc8b2;color:#117a5a}.app{height:calc(100vh - 58px);display:grid;grid-template-columns:268px minmax(0,1fr) 300px;transition:grid-template-columns .25s ease}.app.parts-closed{grid-template-columns:268px minmax(0,1fr) 0px}.assets,.parts{background:#f9fbfb;position:relative;z-index:4}.assets{border-right:1px solid #d5dfe2;padding:14px;overflow:auto}.parts{border-left:1px solid #d5dfe2;padding:14px;overflow:auto;transition:transform .25s ease,opacity .2s ease;min-width:0}.app.parts-closed .parts{transform:translateX(100%);opacity:0;pointer-events:none;padding-left:0;padding-right:0;border-left:0}.panelTitle{font-size:12px;font-weight:850;letter-spacing:1.3px;color:#52656d;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.panelTitle button{padding:2px 8px;font-size:18px}#search{width:100%;padding:10px 11px;border:1px solid #d8e1e4;border-radius:9px;background:#fff;margin-bottom:12px}nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}nav button{border:0;background:#edf2f3;color:#5e7077;padding:6px 9px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer}nav button.active{background:#dcefe7;color:#147a5b}.assetList{display:grid;grid-template-columns:1fr 1fr;gap:9px}.assetCard{background:#fff;border:1px solid #dce4e7;border-radius:10px;overflow:hidden;cursor:grab;box-shadow:0 2px 7px #00000008}.assetCard:hover{border-color:#89bfae;transform:translateY(-1px)}.thumb{height:86px;background:linear-gradient(145deg,#f5f8f8,#e7edef);position:relative;overflow:hidden}.thumb canvas{width:100%!important;height:100%!important}.assetMeta{padding:7px 8px}.assetMeta b{font-size:11px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.assetMeta span{font-size:9px;color:#87949a}#viewportWrap{position:relative;overflow:hidden;background:#dfe7e8}#viewport{position:absolute;inset:0}#viewport canvas{display:block}.worldHint{position:absolute;top:12px;left:50%;transform:translateX(-50%);background:#ffffffd9;backdrop-filter:blur(7px);border:1px solid #d4dddf;border-radius:8px;padding:7px 11px;font-size:10px;color:#617178;pointer-events:none}.shelf{position:absolute;left:20px;right:20px;bottom:16px;height:74px;border:1px solid #cfdadd;background:#ffffffdb;backdrop-filter:blur(8px);border-radius:12px;display:flex;align-items:center;padding:9px 12px;gap:12px;box-shadow:0 8px 25px #34454c16}.shelfLabel{font-size:10px;font-weight:900;letter-spacing:1.3px;color:#66777d}.shelf #shelfDrop{height:52px;flex:1;border:1px dashed #b9c7cb;border-radius:8px;display:flex;align-items:center;padding:0 14px;color:#91a0a5;font-size:11px}.shelf #shelfDrop.over{border-color:#168e68;background:#e7f5ef;color:#168e68}#selectionBadge{position:absolute;left:20px;top:18px;background:#182329;color:white;padding:7px 10px;border-radius:8px;font-size:10px;display:none}.partRow{display:grid;grid-template-columns:1fr auto;gap:6px;padding:10px 0;border-bottom:1px solid #e2e8ea}.partRow b{font-size:11px}.partRow span{font-size:11px;color:#66777d}.partRow small{grid-column:1/3;color:#9aa6aa;font-size:9px}.totals{margin-top:18px;border-top:1px solid #dbe3e5;padding-top:10px}.totals div{display:flex;justify-content:space-between;padding:7px 0;font-size:11px}.totals span{color:#75858b}.maker{margin-top:16px;background:#eef5f2;border-radius:9px;padding:10px;font-size:10px;line-height:1.45;color:#65777c}@media(max-width:1000px){.app{grid-template-columns:220px 1fr}.parts{position:absolute;right:0;top:58px;bottom:0;width:300px}.brand{min-width:auto}.project{display:none}}
+/* V4 hierarchical asset browser */
+#cats{display:block;margin-bottom:12px}
+.catGroup{display:block;margin-bottom:4px}
+#cats .catMain{width:100%;display:flex;align-items:center;justify-content:space-between;border:0;background:#edf2f3;color:#52656d;padding:8px 10px;border-radius:7px;font-size:11px;font-weight:800;cursor:pointer;text-align:left}
+#cats .catMain:hover{background:#e5eeec}
+#cats .catMain.active{background:#dcefe7;color:#147a5b}
+#cats .chev{font-size:16px;line-height:10px;transform:rotate(90deg);opacity:.7}
+.subCats{margin:4px 0 7px 12px;padding-left:9px;border-left:1px solid #ccd9d6;display:flex;flex-direction:column;gap:2px}
+#cats .subCats button{width:100%;border:0;background:transparent;color:#738389;padding:6px 8px;border-radius:6px;font-size:10px;font-weight:700;cursor:pointer;text-align:left}
+#cats .subCats button:hover{background:#eef4f2;color:#405158}
+#cats .subCats button.active{background:#e4f3ed;color:#147a5b}
+/* V4.1: assets live directly inside the category tree */
+#cats .chev{transform:none;transition:transform .15s ease}
+#cats .chev.open{transform:rotate(90deg)}
+.treeSubs{display:block}
+.subGroup{margin-bottom:4px}
+#cats .subLabel{display:flex!important;justify-content:space-between;align-items:center}
+#cats .subLabel small{font-size:9px;opacity:.55}
+.nestedAssets{margin:5px 0 9px 0;padding:0 2px 2px 0}
+.subGroup .nestedAssets{margin-left:0}
+
+.thumbImage{width:100%;height:100%;display:block;object-fit:contain;pointer-events:none}
+
+/* V6 game-style asset dock */
+.app.dock-layout{grid-template-columns:minmax(0,1fr) 300px}.app.dock-layout.parts-closed{grid-template-columns:minmax(0,1fr) 0px}
+.assetDock{position:absolute;z-index:8;left:50%;bottom:18px;transform:translateX(-50%);height:116px;max-width:calc(100% - 42px);display:flex;align-items:stretch;gap:10px;padding:10px 12px;border:1px solid rgba(255,255,255,.72);border-radius:25px;background:linear-gradient(180deg,rgba(255,255,255,.82),rgba(238,244,245,.68));box-shadow:0 18px 55px rgba(32,52,60,.22),inset 0 1px 0 rgba(255,255,255,.9);backdrop-filter:blur(22px) saturate(145%);-webkit-backdrop-filter:blur(22px) saturate(145%)}
+.dockItems{display:flex;align-items:center;gap:8px;min-width:0;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;padding:1px 2px}.dockItems::-webkit-scrollbar{display:none}
+.dockItem{width:86px;height:92px;flex:0 0 86px;border:1px solid rgba(130,151,158,.22);border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(231,238,240,.78));box-shadow:0 5px 16px rgba(34,55,62,.11),inset 0 1px 0 #fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#405158;cursor:pointer;transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease;position:relative;padding:5px}
+button.dockItem{font:inherit}.dockItem:hover{transform:translateY(-8px) scale(1.08);box-shadow:0 13px 25px rgba(34,55,62,.18),inset 0 1px 0 #fff;border-color:rgba(22,142,104,.38)}
+.dockIcon{height:49px;min-width:49px;padding:0 7px;border-radius:14px;display:grid;place-items:center;font-size:30px;font-weight:800;color:#168e68;background:linear-gradient(145deg,#f9ffff,#dfece8);text-shadow:0 1px 0 #fff}
+.dockLabel{display:block;width:100%;font-size:9px;line-height:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center;color:#52646b}
+.dockAsset{cursor:grab}.dockAsset:active{cursor:grabbing}.dockThumb{width:76px;height:62px;border-radius:13px;overflow:hidden;background:linear-gradient(145deg,#f7fafb,#e2eaec);display:grid;place-items:center}.dockThumb img{width:100%;height:100%;object-fit:contain;display:block}.dockAsset .dockLabel{font-size:8.5px}
+.dockBack{width:72px;flex:0 0 72px;border:0;border-left:1px solid rgba(122,143,150,.25);background:transparent;color:#52646b;font-size:22px;font-weight:800;display:none;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;border-radius:0 17px 17px 0}.dockBack.show{display:flex}.dockBack span{font-size:8px;letter-spacing:1px;margin-top:4px}.dockBack:hover{color:#168e68;background:rgba(255,255,255,.42)}
+.dockEmpty{min-width:240px;display:grid;place-items:center;color:#8b999e;font-size:12px;font-weight:700}.worldHint{top:14px}.shelf{display:none!important}
+@media(max-width:1000px){.app.dock-layout{grid-template-columns:1fr}.assetDock{max-width:calc(100% - 24px);bottom:12px}}
+
+
+/* V6.2 visual polish — milk glass UI + cute 3D-style dock */
+body{background:#4b5054}
+header{background:rgba(245,248,249,.72);border-bottom:1px solid rgba(255,255,255,.58);box-shadow:0 8px 28px rgba(20,28,32,.16),inset 0 1px 0 rgba(255,255,255,.82);backdrop-filter:blur(24px) saturate(150%);-webkit-backdrop-filter:blur(24px) saturate(150%)}
+.project input,.toolbar button{background:rgba(255,255,255,.58);border-color:rgba(255,255,255,.72);box-shadow:inset 0 1px 0 rgba(255,255,255,.72)}
+#viewportWrap{background:#4b5054}
+.worldHint{background:rgba(244,247,248,.66);border-color:rgba(255,255,255,.64);box-shadow:0 8px 24px rgba(20,28,32,.12);backdrop-filter:blur(18px) saturate(145%);-webkit-backdrop-filter:blur(18px) saturate(145%)}
+.assetDock{background:linear-gradient(180deg,rgba(247,250,251,.70),rgba(225,232,235,.54));border:1px solid rgba(255,255,255,.68);box-shadow:0 20px 60px rgba(15,24,28,.30),inset 0 1px 0 rgba(255,255,255,.88),inset 0 -1px 0 rgba(255,255,255,.25);backdrop-filter:blur(30px) saturate(165%);-webkit-backdrop-filter:blur(30px) saturate(165%)}
+.dockItem{background:linear-gradient(145deg,rgba(255,255,255,.78),rgba(225,232,235,.54));border-color:rgba(255,255,255,.66);box-shadow:0 7px 18px rgba(28,42,48,.16),inset 0 1px 0 rgba(255,255,255,.92)}
+.dockItem:hover{box-shadow:0 16px 30px rgba(20,34,40,.24),inset 0 1px 0 rgba(255,255,255,.96);border-color:rgba(255,255,255,.88)}
+.dockIcon{font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;height:52px;min-width:54px;padding:0 8px;border-radius:16px;font-size:30px;line-height:1;background:linear-gradient(145deg,rgba(255,255,255,.95),rgba(221,230,233,.72));box-shadow:0 5px 12px rgba(29,45,51,.16),inset 0 1px 0 #fff,inset 0 -2px 4px rgba(76,96,104,.08);text-shadow:0 2px 3px rgba(0,0,0,.10)}
+.dockLabel{color:#34464d;text-shadow:0 1px 0 rgba(255,255,255,.55)}
+.dockBack{border-left-color:rgba(255,255,255,.48);color:#34464d}
+.parts{background:rgba(247,250,251,.86);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+
+/* V6.3 help + toolbar layout */
+.toolbar{margin-left:auto;display:flex;align-items:center;gap:7px}.toolbar .project{margin-right:3px}.helpBtn{width:34px;height:34px;padding:0!important;border-radius:50%!important;font-size:16px!important;font-weight:900!important}.worldHint{display:none!important}.helpOverlay{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:rgba(18,23,26,.34);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);opacity:0;pointer-events:none;transition:opacity .18s ease}.helpOverlay.open{opacity:1;pointer-events:auto}.helpModal{position:relative;width:min(620px,calc(100vw - 36px));padding:26px 26px 24px;border:1px solid rgba(255,255,255,.72);border-radius:25px;background:linear-gradient(145deg,rgba(249,251,252,.88),rgba(226,233,236,.78));box-shadow:0 30px 90px rgba(10,18,22,.38),inset 0 1px 0 rgba(255,255,255,.95);backdrop-filter:blur(30px) saturate(160%);-webkit-backdrop-filter:blur(30px) saturate(160%);transform:translateY(8px) scale(.98);transition:transform .18s ease}.helpOverlay.open .helpModal{transform:none}.helpClose{position:absolute;right:15px;top:14px;width:32px;height:32px;border:1px solid rgba(255,255,255,.7);border-radius:50%;background:rgba(255,255,255,.55);font-size:21px;color:#405158;cursor:pointer}.helpEyebrow{font-size:9px;letter-spacing:1.7px;font-weight:900;color:#168e68;margin-bottom:4px}.helpModal h2{margin:0 0 19px;font-size:22px;color:#26373e}.helpGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.helpGrid>div{display:flex;align-items:center;gap:10px;min-height:48px;padding:8px 10px;border:1px solid rgba(255,255,255,.62);border-radius:13px;background:rgba(255,255,255,.45)}.helpGrid kbd{min-width:106px;padding:6px 8px;border:1px solid rgba(103,123,130,.22);border-bottom-width:2px;border-radius:8px;background:rgba(255,255,255,.72);box-shadow:inset 0 1px 0 #fff;font:700 10px/1.2 Inter,system-ui;color:#34464d;text-align:center}.helpGrid span{font-size:10px;line-height:1.3;color:#617178;font-weight:650}@media(max-width:760px){.helpGrid{grid-template-columns:1fr}.toolbar .project span{display:none}.toolbar .project input{width:130px}}
+
+/* V6.5 selection pin */
+.pinBtn{position:absolute;z-index:12;width:34px;height:34px;display:none;place-items:center;transform:translate(-50%,-115%);border:1px solid rgba(255,255,255,.82);border-radius:12px;background:rgba(246,249,250,.78);box-shadow:0 8px 24px rgba(15,28,34,.22),inset 0 1px 0 rgba(255,255,255,.95);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);font-size:17px;cursor:pointer;transition:transform .14s ease,background .14s ease,box-shadow .14s ease}
+.pinBtn.show{display:grid}.pinBtn:hover{transform:translate(-50%,-115%) scale(1.09)}.pinBtn.locked{background:rgba(255,232,174,.9);box-shadow:0 8px 24px rgba(93,65,8,.24),inset 0 1px 0 rgba(255,255,255,.95)}
+
+/* V6.6 darker world + pill-shaped milk glass chrome */
+html,body{background:#202020}
+header{height:52px;margin:10px 14px 0;border:1px solid rgba(255,255,255,.22);border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,.10));box-shadow:0 14px 42px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.35);backdrop-filter:blur(28px) saturate(135%);-webkit-backdrop-filter:blur(28px) saturate(135%);padding:0 14px}
+.app{height:calc(100vh - 62px)}
+#viewportWrap{background:#202020}
+.assetDock{bottom:18px;height:108px;border-radius:999px;padding:8px 14px;background:linear-gradient(180deg,rgba(255,255,255,.20),rgba(255,255,255,.09));border:1px solid rgba(255,255,255,.24);box-shadow:0 18px 60px rgba(0,0,0,.38),inset 0 1px 0 rgba(255,255,255,.32);backdrop-filter:blur(30px) saturate(145%);-webkit-backdrop-filter:blur(30px) saturate(145%)}
+.dockItem{height:88px;border-radius:999px;background:linear-gradient(145deg,rgba(255,255,255,.25),rgba(255,255,255,.10));border-color:rgba(255,255,255,.20);box-shadow:0 7px 18px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.30)}
+.dockIcon{border-radius:999px;background:linear-gradient(145deg,rgba(255,255,255,.30),rgba(255,255,255,.12));box-shadow:0 5px 14px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.28)}
+.dockLabel{color:#f1f3f4;text-shadow:0 1px 3px rgba(0,0,0,.55)}
+.dockBack{color:#f1f3f4;border-left-color:rgba(255,255,255,.18)}
+.dockBack:hover{background:rgba(255,255,255,.10);color:#fff}
+.project{color:rgba(255,255,255,.72)}
+.project input,.toolbar button{background:rgba(255,255,255,.13);border-color:rgba(255,255,255,.20);color:#f2f4f5;box-shadow:inset 0 1px 0 rgba(255,255,255,.22)}
+.toolbar button:hover,.toolbar button.active{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.30);color:#fff}
+.brand{color:#f3f5f6}.logo{box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+.parts{background:rgba(38,40,42,.76);color:#edf1f2;border-left-color:rgba(255,255,255,.12)}
+.panelTitle,.partRow span,.totals span,.maker{color:#b9c1c5}.partRow{border-bottom-color:rgba(255,255,255,.10)}.totals{border-top-color:rgba(255,255,255,.12)}.maker{background:rgba(255,255,255,.07)}
+@media(max-width:1000px){.parts{top:62px}}
+
+
+/* V6.7 sky test */
+html,body{background:#55B8F2}
+#viewportWrap{background:#55B8F2}
+
+/* V6.8 true transparent glass + elastic dock */
+header,.assetDock{background:rgba(235,245,250,.12)!important;border-color:rgba(255,255,255,.34)!important;box-shadow:0 18px 55px rgba(15,45,70,.22),inset 0 1px 0 rgba(255,255,255,.42)!important;backdrop-filter:blur(22px) saturate(175%)!important;-webkit-backdrop-filter:blur(22px) saturate(175%)!important}
+header:before,.assetDock:before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.22),rgba(255,255,255,.04) 45%,rgba(255,255,255,.12));}
+header{position:relative;overflow:hidden}.toolbar,.brand{position:relative;z-index:1}.assetDock{overflow:visible;transition:height .22s cubic-bezier(.2,.8,.2,1),padding .22s cubic-bezier(.2,.8,.2,1);height:108px}.assetDock:has(.dockItem:hover){height:126px;padding-top:14px;padding-bottom:12px}.dockItems,.dockBack{position:relative;z-index:1;overflow-y:visible}.dockItem{transition:transform .2s cubic-bezier(.2,1.4,.3,1),box-shadow .18s ease}.dockItem:hover{transform:translateY(-10px) scale(1.13)}
+@keyframes dockPop{0%{transform:translateY(0) scale(1)}38%{transform:translateY(-13px) scale(1.08)}68%{transform:translateY(2px) scale(.98)}100%{transform:translateY(0) scale(1)}}
+.dockItem.dock-pop{animation:dockPop .36s cubic-bezier(.2,.9,.3,1.25)}
+
+
+/* V6.9 dark blue-gray unified UI + cleaner dock */
+:root{--panel:rgba(24,35,45,.88);--panel2:rgba(29,42,53,.84);--line:rgba(255,255,255,.12);--text:#f2f6f8;--muted:#aebdc7}
+header{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);box-shadow:0 12px 38px rgba(5,12,18,.28),inset 0 1px 0 rgba(255,255,255,.08);backdrop-filter:blur(22px) saturate(125%);-webkit-backdrop-filter:blur(22px) saturate(125%)}
+.brand b{font-family:"Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif;font-weight:900;letter-spacing:.6px;color:#f7fbff;text-shadow:0 2px 10px rgba(0,0,0,.28)}
+.brand .logo{color:#83d8ff}.toolbar button,.project{background:rgba(255,255,255,.065);border-color:rgba(255,255,255,.12);color:#edf5f8}.project input{background:rgba(5,13,19,.26);border-color:rgba(255,255,255,.11);color:#fff}.toolbar button:hover{background:rgba(255,255,255,.12)}
+.parts{background:linear-gradient(180deg,var(--panel2),var(--panel));color:var(--text);border-left:1px solid var(--line);box-shadow:-18px 0 42px rgba(5,12,18,.18);backdrop-filter:blur(22px) saturate(125%);-webkit-backdrop-filter:blur(22px) saturate(125%)}
+.partRow{border-bottom-color:rgba(255,255,255,.09)}.partRow span,.partRow small,.totals span{color:var(--muted)}.totals{border-top-color:rgba(255,255,255,.10)}.maker{background:rgba(255,255,255,.06);color:#b8c7cf}.panelTitle button{color:#fff}
+.assetDock{background:linear-gradient(180deg,rgba(29,42,53,.88),rgba(20,31,41,.90));border:1px solid rgba(255,255,255,.12);box-shadow:0 18px 48px rgba(5,12,18,.30),inset 0 1px 0 rgba(255,255,255,.08);backdrop-filter:blur(24px) saturate(125%);-webkit-backdrop-filter:blur(24px) saturate(125%)}
+/* no individual circles/cards in the dock */
+.dockItem,.dockItem:hover{background:transparent!important;border-color:transparent!important;box-shadow:none!important}
+.dockIcon{background:transparent!important;box-shadow:none!important;border-radius:0!important;text-shadow:0 4px 10px rgba(0,0,0,.28)}
+.dockThumb{background:transparent!important;border-radius:0;overflow:visible}.dockThumb img{background:transparent!important}
+.dockLabel,.dockAsset .dockLabel{font-family:"Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif;font-size:11px;line-height:13px;font-weight:900;color:#f5f9fb;text-shadow:0 2px 6px rgba(0,0,0,.55)}
+.dockBack{font-family:"Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif;font-size:27px;color:#f5f9fb;border-left-color:rgba(255,255,255,.13)}.dockBack span{font-size:11px;letter-spacing:.8px;font-weight:900}.dockBack:hover{background:rgba(255,255,255,.06);color:#fff}
+/* selection tools */
+.selectionTools{position:absolute;z-index:12;display:none;align-items:center;gap:6px;transform:translate(-50%,-115%);padding:5px;border:1px solid rgba(255,255,255,.13);border-radius:15px;background:rgba(24,35,45,.90);box-shadow:0 10px 28px rgba(5,12,18,.30);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}.selectionTools.show{display:flex}
+.pinBtn,.copyBtn,.trashBtn{position:static!important;display:grid!important;transform:none!important;width:34px;height:34px;place-items:center;border:0;border-radius:10px;background:rgba(255,255,255,.07);box-shadow:none;font-size:17px;cursor:pointer;transition:transform .14s ease,background .14s ease}.pinBtn:hover,.copyBtn:hover,.trashBtn:hover{transform:translateY(-2px)!important;background:rgba(255,255,255,.13)}.pinBtn.locked{background:rgba(255,199,74,.22)}.trashBtn:hover{background:rgba(255,91,91,.20)}
+
+/* V6.11 floating glass top dock + collision-safe placement */
+html,body{background:#55B8F2}
+header{
+  position:fixed!important;top:14px;left:18px;right:18px;z-index:30;
+  width:auto;height:52px;margin:0!important;padding:0 14px;
+  border-radius:999px!important;
+  background:rgba(20,31,41,.58)!important;
+  border:1px solid rgba(255,255,255,.16)!important;
+  box-shadow:0 14px 42px rgba(5,15,25,.24),inset 0 1px 0 rgba(255,255,255,.11)!important;
+  backdrop-filter:blur(24px) saturate(145%)!important;
+  -webkit-backdrop-filter:blur(24px) saturate(145%)!important;
+  overflow:hidden;
+}
+header:before{background:linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.015) 48%,rgba(105,190,230,.055))!important}
+.app,.app.dock-layout{height:100vh!important}
+#viewportWrap{background:#55B8F2}
+.parts{top:0!important;padding-top:82px!important;background:rgba(20,31,41,.58)!important;border-left:1px solid rgba(255,255,255,.16)!important;backdrop-filter:blur(24px) saturate(145%)!important;-webkit-backdrop-filter:blur(24px) saturate(145%)!important}
+.assetDock{background:rgba(20,31,41,.58)!important;border:1px solid rgba(255,255,255,.16)!important;box-shadow:0 18px 48px rgba(5,15,25,.25),inset 0 1px 0 rgba(255,255,255,.10)!important;backdrop-filter:blur(24px) saturate(145%)!important;-webkit-backdrop-filter:blur(24px) saturate(145%)!important}
+
+/* V6.12 reorganized floating top dock */
+header{display:grid!important;grid-template-columns:1fr auto 1fr!important;align-items:center!important;gap:18px!important;padding:0 14px!important}
+.topLeft,.topRight{display:flex;align-items:center;gap:7px;min-width:0}.topRight{justify-content:flex-end}.topTitle{justify-self:center;white-space:nowrap;font-family:"Arial Rounded MT Bold","Trebuchet MS",ui-rounded,system-ui,sans-serif;font-size:20px;font-weight:900;letter-spacing:.5px;color:#fff;text-shadow:0 2px 9px rgba(0,0,0,.32);transform:rotate(-.3deg)}
+header .project{color:#c7d4dc}header .project input{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+header button{border:1px solid rgba(255,255,255,.10)!important;background:rgba(255,255,255,.055)!important;color:#eef6fa!important;border-radius:11px!important;padding:8px 10px!important;font-weight:800!important;cursor:pointer;transition:background .15s ease,transform .15s ease}header button:hover{background:rgba(255,255,255,.12)!important;transform:translateY(-1px)}header button span{font-size:11px}.helpBtn{width:34px;height:34px;padding:0!important;border-radius:50%!important;font-size:16px!important}
+.app.dock-layout,.app.dock-layout.parts-closed{grid-template-columns:minmax(0,1fr)!important}
+.partsModal{width:min(520px,calc(100vw - 36px));max-height:min(680px,calc(100vh - 60px));overflow:auto}.partsModal #partsList{margin-top:8px}.partsModal .partRow{border-bottom-color:rgba(255,255,255,.09)}
+@media(max-width:900px){header{grid-template-columns:1fr auto!important}.topTitle{display:none}.topRight button span{display:none}.project span{display:none}.project input{width:130px}}
+
+/* V6.14 unified dark transparent glass dialogs */
+.helpOverlay{background:rgba(5,12,19,.24)!important;backdrop-filter:blur(8px)!important;-webkit-backdrop-filter:blur(8px)!important}
+.helpModal,.partsModal{background:rgba(20,31,41,.68)!important;border:1px solid rgba(255,255,255,.16)!important;box-shadow:0 28px 80px rgba(4,12,20,.42),inset 0 1px 0 rgba(255,255,255,.10)!important;backdrop-filter:blur(26px) saturate(145%)!important;-webkit-backdrop-filter:blur(26px) saturate(145%)!important;color:#eef6fa!important}
+.helpModal h2,.partsModal h2{color:#f5fbff!important}.helpEyebrow{color:#72d8bf!important}.helpGrid>div{background:rgba(255,255,255,.055)!important;border-color:rgba(255,255,255,.09)!important}.helpGrid kbd{background:rgba(255,255,255,.08)!important;border-color:rgba(255,255,255,.10)!important;box-shadow:none!important;color:#f3f8fb!important}.helpGrid span,.maker,.totals span{color:#b9c8d2!important}.helpClose{background:rgba(255,255,255,.07)!important;border-color:rgba(255,255,255,.12)!important;color:#eef6fa!important}.partRow{color:#eef6fa!important}.soundBtn{width:36px;height:34px;padding:0!important;font-size:15px!important}
+
+/* V6.15 — chunky game HUD inspired by the approved mockup */
+header{
+  top:22px!important;left:30px!important;right:30px!important;height:96px!important;
+  padding:10px 20px!important;gap:24px!important;
+  background:linear-gradient(180deg,rgba(25,58,82,.78),rgba(18,43,63,.68))!important;
+  border:1px solid rgba(255,255,255,.34)!important;
+  box-shadow:0 18px 48px rgba(10,30,46,.28),inset 0 1px 0 rgba(255,255,255,.22)!important;
+  backdrop-filter:blur(28px) saturate(145%)!important;-webkit-backdrop-filter:blur(28px) saturate(145%)!important;
+}
+.topLeft,.topRight{height:100%;gap:12px!important}.topLeft{justify-content:flex-start}.topRight{justify-content:flex-end}
+.project{height:58px;padding:0 14px;border-radius:22px;background:rgba(5,22,36,.20);border:1px solid rgba(255,255,255,.08);gap:8px!important}
+.project span{font-family:"Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif;color:#d9e9f3!important;font-weight:900;font-size:11px}
+.project input{width:160px!important;border:0!important;background:transparent!important;padding:8px 2px!important;font-family:"Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif;font-size:14px!important}
+header button{min-width:62px;height:66px;padding:7px 8px!important;border:0!important;background:transparent!important;border-radius:18px!important;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#f4f9fc!important}
+header button:hover{background:rgba(255,255,255,.10)!important;transform:translateY(-3px)!important}
+header button::before{font-size:27px;line-height:28px;filter:drop-shadow(0 3px 5px rgba(0,0,0,.22))}
+#saveBtn::before{content:"💾"}#loadBtn::before{content:"📂"}#clearBtn::before{content:"✨"}
+#centerBtn::before{content:"⌂";font-size:31px}#screenshotBtn::before{content:"📷"}#partsBtn::before{content:"🧊"}#helpBtn::before{content:"?";font-size:26px;font-weight:1000}#soundBtn::before{content:"🔇"}
+#saveBtn,#loadBtn,#clearBtn{font-size:0}#saveBtn::after{content:"Save"}#loadBtn::after{content:"Load"}#clearBtn::after{content:"New"}
+header button::after,header button span{font-family:"Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif;font-size:11px!important;font-weight:900;color:#f4f9fc;text-shadow:0 2px 5px rgba(0,0,0,.35)}
+#centerBtn,#screenshotBtn,#partsBtn{font-size:0}#centerBtn span,#screenshotBtn span,#partsBtn span{display:block!important}
+.helpBtn,.soundBtn{width:62px!important;height:66px!important;border-radius:18px!important;font-size:0!important}
+#soundBtn::after{content:"Sound"}.helpBtn::after{content:"Help"}
+.topTitle{font-size:24px!important;line-height:1.0;text-align:center;max-width:360px;color:#fff!important;text-shadow:0 3px 0 rgba(15,44,63,.38),0 6px 14px rgba(0,0,0,.25);letter-spacing:.7px!important}
+.assetDock{bottom:24px!important;height:148px!important;min-height:148px!important;padding:15px 20px!important;border-radius:42px!important;background:linear-gradient(180deg,rgba(25,58,82,.78),rgba(18,43,63,.68))!important;border:1px solid rgba(255,255,255,.34)!important;box-shadow:0 20px 52px rgba(10,30,46,.30),inset 0 1px 0 rgba(255,255,255,.20)!important;backdrop-filter:blur(28px) saturate(145%)!important;-webkit-backdrop-filter:blur(28px) saturate(145%)!important;transition:height .18s ease,transform .18s ease,padding .18s ease}
+.assetDock:has(.dockItem:hover){height:164px!important;min-height:164px!important;padding-top:18px!important}
+.dockItems{gap:13px!important;padding:8px 4px!important}.dockItem{width:102px!important;height:112px!important;flex-basis:102px!important;gap:8px!important}.dockItem:hover{transform:translateY(-10px) scale(1.10)!important}
+.dockIcon{height:66px!important;min-width:66px!important;font-size:39px!important}.dockThumb{width:94px!important;height:76px!important}.dockLabel,.dockAsset .dockLabel{font-size:12px!important;line-height:14px!important}.dockBack{width:92px!important;flex-basis:92px!important;font-size:31px!important}.dockBack span{font-size:12px!important;margin-top:7px!important}
+@media(max-width:1100px){header{left:14px!important;right:14px!important}.topTitle{font-size:19px!important}.project input{width:120px!important}header button{min-width:52px}.assetDock{max-width:calc(100% - 28px)!important}}
+#soundBtn.sound-on::before{content:"🔊"}
+
+
+/* V6.16 - game HUD icon bubbles + soft hover glow */
+header button::before{
+  width:42px;height:42px;display:grid;place-items:center;
+  border-radius:15px;
+  background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(5,24,39,.18));
+  border:1px solid rgba(255,255,255,.13);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.20),0 5px 12px rgba(3,14,24,.18);
+  transition:filter .18s ease,box-shadow .18s ease,transform .18s ease,background .18s ease;
+}
+header button:hover::before{
+  transform:translateY(-1px) scale(1.06);
+  background:linear-gradient(180deg,rgba(117,218,255,.28),rgba(35,122,169,.18));
+  box-shadow:0 0 18px rgba(101,211,255,.46),inset 0 1px 0 rgba(255,255,255,.32);
+  filter:brightness(1.12);
+}
+header button:hover{color:#fff!important;text-shadow:0 0 10px rgba(125,220,255,.45)}
+.assetDock .dockItem,.assetDock .dockBack{transition:transform .2s cubic-bezier(.2,1.35,.3,1),filter .18s ease,text-shadow .18s ease!important}
+.assetDock .dockItem:hover,.assetDock .dockBack:hover{filter:brightness(1.20) drop-shadow(0 0 11px rgba(105,218,255,.60));text-shadow:0 0 12px rgba(110,220,255,.65)!important}
+.assetDock .dockItem:hover .dockLabel,.assetDock .dockBack:hover span{color:#fff!important;text-shadow:0 0 10px rgba(105,218,255,.80),0 2px 5px rgba(0,0,0,.55)!important}
+
+/* V6.18 — aligned selection, wooden logo, monochrome HUD, slimmer dock */
+.topTitle{height:84px!important;width:min(360px,28vw)!important;display:flex!important;align-items:center;justify-content:center;transform:none!important;overflow:visible}
+.topTitle img{display:block;max-width:100%;max-height:80px;width:auto;height:auto;object-fit:contain;filter:drop-shadow(0 5px 9px rgba(0,0,0,.30))}
+/* monochrome/translucent game HUD icons — no colored emoji */
+header button::before{font-family:Arial,system-ui,sans-serif!important;color:rgba(240,249,255,.90)!important;text-shadow:0 2px 7px rgba(0,0,0,.32)!important;filter:none!important;background:rgba(255,255,255,.055)!important;border-color:rgba(255,255,255,.10)!important}
+#saveBtn::before{content:"▣"!important;font-size:27px!important}#loadBtn::before{content:"▱"!important;font-size:32px!important}#clearBtn::before{content:"＋"!important;font-size:31px!important}
+#centerBtn::before{content:"⌂"!important;font-size:31px!important}#screenshotBtn::before{content:"▣"!important;font-size:26px!important}#partsBtn::before{content:"◇"!important;font-size:29px!important}#helpBtn::before{content:"?"!important;font-size:26px!important}#soundBtn::before{content:"◖))"!important;font-size:15px!important;letter-spacing:-2px!important}#soundBtn.sound-on::before{content:"◖)))"!important}
+header button:hover::before{color:#fff!important;background:rgba(118,216,255,.14)!important;box-shadow:0 0 18px rgba(101,211,255,.40),inset 0 1px 0 rgba(255,255,255,.22)!important}
+/* about 0.5 cm less air above and below */
+.assetDock{height:110px!important;min-height:110px!important;padding:5px 18px!important;border-radius:34px!important}
+.assetDock:has(.dockItem:hover){height:124px!important;min-height:124px!important;padding-top:8px!important;padding-bottom:4px!important}
+.dockItems{padding:2px 4px!important}.dockItem{height:96px!important}.dockIcon{height:56px!important;min-width:58px!important;font-size:34px!important}.dockThumb{height:62px!important;width:88px!important}.dockBack{height:94px!important}
+.selectionTools{transform:translate(-50%,-108%)!important}
+@media(max-width:1100px){.topTitle{width:220px!important}.topTitle img{max-height:68px}}
+
+/* V6.19 — clean mockup-style HUD icons */
+header button::before{
+  content:""!important;
+  width:42px!important;height:42px!important;
+  background-color:rgba(8,32,49,.30)!important;
+  background-repeat:no-repeat!important;
+  background-position:center!important;
+  background-size:25px 25px!important;
+  border:1px solid rgba(255,255,255,.11)!important;
+  border-radius:15px!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 4px 11px rgba(4,18,29,.16)!important;
+  filter:none!important;
+}
+#saveBtn::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23eaf7ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 3h12l2 2v16H5z'/%3E%3Cpath d='M8 3v6h8V3M8 21v-7h8v7'/%3E%3C/svg%3E")!important}
+#loadBtn::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23eaf7ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 7h7l2 2h9v10H3z'/%3E%3Cpath d='M3 7V5h7l2 2'/%3E%3C/svg%3E")!important}
+#clearBtn::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23eaf7ff' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M12 4v16M4 12h16'/%3E%3C/svg%3E")!important}
+#centerBtn::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23eaf7ff'%3E%3Cpath d='M3 11.2 12 3l9 8.2v9.3a.5.5 0 0 1-.5.5H15v-6H9v6H3.5a.5.5 0 0 1-.5-.5z'/%3E%3C/svg%3E")!important}
+#screenshotBtn::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23eaf7ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 7h4l1.5-2h5L16 7h4v12H4z'/%3E%3Ccircle cx='12' cy='13' r='4'/%3E%3C/svg%3E")!important}
+#partsBtn::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23eaf7ff' stroke-width='1.8' stroke-linejoin='round'%3E%3Cpath d='m12 2 5 3-5 3-5-3zM7 5v6l5 3 5-3V5M4 13l4 2.4v4.8L4 22l-4-2v-4.6zM20 13l4 2.4v4.8L20 22l-4-2v-4.6z' transform='translate(0 -1)'/%3E%3C/svg%3E")!important}
+#helpBtn::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23eaf7ff' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M8.8 8.5a3.4 3.4 0 1 1 5.3 2.8c-1.5 1-2.1 1.6-2.1 3'/%3E%3Ccircle cx='12' cy='18' r='1' fill='%23eaf7ff' stroke='none'/%3E%3C/svg%3E")!important}
+/* speaker OFF = speaker only; ON = sound-wave lines */
+#soundBtn::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23eaf7ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 10v4h4l5 4V6L8 10z'/%3E%3C/svg%3E")!important}
+#soundBtn.sound-on::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23eaf7ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 10v4h4l5 4V6L8 10zM16 9c1.5 1.5 1.5 4.5 0 6M18.5 6.5c3 3 3 8 0 11'/%3E%3C/svg%3E")!important}
+header button:hover::before{background-color:rgba(83,181,229,.20)!important;box-shadow:0 0 18px rgba(101,211,255,.42),inset 0 1px 0 rgba(255,255,255,.22)!important}
+/* V7.2 selection + clean HUD pictograms */
+.selectionTools{box-shadow:0 10px 28px rgba(5,12,18,.30),0 0 18px rgba(225,248,255,.18)!important}
+header button::before{background-size:25px 25px!important;background-position:center!important;background-repeat:no-repeat!important;background-color:rgba(255,255,255,.035)!important;border:1px solid rgba(255,255,255,.08)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.06)!important}
+header button:hover::before{background-color:rgba(140,225,255,.13)!important;box-shadow:0 0 16px rgba(150,230,255,.38),inset 0 1px 0 rgba(255,255,255,.14)!important}
+/* simpler, visually consistent white game-HUD icons */
+#saveBtn::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f3fbff' stroke-width='2.1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 3h12l2 2v16H5z'/%3E%3Cpath d='M8 3v6h8V3M8 21v-7h8v7'/%3E%3C/svg%3E")!important}
+#loadBtn::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f3fbff' stroke-width='2.1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6h7l2 2h9v11H3z'/%3E%3C/svg%3E")!important}
+#clearBtn::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f3fbff' stroke-width='2.1' stroke-linecap='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E")!important}
+#centerBtn::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f3fbff' stroke-width='2.1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m4 11 8-7 8 7v9h-6v-6h-4v6H4z'/%3E%3C/svg%3E")!important}
+#screenshotBtn::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f3fbff' stroke-width='2.1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 8h4l2-2h4l2 2h4v11H4z'/%3E%3Ccircle cx='12' cy='13.5' r='3.5'/%3E%3C/svg%3E")!important}
+#partsBtn::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f3fbff' stroke-width='1.9' stroke-linejoin='round'%3E%3Cpath d='m12 3 4 2.3-4 2.3-4-2.3zM8 5.3v4.6l4 2.3 4-2.3V5.3M6 13l3 1.7v3.6L6 20l-3-1.7v-3.6zM18 13l3 1.7v3.6L18 20l-3-1.7v-3.6z'/%3E%3C/svg%3E")!important}
+#helpBtn::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f3fbff' stroke-width='2.3' stroke-linecap='round'%3E%3Cpath d='M9 9a3 3 0 1 1 4.6 2.5c-1.2.8-1.6 1.5-1.6 2.5'/%3E%3Cpath d='M12 18h.01'/%3E%3C/svg%3E")!important}
+
+
+/* V7.3 — Nomad-style selection, compact HUD, restored dock ease */
+header{
+  height:76px!important; top:16px!important;
+  padding:4px 18px!important; overflow:visible!important;
+}
+.topLeft,.topRight{height:68px!important}
+.project{height:48px!important}
+header button{height:58px!important;min-width:58px!important;padding:4px 7px!important}
+header button::before{width:36px!important;height:36px!important;background-size:23px 23px!important;border-radius:13px!important}
+header button::after,header button span{font-size:10px!important}
+.helpBtn,.soundBtn{width:58px!important;height:58px!important}
+.topTitle{height:104px!important;width:min(370px,29vw)!important;position:relative;z-index:20;overflow:visible!important}
+.topTitle img{max-height:104px!important;max-width:100%!important;filter:drop-shadow(0 5px 9px rgba(0,0,0,.32))}
+/* clean, instantly recognizable HUD symbols */
+#saveBtn::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23f5fbff' d='M4 3h13l3 3v15H4V3zm3 1v6h9V4H7zm1 10v5h8v-5H8z'/%3E%3C/svg%3E")!important}
+#loadBtn::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23f5fbff' d='M2 6h8l2 2h10l-2 11H3L2 6zm2-3h6l2 2h8v2h-9l-2-2H4v1H2V5a2 2 0 0 1 2-2z'/%3E%3C/svg%3E")!important}
+#clearBtn::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23f5fbff' d='M6 2h9l4 4v16H6V2zm8 2v4h4l-4-4z'/%3E%3Cpath fill='%23234459' d='M11 11h2v3h3v2h-3v3h-2v-3H8v-2h3z'/%3E%3C/svg%3E")!important}
+#centerBtn::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23f5fbff' d='m2 11 10-9 10 9-2 2-1-1v9h-5v-6h-4v6H5v-9l-1 1-2-2z'/%3E%3C/svg%3E")!important}
+#screenshotBtn::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23f5fbff' d='M8 5l2-2h4l2 2h5v15H3V5h5zm4 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z'/%3E%3C/svg%3E")!important}
+#partsBtn::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='%23f5fbff'%3E%3Cpath d='m12 2 5 3-5 3-5-3 5-3zm-5 5 4 2.4v5L7 12V7zm10 0v5l-4 2.4v-5L17 7z'/%3E%3Cpath d='m6 13 4 2.4-4 2.4-4-2.4L6 13zm12 0 4 2.4-4 2.4-4-2.4 4-2.4zM2 17l3 1.8V22l-3-1.8V17zm8 0v3.2L7 22v-3.2l3-1.8zm4 0 3 1.8V22l-3-1.8V17zm8 0v3.2L19 22v-3.2l3-1.8z'/%3E%3C/g%3E%3C/svg%3E")!important}
+#helpBtn::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23f5fbff' d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 17a1.3 1.3 0 1 1 0-2.6A1.3 1.3 0 0 1 12 19zm1.2-5.1v1h-2.4v-1.5c0-1.2.7-1.8 1.6-2.4.8-.5 1.3-.9 1.3-1.7 0-.9-.7-1.5-1.7-1.5-1.1 0-1.8.6-2 1.7L7.7 9c.4-2.2 2-3.5 4.4-3.5 2.5 0 4.2 1.4 4.2 3.6 0 1.8-1 2.7-2.2 3.5-.6.4-.9.7-.9 1.3z'/%3E%3C/svg%3E")!important}
+/* Dock: bring back the springy/eased game feel */
+.assetDock{transition:height .28s cubic-bezier(.22,.9,.25,1),padding .28s cubic-bezier(.22,.9,.25,1),transform .28s cubic-bezier(.22,.9,.25,1)!important}
+.assetDock:has(.dockItem:hover){height:128px!important;min-height:128px!important;padding-top:10px!important;padding-bottom:6px!important}
+.assetDock .dockItem,.assetDock .dockBack{transition:transform .24s cubic-bezier(.18,1.55,.32,1),filter .20s ease,text-shadow .20s ease!important}
+.assetDock .dockItem:hover{transform:translateY(-11px) scale(1.13)!important}
+.dockItem.dock-pop{animation:dockPop .38s cubic-bezier(.18,1.55,.32,1)!important}
+
+/* V7.4 — restore crisp render + centered logo + emoji HUD */
+header{height:70px!important;top:16px!important;padding:3px 18px!important;overflow:visible!important;display:flex!important;align-items:center!important}
+.topLeft,.topRight{height:62px!important;position:relative;z-index:4}
+.topTitle{position:absolute!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;width:min(330px,27vw)!important;height:100px!important;z-index:8!important;pointer-events:none!important;display:flex!important;align-items:center!important;justify-content:center!important;overflow:visible!important}
+.topTitle img{max-height:100px!important;max-width:100%!important;width:auto!important;height:auto!important;object-fit:contain!important}
+.topRight{margin-left:auto!important}
+header button{height:54px!important;min-width:58px!important;padding:3px 7px!important}
+header button::before{background-image:none!important;background-color:rgba(255,255,255,.035)!important;width:36px!important;height:36px!important;display:flex!important;align-items:center!important;justify-content:center!important;font-family:"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif!important;font-size:25px!important;line-height:1!important;border-radius:13px!important;filter:drop-shadow(0 2px 3px rgba(0,0,0,.22))!important}
+#saveBtn::before{content:"💾"!important}#loadBtn::before{content:"📂"!important}#clearBtn::before{content:"✨"!important}#centerBtn::before{content:"🏠"!important}#screenshotBtn::before{content:"📷"!important}#partsBtn::before{content:"🧊"!important}#helpBtn::before{content:"❓"!important}
+#soundBtn::before{content:"🔇"!important;font-size:24px!important}#soundBtn.sound-on::before{content:"🔊"!important}
+header button:hover::before{background-color:rgba(145,226,255,.12)!important;box-shadow:0 0 18px rgba(170,235,255,.42),inset 0 1px 0 rgba(255,255,255,.15)!important;transform:translateY(-2px) scale(1.06)!important}
+/* bottom dock keeps the pre-v7 soft spring */
+.assetDock{transition:height .32s cubic-bezier(.2,.85,.25,1),padding .32s cubic-bezier(.2,.85,.25,1),transform .32s cubic-bezier(.2,.85,.25,1)!important}
+.assetDock:has(.dockItem:hover){height:128px!important;min-height:128px!important;padding-top:10px!important;padding-bottom:6px!important}
+.assetDock .dockItem{transition:transform .26s cubic-bezier(.2,1.45,.3,1),filter .22s ease!important;transform-origin:50% 75%!important}
+.assetDock .dockItem:hover{transform:translateY(-10px) scale(1.12)!important;filter:drop-shadow(0 0 10px rgba(220,248,255,.65))!important}
+
+/* V7.5 — clean emoji HUD; remove legacy icon layers */
+#saveBtn::before,#loadBtn::before,#clearBtn::before,#centerBtn::before,#screenshotBtn::before,#partsBtn::before,#soundBtn::before,#helpBtn::before{
+  background-image:none!important;
+  background-repeat:no-repeat!important;
+  background-position:center!important;
+  background-size:0 0!important;
+}
+header button::before{
+  border:0!important;
+  box-shadow:none!important;
+  background:transparent!important;
+}
+header button:hover::before{
+  background:rgba(145,226,255,.10)!important;
+  box-shadow:0 0 17px rgba(170,235,255,.38)!important;
+}
+
+/* V7.9 — selection controls clear of selected object */
+.selectionTools{transform:translate(-50%,-100%)!important;}
+
+
+/* V1 baseline — dock back stays on the LEFT */
+.assetDock .dockBack{order:-1!important;border-left:0!important;border-right:1px solid rgba(255,255,255,.16)!important;border-radius:17px 0 0 17px!important}
+.assetDock .dockItems{order:0!important}
+
+/* V1 — selected asset name follows the floating selection controls */
+#selectionBadge{
+  position:absolute!important;
+  left:0;
+  top:0;
+  z-index:13;
+  transform:translate(-50%,-100%);
+  margin-top:-66px;
+  max-width:280px;
+  padding:6px 11px!important;
+  border:1px solid rgba(255,255,255,.13)!important;
+  border-radius:11px!important;
+  background:rgba(24,35,45,.90)!important;
+  box-shadow:0 8px 22px rgba(5,12,18,.24)!important;
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  color:#fff!important;
+  font-size:10px!important;
+  font-weight:700;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  pointer-events:none;
+}
+\n/* Day/night status */\n.dayNightPill{position:absolute;z-index:18;left:50%;top:92px;transform:translateX(-50%);pointer-events:none;padding:7px 13px;border-radius:999px;background:rgba(24,36,55,.48);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(10px);color:#fff;font:700 12px/1 system-ui,sans-serif;letter-spacing:.08em;box-shadow:0 5px 18px rgba(16,27,45,.12);transition:background .8s ease}\n/* day/night visibility fix */
+.dayNightPill{left:auto!important;right:28px!important;top:88px!important;transform:none!important;display:block!important;min-width:82px;text-align:center;background:rgba(18,29,48,.72)!important;border:1px solid rgba(255,255,255,.34)!important;font-size:13px!important;z-index:40!important;box-shadow:0 6px 22px rgba(0,0,0,.18)!important}
+
+/* Settings + always-visible day/night status */
+.topStatus.dayNightPill{position:static!important;left:auto!important;right:auto!important;top:auto!important;transform:none!important;display:flex!important;align-items:center;justify-content:center;min-width:76px;height:34px;box-sizing:border-box;padding:0 10px!important;margin:0!important;background:rgba(18,29,48,.48)!important;border:1px solid rgba(255,255,255,.18)!important;font-size:11px!important;z-index:auto!important;box-shadow:none!important;white-space:nowrap}
+.settingsBtn{width:36px!important;height:34px!important;padding:0!important;font-size:16px!important;border-radius:12px!important}.settingsModal{width:min(520px,calc(100vw - 36px))}.settingsGrid{display:grid;gap:10px;margin:4px 0 14px}.settingsGrid label{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:46px;padding:8px 12px;border:1px solid rgba(255,255,255,.09);border-radius:13px;background:rgba(255,255,255,.055);color:#eef6fa;font:700 12px system-ui}.settingsGrid input[type=text],.settingsGrid input:not([type]){width:210px}.settingsGrid #weatherCity{width:min(240px,48vw);border:1px solid rgba(255,255,255,.14);border-radius:9px;background:rgba(255,255,255,.08);color:#fff;padding:9px 10px;outline:none}.toggleRow input{position:absolute;opacity:0;pointer-events:none}.toggleRow i{width:42px;height:24px;border-radius:999px;background:rgba(255,255,255,.13);position:relative;transition:.2s}.toggleRow i:after{content:"";position:absolute;width:18px;height:18px;left:3px;top:3px;border-radius:50%;background:#dce6ec;transition:.2s}.toggleRow input:checked+i{background:#36b98d}.toggleRow input:checked+i:after{transform:translateX(18px);background:white}.settingsApply{width:100%;padding:11px;border:1px solid rgba(255,255,255,.15);border-radius:12px;background:rgba(90,205,166,.18);color:#effff9;font-weight:800;cursor:pointer}.weatherStatus{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px}.weatherStatus>div{padding:10px;border-radius:11px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}.weatherStatus span{display:block;color:#91a6b3;font:700 9px system-ui;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}.weatherStatus b{display:block;color:#f3f8fb;font:700 11px system-ui;overflow-wrap:anywhere}.settingsNote{margin:12px 2px 0;color:#9fb2bd;font:600 10px/1.45 system-ui}.rainDrop{pointer-events:none}@media(max-width:900px){.topStatus.dayNightPill{min-width:34px;width:34px;padding:0!important;font-size:0!important}.topStatus.dayNightPill::first-letter{font-size:13px}.weatherStatus{grid-template-columns:1fr}}
+
+/* V-next: cleaner clock/settings chrome */
+.worldClock{font:800 18px/1 ui-monospace,SFMono-Regular,Consolas,monospace;color:#f5fbff;letter-spacing:.06em;min-width:58px;text-align:center;text-shadow:0 2px 8px rgba(0,0,0,.28);padding:0 2px;align-self:center;background:none!important;border:0!important;box-shadow:none!important}
+.settingsBtn{width:58px!important;height:58px!important;padding:0!important;border-radius:18px!important;font-size:0!important;display:flex!important;align-items:center;justify-content:center}
+.settingsBtn::before{content:"⚙️";font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;font-size:26px!important;line-height:1}
+.dayNightPill{display:none!important}
+/* Parts BOM table */
+.partsModal{width:min(900px,calc(100vw - 36px))!important}
+.partsTableWrap{margin-top:10px;overflow-x:auto;border:1px solid rgba(255,255,255,.10);border-radius:14px;background:rgba(255,255,255,.035)}
+.partsTable{width:100%;border-collapse:collapse;min-width:720px;color:#eef6fa;font-size:11px}
+.partsTable th{padding:9px 10px;text-align:left;color:#91a6b3;font-size:9px;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid rgba(255,255,255,.10)}
+.partsTable td{padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.075);vertical-align:middle}
+.partsTable tbody tr:last-child td{border-bottom:1px solid rgba(255,255,255,.10)}
+.partsTable tfoot td{padding:12px 10px;background:rgba(255,255,255,.055);border-bottom:0;color:#f7fbfd}
+.partThumb{width:68px;height:48px;display:grid;place-items:center;overflow:hidden;border-radius:9px;background:rgba(255,255,255,.035)}
+.partThumb img,.partThumb canvas{width:100%!important;height:100%!important;object-fit:contain}
+.partName b{display:block;font-size:11px}.partName small{display:block;margin-top:3px;color:#91a6b3;font-size:9px}
+.partTableRow.hasLink{cursor:pointer}.partTableRow.hasLink:hover{background:rgba(255,255,255,.06)}
+/* Settings icon same visual scale as the other HUD icons */
+.settingsBtn{min-width:62px!important;width:62px!important;height:66px!important;padding:7px 8px!important;border-radius:18px!important;font-size:0!important}
+.settingsBtn::before{content:"⚙️"!important;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif!important;font-size:27px!important;line-height:28px!important;filter:drop-shadow(0 3px 5px rgba(0,0,0,.22))}
+
+/* Custom wooden logo + clock built into the lower clock board */
+header{overflow:visible!important}
+.topTitle{width:min(255px,22vw)!important;height:155px!important;top:52%!important;overflow:visible!important}
+.topTitle img{max-height:155px!important;max-width:100%!important;filter:drop-shadow(0 5px 9px rgba(0,0,0,.28))!important}
+.logoClock{position:absolute!important;left:50%;bottom:9px;transform:translateX(-50%);z-index:4;display:block;font:900 16px/1 ui-monospace,SFMono-Regular,Consolas,monospace!important;color:#2c160d!important;text-shadow:0 1px 0 rgba(255,220,160,.38)!important;letter-spacing:.18em!important;min-width:78px!important;padding:0!important;background:none!important;border:0!important;pointer-events:none}
+/* Compact controls to the left of Home */
+.miniControl{position:relative;display:flex;align-items:center}
+.cloudBtn,.lightBtn{min-width:62px!important;width:62px!important;height:66px!important;padding:7px 8px!important;border-radius:18px!important;font-size:0!important;display:flex!important;flex-direction:column;align-items:center;justify-content:center}
+.cloudBtn::before,.lightBtn::before{display:block;font-family:"Apple Color Emoji","Segoe UI Emoji",sans-serif;font-size:25px!important;line-height:28px}.cloudBtn::before{content:"☁️"}.lightBtn::before{content:"💡"}.cloudBtn span,.lightBtn span{display:block!important;font-size:9px!important;line-height:11px;margin-top:2px}
+.controlDrop{position:absolute;top:72px;left:0;width:245px;padding:13px 14px;border:1px solid rgba(255,255,255,.16);border-radius:15px;background:rgba(20,31,41,.96);box-shadow:0 15px 38px rgba(5,12,18,.30);color:#eef6fa;display:none;z-index:80;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.controlDrop.open{display:block}.controlDrop>b{display:block;margin:0 0 9px;font:900 12px system-ui}.controlDrop label{display:grid;grid-template-columns:92px 1fr;align-items:center;gap:9px;margin:8px 0;font:700 10px system-ui;color:#c7d5dd}.controlDrop input[type=range]{width:100%;accent-color:#72d8bf}.lightDrop{left:0}.cloudDrop{left:0}
+/* Keep dialog blur, but compact dropdowns themselves never blur the world. */
+@media(max-width:1100px){.topTitle{width:190px!important;height:125px!important}.topTitle img{max-height:125px!important}.logoClock{bottom:7px!important;font-size:13px!important}.cloudBtn,.lightBtn{min-width:48px!important;width:48px!important}}
+
+
+/* V-UI polish: icon consistency, lower logo, clock in carved slots */
+.topTitle{
+  top:72%!important;
+  width:min(270px,23vw)!important;
+  height:168px!important;
+}
+.topTitle img{max-height:168px!important;max-width:100%!important}
+.logoClock{
+  bottom:10px!important;
+  font-family:Impact,"Arial Black",system-ui,sans-serif!important;
+  font-size:22px!important;
+  font-weight:1000!important;
+  color:#6b3219!important;
+  text-shadow:0 2px 0 #140904,0 0 1px #000!important;
+  letter-spacing:.29em!important;
+  min-width:104px!important;
+  transform:translateX(-47%)!important;
+}
+/* Make Clouds/Lights use the same emoji + label language as the other HUD controls. */
+.cloudBtn,.lightBtn,.settingsBtn{font-size:0!important;position:relative!important}
+.cloudBtn::before,.lightBtn::before,.settingsBtn::before{
+  display:block!important;
+  width:auto!important;height:auto!important;
+  background:none!important;
+  font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif!important;
+  font-size:27px!important;line-height:29px!important;
+  filter:drop-shadow(0 3px 5px rgba(0,0,0,.22));
+}
+.cloudBtn::before{content:"☁️"!important}
+.lightBtn::before{content:"💡"!important}
+.settingsBtn::before{content:"🌦️"!important}
+.cloudBtn span,.lightBtn span,.settingsBtn span{
+  display:block!important;
+  font-family:Inter,ui-sans-serif,system-ui,sans-serif!important;
+  font-size:9px!important;line-height:11px!important;
+  font-weight:800!important;margin-top:2px!important;color:#eef6fa!important;
+}
+.settingsBtn{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important}
+@media(max-width:1100px){
+ .topTitle{top:70%!important;width:205px!important;height:135px!important}
+ .topTitle img{max-height:135px!important}
+ .logoClock{bottom:8px!important;font-size:16px!important;letter-spacing:.25em!important;min-width:82px!important}
+}
+
+
+/* Multi-select + stronger playful dock typography */
+.selectionTools .multiBtn{font-size:18px!important}.selectionTools .multiBtn.active{background:rgba(91,218,166,.22)!important;box-shadow:inset 0 0 0 1px rgba(122,255,200,.35)!important}
+.dockLabel,.dockAsset .dockLabel{font-family:"Cooper Black","Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif!important;font-size:15px!important;line-height:16px!important;font-weight:900!important;letter-spacing:.01em!important;text-shadow:0 2px 0 rgba(0,0,0,.35),0 3px 7px rgba(0,0,0,.55)!important}
+.dockBack span{font-family:"Cooper Black","Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif!important;font-size:14px!important;font-weight:900!important}
+
+/* V next — app-like non-selectable UI + dock hover expansion */
+html,body,#app,.app,#viewportWrap,#viewport,header,.assetDock,.assetDock *{
+  -webkit-user-select:none!important;user-select:none!important;
+  -webkit-user-drag:none!important;
+}
+img{ -webkit-user-drag:none!important; user-drag:none!important; }
+/* Grow the dock as soon as the pointer enters it, before any item hover. */
+.assetDock:hover{
+  height:138px!important;min-height:138px!important;
+  padding-top:14px!important;padding-bottom:9px!important;
+}
+/* Item growth happens only on the item itself, with room already provided by dock hover. */
+.assetDock .dockItem:hover{transform:translateY(-9px) scale(1.10)!important}
+.dockItem{width:112px!important;flex-basis:112px!important;height:108px!important}
+.dockIcon{height:70px!important;min-width:72px!important;font-size:43px!important}
+.dockThumb{width:104px!important;height:78px!important}
+.dockLabel,.dockAsset .dockLabel{
+  font-size:16px!important;line-height:18px!important;
+  letter-spacing:.075em!important;
+}
+.dockBack{width:98px!important;flex-basis:98px!important}.dockBack span{letter-spacing:.11em!important}
+
+/* Dock typography: uppercase labels with wider tracking */
+.dockLabel,.dockAsset .dockLabel,.dockBack span{
+  text-transform:uppercase!important;
+  letter-spacing:.10em!important;
+}
+
+/* Stable dock hover state — dock size depends ONLY on pointer being inside the dock. */
+.assetDock:hover,
+.assetDock:has(.dockItem:hover),
+.assetDock:has(.dockBack:hover){
+  height:138px!important;
+  min-height:138px!important;
+  padding-top:14px!important;
+  padding-bottom:9px!important;
+}
+/* Child hover is completely independent from the dock expansion. */
+.assetDock .dockItem:hover{
+  transform:translateY(-9px) scale(1.10)!important;
+}
+.assetDock .dockBack:hover{
+  transform:scale(1.06)!important;
+}
+
+
+/* V-next interaction polish */
+/* Move the complete floating top bar + its attached wooden logo down together. */
+header{top:34px!important}
+/* Keep the logo attached to the bar; extra headroom prevents the artwork being clipped by the page edge. */
+.topTitle{top:70%!important}
+
+/* UI remains non-selectable, but dock asset cards must still be native-draggable. */
+.assetDock .dockAsset{-webkit-user-drag:element!important;user-drag:element!important}
+
+/* Desktop-style right-drag selection rectangle. */
+.marqueeSelect{position:absolute;display:none;z-index:30;pointer-events:none;border:1px solid rgba(135,225,255,.95);background:rgba(86,190,235,.16);box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);border-radius:3px}
+.marqueeSelect.show{display:block}
+
+/* Requested font/audio/file UI patch */
+@font-face{font-family:'Milkyway';src:url('assets/FONTS/Milkyway%20DEMO.ttf') format('truetype');font-display:swap}
+.dockLabel,.dockAsset .dockLabel,.dockBack span{font-family:'Milkyway','Cooper Black','Arial Rounded MT Bold',system-ui,sans-serif!important;letter-spacing:.10em!important}
+.logoClock{color:#d99647!important;font-weight:1000!important;text-shadow:0 2px 0 #4a2412,0 3px 3px rgba(0,0,0,.78)!important}
+.screenshotControl{position:relative!important}.screenshotDrop{right:0!important;left:auto!important;top:72px!important;width:190px!important;min-width:190px!important;padding:13px!important}.screenshotDrop b{display:block;margin-bottom:10px;color:#f5f9fb}.shotActions{display:flex;gap:8px}.shotActions button{flex:1!important;height:34px!important;min-width:0!important;border-radius:10px!important;background:rgba(255,255,255,.09)!important;border:1px solid rgba(255,255,255,.13)!important;color:#fff!important;font-weight:900!important;cursor:pointer!important}.shotActions button::before,.shotActions button::after{display:none!important;content:none!important}
+
+/* Multi-select check button: same visual language as Pin/Copy/Delete, no emoji box */
+.selectionTools .multiBtn{position:static!important;display:grid!important;transform:none!important;width:34px!important;height:34px!important;place-items:center!important;border:0!important;border-radius:10px!important;background:rgba(255,255,255,.07)!important;box-shadow:none!important;color:#fff!important;font-family:Arial,sans-serif!important;font-size:22px!important;font-weight:900!important;line-height:1!important;cursor:pointer!important;transition:transform .14s ease,background .14s ease!important}
+.selectionTools .multiBtn:hover{transform:translateY(-2px)!important;background:rgba(255,255,255,.13)!important}
+.selectionTools .multiBtn.active{background:rgba(91,218,166,.22)!important;box-shadow:none!important}
+
+
+/* V group-drag + carved clock slots */
+.logoClock{
+  bottom:14px!important;
+  left:50%!important;
+  transform:translateX(-50%)!important;
+  min-width:0!important;
+  width:112px!important;
+  height:28px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:0!important;
+  letter-spacing:0!important;
+  color:#d99647!important;
+  font-family:Impact,"Arial Black",system-ui,sans-serif!important;
+  font-size:22px!important;
+  font-weight:1000!important;
+  text-shadow:0 2px 0 #4a2412,0 3px 3px rgba(0,0,0,.78)!important;
+}
+.logoClock span{display:flex;width:23px;height:27px;align-items:center;justify-content:center;flex:0 0 23px;line-height:27px}
+.logoClock i{display:flex;width:12px;height:27px;align-items:center;justify-content:center;flex:0 0 12px;font-style:normal;color:#f4c06c;text-shadow:0 1px 0 #4a2412,0 2px 2px #000;animation:clockBlink 1s steps(1,end) infinite}
+@keyframes clockBlink{50%{opacity:.18}}
+.selectionTools .multiBtn{appearance:none!important;-webkit-appearance:none!important;font-family:Arial,Helvetica,sans-serif!important;color:#fff!important;font-size:22px!important;font-weight:900!important;border:0!important;border-radius:10px!important;background:rgba(255,255,255,.07)!important;box-shadow:none!important}
+.selectionTools .multiBtn.active{background:rgba(91,218,166,.22)!important;color:#bfffe3!important}
+
+/* Clock final alignment/color */
+.logoClock{bottom:12px!important;color:#4a2412!important;text-shadow:0 1px 0 rgba(255,221,165,.95),0 2px 1px rgba(255,195,105,.7),0 3px 2px rgba(0,0,0,.32)!important}
+.logoClock span{color:#4a2412!important;text-shadow:0 1px 0 rgba(255,221,165,.95),0 2px 1px rgba(255,195,105,.7),0 3px 2px rgba(0,0,0,.32)!important}
+/* FINAL V1 topbar/weather merge */
+.topLeft,.topRight{align-items:center!important}
+.weatherDrop{width:330px!important;max-height:min(76vh,650px);overflow:auto;padding:14px!important}
+.weatherDivider{height:1px;background:rgba(255,255,255,.12);margin:10px 0 12px}
+.weatherField{display:flex!important;align-items:center;justify-content:space-between;gap:12px}
+.weatherField input{width:180px;border:1px solid rgba(255,255,255,.14);border-radius:9px;background:rgba(255,255,255,.08);color:#fff;padding:7px 9px;outline:none}
+.compactToggle{display:flex!important;align-items:center;justify-content:space-between!important;padding:7px 0!important}
+.compactWeatherStatus{grid-template-columns:1fr!important;gap:5px!important;margin-top:8px!important}
+.compactWeatherStatus>div{padding:7px 9px!important}
+.cloudBtn::before{content:"🌦️"!important}
+/* Final V1: use the supplied Milkyway typeface for the logo clock. */
+.logoClock,
+.logoClock span,
+.logoClock i{
+  font-family:'Milkyway', ui-monospace, SFMono-Regular, Consolas, monospace !important;
+}
+
+/* Final V1 weather dropdown positioning */
+.topRight .miniControl:has(#cloudBtn){position:relative}
+#cloudDrop.weatherDrop{left:auto!important;right:0!important;transform:none!important;max-width:min(330px,calc(100vw - 24px))!important;box-sizing:border-box}
+#weatherApply.settingsApply{background:#35b985!important;border-color:#64d7ad!important;color:#fff!important;box-shadow:0 3px 10px rgba(32,145,104,.28)!important}
+#weatherApply.settingsApply:hover{background:#42c995!important}
+
+
+/* Final V1 polish: clock slots, printer icon, light preset control */
+/* Move the clock digits 8px down from the previous position. */
+.logoClock{bottom:4px!important;}
+/* Put each digit in its own carved slot; keep colon dots independently positioned. */
+.logoClock span{width:23px!important;flex-basis:23px!important;text-align:center!important;}
+.logoClock i{position:relative!important;width:12px!important;flex-basis:12px!important;font-size:0!important;color:transparent!important;text-shadow:none!important;animation:none!important;}
+.logoClock i::before,.logoClock i::after{content:"";position:absolute;left:50%;width:3px;height:3px;border-radius:50%;transform:translateX(-50%);background:#f7e4bd;box-shadow:0 1px 1px rgba(45,20,8,.85);animation:clockDotBlink 1s steps(1,end) infinite;}
+.logoClock i::before{top:3px!important;}
+.logoClock i::after{bottom:5px!important;}
+@keyframes clockDotBlink{50%{opacity:.22}}
+/* Parts uses a 3D-printer emoji like the rest of the HUD. */
+#partsBtn::before{content:"🖨️"!important;background:none!important;width:auto!important;height:auto!important;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif!important;font-size:27px!important;line-height:29px!important;filter:drop-shadow(0 3px 5px rgba(0,0,0,.22))!important;}
+/* Native select styled to match the compact light dropdown. */
+#lightDrop select{width:100%;min-width:118px;border:1px solid rgba(255,255,255,.14);border-radius:8px;background:#263640;color:#eef7fa;padding:6px 7px;font:700 10px system-ui;outline:none;}
+/* Final V1: combined Weather + Lights panel */
+#screenshotBtn,.screenshotControl,#lightBtn,#lightDrop{display:none!important}
+.weatherControl{position:relative!important}
+#cloudDrop.weatherDrop{width:620px!important;max-width:min(620px,calc(100vw - 24px))!important;right:0!important;left:auto!important;padding:16px!important;overflow:auto!important}
+.weatherTopGrid{display:grid;grid-template-columns:1.18fr .82fr;gap:18px;align-items:start}
+.weatherPane,.lightPane{min-width:0}.weatherPane+ .weatherPane{border-left:1px solid rgba(255,255,255,.12);padding-left:18px}
+.weatherPane h3,.lightPane h3{margin:0 0 10px;color:#fff;font:900 12px system-ui;letter-spacing:.5px;text-transform:uppercase}
+#cloudDrop.weatherDrop label{grid-template-columns:112px minmax(110px,1fr)!important}
+.livePane label.weatherField{grid-template-columns:52px 1fr!important}.livePane .toggleRow{display:flex!important;justify-content:space-between!important;grid-template-columns:none!important}
+.lightPane{padding-top:2px}.lightGrid{display:grid;grid-template-columns:1fr 1fr;column-gap:20px;row-gap:0}.lightGrid label{grid-template-columns:92px minmax(110px,1fr)!important}
+#lightPbrPreset{width:100%;border:1px solid rgba(255,255,255,.14);border-radius:8px;background:#263640;color:#eef7fa;padding:6px 7px;font:700 10px system-ui;outline:none}
+@media(max-width:720px){#cloudDrop.weatherDrop{width:min(94vw,620px)!important}.weatherTopGrid,.lightGrid{grid-template-columns:1fr}.weatherPane+ .weatherPane{border-left:0;border-top:1px solid rgba(255,255,255,.12);padding-left:0;padding-top:14px}}
+
+/* FINAL V1 — two-line asset labels + real preview mosaics */
+.dockLabel,.dockAsset .dockLabel{display:block!important;min-height:36px!important;max-height:38px!important;white-space:normal!important;text-align:center!important;line-height:17px!important;overflow:hidden!important;}
+.dockAsset{justify-content:flex-start!important;padding-top:3px!important;}
+.dockAsset .dockThumb{flex:0 0 auto!important;margin-bottom:1px!important;}
+.dockPreviewCategory{justify-content:flex-start!important;padding-top:4px!important;}
+.dockMosaic{width:82px;height:68px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:2px;overflow:hidden;border-radius:12px;flex:0 0 auto;}
+.dockMosaicCell{display:flex;align-items:center;justify-content:center;min-width:0;min-height:0;overflow:hidden;background:rgba(255,255,255,.05);border-radius:5px;}
+.dockMosaicCell img{width:100%;height:100%;object-fit:contain;display:block;}
+.dockPreviewCategory .dockLabel{margin-top:2px!important;font-size:14px!important;line-height:15px!important;}
+\n\n/* Dock/clock polish — simple two-line labels and carved clock alignment */\n/* Pull the text block upward so both lines stay comfortably inside the dock. */\n.dockAsset .dockLabel,.dockPreviewCategory .dockLabel{\n  min-height:30px!important;max-height:32px!important;line-height:14px!important;\n  margin-top:-2px!important;transform:translateY(-2px)!important;\n}\n.dockAsset .dockThumb{margin-bottom:0!important;}\n.dockPreviewCategory .dockMosaic{margin-bottom:0!important;}\n/* Clock: digits 4 px higher; upper dot 2 px higher and lower dot 3 px higher. */\n.logoClock{bottom:8px!important;}\n.logoClock i::before{top:1px!important;}\n.logoClock i::after{bottom:8px!important;}\n
+/* Final dock anchor polish: the dock expands upward, while labels stay pinned to the bottom. */
+.assetDock{
+  transform:translateX(-50%)!important;
+  transform-origin:50% 100%!important;
+  align-items:flex-end!important;
+}
+.assetDock:hover,
+.assetDock:has(.dockItem:hover),
+.assetDock:has(.dockBack:hover){
+  height:138px!important;
+  min-height:138px!important;
+  padding-top:14px!important;
+  padding-bottom:9px!important;
+}
+.assetDock .dockItems{
+  align-self:flex-end!important;
+  align-items:flex-end!important;
+  height:112px!important;
+  padding-top:0!important;
+  padding-bottom:0!important;
+}
+.assetDock .dockItem{
+  height:108px!important;
+  justify-content:flex-end!important;
+  transform-origin:50% 100%!important;
+}
+.assetDock .dockIcon,
+.assetDock .dockThumb,
+.assetDock .dockMosaic{
+  flex:0 0 auto!important;
+}
+.assetDock .dockLabel,
+.assetDock .dockAsset .dockLabel{
+  flex:0 0 36px!important;
+  min-height:36px!important;
+  max-height:36px!important;
+  display:flex!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+  text-align:center!important;
+  overflow:visible!important;
+}
+.assetDock .dockBack{
+  align-self:flex-end!important;
+  height:108px!important;
+  transform-origin:50% 100%!important;
+}
+/* Individual cards may ease upward, but never resize/reflow the dock itself. */
+.assetDock .dockItem:hover{transform:translateY(-9px) scale(1.10)!important}
+.assetDock .dockBack:hover{transform:translateY(-4px) scale(1.05)!important}
+
+/* Selection header + tools: one compact floating block */
+#selectionBadge{
+  margin-top:-47px!important;
+  min-height:34px!important;
+  max-width:360px!important;
+  display:none;
+  align-items:center!important;
+  gap:8px!important;
+  padding:7px 10px!important;
+  border-radius:12px 12px 9px 9px!important;
+  font-size:11px!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+}
+#selectionBadge .selectionName{font-weight:900;letter-spacing:.02em;white-space:nowrap}
+#selectionBadge .selectionMeta{display:flex;align-items:center;gap:6px;color:#e9f2f6;font-weight:800;white-space:nowrap}
+#selectionBadge .selectionMeta em{font-style:normal;color:rgba(255,255,255,.42);margin:0 1px}
+#selectionBadge .selectionFixed{font-size:8px;letter-spacing:.08em;color:#9ff0cf}
+.selectionColors{display:inline-flex;align-items:center;gap:4px}
+.selectionColors i{display:block;width:9px;height:9px;border-radius:50%;box-shadow:0 0 0 1px rgba(255,255,255,.28),0 1px 3px rgba(0,0,0,.32)}
+.selectionTools{border-radius:9px 9px 14px 14px!important}
+
+/* Road asset cards: exactly two text rows: size / type + ROAD */
+.assetDock .dockAsset .dockLabel{line-height:17px!important;letter-spacing:.08em!important}
+
+/* FINAL UI correction pass */
+/* Dock cards stay bottom-anchored. Hover scales from the bottom and never translates upward. */
+.assetDock{overflow:visible!important}
+.assetDock .dockItems{height:116px!important;overflow:visible!important;align-items:flex-end!important}
+.assetDock .dockItem,.assetDock .dockBack{height:110px!important;transform-origin:50% 100%!important;overflow:visible!important}
+.assetDock .dockItem:hover{transform:scale(1.10)!important;z-index:20!important}
+.assetDock .dockBack:hover{transform:scale(1.05)!important}
+.assetDock .dockThumb{height:68px!important;max-height:68px!important;margin:0 auto!important}
+.assetDock .dockMosaic{height:64px!important;max-height:64px!important;margin:0 auto!important}
+.assetDock .dockIcon{height:64px!important;max-height:64px!important;display:flex!important;align-items:flex-end!important;justify-content:center!important}
+.assetDock .dockLabel,.assetDock .dockAsset .dockLabel{height:36px!important;min-height:36px!important;max-height:36px!important;margin:0!important;transform:none!important;align-items:center!important;line-height:16px!important}
+/* Main category cards: previews/icons sit lower, safely inside the dock. */
+.assetDock:not(:hover) .dockItem{transform:none!important}
+.dockPreviewCategory{padding-top:0!important}
+.dockPreviewCategory .dockMosaic{margin-bottom:4px!important}
+/* Clock back upward into the carved recess. */
+.logoClock{bottom:12px!important}
+/* Bigger, truly centered Apply button. */
+#weatherApply.settingsApply{display:block!important;width:88%!important;min-height:54px!important;margin:14px auto 10px!important;font-size:15px!important;text-align:center!important}
+/* BOM/3D Print color dots */
+.partColors{display:inline-flex;gap:6px;align-items:center;vertical-align:middle}
+.partColors i{width:13px;height:13px;border-radius:50%;display:inline-block;box-shadow:0 0 0 1px rgba(255,255,255,.25),0 1px 3px rgba(0,0,0,.35)}
+/* Small fixed branding credit */
+.brandCredit{position:fixed;right:18px;bottom:10px;z-index:18;display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:10px;background:rgba(15,34,47,.50);backdrop-filter:blur(5px);color:#e9f2f6;font:700 8px/1.1 system-ui;letter-spacing:.03em;pointer-events:none}
+.brandCredit b{font-size:10px}.brandCredit img{height:18px;width:auto;max-width:82px;object-fit:contain;filter:brightness(0) invert(1);opacity:.88}
+
+/* 2026-10-08 visual alignment fix */
+/* Never allow category/asset previews to poke through the top edge. */
+.assetDock{overflow:hidden!important;}
+.assetDock .dockItems{height:96px!important;align-items:flex-end!important;overflow:visible!important;}
+.assetDock .dockItem,.assetDock .dockBack{height:94px!important;min-height:94px!important;justify-content:flex-end!important;transform-origin:50% 100%!important;}
+.assetDock .dockThumb{height:56px!important;max-height:56px!important;}
+.assetDock .dockMosaic{height:54px!important;max-height:54px!important;}
+.assetDock .dockIcon{height:54px!important;max-height:54px!important;align-items:flex-end!important;}
+.assetDock .dockLabel,.assetDock .dockAsset .dockLabel{height:34px!important;min-height:34px!important;max-height:34px!important;line-height:15px!important;}
+/* Dock itself grows upward once; cards then scale independently from their bottom edge. */
+.assetDock:hover{height:138px!important;min-height:138px!important;padding-top:12px!important;padding-bottom:9px!important;}
+.assetDock:hover .dockItems{height:112px!important;}
+.assetDock:hover .dockItem,.assetDock:hover .dockBack{height:106px!important;min-height:106px!important;}
+.assetDock .dockItem:hover{transform:scale(1.08)!important;}
+.assetDock .dockBack:hover{transform:scale(1.04)!important;}
+/* Move logo clock farther upward into the four carved number slots. */
+.logoClock{bottom:16px!important;}
+/* Center Apply inside the entire live-weather column. */
+.livePane #weatherApply.settingsApply{width:min(100%,260px)!important;min-height:56px!important;margin:14px auto 10px!important;justify-self:center!important;align-self:center!important;display:block!important;text-align:center!important;}
+/* Branding stays readable but unobtrusive. */
+.brandCredit{right:14px!important;bottom:8px!important;background:rgba(15,34,47,.38)!important;}
+.brandCredit img{filter:none!important;height:20px!important;max-width:92px!important;}
+/* Final compact Weather + Lights two-column layout */
+#cloudDrop.weatherDrop{width:620px!important;max-width:min(620px,calc(100vw - 24px))!important;max-height:min(82vh,700px)!important;overflow:auto!important}
+#cloudDrop .weatherTopGrid{display:grid!important;grid-template-columns:1fr 1fr!important;gap:20px!important;align-items:stretch!important}
+#cloudDrop .environmentPane{padding-right:18px!important;border-right:1px solid rgba(255,255,255,.12)!important}
+#cloudDrop .livePane{border-left:0!important;padding-left:0!important;display:flex!important;flex-direction:column!important}
+#cloudDrop .lightStack{display:grid!important;gap:0!important}
+#cloudDrop .sectionGap{height:14px!important;margin:8px 0 12px!important;border-bottom:1px solid rgba(255,255,255,.12)!important}
+#cloudDrop .environmentPane>label,#cloudDrop .lightStack label{display:grid!important;grid-template-columns:112px minmax(110px,1fr)!important;align-items:center!important;gap:12px!important;min-height:36px!important}
+#cloudDrop .livePane .weatherStatus{margin-top:12px!important}
+#cloudDrop #weatherApply.settingsApply{width:100%!important;max-width:none!important;min-height:58px!important;margin:16px 0 10px!important;font-size:16px!important}
+@media(max-width:720px){#cloudDrop .weatherTopGrid{grid-template-columns:1fr!important}#cloudDrop .environmentPane{padding-right:0!important;border-right:0!important;border-bottom:1px solid rgba(255,255,255,.12)!important;padding-bottom:14px!important}}
+
+
+/* FINAL weather compact alignment */
+#cloudDrop .environmentPane > h3{display:none!important;}
+#cloudDrop .sectionGap{height:8px!important;margin:8px 0 8px!important;border-bottom:1px solid rgba(255,255,255,.12)!important;}
+#cloudDrop #weatherApply.settingsApply{
+  box-sizing:border-box!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;
+  height:58px!important;
+  min-height:58px!important;
+  margin:16px 0 10px!important;
+  padding:0!important;
+  line-height:1!important;
+  text-align:center!important;
+  font-size:16px!important;
+}
+
+/* FINAL dock anchor fix: labels stay fixed at bottom; only artwork grows upward. */
+.assetDock .dockItem,
+.assetDock .dockBack{
+  transform:none!important;
+}
+.assetDock .dockItem:hover,
+.assetDock .dockBack:hover{
+  transform:none!important;
+}
+.assetDock .dockItem{
+  display:grid!important;
+  grid-template-rows:minmax(0,1fr) 34px!important;
+  align-items:end!important;
+  justify-items:center!important;
+  padding:2px 5px 0!important;
+  overflow:visible!important;
+}
+.assetDock .dockLabel,
+.assetDock .dockAsset .dockLabel{
+  grid-row:2!important;
+  align-self:end!important;
+  height:34px!important;
+  min-height:34px!important;
+  max-height:34px!important;
+  margin:0!important;
+  transform:none!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+.assetDock .dockIcon,
+.assetDock .dockThumb,
+.assetDock .dockMosaic{
+  grid-row:1!important;
+  align-self:end!important;
+  margin:0 auto 2px!important;
+  transform-origin:50% 100%!important;
+  transition:transform .24s cubic-bezier(.18,1.45,.3,1),filter .20s ease!important;
+}
+.assetDock .dockItem:hover .dockIcon,
+.assetDock .dockItem:hover .dockThumb,
+.assetDock .dockItem:hover .dockMosaic{
+  transform:scale(1.10)!important;
+  filter:brightness(1.10) drop-shadow(0 0 10px rgba(220,248,255,.55))!important;
+}
+/* Back remains anchored like the labels, without card movement. */
+.assetDock .dockBack{align-self:flex-end!important;}
+
+/* Apply: center the actual text optically, not just the button box. */
+#cloudDrop #weatherApply.settingsApply{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:0!important;
+  line-height:normal!important;
+}
+#cloudDrop #weatherApply.settingsApply > span{
+  display:block!important;
+  transform:translateY(-3px)!important;
+  line-height:1!important;
+}
+
+/* FINAL Apple-style dock: outer shell is completely static; artwork magnifies in a wave. */
+.assetDock,
+.assetDock:hover,
+.assetDock:has(.dockItem:hover),
+.assetDock:has(.dockBack:hover){
+  height:110px!important;
+  min-height:110px!important;
+  padding:5px 18px!important;
+  transform:translateX(-50%)!important;
+  transition:none!important;
+  overflow:visible!important;
+}
+.assetDock .dockItems{height:96px!important;align-items:flex-end!important;overflow:visible!important;padding:2px 4px!important;}
+.assetDock .dockItem{height:94px!important;min-height:94px!important;transform:none!important;overflow:visible!important;}
+.assetDock .dockItem:hover{transform:none!important;}
+.assetDock .dockIcon,
+.assetDock .dockThumb,
+.assetDock .dockMosaic{
+  --dockScale:1;
+  --dockLift:0px;
+  transform-origin:50% 100%!important;
+  transform:translateY(var(--dockLift)) scale(var(--dockScale))!important;
+  transition:transform .16s cubic-bezier(.2,.8,.2,1),filter .16s ease!important;
+  will-change:transform;
+}
+.assetDock .dockItem:hover .dockIcon,
+.assetDock .dockItem:hover .dockThumb,
+.assetDock .dockItem:hover .dockMosaic{
+  transform:translateY(var(--dockLift)) scale(var(--dockScale))!important;
+}
+.assetDock .dockLabel,.assetDock .dockAsset .dockLabel{transform:none!important;}
+
+/* Clock correction requested from the measured artwork: digits +20px down, dots +5px down. */
+.logoClock span{transform:translateY(20px)!important;}
+.logoClock i::before{top:6px!important;}
+.logoClock i::after{bottom:3px!important;}
+
+/* NO-SHELL APPLE DOCK: invisible outer container, only a soft grounding shadow. */
+.assetDock,
+.assetDock:hover,
+.assetDock:has(.dockItem:hover),
+.assetDock:has(.dockBack:hover){
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+.assetDock::before{display:none!important;content:none!important;}
+.assetDock::after{
+  content:"";
+  position:absolute;
+  left:4%;right:4%;bottom:4px;
+  height:38px;
+  border-radius:50%;
+  background:rgba(13,31,48,.30);
+  filter:blur(18px);
+  pointer-events:none;
+  z-index:0;
+}
+.assetDock .dockItems,.assetDock .dockBack{position:relative;z-index:2!important;}
+.assetDock .dockIcon,.assetDock .dockThumb,.assetDock .dockMosaic{
+  filter:drop-shadow(0 8px 9px rgba(8,22,34,.32));
+}
+.assetDock .dockItem:hover .dockIcon,
+.assetDock .dockItem:hover .dockThumb,
+.assetDock .dockItem:hover .dockMosaic{
+  filter:brightness(1.10) drop-shadow(0 10px 12px rgba(8,22,34,.38)) drop-shadow(0 0 10px rgba(220,248,255,.48))!important;
+}
+.assetDock .dockLabel,.assetDock .dockBack span{
+  text-shadow:0 3px 8px rgba(5,18,30,.58),0 0 8px rgba(255,255,255,.22)!important;
+}
+.assetDock .dockBack{border-right:1px solid rgba(255,255,255,.20)!important;}
+
+/* FINAL analog clock + high-contrast no-shell dock */
+.logoClock.analogClock{
+  position:absolute!important;left:50%!important;bottom:2px!important;transform:translateX(-50%)!important;
+  width:52px!important;height:52px!important;border-radius:50%!important;display:block;
+  background:radial-gradient(circle at 40% 35%,#f2bd67 0 18%,#c87b2f 62%,#8d4a1d 100%)!important;
+  border:4px solid #5f3017!important;box-shadow:inset 0 0 0 2px rgba(255,218,147,.58),0 3px 8px rgba(38,17,5,.55)!important;
+  z-index:5!important;pointer-events:none!important;
+}
+.analogClock .clockTick{position:absolute!important;display:block!important;background:#5a2b16!important;border-radius:3px!important;z-index:2!important}
+.analogClock .t12,.analogClock .t6{width:3px!important;height:6px!important;left:50%!important;margin-left:-1.5px!important}
+.analogClock .t12{top:4px!important}.analogClock .t6{bottom:4px!important}
+.analogClock .t3,.analogClock .t9{width:6px!important;height:3px!important;top:50%!important;margin-top:-1.5px!important}
+.analogClock .t3{right:4px!important}.analogClock .t9{left:4px!important}
+.analogClock .clockHand{position:absolute!important;left:50%!important;bottom:50%!important;display:block!important;transform-origin:50% 100%!important;transform:translateX(-50%) rotate(var(--rot,0deg))!important;border-radius:4px!important;z-index:4!important;background:#3e1e10!important}
+.analogClock .hourHand{width:4px!important;height:14px!important}.analogClock .minuteHand{width:3px!important;height:19px!important}.analogClock .secondHand{width:1.5px!important;height:20px!important;background:#f3e2bd!important}
+.analogClock .clockPin{position:absolute!important;width:7px!important;height:7px!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;border-radius:50%!important;background:#3e1e10!important;box-shadow:0 0 0 2px #e8b15f!important;z-index:6!important}
+/* Kill every legacy digital-clock child rule. */
+.logoClock.analogClock>span,.logoClock.analogClock>i:not(.clockTick){display:none!important}
+
+/* Dock has no panel. Give every item a strong black halo/outline that works on white and blue sky. */
+.assetDock::after{left:-5%!important;right:-5%!important;bottom:-8px!important;height:88px!important;background:rgba(0,0,0,.34)!important;filter:blur(30px)!important;opacity:1!important}
+.assetDock .dockIcon,.assetDock .dockThumb,.assetDock .dockMosaic{
+  filter:drop-shadow(0 3px 2px rgba(0,0,0,.92)) drop-shadow(0 10px 16px rgba(0,0,0,.72))!important;
+  transition:transform .11s cubic-bezier(.2,.75,.25,1),filter .11s linear!important;
+}
+.assetDock .dockItem:hover .dockIcon,.assetDock .dockItem:hover .dockThumb,.assetDock .dockItem:hover .dockMosaic{
+  filter:brightness(1.06) drop-shadow(0 3px 2px rgba(0,0,0,.95)) drop-shadow(0 12px 18px rgba(0,0,0,.78))!important;
+}
+.assetDock .dockLabel,.assetDock .dockBack span{
+  -webkit-text-stroke:1.5px rgba(20,20,20,.88)!important;
+  paint-order:stroke fill!important;
+  text-shadow:0 3px 2px rgba(0,0,0,.95),0 7px 13px rgba(0,0,0,.72)!important;
+}
+/* Apply: intentionally much larger, while remaining centered. */
+#cloudDrop #weatherApply.settingsApply{height:86px!important;min-height:86px!important;font-size:42px!important;line-height:1!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:0!important}
+#cloudDrop #weatherApply.settingsApply>span{transform:none!important;line-height:1!important}
+
+/* 2026-10-08 final visual polish */
+/* Topbar typography and icon baseline */
+header button::after,header button span,.topLeft button,.topRight button{font-family:'Milkyway','Cooper Black','Arial Rounded MT Bold',system-ui,sans-serif!important;letter-spacing:.055em!important}
+.topLeft,.topRight{align-items:center!important}
+header button{justify-content:center!important;gap:3px!important}
+header button::before{flex:0 0 36px!important;margin:0 auto!important}
+header button::after,header button span{line-height:12px!important;min-height:12px!important;display:block!important;margin:0!important}
+
+/* New logo has a hanging round clock plate. Put the working analog clock on it. */
+.topTitle{width:min(310px,25vw)!important;height:190px!important;top:72%!important}
+.topTitle img{max-height:190px!important;max-width:100%!important}
+.logoClock.analogClock{
+  left:50%!important;bottom:0px!important;width:48px!important;height:48px!important;
+  background:transparent!important;border:0!important;box-shadow:none!important;
+}
+.analogClock .clockTick{background:#5a2b16!important}
+
+/* Stronger no-shell dock contrast. */
+.assetDock::after{left:-12%!important;right:-12%!important;bottom:-20px!important;height:130px!important;background:rgba(0,0,0,.54)!important;filter:blur(38px)!important}
+.assetDock .dockIcon,.assetDock .dockThumb,.assetDock .dockMosaic{
+  filter:drop-shadow(0 0 2px #000) drop-shadow(0 4px 3px rgba(0,0,0,.98)) drop-shadow(0 14px 22px rgba(0,0,0,.88))!important;
+  transition:transform .095s cubic-bezier(.18,.72,.22,1),filter .095s linear!important;
+}
+.assetDock .dockLabel,.assetDock .dockBack span{
+  -webkit-text-stroke:2.2px rgba(0,0,0,.98)!important;
+  text-shadow:0 3px 2px #000,0 8px 16px rgba(0,0,0,.92)!important;
+}
+
+/* Footer credit: plain black, no panel. */
+.brandCredit{background:transparent!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;color:#000!important;padding:0!important;box-shadow:none!important;text-shadow:none!important;gap:7px!important}
+.brandCredit b,.brandCredit span{color:#000!important}
+.brandCredit img{filter:brightness(0)!important;opacity:1!important;height:20px!important}
+
+/* FINAL requested polish: new hanging-clock logo, autohide dock, stacked credit */
+/* Milkyway consistently for every topbar caption, including Weather. */
+#cloudBtn span,#soundBtn span,#helpBtn span,#centerBtn span,#partsBtn span,
+.topLeft button,.topRight button,header button span{
+  font-family:'Milkyway','Cooper Black','Arial Rounded MT Bold',system-ui,sans-serif!important;
+}
+
+/* New supplied artwork: clock face sits on the hanging wooden disc. */
+.topTitle{width:min(330px,26vw)!important;height:210px!important;top:78%!important;overflow:visible!important}
+.topTitle img{width:auto!important;height:210px!important;max-height:210px!important;object-fit:contain!important}
+.logoClock.analogClock{
+  left:50%!important;bottom:-1px!important;width:72px!important;height:72px!important;
+  background:transparent!important;border:0!important;box-shadow:none!important;
+}
+.analogClock .hourHand{height:19px!important;width:5px!important}
+.analogClock .minuteHand{height:27px!important;width:4px!important}
+.analogClock .secondHand{height:29px!important;width:2px!important}
+.analogClock .t12,.analogClock .t6{height:7px!important;width:3px!important}
+.analogClock .t3,.analogClock .t9{width:7px!important;height:3px!important}
+
+/* Windows-taskbar style autohide: only a slim activation strip remains visible. */
+.assetDock{
+  bottom:-84px!important;
+  transition:bottom .24s cubic-bezier(.2,.8,.2,1)!important;
+}
+.assetDock:hover,.assetDock.dock-open{
+  bottom:14px!important;
+}
+/* Invisible hover catcher extends upward just enough to make reveal easy. */
+.assetDock::before{
+  content:""!important;display:block!important;position:absolute!important;
+  left:-20px!important;right:-20px!important;top:-22px!important;bottom:0!important;
+  background:transparent!important;pointer-events:auto!important;z-index:-1!important;
+}
+
+/* Credit tucked into bottom-right: creator line above the manufacturer logos. */
+.brandCredit{
+  right:10px!important;bottom:7px!important;display:flex!important;flex-direction:column!important;
+  align-items:flex-end!important;gap:2px!important;color:#000!important;background:none!important;
+  font-family:Arial,sans-serif!important;font-size:8px!important;font-weight:800!important;line-height:1!important;
+}
+.brandMade{display:block!important;color:#000!important;white-space:nowrap!important}
+.brandMade b{color:#000!important;font-size:9px!important}
+.brandFor{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:6px!important;color:#000!important}
+.brandFor span{color:#000!important;font-size:7px!important;font-weight:800!important}
+.brandFor img{height:17px!important;max-width:80px!important;width:auto!important;filter:brightness(0)!important;opacity:1!important}
+
+/* 2026-10-08 final alignment / dock navigation pass */
+/* Move the complete top bar + hanging logo down together so artwork is never clipped. */
+header{top:48px!important}
+
+/* Fully hide dock when parked. The transparent activation area remains at the screen edge. */
+.assetDock{bottom:-108px!important}
+.assetDock:hover,.assetDock.dock-open{bottom:14px!important}
+.assetDock::before{top:-28px!important}
+
+/* Nested dock pages animate out of the category that opened them, then settle in the center. */
+.dockItems{will-change:transform,opacity}
+.dockItems.dock-enter-from-category{transition:none!important}
+.dockItems.dock-enter-active{transition:transform .32s cubic-bezier(.18,.82,.22,1),opacity .24s ease!important}
+
+/* One-line unobtrusive maker credit in the lower-right corner. */
+.brandCredit{right:10px!important;bottom:7px!important;display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:flex-end!important;gap:6px!important;white-space:nowrap!important;background:none!important;color:#000!important}
+.brandMade{display:inline!important;color:#000!important;white-space:nowrap!important}
+.brandFor{display:flex!important;align-items:center!important;gap:6px!important}
+.brandFor>span{display:none!important}
+.brandCredit img{height:17px!important;max-width:80px!important;filter:brightness(0)!important;opacity:1!important}
+
+/* Dock autohide stability + footer links */
+.assetDock{bottom:-122px!important;transition:bottom .42s cubic-bezier(.2,.8,.2,1)!important}
+.assetDock:hover{bottom:-122px!important}
+.assetDock.dock-open{bottom:14px!important}
+.assetDock::before{display:none!important;content:none!important}
+.dockHotZone{position:fixed;left:0;right:0;bottom:0;height:18px;z-index:17;background:transparent;pointer-events:auto}
+.brandCredit{pointer-events:auto!important;display:flex!important;flex-direction:row!important;align-items:center!important;gap:7px!important;right:9px!important;bottom:6px!important}
+.brandCredit .brandMade{font:900 8px/1 Arial,sans-serif!important;color:#000!important;white-space:nowrap!important}
+.brandCredit a{display:flex!important;align-items:center!important;text-decoration:none!important}
+.brandCredit img{height:17px!important;max-width:80px!important;filter:brightness(0)!important;opacity:1!important}
+#cloudBtn{transform:translateY(2px)!important}
+
+/* 2026-10-08 requested correction pass */
+/* Keep the bar at its earlier height; only lower the central artwork. */
+header{top:34px!important}
+.topTitle{top:96%!important}
+/* Clock centered inside the actual round wooden disc. */
+.logoClock.analogClock{left:50%!important;bottom:7px!important;width:54px!important;height:54px!important}
+.analogClock .hourHand{height:14px!important;width:4px!important}
+.analogClock .minuteHand{height:20px!important;width:3px!important}
+.analogClock .secondHand{height:21px!important;width:1.5px!important}
+
+/* Weather icon optical baseline only. */
+#cloudBtn::before{transform:translateY(3px)!important}
+#cloudBtn:hover::before{transform:translateY(1px) scale(1.06)!important}
+
+/* Bottom-right credit: line 1 text, line 2 clickable logos. */
+.brandCredit{right:10px!important;bottom:7px!important;display:flex!important;flex-direction:column!important;align-items:flex-end!important;gap:3px!important;background:none!important;color:#000!important;pointer-events:auto!important}
+.brandCredit .brandMade{display:block!important;font-family:Arial,sans-serif!important;font-size:8px!important;font-weight:400!important;line-height:1!important;color:#000!important;white-space:nowrap!important}
+.brandCredit .brandMade span{font-weight:400!important;font-size:8px!important;color:#000!important}
+.brandCredit .brandMade b{font-weight:900!important;font-size:9px!important;color:#000!important}
+.brandCredit .brandLogos{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:7px!important}
+.brandCredit .brandLogos a{display:flex!important;align-items:center!important;text-decoration:none!important}
+.brandCredit .brandLogos img{height:18px!important;max-width:82px!important;width:auto!important;filter:brightness(0)!important;opacity:1!important}
+
+/* Autohide is controlled only by JS: no hover fight / flicker. */
+.assetDock{bottom:-122px!important;transition:bottom .62s cubic-bezier(.2,.8,.2,1)!important}
+.assetDock:hover{bottom:-122px!important}
+.assetDock.dock-open,.assetDock.dock-open:hover{bottom:14px!important}
+.dockHotZone{height:14px!important}
+
+/* 2026-10-08 logo position fine tune: keep top bar fixed, lower artwork only. */
+header{top:34px!important}
+.topTitle{top:108%!important}
+.logoClock.analogClock{left:49.2%!important;bottom:3px!important}
+
+/* 2026-10-08 flow fix: submenu keeps the clicked category's horizontal position. */
+.dockItems{transition:opacity .14s ease!important;}
+/* Tiny clock correction requested: slightly back to the right. */
+.logoClock.analogClock{left:49.5%!important;}
+
+
+/* Touch / mobile controls */
+#viewport canvas{touch-action:none!important}
+.dockHotZone{touch-action:none}
+.guideSection{grid-column:1/-1!important;font-family:Milkyway,system-ui,sans-serif;font-weight:900;letter-spacing:.12em;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.14);color:#fff}
+@media (pointer:coarse){
+ .dockHotZone{height:34px!important;pointer-events:auto!important}
+ .assetDock .dockItem:hover,.assetDock .dockBack:hover{transform:none!important}
+ .assetDock{max-width:calc(100vw - 12px)!important}
+}
+
+
+/* Dock navigation: one bounded flex row, growing from the parent toward the centre. */
+#assetDock.assetDock{
+  transform:none!important;
+  width:max-content!important;
+  max-width:var(--dock-limit,calc(100% - 36px))!important;
+  gap:22px!important;
+  flex-direction:row!important;
+}
+#assetDock .dockItems{
+  order:0!important;flex:0 1 auto!important;
+  transform:none!important;
+  flex-direction:row!important;
+  height:142px!important;
+  padding:46px 24px 2px!important;
+  overflow-x:auto!important;overflow-y:hidden!important;
+}
+#assetDock .dockBack{
+  position:relative!important;left:auto!important;right:auto!important;
+  order:1!important;transform:none!important;
+  flex:0 0 98px!important;
+  border-left:1px solid rgba(255,255,255,.20)!important;border-right:0!important;
+}
+#assetDock[data-flow="left"]{flex-direction:row-reverse!important;}
+#assetDock[data-flow="left"] .dockItems{flex-direction:row-reverse!important;}
+#assetDock[data-flow="left"] .dockBack{
+  border-left:0!important;border-right:1px solid rgba(255,255,255,.20)!important;
+}
+
+
+/* Wide quick guide: mouse/keyboard left, touch/tools right. */
+#helpOverlay .helpModal{width:min(1180px,calc(100vw - 36px));max-height:calc(100dvh - 36px);overflow-y:auto;}
+#helpOverlay .helpGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px;align-items:start;}
+#helpOverlay .guideColumn{display:flex;flex-direction:column;gap:5px;min-width:0;}
+#helpOverlay .guideColumn>div:not(.guideSection){display:flex;align-items:center;gap:12px;min-height:32px;padding:4px 8px;border:1px solid rgba(255,255,255,.09);border-radius:9px;background:rgba(255,255,255,.055);}
+#helpOverlay .guideSection{margin:8px 0 2px;padding-top:8px;font-size:13px;}
+#helpOverlay .guideColumn>.guideSection:first-child{margin-top:0;}
+#helpOverlay .helpGrid kbd{flex:0 0 136px;min-width:0;padding:5px 6px;font-size:10px;}
+#helpOverlay .helpGrid span{font-size:11px;line-height:1.35;}
+#assetDock .dockCategoryText{display:block;white-space:nowrap;text-align:center;}
+@media(max-width:760px){
+ #helpOverlay .helpGrid{grid-template-columns:1fr;gap:14px;}
+ #helpOverlay .helpModal{padding:22px 14px 16px;}
+ #helpOverlay .helpModal h2{font-size:19px;padding-right:26px;}
+ #helpOverlay .helpGrid kbd{flex-basis:108px;}
+ #helpOverlay .guideColumn>div:not(.guideSection){gap:8px;}
+}
+
+/* Top-level toolbar only: identical icon and caption rows. */
+header :is(#clearBtn,#loadBtn,#saveBtn,#partsBtn,#centerBtn,#cloudBtn,#soundBtn,#helpBtn){
+ display:grid!important;grid-template-rows:36px 14px!important;grid-template-columns:1fr!important;
+ align-content:center!important;align-items:center!important;justify-items:center!important;
+ height:58px!important;padding:3px 7px!important;gap:2px!important;transform:none!important;
+}
+header :is(#clearBtn,#loadBtn,#saveBtn,#partsBtn,#centerBtn,#cloudBtn,#soundBtn,#helpBtn)::before{
+ grid-row:1!important;grid-column:1!important;width:36px!important;height:36px!important;
+ margin:0!important;transform:none!important;
+}
+header :is(#clearBtn,#loadBtn,#saveBtn,#partsBtn,#centerBtn,#cloudBtn,#soundBtn,#helpBtn)::after,
+header :is(#clearBtn,#loadBtn,#saveBtn,#partsBtn,#centerBtn,#cloudBtn,#soundBtn,#helpBtn)>span{
+ grid-row:2!important;grid-column:1!important;display:block!important;
+ font-family:'Milkyway','Cooper Black',system-ui,sans-serif!important;
+ font-size:10px!important;line-height:14px!important;height:14px!important;min-height:14px!important;
+ margin:0!important;padding:0!important;transform:none!important;align-self:center!important;
+}
+/* Apply is a text button, so it must not inherit toolbar icon/caption sizing. */
+#cloudDrop #weatherApply.settingsApply{
+ display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:center!important;
+ height:86px!important;min-height:86px!important;flex-shrink:0!important;gap:0!important;
+ padding:0!important;text-align:center!important;transform:none!important;
+}
+#cloudDrop #weatherApply.settingsApply::before,
+#cloudDrop #weatherApply.settingsApply::after{content:none!important;display:none!important;}
+#cloudDrop #weatherApply.settingsApply>span{
+ display:block!important;flex:0 0 auto!important;width:auto!important;height:auto!important;min-height:0!important;
+ font-family:'Milkyway','Cooper Black',system-ui,sans-serif!important;font-size:42px!important;line-height:1.2!important;
+ margin:0!important;padding:0!important;transform:none!important;text-align:center!important;
+}
+
+/* Centre the hands and ticks on the hanging wooden disc. */
+.logoClock.analogClock{left:49.6%!important;bottom:3px!important;}
+
+/* Remove legacy digital clock dots; give the second hand a clear red stroke. */
+#worldClock.analogClock i::before,#worldClock.analogClock i::after{content:none!important;display:none!important;animation:none!important;}
+#worldClock.analogClock .secondHand{background:#e53935!important;width:2.5px!important;}
+
+/* Separate the hands from the quarter-hour markers, including at cardinal angles. */
+#worldClock.analogClock .clockTick{background:#352017!important;box-shadow:0 0 0 1px #ffe6b6!important;border-radius:2px!important;}
+#worldClock.analogClock .t12,#worldClock.analogClock .t6{width:3px!important;height:5px!important;margin-left:-1.5px!important;}
+#worldClock.analogClock .t12{top:1px!important;}
+#worldClock.analogClock .t6{bottom:1px!important;}
+#worldClock.analogClock .t3,#worldClock.analogClock .t9{width:5px!important;height:3px!important;margin-top:-1.5px!important;}
+#worldClock.analogClock .t3{right:1px!important;}
+#worldClock.analogClock .t9{left:1px!important;}
+#worldClock.analogClock .hourHand,#worldClock.analogClock .minuteHand{background:#231810!important;box-shadow:0 0 0 .8px #fff0cd,0 1px 2px #0008!important;}
+#worldClock.analogClock .hourHand{width:4.5px!important;height:12px!important;}
+#worldClock.analogClock .minuteHand{width:3.5px!important;height:17px!important;}
+#worldClock.analogClock .secondHand{height:18px!important;box-shadow:0 0 0 .5px #ffe7bd!important;}
+/* Explicit text lines from each folder's Anzeige.ini. */
+#assetDock .catalog-label{display:block;white-space:nowrap;text-align:center;}
+#assetDock .dockLabel:has(.lines-3){height:45px!important;min-height:45px!important;max-height:45px!important;line-height:14px!important;font-size:11px!important;}
+
+/* Consistent dock geometry: enough space for lifted artwork and three label lines. */
+#assetDock.assetDock{height:170px!important;min-height:170px!important;padding:0 12px!important;box-sizing:border-box!important;align-items:flex-end!important;bottom:-190px!important;}
+#assetDock.assetDock.dock-open{bottom:14px!important;}
+#assetDock .dockItems{height:170px!important;min-height:170px!important;padding:52px 24px 10px!important;box-sizing:border-box!important;align-items:flex-end!important;}
+#assetDock .dockItem{height:108px!important;min-height:108px!important;flex-shrink:0!important;}
+#assetDock .dockLabel,#assetDock .dockAsset .dockLabel{height:45px!important;min-height:45px!important;max-height:45px!important;line-height:15px!important;}
+#assetDock .dockBack{margin-bottom:10px!important;}
+header #undoBtn{display:grid!important;grid-template-rows:38px 15px!important;justify-items:center!important;align-content:center!important;gap:2px!important;width:58px!important;height:58px!important;padding:0!important;background:none!important;border:0!important;box-shadow:none!important;}
+header #undoBtn::before{content:'↶'!important;display:block!important;font:900 36px/38px Arial,sans-serif!important;color:#a4e8ff!important;}
+header #undoBtn::after{content:none!important;}
+header #undoBtn span{position:static!important;display:block!important;font-size:11px!important;line-height:15px!important;color:white!important;}
+header #undoBtn:disabled{opacity:.35!important;cursor:default;}
+#repeatStatus{position:fixed;z-index:22;left:50%;bottom:196px;transform:translateX(-50%);padding:10px 14px;display:flex;align-items:center;gap:14px;max-width:calc(100vw - 24px);border-radius:16px;background:#203845ed;color:white;font:600 13px/1.4 system-ui;box-shadow:0 8px 24px #0004;}
+#repeatStatus[hidden]{display:none;}
+#stopRepeat,.startBuilding{border:0;border-radius:10px;padding:10px 18px;background:#31b88a;color:#fff;font:700 14px/1.3 system-ui;cursor:pointer;}
+#helpOverlay .welcomeHeader{display:flex;align-items:center;justify-content:center;gap:30px;margin:0 20px 16px;}
+#helpOverlay .welcomeLogo{width:220px;max-width:36%;height:150px;object-fit:contain;}
+#helpOverlay .welcomeHeader p{max-width:520px;font:400 15px/1.65 system-ui;color:#e6f0f5;margin:0;}
+#helpOverlay .welcomeSettings{display:flex;align-items:center;gap:22px;flex-wrap:wrap;padding:10px 16px;margin-bottom:16px;border-radius:12px;background:#ffffff0c;}
+#helpOverlay .welcomeSettings>span{font:12px/1.4 system-ui;color:#b9c8d2;}
+#helpOverlay .welcomeSettings .toggleRow{width:210px;margin:0;}
+#helpOverlay .helpEyebrow{margin:10px 0;}
+#helpOverlay .startBuilding{display:block;margin:20px auto 0;min-width:180px;}
+@media(max-width:700px){#helpOverlay .welcomeHeader{flex-direction:column;gap:8px;margin:0 0 14px;}#helpOverlay .welcomeLogo{width:180px;height:125px;max-width:75%;}#helpOverlay .welcomeHeader p{font-size:13px;text-align:center;}#helpOverlay .welcomeSettings{gap:8px;}header .topLeft{gap:2px!important;}header #undoBtn{width:44px!important;}}
+#helpOverlay .welcomeSettings .toggleRow{display:flex;align-items:center;justify-content:space-between;cursor:pointer;}
+#helpOverlay .welcomeSettings .toggleRow i{display:block;flex:0 0 42px;}
+#helpOverlay .welcomeSettings .toggleRow:focus-within{outline:2px solid #9adfff;outline-offset:4px;}
+#helpOverlay .guideColumn{gap:3px;}
+#helpOverlay .guideColumn>div:not(.guideSection){min-height:28px;padding:3px 8px;box-sizing:border-box;}
+#helpOverlay .helpGrid kbd{padding:3px 6px;}
+#helpOverlay .welcomeLogo{height:125px;}
+
+/* Compact welcome: mouse/touch on the left, keyboard/tools on the right. */
+@media(min-width:701px){
+ #helpOverlay .helpModal{padding:16px 24px;}
+ #helpOverlay .welcomeHeader{gap:24px;margin:0 24px 8px;}
+ #helpOverlay .welcomeLogo{width:170px;height:80px;}
+ #helpOverlay .welcomeHeader p{font-size:13px;line-height:1.5;}
+ #helpOverlay .welcomeSettings{padding:5px 12px;margin-bottom:6px;}
+ #helpOverlay .helpEyebrow{margin:5px 0;}
+ #helpOverlay .helpGrid{gap:24px;}
+ #helpOverlay .guideColumn{gap:2px;}
+ #helpOverlay .guideColumn>div:not(.guideSection){min-height:24px;padding:2px 7px;}
+ #helpOverlay .guideSection{margin:4px 0 2px;padding-top:4px;font-size:12px;}
+ #helpOverlay .helpGrid kbd{padding:2px 6px;}
+ #helpOverlay .startBuilding{margin:8px auto 0;padding:8px 18px;}
+}
+
+/* Settings sit below Touch; keep this card independent from control rows. */
+#helpOverlay .guideColumn>.welcomeSettings{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;margin:12px 0 0;padding:10px 12px;min-height:0;}
+#helpOverlay .welcomeSettings>span{flex:1 1 170px;font-size:11px;}
+#helpOverlay .welcomeSettings .toggleRow{flex:0 0 200px;}
+/* Use one centered icon box and caption baseline across the top toolbar. */
+header :is(#clearBtn,#loadBtn,#saveBtn,#partsBtn,#centerBtn,#cloudBtn,#soundBtn,#helpBtn){grid-template-rows:36px 14px!important;gap:2px!important;}
+header :is(#clearBtn,#loadBtn,#saveBtn,#partsBtn,#centerBtn,#cloudBtn,#soundBtn,#helpBtn)::before{display:flex!important;align-items:center!important;justify-content:center!important;width:36px!important;height:36px!important;padding:0!important;margin:0!important;font-family:'Segoe UI Emoji','Apple Color Emoji',sans-serif!important;font-size:30px!important;line-height:1!important;font-weight:400!important;letter-spacing:0!important;transform:none!important;}
+/* The speaker artwork occupies less of its emoji square. Compensate optically. */
+header #soundBtn::before{font-size:36px!important;}
+header #cloudBtn::before{font-size:30px!important;}
+header #helpBtn::before{font-size:30px!important;}
+
+/* One shared toolbar grid: no anonymous text rows, identical button widths and gaps. */
+header .topLeft,header .topRight,header .topRight>.miniControl{gap:12px!important;}
+header :is(#clearBtn,#loadBtn,#saveBtn,#partsBtn,#undoBtn,#centerBtn,#cloudBtn,#soundBtn,#helpBtn){box-sizing:border-box!important;display:grid!important;grid-template-columns:1fr!important;grid-template-rows:36px 14px!important;grid-auto-rows:0!important;align-content:center!important;align-items:center!important;justify-items:center!important;flex:0 0 58px!important;width:58px!important;min-width:58px!important;max-width:58px!important;height:58px!important;padding:3px 7px!important;margin:0!important;gap:2px!important;}
+header :is(#clearBtn,#loadBtn,#saveBtn)::after{content:none!important;display:none!important;}
+header :is(#clearBtn,#loadBtn,#saveBtn,#undoBtn)>span{grid-row:2!important;grid-column:1!important;font-size:10px!important;line-height:14px!important;height:14px!important;min-height:14px!important;padding:0!important;margin:0!important;align-self:center!important;}
+header #undoBtn::before{content:'↩️'!important;display:flex!important;align-items:center!important;justify-content:center!important;grid-row:1!important;grid-column:1!important;width:36px!important;height:36px!important;margin:0!important;padding:0!important;font:400 30px/1 'Segoe UI Emoji','Apple Color Emoji',sans-serif!important;transform:none!important;}
+
+#helpOverlay .welcomeSettings .assetManagerLink{flex:0 0 100%;box-sizing:border-box;display:block;margin-top:6px;padding:7px 12px;border:1px solid #ffffff25;border-radius:8px;background:#ffffff0a;color:#d9f5ff;text-decoration:none;text-align:center;font:600 12px/1.4 system-ui;}
+#helpOverlay .welcomeSettings .assetManagerLink:hover{background:#ffffff18;}
+#helpOverlay .welcomeSettings .assetManagerLink:focus-visible{outline:2px solid #9adfff;outline-offset:2px;}
+
+/* Larger maker credit, centered above the partner logos. */
+.brandCredit{align-items:center!important;gap:5px!important;right:12px!important;bottom:9px!important;}
+.brandCredit .brandMade{width:100%!important;text-align:center!important;font-size:10px!important;}
+.brandCredit .brandMade span{font-size:10px!important;}
+.brandCredit .brandMade b{font-size:11px!important;}
+.brandCredit .brandLogos{justify-content:center!important;gap:10px!important;}
+.brandCredit .brandLogos img{height:23px!important;max-width:105px!important;}
+
+/* Compact, tall and bold back arrow, independent from font glyph proportions. */
+#assetDock #dockBack .backArrow{display:block;width:36px;height:44px;flex:0 0 44px;overflow:visible;color:#f5fbff;filter:drop-shadow(0 2px 2px #0008);}
+#assetDock #dockBack>span{margin-top:7px!important;}
+
+#assetDock #dockBack .backArrow{transform-origin:50% 75%;transition:transform .18s ease,filter .18s ease;}
+#assetDock #dockBack:hover .backArrow,#assetDock #dockBack:focus-visible .backArrow{transform:translateY(-6px) scale(1.16);filter:drop-shadow(0 0 7px rgba(180,235,255,.8));}
+#assetDock #dockBack:hover>span,#assetDock #dockBack:focus-visible>span{color:#fff!important;text-shadow:0 0 9px #a6e6ff!important;}
+
+#helpOverlay .welcomeSettings .welcomeStartupToggle{flex:0 0 100%;width:100%;gap:14px;justify-content:flex-start;}
+#helpOverlay .welcomeStartupToggle>span{flex:1;}
+#helpOverlay .guideColumn>.welcomeSettings{margin-top:6px;padding-top:7px;padding-bottom:7px;}
+
+/* Welcome and print controls */
+#helpBtn:focus:not(:focus-visible){outline:none;}
+#helpOverlay .guideColumn>.guideSection:first-child{border-top:0;padding-top:0;}
+.welcomeSettings .toggleRow{display:flex;width:100%;justify-content:space-between;gap:12px;}
+.welcomeSettings>span{display:none;}
+.welcomeSettings .toggleRow i{margin-left:auto;flex-shrink:0;}
+#helpOverlay .assetManagerLink{display:block;width:max-content;margin:12px auto 0;text-decoration:none;}
+.printPlatform{min-width:85px;}.printPlatform img,.modelLink img{height:22px;max-width:85px;object-fit:contain;vertical-align:middle;}
+img[src$="snapmaker-logo.png"]:is(.printPlatform img,.modelLink img){filter:brightness(0) invert(1);}
+.modelLink{display:inline-flex;padding:8px;align-items:center;justify-content:center;min-width:65px;}
+.printActions{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:16px;}
+#exportParts{background:#2bb58b;color:white;border:0;border-radius:9px;padding:12px 32px;font-weight:bold;cursor:pointer;}
+#exportStatus{font:12px sans-serif;}
+
+#helpOverlay .welcomeSettings .toggleRow{flex:0 0 100%;width:100%;justify-content:space-between;}
+
+#groupTools{display:flex;position:relative;gap:5px;align-items:center;}
+#groupTools[hidden],#groupColorPanel[hidden]{display:none!important;}
+#selectionTools #groupBtn{width:auto;min-width:54px;padding:0 8px;font:700 11px system-ui;}
+#selectionTools #groupColorBtn{border-radius:50%;width:24px;height:24px;min-width:24px;border:2px solid #ffffff99;background:conic-gradient(#ff496b,#ffe36a,#48df81,#49beff,#b875ff,#ff496b);}
+#groupColorPanel{position:absolute;bottom:42px;left:0;display:flex;align-items:center;gap:6px;padding:8px;background:#1a303d;border:1px solid #ffffff40;border-radius:10px;}
+#groupColorInput{width:42px;height:32px;border:0;background:transparent;cursor:pointer;}
+
+/* Consistent text sizing and space for long asset filenames. */
+#assetDock .dockAsset{flex:0 0 124px!important;width:124px!important;min-width:124px!important;}
+#assetDock .dockAsset .dockLabel{width:120px!important;height:54px!important;min-height:54px!important;max-height:54px!important;font-size:10px!important;line-height:13px!important;letter-spacing:0!important;white-space:normal!important;overflow:hidden!important;}
+#assetDock .dockAsset .catalog-label,#assetDock .dockAsset .catalog-label span{font-size:inherit!important;line-height:inherit!important;white-space:normal!important;overflow-wrap:anywhere;display:block;text-align:center;}
+.partsTableWrap{scrollbar-width:thin;scrollbar-color:#63758388 transparent;}
+.partsTableWrap::-webkit-scrollbar{width:8px;height:8px;}
+.partsTableWrap::-webkit-scrollbar-track{background:transparent;}
+.partsTableWrap::-webkit-scrollbar-thumb{background:#63758388;border-radius:8px;}
+.partsTable th:nth-last-child(-n+2),.partsTable td:nth-last-child(-n+2){width:42px!important;min-width:42px!important;max-width:42px!important;padding:5px!important;text-align:center;}
+.printPlatform img,.modelLink img{width:24px!important;height:24px!important;max-width:24px!important;object-fit:contain;}
+.modelLink{padding:4px!important;min-width:0!important;}
+header .brandCredit{position:absolute!important;left:calc(50% + 150px)!important;right:auto!important;top:14px!important;bottom:auto!important;transform:none!important;max-width:180px;}
+header .brandCredit .brandMade,header .brandCredit .brandMade span,header .brandCredit .brandMade b{color:#ecf4f7!important;font-size:8px!important;}
+header .brandCredit .brandLogos img{height:16px!important;max-width:75px!important;filter:brightness(0) invert(1)!important;}
+header :is(#clearBtn,#loadBtn,#saveBtn,#partsBtn,#undoBtn,#centerBtn,#cloudBtn,#soundBtn,#helpBtn){transition:transform .16s ease,filter .16s ease!important;}
+header :is(#clearBtn,#loadBtn,#saveBtn,#partsBtn,#undoBtn,#centerBtn,#cloudBtn,#soundBtn,#helpBtn):hover:not(:disabled){transform:translateY(-2px) scale(1.08)!important;filter:brightness(1.15)!important;background:transparent!important;box-shadow:none!important;}
+@media(max-width:1200px){header .brandCredit{left:calc(50% + 110px)!important;top:72px!important;}}

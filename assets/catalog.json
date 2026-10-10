@@ -1,0 +1,3955 @@
+{
+  "version": 1,
+  "revision": 371,
+  "assets": [
+    {
+      "name": "5x5 Grass Beam 5mm",
+      "label": "",
+      "w": 50,
+      "d": 50,
+      "h": 93.0,
+      "level": 93.0,
+      "kind": "bridge",
+      "snap": 25,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-6783cfd33e3f21b5",
+      "file": "BROWSER/Bridges/BEAMS/5x5 Grass Beam 5mm.obj",
+      "folder": "Bridges/BEAMS",
+      "signature": "dc286206581ee9aa44d2d56f2dd58f44a647458701a09da4f2012cf3b1bf1baa",
+      "stamp": "165077:1791595240140497500",
+      "size": 165077,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "dc286206581ee9aa44d2d56f2dd58f44a647458701a09da4f2012cf3b1bf1baa",
+        "low": [
+          175.615999,
+          7.0,
+          -53.0
+        ],
+        "high": [
+          224.384019,
+          100.0,
+          53.0
+        ],
+        "roadLow": [
+          175.615999,
+          94.8,
+          -53.0
+        ],
+        "roadHigh": [
+          224.384,
+          100.0,
+          53.0
+        ],
+        "roadEnds": [
+          99.0,
+          99.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        200.00000899999998,
+        0.0
+      ],
+      "bridgeRole": "beam",
+      "thumbKey": "0c1046362d1014f60e2cb79e",
+      "previewFile": "assets/BROWSER/Bridges/BEAMS/_Previews/5x5 Grass Beam 5mm.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Bridges/BEAMS/5x5 Grass Beam 5mm.mtl"
+    },
+    {
+      "name": "5x5 Sand Beam 6mm",
+      "label": "",
+      "w": 50,
+      "d": 50,
+      "h": 94.0,
+      "level": 94.0,
+      "kind": "bridge",
+      "snap": 25,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-a94b6041cc477389",
+      "file": "BROWSER/Bridges/BEAMS/5x5 Sand Beam 6mm.obj",
+      "folder": "Bridges/BEAMS",
+      "signature": "52ec0ceaea36314b1e7bf1bfb0add765710d4113cfe0712ef2ca24bc60748d62",
+      "stamp": "165019:1791595240143020000",
+      "size": 165019,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "52ec0ceaea36314b1e7bf1bfb0add765710d4113cfe0712ef2ca24bc60748d62",
+        "low": [
+          375.615999,
+          -89.0,
+          -53.0
+        ],
+        "high": [
+          424.384019,
+          5.0,
+          53.0
+        ],
+        "roadLow": [
+          375.615999,
+          -0.2,
+          -53.0
+        ],
+        "roadHigh": [
+          424.384,
+          5.0,
+          53.0
+        ],
+        "roadEnds": [
+          4.0,
+          4.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        400.000009,
+        0.0
+      ],
+      "bridgeRole": "beam",
+      "thumbKey": "9783082f9c374c2db1abf73e",
+      "previewFile": "assets/BROWSER/Bridges/BEAMS/_Previews/5x5 Sand Beam 6mm.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Bridges/BEAMS/5x5 Sand Beam 6mm.mtl"
+    },
+    {
+      "name": "5x5 Stone Beam 5mm",
+      "label": "",
+      "w": 50,
+      "d": 50,
+      "h": 95.0,
+      "level": 95.0,
+      "kind": "bridge",
+      "snap": 25,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-0a2e7dd95c80330e",
+      "file": "BROWSER/Bridges/BEAMS/5x5 Stone Beam 5mm.obj",
+      "folder": "Bridges/BEAMS",
+      "signature": "50ecae2768677544eff6b000a87e258bef0f1a4609c275c123a579704ec07331",
+      "stamp": "164995:1791595240145534000",
+      "size": 164995,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "50ecae2768677544eff6b000a87e258bef0f1a4609c275c123a579704ec07331",
+        "low": [
+          -74.384001,
+          -90.0,
+          -53.0
+        ],
+        "high": [
+          -25.615981,
+          5.0,
+          53.0
+        ],
+        "roadLow": [
+          -74.384001,
+          -0.2,
+          -53.0
+        ],
+        "roadHigh": [
+          -25.616,
+          5.0,
+          53.0
+        ],
+        "roadEnds": [
+          4.0,
+          4.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        -49.999991,
+        0.0
+      ],
+      "bridgeRole": "beam",
+      "thumbKey": "e1a05991649026720f9e66a7",
+      "previewFile": "assets/BROWSER/Bridges/BEAMS/_Previews/5x5 Stone Beam 5mm.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Bridges/BEAMS/5x5 Stone Beam 5mm.mtl"
+    },
+    {
+      "name": "5x5 Water Beam 5mm",
+      "label": "",
+      "w": 50,
+      "d": 50,
+      "h": 95.0,
+      "level": 95.0,
+      "kind": "bridge",
+      "snap": 25,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-cb1d54756c424fb9",
+      "file": "BROWSER/Bridges/BEAMS/5x5 Water Beam 5mm.obj",
+      "folder": "Bridges/BEAMS",
+      "signature": "1169eddc361558f0503f9113057bb7f1f6714675b9283724c490a7e742f77727",
+      "stamp": "166010:1791595240147539200",
+      "size": 166010,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "1169eddc361558f0503f9113057bb7f1f6714675b9283724c490a7e742f77727",
+        "low": [
+          -224.384001,
+          5.0,
+          -53.0
+        ],
+        "high": [
+          -175.615981,
+          100.0,
+          53.0
+        ],
+        "roadLow": [
+          -224.384001,
+          94.8,
+          -53.0
+        ],
+        "roadHigh": [
+          -175.616,
+          100.0,
+          53.0
+        ],
+        "roadEnds": [
+          99.0,
+          99.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        -199.99999100000002,
+        0.0
+      ],
+      "bridgeRole": "beam",
+      "thumbKey": "26f0adac99f24b0de15247da",
+      "previewFile": "assets/BROWSER/Bridges/BEAMS/_Previews/5x5 Water Beam 5mm.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Bridges/BEAMS/5x5 Water Beam 5mm.mtl"
+    },
+    {
+      "name": "10x10 Bridge Street",
+      "label": "",
+      "w": 100.0,
+      "d": 100.0,
+      "h": 105.0,
+      "level": 105.0,
+      "kind": "bridge",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-adb3901afa2f7edd",
+      "file": "BROWSER/Bridges/Bridge Streets/10x10 Bridge Street.obj",
+      "folder": "Bridges/Bridge Streets",
+      "signature": "d807c9e34ddcd74f178251e5c6beefb3627469c6b673d109aeca49db5a271905",
+      "stamp": "110167:1791595240148538700",
+      "size": 110167,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "d807c9e34ddcd74f178251e5c6beefb3627469c6b673d109aeca49db5a271905",
+        "low": [
+          50.0,
+          5.0,
+          -53.0
+        ],
+        "high": [
+          150.0,
+          110.0,
+          53.0
+        ],
+        "roadLow": [
+          50.0,
+          10.0,
+          -50.0
+        ],
+        "roadHigh": [
+          150.0,
+          10.0,
+          50.0
+        ],
+        "roadEnds": [
+          10.0,
+          10.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        100.0,
+        0.0
+      ],
+      "bridgeRole": "deck",
+      "bridgeAxis": 0,
+      "roadSurface": 5.0,
+      "thumbKey": "4f378d975e5eaac4fc7d5b3c",
+      "previewFile": "assets/BROWSER/Bridges/Bridge Streets/_Previews/10x10 Bridge Street.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Bridges/Bridge Streets/10x10 Bridge Street.mtl"
+    },
+    {
+      "name": "10x20 Bridge Street",
+      "label": "",
+      "w": 200.0,
+      "d": 100.0,
+      "h": 105.0,
+      "level": 105.0,
+      "kind": "bridge",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-e9458da2734c2667",
+      "file": "BROWSER/Bridges/Bridge Streets/10x20 Bridge Street.obj",
+      "folder": "Bridges/Bridge Streets",
+      "signature": "3fb3c387de76aab9f16c27e641bdbd79aeb22093382e1a4e5fc440c7ac08e0a0",
+      "stamp": "150928:1791595240150536900",
+      "size": 150928,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "3fb3c387de76aab9f16c27e641bdbd79aeb22093382e1a4e5fc440c7ac08e0a0",
+        "low": [
+          50.0,
+          5.0,
+          -53.0
+        ],
+        "high": [
+          250.0,
+          110.0,
+          53.0
+        ],
+        "roadLow": [
+          50.0,
+          10.0,
+          -50.0
+        ],
+        "roadHigh": [
+          250.0,
+          10.0,
+          50.0
+        ],
+        "roadEnds": [
+          10.0,
+          10.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        150.0,
+        0.0
+      ],
+      "bridgeRole": "deck",
+      "bridgeAxis": 0,
+      "roadSurface": 5.0,
+      "thumbKey": "f61d8441f4428b4943a00157",
+      "previewFile": "assets/BROWSER/Bridges/Bridge Streets/_Previews/10x20 Bridge Street.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Bridges/Bridge Streets/10x20 Bridge Street.mtl"
+    },
+    {
+      "name": "10x20 Street Ramp",
+      "label": "",
+      "w": 200.0,
+      "d": 100.0,
+      "h": 200.0,
+      "level": 200.0,
+      "kind": "bridge",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-b41657fab8a8f5f5",
+      "file": "BROWSER/Bridges/UP DOWN/10x20 Street Ramp.obj",
+      "folder": "Bridges/UP DOWN",
+      "signature": "edb8684d17a9821d95cbc769dcfe19de9e7f4666a86ac080a20b1588408f0587",
+      "stamp": "1534566:1791595240165630100",
+      "size": 1534566,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "edb8684d17a9821d95cbc769dcfe19de9e7f4666a86ac080a20b1588408f0587",
+        "low": [
+          75.816,
+          0.0,
+          -53.0
+        ],
+        "high": [
+          300.0,
+          200.0,
+          53.0
+        ],
+        "roadLow": [
+          75.999048,
+          5.0,
+          -48.0
+        ],
+        "roadHigh": [
+          300.0,
+          99.99984,
+          48.0
+        ],
+        "roadEnds": [
+          99.99984,
+          5.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        200.0,
+        0.0
+      ],
+      "bridgeRole": "ramp",
+      "thumbKey": "0c969707919fd9cdfd376357",
+      "previewFile": "assets/BROWSER/Bridges/UP DOWN/_Previews/10x20 Street Ramp.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "bridgeAxis": 0,
+      "highSide": -1,
+      "deckHeight": 99.99984,
+      "mtl": "BROWSER/Bridges/UP DOWN/10x20 Street Ramp.mtl"
+    },
+    {
+      "name": "2x2 Male Farmer",
+      "label": "",
+      "w": 20.0,
+      "d": 20.0,
+      "h": 40.0,
+      "level": "character",
+      "kind": "character",
+      "snap": 20,
+      "noCollision": true,
+      "walk": true,
+      "rotationX": -90.0,
+      "preview": "",
+      "enabled": true,
+      "id": "character-worker",
+      "file": "BROWSER/Figures/Work/2x2 Male Farmer.ply",
+      "folder": "Figures/Work",
+      "signature": "b86406d36810dcae68e89e6bb878d728ff5ae051cc684ab67de6c79bffc038d1",
+      "stamp": "6933995:1791492661042073000",
+      "size": 6933995,
+      "missing": false,
+      "type": "ply",
+      "warning": "",
+      "thumbKey": "83dfb193a2cbff315e7b567f",
+      "previewFile": "assets/BROWSER/Figures/Work/_Previews/2x2 Male Farmer.ply.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": ""
+    },
+    {
+      "name": "10x10 House With Lights",
+      "label": "",
+      "w": 100.0,
+      "d": 100.0,
+      "h": 100.0,
+      "level": 100,
+      "kind": "house",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-1391282b51428a9d",
+      "file": "BROWSER/Houses/Social/10x10 House With Lights.glb",
+      "folder": "Houses/Social",
+      "signature": "d6c8df72f49811de69b0fac7b065d8e761d97ea8d820268d912db0d4ecfb00d2",
+      "stamp": "11235224:1791540479651728000",
+      "size": 11235224,
+      "missing": false,
+      "type": "glb",
+      "warning": "",
+      "thumbKey": "608e23b7a2c2135c4293a9e0",
+      "previewFile": "assets/BROWSER/Houses/Social/_Previews/10x10 House With Lights.glb.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": ""
+    },
+    {
+      "name": "5x5 Street 90",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "road",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-f5bd5cf7883b809f",
+      "file": "BROWSER/Streets/One Lane/5x5 Street 90.obj",
+      "folder": "Streets/One Lane",
+      "signature": "c73ca16d8cd96a62b9f283ddf99462a323452efe2d39e8fc49185472a3dd0ff9",
+      "stamp": "236903:1791595240080460000",
+      "size": 236903,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "c73ca16d8cd96a62b9f283ddf99462a323452efe2d39e8fc49185472a3dd0ff9",
+        "low": [
+          349.99957,
+          0.0,
+          -330.02908
+        ],
+        "high": [
+          400.0,
+          7.0,
+          -280.0
+        ],
+        "roadLow": [
+          350.0,
+          5.0,
+          -330.0
+        ],
+        "roadHigh": [
+          400.0,
+          5.0,
+          -280.0
+        ],
+        "roadEnds": [
+          5.0,
+          5.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        374.999785,
+        -305.01454
+      ],
+      "thumbKey": "6ab197b7d6bfc49d6f0a5a03",
+      "previewFile": "assets/BROWSER/Streets/One Lane/_Previews/5x5 Street 90.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Streets/One Lane/5x5 Street 90.mtl"
+    },
+    {
+      "name": "5x5 Street Crosswalk",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "road",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-0e2af38eb829e2d0",
+      "file": "BROWSER/Streets/One Lane/5x5 Street Crosswalk.obj",
+      "folder": "Streets/One Lane",
+      "signature": "7a52b83509557f96f7b59188e6a7d8d3c4bc13b0678a08587d7a5c12f2ea4538",
+      "stamp": "208980:1791595240083005200",
+      "size": 208980,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "7a52b83509557f96f7b59188e6a7d8d3c4bc13b0678a08587d7a5c12f2ea4538",
+        "low": [
+          699.99957,
+          0.0,
+          -530.000168
+        ],
+        "high": [
+          750.0,
+          7.0,
+          -480.0
+        ],
+        "roadLow": [
+          700.0,
+          5.0,
+          -530.0
+        ],
+        "roadHigh": [
+          750.0,
+          5.0,
+          -480.0
+        ],
+        "roadEnds": [
+          5.0,
+          5.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        724.999785,
+        -505.000084
+      ],
+      "thumbKey": "3417bf181ae8528f831f0c89",
+      "previewFile": "assets/BROWSER/Streets/One Lane/_Previews/5x5 Street Crosswalk.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Streets/One Lane/5x5 Street Crosswalk.mtl"
+    },
+    {
+      "name": "5x5 Street End",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "road",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-3e0747e11d5d24e7",
+      "file": "BROWSER/Streets/One Lane/5x5 Street End.obj",
+      "folder": "Streets/One Lane",
+      "signature": "9d292c7b7de8f28673aaf6ada81901f9311e2704a20dc6fd0a655a0479cbd48e",
+      "stamp": "249715:1791595240086006400",
+      "size": 249715,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "9d292c7b7de8f28673aaf6ada81901f9311e2704a20dc6fd0a655a0479cbd48e",
+        "low": [
+          349.99957,
+          0.0,
+          -375.000168
+        ],
+        "high": [
+          400.0,
+          7.0,
+          -325.0
+        ],
+        "roadLow": [
+          350.0,
+          5.0,
+          -375.0
+        ],
+        "roadHigh": [
+          400.0,
+          5.0,
+          -325.0
+        ],
+        "roadEnds": [
+          5.0,
+          5.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        374.999785,
+        -350.000084
+      ],
+      "thumbKey": "edf98e98954d43f18a149038",
+      "previewFile": "assets/BROWSER/Streets/One Lane/_Previews/5x5 Street End.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Streets/One Lane/5x5 Street End.mtl"
+    },
+    {
+      "name": "5x5 Street Straight",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "road",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-1b6a2fa8cd8c5877",
+      "file": "BROWSER/Streets/One Lane/5x5 Street Straight.obj",
+      "folder": "Streets/One Lane",
+      "signature": "dfff7ce6b0ec8387b3c356e62afa396b5cb766c2514591692fe0cd57fc84f0c4",
+      "stamp": "86289:1791595240088531300",
+      "size": 86289,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "dfff7ce6b0ec8387b3c356e62afa396b5cb766c2514591692fe0cd57fc84f0c4",
+        "low": [
+          299.99957,
+          0.0,
+          -330.000168
+        ],
+        "high": [
+          350.0,
+          7.0,
+          -280.0
+        ],
+        "roadLow": [
+          300.0,
+          5.0,
+          -330.0
+        ],
+        "roadHigh": [
+          350.0,
+          5.0,
+          -280.0
+        ],
+        "roadEnds": [
+          5.0,
+          5.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        324.999785,
+        -305.000084
+      ],
+      "thumbKey": "755fcdd82b51c4eb49be7c7d",
+      "previewFile": "assets/BROWSER/Streets/One Lane/_Previews/5x5 Street Straight.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Streets/One Lane/5x5 Street Straight.mtl"
+    },
+    {
+      "name": "5x5 Street Stripe",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "road",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-7d256dab034f4007",
+      "file": "BROWSER/Streets/One Lane/5x5 Street Stripe.obj",
+      "folder": "Streets/One Lane",
+      "signature": "88385dd1acc37174dc1628169d3472a2ca2bf4666296157da1ba7d242b8fe48c",
+      "stamp": "101474:1791595240090556700",
+      "size": 101474,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "88385dd1acc37174dc1628169d3472a2ca2bf4666296157da1ba7d242b8fe48c",
+        "low": [
+          99.99957,
+          0.0,
+          -114.500168
+        ],
+        "high": [
+          150.0,
+          7.0,
+          -64.5
+        ],
+        "roadLow": [
+          100.0,
+          4.0,
+          -114.5
+        ],
+        "roadHigh": [
+          150.0,
+          5.0,
+          -64.5
+        ],
+        "roadEnds": [
+          5.0,
+          5.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        124.999785,
+        -89.500084
+      ],
+      "thumbKey": "04ec9f3f95d5606c67fb73b5",
+      "previewFile": "assets/BROWSER/Streets/One Lane/_Previews/5x5 Street Stripe.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Streets/One Lane/5x5 Street Stripe.mtl"
+    },
+    {
+      "name": "5x5 Street T",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "road",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-dd109c7be874bdd7",
+      "file": "BROWSER/Streets/One Lane/5x5 Street T.obj",
+      "folder": "Streets/One Lane",
+      "signature": "b6254c6e59c0fe5a99c0bbfdc4d3511aec08697b20e2c318bec86214b0a20d40",
+      "stamp": "167521:1791595240092094900",
+      "size": 167521,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "b6254c6e59c0fe5a99c0bbfdc4d3511aec08697b20e2c318bec86214b0a20d40",
+        "low": [
+          299.99957,
+          0.0,
+          -330.02908
+        ],
+        "high": [
+          350.015253,
+          7.0,
+          -280.0
+        ],
+        "roadLow": [
+          300.0,
+          5.0,
+          -330.0
+        ],
+        "roadHigh": [
+          350.0,
+          5.0,
+          -280.0
+        ],
+        "roadEnds": [
+          5.0,
+          5.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        325.0074115,
+        -305.01454
+      ],
+      "thumbKey": "78785b24a74212614d41590e",
+      "previewFile": "assets/BROWSER/Streets/One Lane/_Previews/5x5 Street T.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Streets/One Lane/5x5 Street T.mtl"
+    },
+    {
+      "name": "5x5 Street X",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "road",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-f075f73aba3ff147",
+      "file": "BROWSER/Streets/One Lane/5x5 Street X.obj",
+      "folder": "Streets/One Lane",
+      "signature": "88a5afe793472ca058dbfa39cc8195fe4fb6dc85783ff35d9908cc0bfdc1fd3e",
+      "stamp": "239486:1791595240095106000",
+      "size": 239486,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "88a5afe793472ca058dbfa39cc8195fe4fb6dc85783ff35d9908cc0bfdc1fd3e",
+        "low": [
+          300.0,
+          0.0,
+          -330.02908
+        ],
+        "high": [
+          350.015253,
+          7.0,
+          -280.0
+        ],
+        "roadLow": [
+          300.0,
+          5.0,
+          -330.0
+        ],
+        "roadHigh": [
+          350.0,
+          5.0,
+          -280.0
+        ],
+        "roadEnds": [
+          5.0,
+          5.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        325.0076265,
+        -305.01454
+      ],
+      "thumbKey": "b54777728f3f2aa8767ee227",
+      "previewFile": "assets/BROWSER/Streets/One Lane/_Previews/5x5 Street X.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Streets/One Lane/5x5 Street X.mtl"
+    },
+    {
+      "name": "10x10 Street 90",
+      "label": "",
+      "w": 100.0,
+      "d": 100.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "road",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-12f8aa6e08441e48",
+      "file": "BROWSER/Streets/Two Lane/10x10 Street 90.obj",
+      "folder": "Streets/Two Lane",
+      "signature": "ab636f2fb266115dc2cde322dde0e12401358a1f3bdbb6e904016e9bfaf4d3cf",
+      "stamp": "299906:1791595240098134000",
+      "size": 299906,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "ab636f2fb266115dc2cde322dde0e12401358a1f3bdbb6e904016e9bfaf4d3cf",
+        "low": [
+          250.0,
+          5.0,
+          -150.0
+        ],
+        "high": [
+          350.0,
+          12.0,
+          -50.0
+        ],
+        "roadLow": [
+          250.0,
+          10.0,
+          -150.0
+        ],
+        "roadHigh": [
+          350.0,
+          12.0,
+          -50.0
+        ],
+        "roadEnds": [
+          12.0,
+          10.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        300.0,
+        -100.0
+      ],
+      "thumbKey": "3167ce732270b39f02f9f1b0",
+      "previewFile": "assets/BROWSER/Streets/Two Lane/_Previews/10x10 Street 90.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Streets/Two Lane/10x10 Street 90.mtl"
+    },
+    {
+      "name": "10x10 Street End",
+      "label": "",
+      "w": 100.0,
+      "d": 100.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "road",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-d5b2db9593e1e0fd",
+      "file": "BROWSER/Streets/Two Lane/10x10 Street End.obj",
+      "folder": "Streets/Two Lane",
+      "signature": "faac12cbea6462fe23b1e392523ef336e4209a82d55ce58272412254c4dc5669",
+      "stamp": "327813:1791595240100675700",
+      "size": 327813,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "faac12cbea6462fe23b1e392523ef336e4209a82d55ce58272412254c4dc5669",
+        "low": [
+          100.0,
+          5.0,
+          685.0
+        ],
+        "high": [
+          200.0,
+          12.0,
+          785.0
+        ],
+        "roadLow": [
+          100.0,
+          10.0,
+          685.0
+        ],
+        "roadHigh": [
+          200.0,
+          12.0,
+          785.0
+        ],
+        "roadEnds": [
+          10.445042,
+          12.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        150.0,
+        735.0
+      ],
+      "thumbKey": "81e7e5d240b58bae39153466",
+      "previewFile": "assets/BROWSER/Streets/Two Lane/_Previews/10x10 Street End.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Streets/Two Lane/10x10 Street End.mtl"
+    },
+    {
+      "name": "10x10 Street Straight",
+      "label": "",
+      "w": 100.0,
+      "d": 100.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "road",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-e26d9509fdede456",
+      "file": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
+      "folder": "Streets/Two Lane",
+      "signature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "stamp": "191636:1791595240104200100",
+      "size": 191636,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+        "low": [
+          -50.0,
+          5.0,
+          -350.0
+        ],
+        "high": [
+          50.0,
+          12.0,
+          -250.0
+        ],
+        "roadLow": [
+          -50.0,
+          10.0,
+          -350.0
+        ],
+        "roadHigh": [
+          50.0,
+          10.0,
+          -250.0
+        ],
+        "roadEnds": [
+          10.0,
+          10.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        0.0,
+        -300.0
+      ],
+      "thumbKey": "45054daa5c21bfb146005dcd",
+      "previewFile": "assets/BROWSER/Streets/Two Lane/_Previews/10x10 Street Straight.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Streets/Two Lane/10x10 Street Straight.mtl"
+    },
+    {
+      "name": "10x10 Street T To One Lane",
+      "label": "",
+      "w": 100.0,
+      "d": 100.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "road",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-5a69f287b22d2e7d",
+      "file": "BROWSER/Streets/Two Lane/10x10 Street T To One Lane.obj",
+      "folder": "Streets/Two Lane",
+      "signature": "1669ab659bc4a18a0c01e4305516dd446f0d740c7532c3bb4f2861a5fd85ddb2",
+      "stamp": "297445:1791595240108227900",
+      "size": 297445,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "1669ab659bc4a18a0c01e4305516dd446f0d740c7532c3bb4f2861a5fd85ddb2",
+        "low": [
+          399.700115,
+          5.0,
+          -149.703785
+        ],
+        "high": [
+          499.700115,
+          12.0,
+          -49.703785
+        ],
+        "roadLow": [
+          399.700115,
+          10.0,
+          -149.703785
+        ],
+        "roadHigh": [
+          499.700115,
+          10.0,
+          -49.703785
+        ],
+        "roadEnds": [
+          10.0,
+          10.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        449.700115,
+        -99.70378500000001
+      ],
+      "thumbKey": "ee73ae4cbae0c0e6e9bd4233",
+      "previewFile": "assets/BROWSER/Streets/Two Lane/_Previews/10x10 Street T To One Lane.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Streets/Two Lane/10x10 Street T To One Lane.mtl"
+    },
+    {
+      "name": "10x10 Street T",
+      "label": "",
+      "w": 100.0,
+      "d": 100.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "road",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-cd0632498b279ce2",
+      "file": "BROWSER/Streets/Two Lane/10x10 Street T.obj",
+      "folder": "Streets/Two Lane",
+      "signature": "9341f8cbd7d47d0f189c35b37f7079c65282382513a3855f9c48ea28bf5ccb83",
+      "stamp": "247970:1791595240110228100",
+      "size": 247970,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "9341f8cbd7d47d0f189c35b37f7079c65282382513a3855f9c48ea28bf5ccb83",
+        "low": [
+          -50.299885,
+          5.0,
+          -149.703785
+        ],
+        "high": [
+          49.700115,
+          12.0,
+          -49.703785
+        ],
+        "roadLow": [
+          -50.299885,
+          10.0,
+          -149.703785
+        ],
+        "roadHigh": [
+          49.700115,
+          10.0,
+          -49.703785
+        ],
+        "roadEnds": [
+          10.0,
+          10.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        -0.2998850000000033,
+        -99.70378500000001
+      ],
+      "thumbKey": "9278ccd48185cb44cded4b55",
+      "previewFile": "assets/BROWSER/Streets/Two Lane/_Previews/10x10 Street T.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Streets/Two Lane/10x10 Street T.mtl"
+    },
+    {
+      "name": "10x10 Street To Grass",
+      "label": "",
+      "w": 100.0,
+      "d": 100.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "road",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-d277113a8ff67de7",
+      "file": "BROWSER/Streets/Two Lane/10x10 Street To Grass.obj",
+      "folder": "Streets/Two Lane",
+      "signature": "17dce1d2ba9adbc7733e3d7155b1c24bfc9f6e6201b46f4a8f0493c5f4d7085f",
+      "stamp": "516708:1791595240115911000",
+      "size": 516708,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "17dce1d2ba9adbc7733e3d7155b1c24bfc9f6e6201b46f4a8f0493c5f4d7085f",
+        "low": [
+          325.0,
+          -0.0,
+          -1075.0
+        ],
+        "high": [
+          425.0,
+          7.0,
+          -975.0
+        ],
+        "roadLow": [
+          325.0,
+          5.0,
+          -1075.0
+        ],
+        "roadHigh": [
+          425.0,
+          5.0,
+          -975.0
+        ],
+        "roadEnds": [
+          5.0,
+          5.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        375.0,
+        -1025.0
+      ],
+      "thumbKey": "831fcb941ba188e807572d25",
+      "previewFile": "assets/BROWSER/Streets/Two Lane/_Previews/10x10 Street To Grass.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Streets/Two Lane/10x10 Street To Grass.mtl"
+    },
+    {
+      "name": "10x10 Street To Sand",
+      "label": "",
+      "w": 100.0,
+      "d": 100.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "road",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-ded968822ad91979",
+      "file": "BROWSER/Streets/Two Lane/10x10 Street To Sand.obj",
+      "folder": "Streets/Two Lane",
+      "signature": "b0d9a29275990416c235115c4c65d5b9d50f40407be8731053d824bc0e6b14ab",
+      "stamp": "522598:1791595240122405500",
+      "size": 522598,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "b0d9a29275990416c235115c4c65d5b9d50f40407be8731053d824bc0e6b14ab",
+        "low": [
+          -0.0,
+          -0.0,
+          -625.0
+        ],
+        "high": [
+          100.0,
+          7.0,
+          -525.0
+        ],
+        "roadLow": [
+          -0.0,
+          5.0,
+          -625.0
+        ],
+        "roadHigh": [
+          100.0,
+          5.0,
+          -525.0
+        ],
+        "roadEnds": [
+          5.0,
+          5.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        50.0,
+        -575.0
+      ],
+      "thumbKey": "961539b05c0f3170f3978290",
+      "previewFile": "assets/BROWSER/Streets/Two Lane/_Previews/10x10 Street To Sand.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Streets/Two Lane/10x10 Street To Sand.mtl"
+    },
+    {
+      "name": "10x10 Street X To One Lane",
+      "label": "",
+      "w": 100.0,
+      "d": 100.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "road",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-b3b1f53b7a4a7cef",
+      "file": "BROWSER/Streets/Two Lane/10x10 Street X To One Lane.obj",
+      "folder": "Streets/Two Lane",
+      "signature": "3319edf9528eb5908b9fe1b6c37eea156ef3b9615e9fa5b29b5d00f10a98a5d0",
+      "stamp": "330994:1791595240126434000",
+      "size": 330994,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "3319edf9528eb5908b9fe1b6c37eea156ef3b9615e9fa5b29b5d00f10a98a5d0",
+        "low": [
+          110.0,
+          5.0,
+          -150.0
+        ],
+        "high": [
+          210.0,
+          12.0,
+          -49.983785
+        ],
+        "roadLow": [
+          110.0,
+          10.0,
+          -150.0
+        ],
+        "roadHigh": [
+          210.0,
+          10.0,
+          -50.0
+        ],
+        "roadEnds": [
+          10.0,
+          10.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        160.0,
+        -99.9918925
+      ],
+      "thumbKey": "be7f96bfe8e21350b3bfa8cc",
+      "previewFile": "assets/BROWSER/Streets/Two Lane/_Previews/10x10 Street X To One Lane.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Streets/Two Lane/10x10 Street X To One Lane.mtl"
+    },
+    {
+      "name": "10x10 Street X",
+      "label": "",
+      "w": 100.0,
+      "d": 100.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "road",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-6f528d665788a197",
+      "file": "BROWSER/Streets/Two Lane/10x10 Street X.obj",
+      "folder": "Streets/Two Lane",
+      "signature": "5b1bd395efeb422b28fbb86bbca1d2ed7daff6afc70e69468d00133b796bdb9f",
+      "stamp": "309021:1791595240129971500",
+      "size": 309021,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "5b1bd395efeb422b28fbb86bbca1d2ed7daff6afc70e69468d00133b796bdb9f",
+        "low": [
+          -350.0,
+          5.0,
+          -150.0
+        ],
+        "high": [
+          -250.0,
+          12.0,
+          -50.0
+        ],
+        "roadLow": [
+          -350.0,
+          10.0,
+          -150.0
+        ],
+        "roadHigh": [
+          -250.0,
+          10.0,
+          -50.0
+        ],
+        "roadEnds": [
+          10.0,
+          10.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        -300.0,
+        -100.0
+      ],
+      "thumbKey": "cba76fb8dc3e3d58cee5e936",
+      "previewFile": "assets/BROWSER/Streets/Two Lane/_Previews/10x10 Street X.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Streets/Two Lane/10x10 Street X.mtl"
+    },
+    {
+      "name": "5x10 Street Crosswalk",
+      "label": "",
+      "w": 50.0,
+      "d": 100.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "road",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-faa86e2128e0d223",
+      "file": "BROWSER/Streets/Two Lane/5x10 Street Crosswalk.obj",
+      "folder": "Streets/Two Lane",
+      "signature": "ed4eb7ef2777ab1ec737ccbbbda51bc742917cb6b2ce1cd9ebb5963680e76658",
+      "stamp": "212537:1791595240132494900",
+      "size": 212537,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "ed4eb7ef2777ab1ec737ccbbbda51bc742917cb6b2ce1cd9ebb5963680e76658",
+        "low": [
+          219.998981,
+          -0.0,
+          -180.000742
+        ],
+        "high": [
+          270.0,
+          7.0,
+          -80.0
+        ],
+        "roadLow": [
+          219.998981,
+          4.0,
+          -180.000742
+        ],
+        "roadHigh": [
+          270.0,
+          5.0,
+          -80.0
+        ],
+        "roadEnds": [
+          5.0,
+          5.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        244.99949049999998,
+        -130.000371
+      ],
+      "thumbKey": "60b7368e1eb3fa22d9f1c68d",
+      "previewFile": "assets/BROWSER/Streets/Two Lane/_Previews/5x10 Street Crosswalk.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Streets/Two Lane/5x10 Street Crosswalk.mtl"
+    },
+    {
+      "name": "5x10 Street Stripe",
+      "label": "",
+      "w": 50.0,
+      "d": 100.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "road",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-d86aa4f79ab91d44",
+      "file": "BROWSER/Streets/Two Lane/5x10 Street Stripe.obj",
+      "folder": "Streets/Two Lane",
+      "signature": "638a6edb457771e05520f4ccd40c5f469c4cf157e24f28783202afc6cc7bcb2d",
+      "stamp": "125106:1791595240135504900",
+      "size": 125106,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "638a6edb457771e05520f4ccd40c5f469c4cf157e24f28783202afc6cc7bcb2d",
+        "low": [
+          419.998981,
+          0.0,
+          -180.00074
+        ],
+        "high": [
+          470.0,
+          7.0,
+          -79.999996
+        ],
+        "roadLow": [
+          419.998981,
+          5.0,
+          -180.00074
+        ],
+        "roadHigh": [
+          470.0,
+          5.0,
+          -80.0
+        ],
+        "roadEnds": [
+          5.0,
+          5.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        444.9994905,
+        -130.000368
+      ],
+      "thumbKey": "840e9613804406ca24cc6db1",
+      "previewFile": "assets/BROWSER/Streets/Two Lane/_Previews/5x10 Street Stripe.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Streets/Two Lane/5x10 Street Stripe.mtl"
+    },
+    {
+      "name": "5x10 Street",
+      "label": "",
+      "w": 50.0,
+      "d": 100.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "road",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-63c47d553d694a67",
+      "file": "BROWSER/Streets/Two Lane/5x10 Street.obj",
+      "folder": "Streets/Two Lane",
+      "signature": "7fc1ca822e99166648d70420e730d011ce058ac5b6eb9648122e456ecc133dc0",
+      "stamp": "118661:1791595240138497300",
+      "size": 118661,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "7fc1ca822e99166648d70420e730d011ce058ac5b6eb9648122e456ecc133dc0",
+        "low": [
+          224.999431,
+          0.0,
+          -180.00074
+        ],
+        "high": [
+          275.00045,
+          7.0,
+          -79.999996
+        ],
+        "roadLow": [
+          224.999431,
+          5.0,
+          -180.00074
+        ],
+        "roadHigh": [
+          275.00045,
+          5.0,
+          -80.0
+        ],
+        "roadEnds": [
+          5.0,
+          5.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        249.99994049999998,
+        -130.000368
+      ],
+      "thumbKey": "419edf69a1c39472e26a4c23",
+      "previewFile": "assets/BROWSER/Streets/Two Lane/_Previews/5x10 Street.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Streets/Two Lane/5x10 Street.mtl"
+    },
+    {
+      "name": "5x5 Grass On Sand Inner Corner",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "grass",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-f73283d2e7a1d0d0",
+      "file": "BROWSER/Terrain/Grass on Sand/5x5 Grass On Sand Inner Corner.obj",
+      "folder": "Terrain/Grass on Sand",
+      "signature": "b8a389e0e1229614caa9f724513ea48b601db79eb7a180896fdb7c7d1225f6cc",
+      "stamp": "780998:1791595239891768000",
+      "size": 780998,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "b8a389e0e1229614caa9f724513ea48b601db79eb7a180896fdb7c7d1225f6cc",
+        "low": [
+          -50.0,
+          0.0,
+          0.0
+        ],
+        "high": [
+          -0.0,
+          7.0,
+          50.0
+        ],
+        "roadLow": [
+          -50.0,
+          6.0,
+          0.0
+        ],
+        "roadHigh": [
+          0.0,
+          7.0,
+          50.0
+        ],
+        "roadEnds": [
+          6.0,
+          7.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        -25.0,
+        25.0
+      ],
+      "thumbKey": "edfbe67b658101ac31d080fd",
+      "previewFile": "assets/BROWSER/Terrain/Grass on Sand/_Previews/5x5 Grass On Sand Inner Corner.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Grass on Sand/5x5 Grass On Sand Inner Corner.mtl"
+    },
+    {
+      "name": "5x5 Grass On Sand Outer Corner",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "grass",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-72459d805f96ca8c",
+      "file": "BROWSER/Terrain/Grass on Sand/5x5 Grass On Sand Outer Corner.obj",
+      "folder": "Terrain/Grass on Sand",
+      "signature": "acabe4acaf9a64ed72db1b0fb0d130f4fedc4f831254c1f66120616e1615da5e",
+      "stamp": "842135:1791595239901840400",
+      "size": 842135,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "acabe4acaf9a64ed72db1b0fb0d130f4fedc4f831254c1f66120616e1615da5e",
+        "low": [
+          -50.0,
+          0.0,
+          0.0
+        ],
+        "high": [
+          0.0,
+          7.0,
+          50.0
+        ],
+        "roadLow": [
+          -50.0,
+          6.0,
+          0.0
+        ],
+        "roadHigh": [
+          0.0,
+          6.0,
+          50.0
+        ],
+        "roadEnds": [
+          6.0,
+          6.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        -25.0,
+        25.0
+      ],
+      "thumbKey": "a03d39cc09fd41d4968442fa",
+      "previewFile": "assets/BROWSER/Terrain/Grass on Sand/_Previews/5x5 Grass On Sand Outer Corner.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Grass on Sand/5x5 Grass On Sand Outer Corner.mtl"
+    },
+    {
+      "name": "5x5 Grass On Sand Straight",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "grass",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-a4529b0cf34d6139",
+      "file": "BROWSER/Terrain/Grass on Sand/5x5 Grass On Sand Straight.obj",
+      "folder": "Terrain/Grass on Sand",
+      "signature": "baa66d9a94f0ce0fbb992a7899ef4085ec103d4addf70709f3a893c086097161",
+      "stamp": "722496:1791595239910368900",
+      "size": 722496,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "baa66d9a94f0ce0fbb992a7899ef4085ec103d4addf70709f3a893c086097161",
+        "low": [
+          -50.0,
+          0.0,
+          0.0
+        ],
+        "high": [
+          -0.0,
+          7.0,
+          50.0
+        ],
+        "roadLow": [
+          -50.0,
+          6.0,
+          0.0
+        ],
+        "roadHigh": [
+          0.0,
+          6.0,
+          50.0
+        ],
+        "roadEnds": [
+          6.0,
+          6.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        -25.0,
+        25.0
+      ],
+      "thumbKey": "4663d5795da5f61d50067c16",
+      "previewFile": "assets/BROWSER/Terrain/Grass on Sand/_Previews/5x5 Grass On Sand Straight.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Grass on Sand/5x5 Grass On Sand Straight.mtl"
+    },
+    {
+      "name": "5x5 Grass On Water Inner Corner",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "grass",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-179417308371e68c",
+      "file": "BROWSER/Terrain/Grass on Water/5x5 Grass On Water Inner Corner.obj",
+      "folder": "Terrain/Grass on Water",
+      "signature": "2330c651d3da3870f583634553f1da67026c5de99081e7f1429db6aff9d5f72a",
+      "stamp": "883831:1791595239920928100",
+      "size": 883831,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "2330c651d3da3870f583634553f1da67026c5de99081e7f1429db6aff9d5f72a",
+        "low": [
+          -50.0,
+          0.0,
+          0.0
+        ],
+        "high": [
+          0.0,
+          7.0,
+          50.0
+        ],
+        "roadLow": [
+          -12.212806,
+          5.0,
+          0.0
+        ],
+        "roadHigh": [
+          0.0,
+          7.0,
+          50.0
+        ],
+        "roadEnds": [
+          5.0,
+          7.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        -25.0,
+        25.0
+      ],
+      "thumbKey": "8d6d980b6324b551c55ebf15",
+      "previewFile": "assets/BROWSER/Terrain/Grass on Water/_Previews/5x5 Grass On Water Inner Corner.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Grass on Water/5x5 Grass On Water Inner Corner.mtl"
+    },
+    {
+      "name": "5x5 Grass On Water Outer Corner",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "grass",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-f5183676fe3a5206",
+      "file": "BROWSER/Terrain/Grass on Water/5x5 Grass On Water Outer Corner.obj",
+      "folder": "Terrain/Grass on Water",
+      "signature": "5cb907e175ae0df1e0ef791ca49c0cc59403b6dc09feab113dcacabf2665d1b6",
+      "stamp": "893809:1791595239930976200",
+      "size": 893809,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "5cb907e175ae0df1e0ef791ca49c0cc59403b6dc09feab113dcacabf2665d1b6",
+        "low": [
+          -50.0,
+          0.0,
+          -0.0
+        ],
+        "high": [
+          0.0,
+          7.0,
+          50.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        -25.0,
+        25.0
+      ],
+      "thumbKey": "eeb13c1f51f6a626fe80cf84",
+      "previewFile": "assets/BROWSER/Terrain/Grass on Water/_Previews/5x5 Grass On Water Outer Corner.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Grass on Water/5x5 Grass On Water Outer Corner.mtl"
+    },
+    {
+      "name": "5x5 Grass On Water Straight",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "grass",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-e9736c15298fc4ad",
+      "file": "BROWSER/Terrain/Grass on Water/5x5 Grass On Water Straight.obj",
+      "folder": "Terrain/Grass on Water",
+      "signature": "2192a2b9b785139e98870adb47093aa67f96ecfe7545ad5312a2eccf2d22f07f",
+      "stamp": "837461:1791595239938520300",
+      "size": 837461,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "2192a2b9b785139e98870adb47093aa67f96ecfe7545ad5312a2eccf2d22f07f",
+        "low": [
+          -50.0,
+          0.0,
+          -0.0
+        ],
+        "high": [
+          -0.0,
+          7.0,
+          50.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        -25.0,
+        25.0
+      ],
+      "thumbKey": "e0d284650a133d4027c76c7f",
+      "previewFile": "assets/BROWSER/Terrain/Grass on Water/_Previews/5x5 Grass On Water Straight.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Grass on Water/5x5 Grass On Water Straight.mtl"
+    },
+    {
+      "name": "10x10 Grass",
+      "label": "",
+      "w": 100.0,
+      "d": 100.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "grass",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "grass-10",
+      "file": "BROWSER/Terrain/Grass/10x10 Grass.obj",
+      "folder": "Terrain/Grass",
+      "signature": "c6c8223fb00f5d217d0b05bd2c269db72e09886fe55183d70b52e6628b54417f",
+      "stamp": "4207050:1791595239847104900",
+      "size": 4207050,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "thumbKey": "89b7fb78c72dec955891eeb8",
+      "previewFile": "assets/BROWSER/Terrain/Grass/_Previews/10x10 Grass.obj.png",
+      "previewReady": true,
+      "geometryProfile": {
+        "version": 2,
+        "signature": "c6c8223fb00f5d217d0b05bd2c269db72e09886fe55183d70b52e6628b54417f",
+        "low": [
+          50.0,
+          0.0,
+          -180.0
+        ],
+        "high": [
+          150.0,
+          7.0,
+          -80.0
+        ],
+        "roadLow": [
+          50.0,
+          7.0,
+          -180.0
+        ],
+        "roadHigh": [
+          150.0,
+          7.0,
+          -80.0
+        ],
+        "roadEnds": [
+          7.0,
+          7.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        100.0,
+        -130.0
+      ],
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Grass/10x10 Grass.mtl"
+    },
+    {
+      "name": "5x10 Grass",
+      "label": "",
+      "w": 100.0,
+      "d": 50.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "grass",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "grass-5x10",
+      "file": "BROWSER/Terrain/Grass/5x10 Grass.obj",
+      "folder": "Terrain/Grass",
+      "signature": "92726e6213857b3a5eef8c4efdff435a825d85f0b783906c7b9c0ad86692f1ee",
+      "stamp": "2203110:1791595239869154000",
+      "size": 2203110,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "thumbKey": "dcc85da94782d1112cb03de8",
+      "previewFile": "assets/BROWSER/Terrain/Grass/_Previews/5x10 Grass.obj.png",
+      "previewReady": true,
+      "geometryProfile": {
+        "version": 2,
+        "signature": "92726e6213857b3a5eef8c4efdff435a825d85f0b783906c7b9c0ad86692f1ee",
+        "low": [
+          50.0,
+          0.0,
+          -180.0
+        ],
+        "high": [
+          150.0,
+          7.0,
+          -130.0
+        ],
+        "roadLow": [
+          50.0,
+          7.0,
+          -180.0
+        ],
+        "roadHigh": [
+          150.0,
+          7.0,
+          -130.0
+        ],
+        "roadEnds": [
+          7.0,
+          7.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        100.0,
+        -155.0
+      ],
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Grass/5x10 Grass.mtl"
+    },
+    {
+      "name": "5x5 Grass",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "grass",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "grass-5",
+      "file": "BROWSER/Terrain/Grass/5x5 Grass.obj",
+      "folder": "Terrain/Grass",
+      "signature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "stamp": "1181414:1791595239881179600",
+      "size": 1181414,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "thumbKey": "f0a1f9222d0b97e3a32a2192",
+      "previewFile": "assets/BROWSER/Terrain/Grass/_Previews/5x5 Grass.obj.png",
+      "previewReady": true,
+      "geometryProfile": {
+        "version": 2,
+        "signature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+        "low": [
+          100.0,
+          0.0,
+          -180.0
+        ],
+        "high": [
+          150.0,
+          7.0,
+          -130.0
+        ],
+        "roadLow": [
+          100.0,
+          7.0,
+          -180.0
+        ],
+        "roadHigh": [
+          150.0,
+          7.0,
+          -130.0
+        ],
+        "roadEnds": [
+          7.0,
+          7.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        125.0,
+        -155.0
+      ],
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Grass/5x5 Grass.mtl"
+    },
+    {
+      "name": "10x10 Pavement",
+      "label": "",
+      "w": 100.0,
+      "d": 100.0,
+      "h": 5.0,
+      "level": 5.0,
+      "kind": "grass",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-e036d42e57470aac",
+      "file": "BROWSER/Terrain/Pavement/10x10 Pavement.obj",
+      "folder": "Terrain/Pavement",
+      "signature": "a0381a99b259340560163151268770a4e60c2253c1b54e1295ac4c6ec933769f",
+      "stamp": "528123:1791595239944032000",
+      "size": 528123,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "a0381a99b259340560163151268770a4e60c2253c1b54e1295ac4c6ec933769f",
+        "low": [
+          70.0,
+          -0.0,
+          -325.0
+        ],
+        "high": [
+          170.0,
+          5.0,
+          -225.0
+        ],
+        "roadLow": [
+          70.0,
+          4.2,
+          -325.0
+        ],
+        "roadHigh": [
+          170.0,
+          4.2,
+          -225.0
+        ],
+        "roadEnds": [
+          4.2,
+          4.2
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        120.0,
+        -275.0
+      ],
+      "thumbKey": "c6d6c4cfc8d1217b26ad5314",
+      "previewFile": "assets/BROWSER/Terrain/Pavement/_Previews/10x10 Pavement.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Pavement/10x10 Pavement.mtl"
+    },
+    {
+      "name": "5x10 Pavement",
+      "label": "",
+      "w": 100.0,
+      "d": 50.0,
+      "h": 5.0,
+      "level": 5.0,
+      "kind": "grass",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-ccce62a3e209205b",
+      "file": "BROWSER/Terrain/Pavement/5x10 Pavement.obj",
+      "folder": "Terrain/Pavement",
+      "signature": "66bcc96e24f1e7ba5061832f997f96ea744a156c91dabea7d549af08dc797722",
+      "stamp": "280626:1791595239947038000",
+      "size": 280626,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "66bcc96e24f1e7ba5061832f997f96ea744a156c91dabea7d549af08dc797722",
+        "low": [
+          250.0,
+          -0.0,
+          -275.0
+        ],
+        "high": [
+          350.0,
+          5.0,
+          -225.0
+        ],
+        "roadLow": [
+          250.0,
+          4.2,
+          -275.0
+        ],
+        "roadHigh": [
+          350.0,
+          4.2,
+          -225.0
+        ],
+        "roadEnds": [
+          4.2,
+          4.2
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        300.0,
+        -250.0
+      ],
+      "thumbKey": "20bc6e15967eec1dccccd7ed",
+      "previewFile": "assets/BROWSER/Terrain/Pavement/_Previews/5x10 Pavement.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Pavement/5x10 Pavement.mtl"
+    },
+    {
+      "name": "5x5 Pavement 90",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "grass",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-2ad5d1d82b8ccfbf",
+      "file": "BROWSER/Terrain/Pavement/5x5 Pavement 90.obj",
+      "folder": "Terrain/Pavement",
+      "signature": "44eccd807a2125aa36151419d02f602917d02f4996d5c31ccf76251ccfb3bb0f",
+      "stamp": "277085:1791595239951039300",
+      "size": 277085,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "44eccd807a2125aa36151419d02f602917d02f4996d5c31ccf76251ccfb3bb0f",
+        "low": [
+          299.99957,
+          -0.0,
+          -275.000168
+        ],
+        "high": [
+          350.0,
+          7.0,
+          -225.0
+        ],
+        "roadLow": [
+          300.0,
+          4.2,
+          -275.0
+        ],
+        "roadHigh": [
+          350.0,
+          4.2,
+          -225.0
+        ],
+        "roadEnds": [
+          4.2,
+          4.2
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        324.999785,
+        -250.000084
+      ],
+      "thumbKey": "3257cc8b934188c1549ff6eb",
+      "previewFile": "assets/BROWSER/Terrain/Pavement/_Previews/5x5 Pavement 90.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Pavement/5x5 Pavement 90.mtl"
+    },
+    {
+      "name": "5x5 Pavement Outer Corner",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "grass",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-8cb2bb5cd89e70bd",
+      "file": "BROWSER/Terrain/Pavement/5x5 Pavement Outer Corner.obj",
+      "folder": "Terrain/Pavement",
+      "signature": "2a479c91080b936ef8a66f9a76c0638f8100282128d0b51a8b3b8b571c59ff66",
+      "stamp": "202701:1791595239954564200",
+      "size": 202701,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "2a479c91080b936ef8a66f9a76c0638f8100282128d0b51a8b3b8b571c59ff66",
+        "low": [
+          300.0,
+          -0.0,
+          -275.0
+        ],
+        "high": [
+          350.0,
+          7.0,
+          -225.0
+        ],
+        "roadLow": [
+          300.0,
+          4.2,
+          -275.0
+        ],
+        "roadHigh": [
+          350.0,
+          4.2,
+          -225.0
+        ],
+        "roadEnds": [
+          4.2,
+          4.2
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        325.0,
+        -250.0
+      ],
+      "thumbKey": "5ad3782283625957d1137055",
+      "previewFile": "assets/BROWSER/Terrain/Pavement/_Previews/5x5 Pavement Outer Corner.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Pavement/5x5 Pavement Outer Corner.mtl"
+    },
+    {
+      "name": "5x5 Pavement Straight",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "grass",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-33ab462806bf760c",
+      "file": "BROWSER/Terrain/Pavement/5x5 Pavement Straight.obj",
+      "folder": "Terrain/Pavement",
+      "signature": "682990be069912aa2cd839dac5c13ef034a4a751124d6794d6d6058b6b97e7d4",
+      "stamp": "170038:1791595239956563500",
+      "size": 170038,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "682990be069912aa2cd839dac5c13ef034a4a751124d6794d6d6058b6b97e7d4",
+        "low": [
+          299.99957,
+          -0.0,
+          -275.0
+        ],
+        "high": [
+          350.0,
+          7.0,
+          -225.0
+        ],
+        "roadLow": [
+          300.0,
+          4.2,
+          -275.0
+        ],
+        "roadHigh": [
+          350.0,
+          4.2,
+          -225.0
+        ],
+        "roadEnds": [
+          4.2,
+          4.2
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        324.999785,
+        -250.0
+      ],
+      "thumbKey": "b0c4e407ebd4211f2469d492",
+      "previewFile": "assets/BROWSER/Terrain/Pavement/_Previews/5x5 Pavement Straight.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Pavement/5x5 Pavement Straight.mtl"
+    },
+    {
+      "name": "5x5 Pavement",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 5.0,
+      "level": 5.0,
+      "kind": "grass",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-b30a82d3c10978a7",
+      "file": "BROWSER/Terrain/Pavement/5x5 Pavement.obj",
+      "folder": "Terrain/Pavement",
+      "signature": "1758dc6494ae261f4431b60b5e32153347a71a361a26d20ee125499f40231a64",
+      "stamp": "139809:1791595239958562600",
+      "size": 139809,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "1758dc6494ae261f4431b60b5e32153347a71a361a26d20ee125499f40231a64",
+        "low": [
+          300.0,
+          -0.0,
+          -275.0
+        ],
+        "high": [
+          350.0,
+          5.0,
+          -225.0
+        ],
+        "roadLow": [
+          300.0,
+          4.2,
+          -275.0
+        ],
+        "roadHigh": [
+          350.0,
+          4.2,
+          -225.0
+        ],
+        "roadEnds": [
+          4.2,
+          4.2
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        325.0,
+        -250.0
+      ],
+      "thumbKey": "08a808f015ffa091b2b779a2",
+      "previewFile": "assets/BROWSER/Terrain/Pavement/_Previews/5x5 Pavement.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Pavement/5x5 Pavement.mtl"
+    },
+    {
+      "name": "5x5 Sand On Water Inner Corner",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 6.0,
+      "level": 6.0,
+      "kind": "sand",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-2785c4f3ae3f5db8",
+      "file": "BROWSER/Terrain/Sand on Water/5x5 Sand On Water Inner Corner.obj",
+      "folder": "Terrain/Sand on Water",
+      "signature": "8e2281c35c97fd9ec85e66146afbd14f3e5031295bd7700665ae56590566aca6",
+      "stamp": "789692:1791595240009598300",
+      "size": 789692,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "8e2281c35c97fd9ec85e66146afbd14f3e5031295bd7700665ae56590566aca6",
+        "low": [
+          -50.0,
+          0.0,
+          0.0
+        ],
+        "high": [
+          0.0,
+          6.0,
+          50.0
+        ],
+        "roadLow": [
+          -12.212806,
+          5.0,
+          0.0
+        ],
+        "roadHigh": [
+          0.0,
+          6.0,
+          50.0
+        ],
+        "roadEnds": [
+          5.0,
+          6.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        -25.0,
+        25.0
+      ],
+      "thumbKey": "15c8e1eb64dbf7452f184062",
+      "previewFile": "assets/BROWSER/Terrain/Sand on Water/_Previews/5x5 Sand On Water Inner Corner.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Sand on Water/5x5 Sand On Water Inner Corner.mtl"
+    },
+    {
+      "name": "5x5 Sand On Water Outer Corner",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 6.0,
+      "level": 6.0,
+      "kind": "sand",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-440b22cdd0f37219",
+      "file": "BROWSER/Terrain/Sand on Water/5x5 Sand On Water Outer Corner.obj",
+      "folder": "Terrain/Sand on Water",
+      "signature": "cbeda1db175a37cdd46281981c043e46ae13287a8a75a1ceba9a55818e7b0c35",
+      "stamp": "910469:1791595240019087000",
+      "size": 910469,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "cbeda1db175a37cdd46281981c043e46ae13287a8a75a1ceba9a55818e7b0c35",
+        "low": [
+          -50.0,
+          0.0,
+          0.0
+        ],
+        "high": [
+          0.0,
+          6.0,
+          50.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        -25.0,
+        25.0
+      ],
+      "thumbKey": "9b93bcd6f0841eb7c9adb864",
+      "previewFile": "assets/BROWSER/Terrain/Sand on Water/_Previews/5x5 Sand On Water Outer Corner.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Sand on Water/5x5 Sand On Water Outer Corner.mtl"
+    },
+    {
+      "name": "5x5 Sand On Water",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 6.0,
+      "level": 6.0,
+      "kind": "sand",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-aac59c72712dd14f",
+      "file": "BROWSER/Terrain/Sand on Water/5x5 Sand On Water.obj",
+      "folder": "Terrain/Sand on Water",
+      "signature": "40af2894504eeb202286b2d8680bc30218fd5bf8c588570b023856249a9e4de1",
+      "stamp": "836245:1791595240028630900",
+      "size": 836245,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "40af2894504eeb202286b2d8680bc30218fd5bf8c588570b023856249a9e4de1",
+        "low": [
+          -50.0,
+          0.0,
+          0.0
+        ],
+        "high": [
+          0.0,
+          6.0,
+          50.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        -25.0,
+        25.0
+      ],
+      "thumbKey": "1b39f5589010650453f745d7",
+      "previewFile": "assets/BROWSER/Terrain/Sand on Water/_Previews/5x5 Sand On Water.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Sand on Water/5x5 Sand On Water.mtl"
+    },
+    {
+      "name": "10x10 Sand",
+      "label": "",
+      "w": 100.0,
+      "d": 100.0,
+      "h": 6.0,
+      "level": 6.0,
+      "kind": "sand",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-704c1d15a6411624",
+      "file": "BROWSER/Terrain/Sand/10x10 Sand.obj",
+      "folder": "Terrain/Sand",
+      "signature": "9cb28b4c1c6965578a6c0d3ecb90414afa7a7639c9cce1c9defcaf9a006f35f2",
+      "stamp": "2215901:1791595239979694000",
+      "size": 2215901,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "thumbKey": "c08d182f0d19bcd7ff5d1b55",
+      "previewFile": "assets/BROWSER/Terrain/Sand/_Previews/10x10 Sand.obj.png",
+      "previewReady": true,
+      "geometryProfile": {
+        "version": 2,
+        "signature": "9cb28b4c1c6965578a6c0d3ecb90414afa7a7639c9cce1c9defcaf9a006f35f2",
+        "low": [
+          -100.0,
+          0.0,
+          -0.0
+        ],
+        "high": [
+          0.0,
+          6.0,
+          100.0
+        ],
+        "roadLow": [
+          -100.0,
+          6.0,
+          0.0
+        ],
+        "roadHigh": [
+          0.0,
+          6.0,
+          100.0
+        ],
+        "roadEnds": [
+          6.0,
+          6.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        -50.0,
+        50.0
+      ],
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Sand/10x10 Sand.mtl"
+    },
+    {
+      "name": "5x10 Sand",
+      "label": "",
+      "w": 100.0,
+      "d": 50.0,
+      "h": 6.0,
+      "level": 6.0,
+      "kind": "sand",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-d665568ca3d572a8",
+      "file": "BROWSER/Terrain/Sand/5x10 Sand.obj",
+      "folder": "Terrain/Sand",
+      "signature": "8375fec8187dc39d84739b96c4959c6f90397f3f432ef3cabfabbe4ebb4bfb49",
+      "stamp": "1192078:1791595239993276300",
+      "size": 1192078,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "thumbKey": "2730986a8d3d9dd96c74ec76",
+      "previewFile": "assets/BROWSER/Terrain/Sand/_Previews/5x10 Sand.obj.png",
+      "previewReady": true,
+      "geometryProfile": {
+        "version": 2,
+        "signature": "8375fec8187dc39d84739b96c4959c6f90397f3f432ef3cabfabbe4ebb4bfb49",
+        "low": [
+          -100.0,
+          0.0,
+          0.0
+        ],
+        "high": [
+          0.0,
+          6.0,
+          50.0
+        ],
+        "roadLow": [
+          -100.0,
+          6.0,
+          0.0
+        ],
+        "roadHigh": [
+          0.0,
+          6.0,
+          50.0
+        ],
+        "roadEnds": [
+          6.0,
+          6.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        -50.0,
+        25.0
+      ],
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Sand/5x10 Sand.mtl"
+    },
+    {
+      "name": "5x5 Sand",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 6.0,
+      "level": 6.0,
+      "kind": "sand",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-8e6ffae33994d916",
+      "file": "BROWSER/Terrain/Sand/5x5 Sand.obj",
+      "folder": "Terrain/Sand",
+      "signature": "5ec84be166068202882ba3f4868b11ec4ab22c5aa8b550aba89f78111956014f",
+      "stamp": "686714:1791595240000526200",
+      "size": 686714,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "5ec84be166068202882ba3f4868b11ec4ab22c5aa8b550aba89f78111956014f",
+        "low": [
+          -50.0,
+          0.0,
+          0.0
+        ],
+        "high": [
+          0.0,
+          6.0,
+          50.0
+        ],
+        "roadLow": [
+          -50.0,
+          6.0,
+          0.0
+        ],
+        "roadHigh": [
+          0.0,
+          6.0,
+          50.0
+        ],
+        "roadEnds": [
+          6.0,
+          6.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        -25.0,
+        25.0
+      ],
+      "thumbKey": "09b33e0fe4a86094a96e7e51",
+      "previewFile": "assets/BROWSER/Terrain/Sand/_Previews/5x5 Sand.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Sand/5x5 Sand.mtl"
+    },
+    {
+      "name": "10x10 Stone Area",
+      "label": "",
+      "w": 100.0,
+      "d": 100.0,
+      "h": 5.0,
+      "level": 5.0,
+      "kind": "grass",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-0aa0686d73c2d41a",
+      "file": "BROWSER/Terrain/Stone/10x10 Stone Area.obj",
+      "folder": "Terrain/Stone",
+      "signature": "587b74ed38cd55fa42b515d1f31713fd064fcf1a2bff02b2d42778ac196f7248",
+      "stamp": "116170:1791595240030633500",
+      "size": 116170,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "587b74ed38cd55fa42b515d1f31713fd064fcf1a2bff02b2d42778ac196f7248",
+        "low": [
+          250.0,
+          0.0,
+          90.0
+        ],
+        "high": [
+          350.0,
+          5.0,
+          190.0
+        ],
+        "roadLow": [
+          250.0,
+          5.0,
+          90.0
+        ],
+        "roadHigh": [
+          350.0,
+          5.0,
+          190.0
+        ],
+        "roadEnds": [
+          5.0,
+          5.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        300.0,
+        140.0
+      ],
+      "thumbKey": "bb5f7844de60d561dfb73924",
+      "previewFile": "assets/BROWSER/Terrain/Stone/_Previews/10x10 Stone Area.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Stone/10x10 Stone Area.mtl"
+    },
+    {
+      "name": "5x10 Stone Area",
+      "label": "",
+      "w": 50.0,
+      "d": 100.0,
+      "h": 5.0,
+      "level": 5.0,
+      "kind": "grass",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-0d984acfbd7c0587",
+      "file": "BROWSER/Terrain/Stone/5x10 Stone Area.obj",
+      "folder": "Terrain/Stone",
+      "signature": "e52d6b7567bd7df913ad18ace64420d9eb9af93c1b221a27cd298b0ce729f888",
+      "stamp": "81699:1791595240030633500",
+      "size": 81699,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "e52d6b7567bd7df913ad18ace64420d9eb9af93c1b221a27cd298b0ce729f888",
+        "low": [
+          224.999431,
+          0.0,
+          -180.00074
+        ],
+        "high": [
+          275.00045,
+          5.0,
+          -79.999996
+        ],
+        "roadLow": [
+          224.999431,
+          5.0,
+          -180.00074
+        ],
+        "roadHigh": [
+          275.00045,
+          5.0,
+          -80.0
+        ],
+        "roadEnds": [
+          5.0,
+          5.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        249.99994049999998,
+        -130.000368
+      ],
+      "thumbKey": "1173b16caf497c80d3ff12dc",
+      "previewFile": "assets/BROWSER/Terrain/Stone/_Previews/5x10 Stone Area.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Stone/5x10 Stone Area.mtl"
+    },
+    {
+      "name": "5x5 Curb Inner Corner",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "grass",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-dea906a01eecf892",
+      "file": "BROWSER/Terrain/Stone/5x5 Curb Inner Corner.obj",
+      "folder": "Terrain/Stone",
+      "signature": "fc66c8a7580071e848d196163eb5d7d5fcc6c7ec67a6a98a4c26933cdbded7d7",
+      "stamp": "91070:1791595240033181500",
+      "size": 91070,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "fc66c8a7580071e848d196163eb5d7d5fcc6c7ec67a6a98a4c26933cdbded7d7",
+        "low": [
+          450.0,
+          0.0,
+          -180.0
+        ],
+        "high": [
+          500.0,
+          7.0,
+          -130.0
+        ],
+        "roadLow": [
+          450.0,
+          5.0,
+          -180.0
+        ],
+        "roadHigh": [
+          500.0,
+          5.0,
+          -130.0
+        ],
+        "roadEnds": [
+          5.0,
+          5.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        475.0,
+        -155.0
+      ],
+      "thumbKey": "2e6024dc29d89088823b2dfa",
+      "previewFile": "assets/BROWSER/Terrain/Stone/_Previews/5x5 Curb Inner Corner.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Stone/5x5 Curb Inner Corner.mtl"
+    },
+    {
+      "name": "5x5 Curb Outer Corner",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "grass",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-b2842c1de7f8a54c",
+      "file": "BROWSER/Terrain/Stone/5x5 Curb Outer Corner.obj",
+      "folder": "Terrain/Stone",
+      "signature": "7eb83f66a67535fec3e2ed2966bc1482bff7f28cdb41560022e1ba55df1242fc",
+      "stamp": "149024:1791595240036690500",
+      "size": 149024,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "7eb83f66a67535fec3e2ed2966bc1482bff7f28cdb41560022e1ba55df1242fc",
+        "low": [
+          499.99957,
+          0.0,
+          -130.000168
+        ],
+        "high": [
+          550.0,
+          7.0,
+          -80.0
+        ],
+        "roadLow": [
+          500.0,
+          5.0,
+          -130.0
+        ],
+        "roadHigh": [
+          550.0,
+          5.0,
+          -80.0
+        ],
+        "roadEnds": [
+          5.0,
+          5.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        524.999785,
+        -105.000084
+      ],
+      "thumbKey": "bb161438832a96a4333e874f",
+      "previewFile": "assets/BROWSER/Terrain/Stone/_Previews/5x5 Curb Outer Corner.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Stone/5x5 Curb Outer Corner.mtl"
+    },
+    {
+      "name": "5x5 Curb Straight",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 7.0,
+      "level": 7.0,
+      "kind": "grass",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-4a22303871944010",
+      "file": "BROWSER/Terrain/Stone/5x5 Curb Straight.obj",
+      "folder": "Terrain/Stone",
+      "signature": "f75e749ef5e8cdccf6e5f13a57cc8f30b89b2356146eaef144502cd8e9e124fd",
+      "stamp": "64327:1791595240038700100",
+      "size": 64327,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "f75e749ef5e8cdccf6e5f13a57cc8f30b89b2356146eaef144502cd8e9e124fd",
+        "low": [
+          449.99957,
+          0.0,
+          -130.0
+        ],
+        "high": [
+          500.0,
+          7.0,
+          -80.0
+        ],
+        "roadLow": [
+          450.0,
+          5.0,
+          -130.0
+        ],
+        "roadHigh": [
+          500.0,
+          5.0,
+          -80.0
+        ],
+        "roadEnds": [
+          5.0,
+          5.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        474.999785,
+        -105.0
+      ],
+      "thumbKey": "57ef1abf3875cc99514a0864",
+      "previewFile": "assets/BROWSER/Terrain/Stone/_Previews/5x5 Curb Straight.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Stone/5x5 Curb Straight.mtl"
+    },
+    {
+      "name": "5x5 Curb",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 5.0,
+      "level": 5.0,
+      "kind": "grass",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-530a7d404c2482c7",
+      "file": "BROWSER/Terrain/Stone/5x5 Curb.obj",
+      "folder": "Terrain/Stone",
+      "signature": "09555624111b94ad3f91b6e059a65a805da6b68fb6d90eaa6d9c1a3e3bb8da90",
+      "stamp": "40512:1791595240039699600",
+      "size": 40512,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "09555624111b94ad3f91b6e059a65a805da6b68fb6d90eaa6d9c1a3e3bb8da90",
+        "low": [
+          500.0,
+          0.0,
+          -180.0
+        ],
+        "high": [
+          550.0,
+          5.0,
+          -130.0
+        ],
+        "roadLow": [
+          500.0,
+          5.0,
+          -180.0
+        ],
+        "roadHigh": [
+          550.0,
+          5.0,
+          -130.0
+        ],
+        "roadEnds": [
+          5.0,
+          5.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        525.0,
+        -155.0
+      ],
+      "thumbKey": "d9bfef44b2ecf3927278c75d",
+      "previewFile": "assets/BROWSER/Terrain/Stone/_Previews/5x5 Curb.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Stone/5x5 Curb.mtl"
+    },
+    {
+      "name": "10x10 Water",
+      "label": "",
+      "w": 100.0,
+      "d": 100.0,
+      "h": 5.0,
+      "level": 5.0,
+      "kind": "grass",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-16b6266c3993ca81",
+      "file": "BROWSER/Terrain/Water/10x10 Water.obj",
+      "folder": "Terrain/Water",
+      "signature": "1aed868521323421dd89cdc7ff34ab5f72d36bae7492857252dc7cee42f12421",
+      "stamp": "1833039:1791595240058776900",
+      "size": 1833039,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "1aed868521323421dd89cdc7ff34ab5f72d36bae7492857252dc7cee42f12421",
+        "low": [
+          -50.0,
+          0.0,
+          -50.0
+        ],
+        "high": [
+          50.0,
+          5.0,
+          50.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        0.0,
+        0.0
+      ],
+      "thumbKey": "a89cd18331cf652194d632e6",
+      "previewFile": "assets/BROWSER/Terrain/Water/_Previews/10x10 Water.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Water/10x10 Water.mtl"
+    },
+    {
+      "name": "5x10 Water",
+      "label": "",
+      "w": 100.0,
+      "d": 50.0,
+      "h": 5.0,
+      "level": 5.0,
+      "kind": "grass",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-ce685ec733c52768",
+      "file": "BROWSER/Terrain/Water/5x10 Water.obj",
+      "folder": "Terrain/Water",
+      "signature": "6243b74371f2c3e792e52f242028f825459a458474a873de8671c4f23ec60ce0",
+      "stamp": "1081729:1791595240069369500",
+      "size": 1081729,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "6243b74371f2c3e792e52f242028f825459a458474a873de8671c4f23ec60ce0",
+        "low": [
+          -100.0,
+          -0.0,
+          0.0
+        ],
+        "high": [
+          0.0,
+          5.0,
+          50.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        -50.0,
+        25.0
+      ],
+      "thumbKey": "778e2217136219efb2cf9650",
+      "previewFile": "assets/BROWSER/Terrain/Water/_Previews/5x10 Water.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Water/5x10 Water.mtl"
+    },
+    {
+      "name": "5x5 Water",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 5.0,
+      "level": 5.0,
+      "kind": "grass",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-92bb518ae30e7ac8",
+      "file": "BROWSER/Terrain/Water/5x5 Water.obj",
+      "folder": "Terrain/Water",
+      "signature": "f417cc741e6d6089d2f7e261aa6b4f29a51aa12fb5f5b491764e6972ee09a428",
+      "stamp": "801672:1791595240077418400",
+      "size": 801672,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "f417cc741e6d6089d2f7e261aa6b4f29a51aa12fb5f5b491764e6972ee09a428",
+        "low": [
+          -50.0,
+          0.0,
+          0.0
+        ],
+        "high": [
+          0.0,
+          5.0,
+          50.0
+        ]
+      },
+      "nativeGeometry": true,
+      "modelCenter": [
+        -25.0,
+        25.0
+      ],
+      "thumbKey": "482b91f7698f3bfc335a0047",
+      "previewFile": "assets/BROWSER/Terrain/Water/_Previews/5x5 Water.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "mtl": "BROWSER/Terrain/Water/5x5 Water.mtl"
+    },
+    {
+      "name": "5x5 Vehicle",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 48.174282,
+      "level": 48.174282,
+      "kind": "vehicle",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-f4729d892d68f04c",
+      "file": "BROWSER/Vehicles/5x5 Vehicle.obj",
+      "folder": "Vehicles",
+      "signature": "dd51e20abc6528e74941e5bc5380284944e4f4836c018144caf915c07b64dcfc",
+      "stamp": "1137293:1791595239806000600",
+      "size": 1137293,
+      "missing": false,
+      "type": "obj",
+      "warning": "",
+      "geometryProfile": {
+        "version": 2,
+        "signature": "dd51e20abc6528e74941e5bc5380284944e4f4836c018144caf915c07b64dcfc",
+        "low": [
+          206.003017,
+          10.001519,
+          -613.532035
+        ],
+        "high": [
+          240.313386,
+          58.175801,
+          -555.490215
+        ],
+        "roadLow": [
+          209.003017,
+          27.090715,
+          -611.532035
+        ],
+        "roadHigh": [
+          237.313386,
+          58.175801,
+          -557.990215
+        ],
+        "roadEnds": [
+          27.090715,
+          58.175801
+        ]
+      },
+      "thumbKey": "de2d35a6cbce6752d431ad3d",
+      "previewFile": "assets/BROWSER/Vehicles/_Previews/5x5 Vehicle.obj.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": "",
+      "nativeGeometry": true,
+      "modelCenter": [
+        223.15820150000002,
+        -584.511125
+      ],
+      "mtl": "BROWSER/Vehicles/5x5 Vehicle.mtl"
+    }
+  ],
+  "folders": [
+    {
+      "path": "Streets/Two Lane",
+      "name": "Two Lane",
+      "icon": "🛣️",
+      "mode": "mosaic",
+      "preview": "",
+      "order": 0,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Streets/Two Lane/_Previews/Folder-Preview.png",
+      "thumbKey": "2f3e85e8c3aeb0fc3e1e90fc",
+      "previewReady": true
+    },
+    {
+      "path": "Streets/One Lane",
+      "name": "One Lane",
+      "icon": "🛣️",
+      "mode": "mosaic",
+      "preview": "assets/BROWSER/Streets/One Lane/_Previews/Custom-Image-7580a9e02623.png",
+      "order": 1,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Streets/One Lane/_Previews/Folder-Preview.png",
+      "thumbKey": "9d3331ae33290e676cc46d66",
+      "previewReady": true
+    },
+    {
+      "path": "Streets",
+      "name": "Streets",
+      "icon": "🛣️",
+      "mode": "icon",
+      "preview": "assets/BROWSER/Streets/_Previews/Custom-Image-86e4c99e5f7c.png",
+      "order": 1,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Streets/_Previews/Folder-Preview.png",
+      "thumbKey": "1c1c1e3a56b22590e327c90a",
+      "previewReady": true
+    },
+    {
+      "path": "Terrain/Grass",
+      "name": "Grass",
+      "icon": "🌿",
+      "mode": "mosaic",
+      "preview": "",
+      "order": 3,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Terrain/Grass/_Previews/Folder-Preview.png",
+      "thumbKey": "19921a078129ac8a857835d6",
+      "previewReady": true
+    },
+    {
+      "path": "Terrain/Water",
+      "name": "Water",
+      "icon": "💧",
+      "mode": "mosaic",
+      "preview": "",
+      "order": 4,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Terrain/Water/_Previews/Folder-Preview.png",
+      "thumbKey": "8a3e85555ab1493332a814e6",
+      "previewReady": true
+    },
+    {
+      "path": "Terrain/Sand",
+      "name": "Sand",
+      "icon": "🏖️",
+      "mode": "mosaic",
+      "preview": "",
+      "order": 5,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Terrain/Sand/_Previews/Folder-Preview.png",
+      "thumbKey": "fcf97b4d150e04a7e0628f54",
+      "previewReady": true
+    },
+    {
+      "path": "Terrain/Grass on Water",
+      "name": "Grass ON / Water",
+      "icon": "✨",
+      "mode": "mosaic",
+      "preview": "",
+      "order": 10,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Terrain/Grass on Water/_Previews/Folder-Preview.png",
+      "thumbKey": "a5ed19697d8cc3402d65d499",
+      "previewReady": true
+    },
+    {
+      "path": "Terrain/Grass on Sand",
+      "name": "Grass ON / Sand",
+      "icon": "✨",
+      "mode": "mosaic",
+      "preview": "",
+      "order": 8,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Terrain/Grass on Sand/_Previews/Folder-Preview.png",
+      "thumbKey": "4d07269a5cfc371b14553745",
+      "previewReady": true
+    },
+    {
+      "path": "Terrain/Sand on Water",
+      "name": "Sand ON / Water",
+      "icon": "✨",
+      "mode": "mosaic",
+      "preview": "",
+      "order": 9,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Terrain/Sand on Water/_Previews/Folder-Preview.png",
+      "thumbKey": "c3a7831d43611f86b698fb4d",
+      "previewReady": true
+    },
+    {
+      "path": "Terrain/Pavement",
+      "name": "Pavement",
+      "icon": "🧱",
+      "mode": "mosaic",
+      "preview": "",
+      "order": 6,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Terrain/Pavement/_Previews/Folder-Preview.png",
+      "thumbKey": "43a05f5ef8b04f5254baffc5",
+      "previewReady": true
+    },
+    {
+      "path": "Terrain/Stone",
+      "name": "Stone",
+      "icon": "🪨",
+      "mode": "mosaic",
+      "preview": "",
+      "order": 7,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Terrain/Stone/_Previews/Folder-Preview.png",
+      "thumbKey": "afa58b6076a2191371bfa162",
+      "previewReady": true
+    },
+    {
+      "path": "Terrain",
+      "name": "Terrain",
+      "icon": "🏞️",
+      "mode": "icon",
+      "preview": "",
+      "order": 0,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Terrain/_Previews/Folder-Preview.png",
+      "thumbKey": "6a1f87392f77de7d440c0616",
+      "previewReady": true
+    },
+    {
+      "path": "Bridges",
+      "name": "BRIDGES",
+      "icon": "🌉",
+      "mode": "icon",
+      "preview": "",
+      "order": 3,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Bridges/_Previews/Folder-Preview.png",
+      "thumbKey": "579e540bcefaa88a002b0f55",
+      "previewReady": true
+    },
+    {
+      "path": "Bridges/BEAMS",
+      "name": "BEAMS",
+      "icon": "✨",
+      "mode": "mosaic",
+      "preview": "",
+      "order": 13,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Bridges/BEAMS/_Previews/Folder-Preview.png",
+      "thumbKey": "375c35f25ddb3a3b300bde7d",
+      "previewReady": true
+    },
+    {
+      "path": "Bridges/BRIDGE PAVEMENT",
+      "name": "PAVEMENT",
+      "icon": "✨",
+      "mode": "mosaic",
+      "preview": "",
+      "order": 16,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Bridges/BRIDGE PAVEMENT/_Previews/Folder-Preview.png",
+      "thumbKey": "c6131eecb3253b4bf738a351",
+      "previewReady": true
+    },
+    {
+      "path": "Bridges/BRIDGE RAILS",
+      "name": "RAILS",
+      "icon": "✨",
+      "mode": "mosaic",
+      "preview": "",
+      "order": 17,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Bridges/BRIDGE RAILS/_Previews/Folder-Preview.png",
+      "thumbKey": "c6131eecb3253b4bf738a351",
+      "previewReady": true
+    },
+    {
+      "path": "Bridges/Bridge Streets",
+      "name": "SREETS",
+      "icon": "✨",
+      "mode": "mosaic",
+      "preview": "",
+      "order": 14,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Bridges/Bridge Streets/_Previews/Folder-Preview.png",
+      "thumbKey": "b2bd9c858461f80e86a3bb99",
+      "previewReady": true
+    },
+    {
+      "path": "Bridges/UP DOWN",
+      "name": "UP DOWN",
+      "icon": "✨",
+      "mode": "mosaic",
+      "preview": "",
+      "order": 16,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Bridges/UP DOWN/_Previews/Folder-Preview.png",
+      "thumbKey": "eeca2d17a81435455a619435",
+      "previewReady": true
+    },
+    {
+      "path": "Bridges/UP DOWN/UP DOWN PEDESTRIAN",
+      "name": "UP DOWN PEDESTRIAN",
+      "icon": "✨",
+      "mode": "mosaic",
+      "preview": "",
+      "order": 21,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Bridges/UP DOWN/UP DOWN PEDESTRIAN/_Previews/Folder-Preview.png",
+      "thumbKey": "c6131eecb3253b4bf738a351",
+      "previewReady": true
+    },
+    {
+      "path": "Bridges/UP DOWN/UP DOWN RAIL",
+      "name": "UP DOWN RAIL",
+      "icon": "✨",
+      "mode": "mosaic",
+      "preview": "",
+      "order": 22,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Bridges/UP DOWN/UP DOWN RAIL/_Previews/Folder-Preview.png",
+      "thumbKey": "c6131eecb3253b4bf738a351",
+      "previewReady": true
+    },
+    {
+      "path": "Fences",
+      "name": "Fences",
+      "icon": "🧱",
+      "mode": "icon",
+      "preview": "",
+      "order": 4,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Fences/_Previews/Folder-Preview.png",
+      "thumbKey": "ea93a2fc9dbf05c6b1328e8b",
+      "previewReady": true
+    },
+    {
+      "path": "Houses/Social",
+      "name": "Social",
+      "icon": "✨",
+      "mode": "mosaic",
+      "preview": "",
+      "order": 14,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Houses/Social/_Previews/Folder-Preview.png",
+      "thumbKey": "858e7f1f48740f3731664f7c",
+      "previewReady": true
+    },
+    {
+      "path": "Houses/Work",
+      "name": "Work",
+      "icon": "✨",
+      "mode": "mosaic",
+      "preview": "",
+      "order": 15,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Houses/Work/_Previews/Folder-Preview.png",
+      "thumbKey": "c6131eecb3253b4bf738a351",
+      "previewReady": true
+    },
+    {
+      "path": "Houses",
+      "name": "Houses",
+      "icon": "🏘️",
+      "mode": "icon",
+      "preview": "",
+      "order": 5,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Houses/_Previews/Folder-Preview.png",
+      "thumbKey": "d84c07bd9fc2ccb776c2f606",
+      "previewReady": true
+    },
+    {
+      "path": "Figures/Social",
+      "name": "Social",
+      "icon": "✨",
+      "mode": "mosaic",
+      "preview": "",
+      "order": 17,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Figures/Social/_Previews/Folder-Preview.png",
+      "thumbKey": "c6131eecb3253b4bf738a351",
+      "previewReady": true
+    },
+    {
+      "path": "Figures/Work",
+      "name": "Work",
+      "icon": "✨",
+      "mode": "mosaic",
+      "preview": "",
+      "order": 18,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Figures/Work/_Previews/Folder-Preview.png",
+      "thumbKey": "f98ca5719e3f816a5bf8ae9f",
+      "previewReady": true
+    },
+    {
+      "path": "Figures",
+      "name": "FIGURES",
+      "icon": "👨‍👩‍👧‍👦",
+      "mode": "icon",
+      "preview": "",
+      "order": 6,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Figures/_Previews/Folder-Preview.png",
+      "thumbKey": "8d131bac3f2066ece9831d18",
+      "previewReady": true
+    },
+    {
+      "path": "Animals",
+      "name": "Animals",
+      "icon": "🐾",
+      "mode": "icon",
+      "preview": "",
+      "order": 7,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Animals/_Previews/Folder-Preview.png",
+      "thumbKey": "42fbcf74c9dd5607a5145a75",
+      "previewReady": true
+    },
+    {
+      "path": "Vehicles",
+      "name": "Vehicles",
+      "icon": "🚗",
+      "mode": "icon",
+      "preview": "",
+      "order": 8,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Vehicles/_Previews/Folder-Preview.png",
+      "thumbKey": "3663438e7f73a1a9fddb4d5a",
+      "previewReady": true
+    },
+    {
+      "path": "Objects",
+      "name": "Objects",
+      "icon": "📦",
+      "mode": "icon",
+      "preview": "",
+      "order": 9,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Objects/_Previews/Folder-Preview.png",
+      "thumbKey": "16464f4e97f7d61379cff7aa",
+      "previewReady": true
+    },
+    {
+      "path": "Rails",
+      "name": "Rails",
+      "icon": "🛤️",
+      "mode": "icon",
+      "preview": "",
+      "order": 2,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Rails/_Previews/Folder-Preview.png",
+      "thumbKey": "b742b1a223e7f4eeeb059277",
+      "previewReady": true
+    }
+  ],
+  "report": {
+    "new": [],
+    "changed": [],
+    "moved": [],
+    "missing": [
+      "BROWSER/Vehicles/Car New.obj"
+    ],
+    "newFolders": []
+  },
+  "updated": "2026-10-10T04:05:09+02:00"
+}
