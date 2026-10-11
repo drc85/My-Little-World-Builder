@@ -1507,3 +1507,6 @@ header#imageToolbar #bulldozerBtn[aria-pressed=true] .toolArt{filter:drop-shadow
 
 /* Keep the edge artwork and hover enlargement inside the scrolling viewport. */
 #assetDock[data-flow=home] .dockItems{padding-left:72px!important;padding-right:72px!important;scroll-padding-inline:72px;}
+
+/* Nested-menu glow follows the menu width and full height. */
+#assetDock:not([data-flow=home])::after{left:12px!important;right:12px!important;bottom:0!important;height:165px!important;border-radius:38px!important;background:rgba(0,0,0,.65)!important;filter:blur(22px)!important;}
