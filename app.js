@@ -366,7 +366,7 @@ function fitWorldDepth(){
  if(farthest+200>camera.far){camera.far=farthest+400;camera.updateProjectionMatrix();}
  camera.updateMatrixWorld();
 }
-function updateOuterClouds(){fitWorldDepth();outerCloudPass.uniforms.bounds.value.set(-BUILD_HALF,BUILD_HALF,-BUILD_HALF,BUILD_HALF);camera.updateMatrixWorld();outerCloudPass.uniforms.inverseCamera.value.multiplyMatrices(camera.matrixWorld,camera.projectionMatrixInverse);outerCloudPass.uniforms.time.value=performance.now()/1000;}
+function updateOuterClouds(){fitWorldDepth();updateWeatherFogDepth();outerCloudPass.uniforms.bounds.value.set(-BUILD_HALF,BUILD_HALF,-BUILD_HALF,BUILD_HALF);camera.updateMatrixWorld();outerCloudPass.uniforms.inverseCamera.value.multiplyMatrices(camera.matrixWorld,camera.projectionMatrixInverse);outerCloudPass.uniforms.time.value=performance.now()/1000;}
 // Distance to the actual built footprint, not just each tile's center.
 function cloudFootprints(){return placed.map(p=>{const d=dimsFor(p),pos=placementCenter(p);return {x:pos.x,z:pos.z,w:d.w,d:d.d,top:verticalRange(p).max};});}
 function cloudDensity(distance){
@@ -421,7 +421,15 @@ function localRoadPorts(p){
 }
 function roadDirections(p){const c=Math.cos(p.rotation),s=Math.sin(p.rotation);return localRoadPorts(p).map(([x,z])=>({x:Math.round(x*c+z*s),z:Math.round(z*c-x*s)}));}
 function roadEdge(p,d){const size=dimsFor(p),half=(d.x?size.w:size.d)/2,pos=placementCenter(p);return {x:pos.x+d.x*half,z:pos.z+d.z*half};}
-function roadY(p,x,z){if(role(p)==='ramp'){const probe=new THREE.Raycaster(new THREE.Vector3(x,p.root.position.y+p.asset.h+100,z),new THREE.Vector3(0,-1,0));p.root.updateMatrixWorld(true);const hit=probe.intersectObject(p.root,true)[0];if(hit)return hit.point.y;const c=Math.cos(p.rotation),s=Math.sin(p.rotation),lx=(x-p.root.position.x)*c-(z-p.root.position.z)*s,lz=(x-p.root.position.x)*s+(z-p.root.position.z)*c;const axis=p.asset.bridgeAxis===2,l=axis?p.asset.d:p.asset.w,t=Math.max(0,Math.min(1,.5+(axis?lz:lx)*(p.asset.highSide||-1)/l));return p.root.position.y+5+t*(p.asset.deckHeight-5);}return placementCenter(p).y+(p.asset.roadSurface||5);}
+function roadY(p,x,z){
+ if(role(p)!=='ramp')return placementCenter(p).y+(p.asset.roadSurface||5);
+ const c=Math.cos(p.rotation),sn=Math.sin(p.rotation),lx=(x-p.root.position.x)*c-(z-p.root.position.z)*sn,lz=(x-p.root.position.x)*sn+(z-p.root.position.z)*c;
+ const axis=p.asset.bridgeAxis===2,length=axis?p.asset.d:p.asset.w,t=THREE.MathUtils.clamp(.5+(axis?lz:lx)*(p.asset.highSide||-1)/length,0,1),expected=p.root.position.y+5+t*(p.asset.deckHeight-5);
+ // Probe near the road profile, below elevated rails and their cross-connectors.
+ const probe=new THREE.Raycaster(new THREE.Vector3(x,expected+12,z),new THREE.Vector3(0,-1,0),0,24);p.root.updateMatrixWorld(true);
+ const hits=probe.intersectObject(p.root,true).filter(h=>!h.object.userData.lightEffect&&Math.abs(h.point.y-expected)<=10);hits.sort((a,b)=>Math.abs(a.point.y-expected)-Math.abs(b.point.y-expected));
+ return hits[0]?.point.y??expected;
+}
 function sameDirection(a,b){return a.x===b.x&&a.z===b.z;}
 function roadNeighbor(p,d){const edge=roadEdge(p,d);return placed.find(q=>q!==p&&drivable(q)&&roadDirections(q).some(e=>{const other=roadEdge(q,e);return e.x===-d.x&&e.z===-d.z&&Math.hypot(edge.x-other.x,edge.z-other.z)<1&&Math.abs(roadY(p,edge.x,edge.z)-roadY(q,other.x,other.z))<2;}));}
 function laneRoute(tile,entry,exit){
@@ -1093,7 +1101,7 @@ renderer.domElement.addEventListener('pointerdown',e=>{
  if(repeater&&(placingCopies||placingCopy)){startRoller(e);return;}
  if(placingCopies||placingCopy){commitPlacement(e);return;}
  dragBefore=sceneSnapshot();pointer(e);const hit=ray.intersectObjects(placed.map(p=>p.root),true)[0],p=hit?findPlacedObject(hit.object):null;
- pointerGesture={x:e.clientX,y:e.clientY,moved:false,p};hideInspector();
+ pointerGesture={x:e.clientX,y:e.clientY,moved:false,p,dockBack:!p&&assetDockEl.classList.contains('dock-open')&&!placingCopy&&!placingCopies&&!placementLoading};hideInspector();
  if(p){
   if(isVehicle(p))carHorn();else if(p.asset.cat==='Houses')houseBell();else if(pedestrian(p))characterMurmur();
   if(e.shiftKey){select(p,true);return;}
@@ -1130,6 +1138,7 @@ window.addEventListener('pointerup',e=>{
  if(dragBefore&&!sameSnapshot(dragBefore,sceneSnapshot()))remember(dragBefore);
  if(pointerGesture?.moved){const items=currentSelection();if(!(items.length>1&&items.every(p=>!p.groupId)))select(null);hideInspector();}
  else if(pointerGesture?.p){inspectorVisible=true;refreshSelectionUI();}
+ else if(pointerGesture?.dockBack){if(dockPath.length){dockBack.onclick();openAutoDock();closeAutoDockDelayed();}else closeAutoDockNow();}
  pointerGesture=null;dragBefore=null;dragging=null;dragStartPos=null;draggingGroup=null;dragGroupStart=null;panning=false;panLast=null;renderer.domElement.style.cursor=repeater?'copy':'default';
  try{renderer.domElement.releasePointerCapture?.(e.pointerId)}catch(_){}
 });
@@ -1410,7 +1419,7 @@ document.fonts?.ready.then(()=>positionDockBack());
 function terrainIcon(n){return ({Grass:'🌿',Water:'💧',Sand:'🏖️','Grass on Water':'🌿💧','Grass on Sand':'🌿🏖️','Sand on Water':'🏖️💧',Pavement:'🧱',Single:'🛣️',Double:'🛣️'})[n]||'✨'}
 dockBack.onclick=()=>{if(assetCatalog)dockPath.pop();else dockPath=[];dockTransitionOriginX=null;dockItems.style.transform='';renderDock()};
 // When a nested asset library is open, clicking anywhere outside the dock returns it to the main categories.
-document.addEventListener('pointerdown',e=>{if(e.target.closest?.('#assetDock')){dockIntro=false;return;}if(e.target!==renderer.domElement)return;dockIntro=false;pointer(e);if(!ray.intersectObjects(placed.map(p=>p.root),true).length)closeAutoDockNow();},true);
+document.addEventListener('pointerdown',e=>{if(e.target.closest?.('#assetDock')){dockIntro=false;return;}if(e.target!==renderer.domElement)return;dockIntro=false;pointer(e);if(!ray.intersectObjects(placed.map(p=>p.root),true).length&&!(e.button===0&&assetDockEl.classList.contains('dock-open')&&!placingCopy&&!placingCopies&&!placementLoading))closeAutoDockNow();},true);
 renderDock();
 // Stable delayed autohide dock. Entering the bottom hotspot opens it; leaving waits before closing.
 const assetDockEl=document.getElementById('assetDock');
@@ -1542,7 +1551,14 @@ const sunnyIcon=cartoonSprite('☀️',85,.8);scene.add(sunnyIcon);
 const fogGroup=new THREE.Group(),tornadoGroup=new THREE.Group();scene.add(fogGroup,tornadoGroup);
 for(let i=0;i<20;i++){const f=new THREE.Sprite(new THREE.SpriteMaterial({map:cloudTexture,transparent:true,opacity:.06,depthWrite:false}));f.scale.set(240,65,1);f.position.set((Math.random()-.5)*1200,18+Math.random()*30,(Math.random()-.5)*1200);fogGroup.add(f);}
 for(let i=0;i<30;i++){const puff=new THREE.Sprite(new THREE.SpriteMaterial({map:cloudTexture,color:0xa7b5c7,transparent:true,opacity:.35,depthWrite:false}));puff.scale.set(22+i*1.4,14+i*.6,1);tornadoGroup.add(puff);}
-function applyWeatherFx(){const c=worldSettings.weatherCode??0,prec=Number(worldSettings.precipitation||0),snow=Number(worldSettings.snowfall||0),cover=Math.max(0,Math.min(100,Number(worldSettings.cloudCover||0)))/100;liveWeather.cloud=Math.max(c===0?.02:0,cover);liveWeather.rain=((c>=51&&c<=67)||(c>=80&&c<=82)||c>=95)?Math.min(1,.25+prec/4):0;liveWeather.snow=((c>=71&&c<=77)||(c>=85&&c<=86))?Math.min(1,.3+snow/1.5):0;liveWeather.fog=[45,48].includes(c)?.78:0;liveWeather.storm=c>=95?1:0;liveWeather.wind=Math.min(1,Number(worldSettings.windSpeed||0)/40);setRain(liveWeather.rain);setSnow(liveWeather.snow);scene.fog=liveWeather.fog?new THREE.FogExp2(weatherFogColor,.0009+liveWeather.fog*.0012):null;}
+function updateWeatherFogDepth(){
+ if(!scene.fog?.isFog)return;
+ const distance=camera.position.distanceTo(controls.target),strength=Math.max(.1,liveWeather.fog);
+ scene.fog.near=Math.max(0,distance-250);scene.fog.far=distance+5000/strength;
+ const night=worldSettings.realtime?realTimeNightAmount():worldSettings.dayMode==='day'?0:worldSettings.dayMode==='night'?1:nightAmountAt((performance.now()-dayNightStart)/1000);
+ scene.fog.color.set(mixHex(weatherFogColor,'#19253d',night));
+}
+function applyWeatherFx(){const c=worldSettings.weatherCode??0,prec=Number(worldSettings.precipitation||0),snow=Number(worldSettings.snowfall||0),cover=Math.max(0,Math.min(100,Number(worldSettings.cloudCover||0)))/100;liveWeather.cloud=Math.max(c===0?.02:0,cover);liveWeather.rain=((c>=51&&c<=67)||(c>=80&&c<=82)||c>=95)?Math.min(1,.25+prec/4):0;liveWeather.snow=((c>=71&&c<=77)||(c>=85&&c<=86))?Math.min(1,.3+snow/1.5):0;liveWeather.fog=[45,48].includes(c)?.78:0;liveWeather.storm=c>=95?1:0;liveWeather.wind=Math.min(1,Number(worldSettings.windSpeed||0)/40);setRain(liveWeather.rain);setSnow(liveWeather.snow);scene.fog=liveWeather.fog?new THREE.Fog(weatherFogColor,0,10000):null;updateWeatherFogDepth();}
 function updateWeatherFx(dt){
  const t=performance.now()/1000,wind=liveWeather.wind||0;
  for(const r of rainDrops){r.position.y-=220*(.8+liveWeather.rain*.7)*dt;r.position.x+=wind*45*dt;if(r.position.y<0){r.position.y=500+Math.random()*100;r.position.x=(Math.random()-.5)*1250;}}
@@ -1646,3 +1662,11 @@ document.getElementById('exportParts').onclick=async()=>{const text=partsText(),
  left.onclick=()=>row.scrollBy({left:-Math.max(150,row.clientWidth*.65),behavior:'smooth'});right.onclick=()=>row.scrollBy({left:Math.max(150,row.clientWidth*.65),behavior:'smooth'});
  row.addEventListener('scroll',refresh,{passive:true});row.addEventListener('wheel',e=>{if(row.scrollWidth<=row.clientWidth)return;e.preventDefault();row.scrollBy({left:e.deltaX||e.deltaY,behavior:'auto'});},{passive:false});new ResizeObserver(refresh).observe(row);new MutationObserver(refresh).observe(row,{childList:true});refresh();
 }
+
+// A short detent tick when entering each toolbar/dock control; mute remains authoritative.
+let lastHoverTick=0;
+function hoverTick(){
+ if(!soundOn||!audioCtx||audioCtx.state!=='running'||performance.now()-lastHoverTick<45)return;lastHoverTick=performance.now();
+ const t=audioCtx.currentTime,o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='triangle';o.frequency.setValueAtTime(1500,t);o.frequency.exponentialRampToValueAtTime(460,t+.025);g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(.035,t+.002);g.gain.exponentialRampToValueAtTime(.0001,t+.028);o.connect(g).connect(audioMaster);o.start(t);o.stop(t+.03);
+}
+document.addEventListener('pointerover',e=>{if(e.pointerType==='touch')return;const button=e.target.closest?.('#imageToolbar .imageTool,#assetDock .dockItem,#assetDock .dockBack,#assetDock .dockScroll');if(button&&!button.contains(e.relatedTarget))hoverTick();});
