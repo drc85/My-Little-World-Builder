@@ -1510,3 +1510,12 @@ header#imageToolbar #bulldozerBtn[aria-pressed=true] .toolArt{filter:drop-shadow
 
 /* Nested-menu glow follows the menu width and full height. */
 #assetDock:not([data-flow=home])::after{left:12px!important;right:12px!important;bottom:0!important;height:165px!important;border-radius:38px!important;background:rgba(0,0,0,.65)!important;filter:blur(22px)!important;}
+
+/* Match the stronger toolbar artwork to the gentler dock palette. */
+#imageToolbar .toolArt>img{filter:saturate(.88) contrast(.94) brightness(1.03);}
+#selectionBadge,#selectionTools{transform:none!important;margin-top:0!important;opacity:.65;transition:opacity .15s ease;}
+#selectionBadge:hover,#selectionTools:hover,#viewportWrap:has(#selectionTools:hover) #selectionBadge,#viewportWrap:has(#selectionBadge:hover) #selectionTools{opacity:1;}
+#selectionBadge{pointer-events:auto!important;}
+#repeatStatus{padding:0!important;background:none!important;border:0!important;box-shadow:none!important;transform:none!important;bottom:auto!important;width:30px;height:30px;}
+#repeatStatus #stopRepeat{width:30px;height:30px;padding:0;border:1px solid #ffb5b5;border-radius:50%;background:#b72e38e8;color:#fff;font:bold 21px/1 system-ui;box-shadow:0 2px 7px #0005;cursor:pointer;}
+#repeatStatus #stopRepeat:hover{background:#ed3946;transform:scale(1.1);}
