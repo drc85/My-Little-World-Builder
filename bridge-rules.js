@@ -1,9 +1,10 @@
+import {placementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261011-polish';
 export const role=p=>p.asset.bridgeRole||'';
 export const elevated=p=>['deck','rail'].includes(role(p));
 export function dimensions(p){const turn=Math.round(p.rotation/(Math.PI/2))%2;return turn?{w:p.asset.d,d:p.asset.w}:{w:p.asset.w,d:p.asset.d};}
 function direction(p,sign=1){const z=p.asset.bridgeAxis===2;const x=z?0:sign,v=z?sign:0,c=Math.cos(p.rotation),s=Math.sin(p.rotation);return {x:Math.round(x*c+v*s),z:Math.round(v*c-x*s)};}
-export function overlap(a,b){const x=dimensions(a),y=dimensions(b);return Math.abs(a.root.position.x-b.root.position.x)<(x.w+y.w)/2-.5&&Math.abs(a.root.position.z-b.root.position.z)<(x.d+y.d)/2-.5;}
-export function collides(a,b){if(a===b||!overlap(a,b))return false;const ground=p=>['Terrain','Streets'].includes(p.asset.cat)&&!role(p);if(ground(a)&&ground(b))return true;if(a.asset.noCollision||b.asset.noCollision)return false;const beam=role(a)==='beam'?a:role(b)==='beam'?b:null,deck=beam===a?b:a;if(beam&&elevated(deck)){const top=beam.root.position.y+Number(beam.asset.h),surface=deck.root.position.y+(deck.asset.roadSurface||5);if(top<=surface+.5&&beam.root.position.y<deck.root.position.y)return false;}const ay=a.root.position.y,by=b.root.position.y;return ay<by+(Number(b.asset.h)||5)-.5&&by<ay+(Number(a.asset.h)||5)-.5;}
+export function overlap(a,b){const x=dimensions(a),y=dimensions(b),ap=placementCenter(a),bp=placementCenter(b);return Math.abs(ap.x-bp.x)<(x.w+y.w)/2-.5&&Math.abs(ap.z-bp.z)<(x.d+y.d)/2-.5;}
+export function collides(a,b){if(a===b||!overlap(a,b))return false;const ground=p=>['Terrain','Streets'].includes(p.asset.cat)&&!role(p);if(ground(a)&&ground(b))return true;if(a.asset.noCollision||b.asset.noCollision)return false;const beam=role(a)==='beam'?a:role(b)==='beam'?b:null,deck=beam===a?b:a;if(beam&&elevated(deck)){const top=beam.root.position.y+Number(beam.asset.h),surface=deck.root.position.y+(deck.asset.roadSurface||5);if(top<=surface+.5&&beam.root.position.y<deck.root.position.y)return false;}const ay=verticalRange(a),by=verticalRange(b);return ay.min<by.max-.5&&by.min<ay.max-.5;}
 function length(p){return p.asset.bridgeAxis===2?p.asset.d:p.asset.w;}
 export function bridgeTarget(p,x,z,others){const candidates=[],half=length(p)/2;
  for(const q of others){if(q===p||(!elevated(q)&&role(q)!=='ramp'))continue;
@@ -20,7 +21,7 @@ function baseTile(p){return !role(p)&&['Terrain','Streets'].includes(p.asset.cat
 export function beamTarget(p,x,z,others){
  const bases=others.filter(baseTile),candidates=[];
  for(let i=0;i<bases.length;i++)for(let j=i+1;j<bases.length;j++){
-  const a=bases[i],b=bases[j],da=dimensions(a),db=dimensions(b),ap=a.root.position,bp=b.root.position;
+  const a=bases[i],b=bases[j],da=dimensions(a),db=dimensions(b),ap=placementCenter(a),bp=placementCenter(b);
   for(const axis of ['x','z']){const cross=axis==='x'?'z':'x',aw=axis==='x'?da.w:da.d,bw=axis==='x'?db.w:db.d,ad=axis==='x'?da.d:da.w,bd=axis==='x'?db.d:db.w;if(Math.abs(Math.abs(ap[axis]-bp[axis])-(aw+bw)/2)>.5)continue;
    const low=Math.max(ap[cross]-ad/2,bp[cross]-bd/2),high=Math.min(ap[cross]+ad/2,bp[cross]+bd/2);if(high-low<1)continue;
    const seam=ap[axis]+Math.sign(bp[axis]-ap[axis])*aw/2,desired=cross==='x'?x:z;
@@ -32,7 +33,7 @@ export function beamTarget(p,x,z,others){
  const old=p.root.position.clone();candidates.sort((a,b)=>Math.hypot(a.x-x,a.z-z)-Math.hypot(b.x-x,b.z-z));
  for(const c of candidates){if(Math.hypot(c.x-x,c.z-z)>60)continue;
   const left=c.x-25,right=c.x+25,top=c.z-25,bottom=c.z+25;
-  const rects=bases.map(q=>{const d=dimensions(q);return {q,l:Math.max(left,q.root.position.x-d.w/2),r:Math.min(right,q.root.position.x+d.w/2),t:Math.max(top,q.root.position.z-d.d/2),b:Math.min(bottom,q.root.position.z+d.d/2),y:q.root.position.y+q.asset.h};}).filter(r=>r.r-r.l>.01&&r.b-r.t>.01);
+  const rects=bases.map(q=>{const d=dimensions(q),pos=placementCenter(q);return {q,l:Math.max(left,pos.x-d.w/2),r:Math.min(right,pos.x+d.w/2),t:Math.max(top,pos.z-d.d/2),b:Math.min(bottom,pos.z+d.d/2),y:verticalRange(q).max};}).filter(r=>r.r-r.l>.01&&r.b-r.t>.01);
   if(rects.length<2||Math.max(...rects.map(r=>r.y))-Math.min(...rects.map(r=>r.y))>10)continue;
   const xs=[...new Set([left,right,...rects.flatMap(r=>[r.l,r.r])])].sort((a,b)=>a-b),zs=[...new Set([top,bottom,...rects.flatMap(r=>[r.t,r.b])])].sort((a,b)=>a-b);let covered=true;
   for(let i=1;i<xs.length;i++)for(let j=1;j<zs.length;j++){const mx=(xs[i-1]+xs[i])/2,mz=(zs[j-1]+zs[j])/2;if(!rects.some(r=>mx>=r.l&&mx<=r.r&&mz>=r.t&&mz<=r.b))covered=false;}

@@ -1,4 +1,4 @@
-import {fitModel,gltfRoot} from '../model-rules.js?v=materials-1';
+import {fitModel,gltfRoot} from '../model-rules.js?v=desktop-release-20261011-polish';
 import * as THREE from 'three';
 import {OBJLoader} from 'three/addons/loaders/OBJLoader.js';
 import {MTLLoader} from 'three/addons/loaders/MTLLoader.js';
@@ -13,8 +13,8 @@ export async function renderPreview(a){
  else obj=await gltfRoot(await new GLTFLoader().loadAsync(assetURL(a.file)));
  fitModel(obj,a);
  const scene=new THREE.Scene();scene.add(new THREE.HemisphereLight(0xffffff,0x999999,2.5),obj);
- const s=new THREE.Box3().setFromObject(obj).getSize(new THREE.Vector3()),max=Math.max(s.x,s.y,s.z)||100;
- const camera=new THREE.OrthographicCamera(-max,max,max*.7,-max*.7,.1,10000);camera.position.set(max*1.4,max*1.3,max*1.4);camera.lookAt(0,s.y*.25,0);
+ const box=new THREE.Box3().setFromObject(obj),focus=box.getCenter(new THREE.Vector3()),s=box.getSize(new THREE.Vector3()),max=Math.max(s.x,s.y,s.z)||100;
+ const camera=new THREE.OrthographicCamera(-max,max,max*.7,-max*.7,.1,10000);camera.position.copy(focus).add(new THREE.Vector3(max*1.4,max*1.3,max*1.4));camera.lookAt(focus);
  if(!renderer){renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});renderer.setSize(320,224);renderer.setPixelRatio(1)}
  renderer.render(scene,camera);const data=renderer.domElement.toDataURL('image/png');obj.traverse(o=>{o.geometry?.dispose();for(const m of o.material?(Array.isArray(o.material)?o.material:[o.material]):[]){m.map?.dispose();m.dispose()}});return data;
 }
