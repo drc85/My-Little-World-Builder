@@ -1484,3 +1484,23 @@ header#imageToolbar button.imageTool>.toolArt{display:block!important;}
 
 #assetDock[data-flow=home] .dockIcon{width:132px!important;margin-left:-10px!important;}
 #assetDock[data-flow=home] .dockItems{height:300px!important;min-height:300px!important;}
+
+/* Compact artwork layout; retain the PNG's complete soft shadow. */
+header#imageToolbar{top:1px!important;grid-template-columns:1fr 115px 1fr!important;gap:6px!important;}
+#mainArtworkLogo{width:115px!important;}
+#imageToolbar .toolBank{padding-top:4px;gap:2px;}
+#imageToolbar .toolBank:first-child{justify-content:flex-end;}
+#imageToolbar .toolBank:last-child{justify-content:flex-start;}
+header#imageToolbar button.imageTool{max-width:54px!important;overflow:visible!important;}
+#imageToolbar .toolArt{position:relative;overflow:visible;transform-origin:50% 0%;}
+header#imageToolbar button.imageTool:hover .toolArt{transform:scale(1.11);}
+header#imageToolbar #bulldozerBtn[aria-pressed=true] .toolArt{filter:drop-shadow(2px 0 0 #ffdf00) drop-shadow(-2px 0 0 #ffdf00) drop-shadow(0 2px 0 #ffdf00) drop-shadow(0 -2px 0 #ffdf00)!important;}
+#assetDock{zoom:.85;}
+#assetDock.assetDock.dock-open{bottom:-8px!important;}
+#assetDock[data-flow=home] .dockItem{width:102px!important;min-width:102px!important;flex-basis:102px!important;}
+#assetDock[data-flow=home] .dockItems{gap:0!important;}
+#assetDock[data-flow=home] .dockIcon{margin-left:-15px!important;}
+#assetDock:not([data-flow=home])::after{display:block!important;content:''!important;position:absolute;left:-12%!important;right:-12%!important;bottom:-20px!important;height:130px!important;background:rgba(0,0,0,.65)!important;filter:blur(32px)!important;pointer-events:none;z-index:0;}
+#assetDock:not([data-flow=home]) .dockLabel,#assetDock:not([data-flow=home]) .dockBack span{text-shadow:0 2px 4px #000,0 0 9px #000!important;}
+@media(max-width:1150px){header#imageToolbar{top:34px!important;grid-template-columns:1fr 89px 1fr!important;gap:5px!important;}#mainArtworkLogo{width:89px!important;}}
+@media(max-width:650px){header#imageToolbar{grid-template-columns:1fr 60px 1fr!important;gap:3px!important;}#mainArtworkLogo{width:60px!important;}}
