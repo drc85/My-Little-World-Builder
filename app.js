@@ -225,17 +225,29 @@ const hemi=new THREE.HemisphereLight(0xffffff,0xaeb8c0,1.85);scene.add(hemi);con
 // Turbo clock: 4 real minutes = 12 world hours; full world day = 8 minutes.
 const CYCLE_SECONDS=480;
 const dayNightStart=performance.now();
-const daySky=['#74bde8','#84c8ed','#b49be1'], duskSky=['#786ba5','#ad718e','#e49b78'], nightSky=['#08152f','#142650','#3d3769'];
+const daySky=['#74bde8','#84c8ed','#b49be1'], morningSky=['#728fc7','#f4b7b0','#ffe2a3'], eveningSky=['#514b9a','#ef967f','#ffbe66'], nightSky=['#08152f','#142650','#3d3769'];
 function mixHex(a,b,t){const A=new THREE.Color(a),B=new THREE.Color(b);A.lerp(B,t);return '#'+A.getHexString()}
 function smooth01(t){t=Math.max(0,Math.min(1,t));return t*t*(3-2*t)}
 function demoWorldHour(sec){return ((sec%CYCLE_SECONDS)+CYCLE_SECONDS)%CYCLE_SECONDS/CYCLE_SECONDS*24;}
 function nightAmountForHour(hour){if(hour>=8&&hour<18)return 0;if(hour>=20||hour<6)return 1;if(hour>=18)return smooth01((hour-18)/2);return 1-smooth01((hour-6)/2)}
 function nightAmountAt(sec){return nightAmountForHour(demoWorldHour(sec));}
-function updateSky(night){
- const dusk=Math.sin(Math.PI*night);
- const cols=daySky.map((c,i)=>mixHex(c,nightSky[i],night));
- for(let i=0;i<3;i++)cols[i]=mixHex(cols[i],duskSky[i],dusk*.42);
- const g=skyCtx.createLinearGradient(0,0,0,512);g.addColorStop(0,cols[0]);g.addColorStop(.58,cols[1]);g.addColorStop(1,cols[2]);skyCtx.fillStyle=g;skyCtx.fillRect(0,0,8,512);skyTexture.needsUpdate=true;
+// The next phase reaches the top first, then travels down the screen.
+// Hold the original noon and midnight palettes unchanged between transitions.
+function skyPaletteAtHour(hour){
+ hour=((hour%24)+24)%24;
+ const keys=[[0,nightSky],[4,nightSky],[7,morningSky],[10,daySky],[16,daySky],[19,eveningSky],[22,nightSky],[24,nightSky]];
+ for(let i=1;i<keys.length;i++)if(hour<=keys[i][0]){const [a,from]=keys[i-1],[b,to]=keys[i],t=smooth01((hour-a)/(b-a));return from.map((c,j)=>mixHex(c,to[j],t));}
+ return nightSky;
+}
+function skyColorAt(hour,y){
+ const colors=skyPaletteAtHour(hour+(.5-y)*1.4),split=.58,index=y<=split?0:1,t=index?(y-split)/(1-split):y/split;
+ // Canvas gradients interpolate display RGB; keep the established daytime appearance.
+ const a=parseInt(colors[index].slice(1),16),b=parseInt(colors[index+1].slice(1),16);
+ const rgb=[16,8,0].map(shift=>Math.round(((a>>shift)&255)*(1-t)+((b>>shift)&255)*t));return '#'+rgb.map(v=>v.toString(16).padStart(2,'0')).join('');
+}
+function currentSkyHour(now=performance.now()){return worldSettings.realtime?realTimeHour():worldSettings.dayMode==='day'?12:worldSettings.dayMode==='night'?0:demoWorldHour((now-dayNightStart)/1000);}
+function updateSky(night,hour=currentSkyHour()){
+ const g=skyCtx.createLinearGradient(0,0,0,512);for(let i=0;i<=64;i++){const y=i/64;g.addColorStop(y,skyColorAt(hour,y));}skyCtx.fillStyle=g;skyCtx.fillRect(0,0,8,512);skyTexture.needsUpdate=true;
  grid.material.color.set(mixHex('#9aa8b0','#536487',night));grid.material.opacity=.42-night*.13;
  hemi.intensity=THREE.MathUtils.lerp(1.85,.48,night)*lightSettings.brightness;ambient.intensity=THREE.MathUtils.lerp(.62,.22,night)*lightSettings.brightness;sun.intensity=THREE.MathUtils.lerp(1.18,.13,night)*lightSettings.brightness;
  const warm=mixHex('#ffd8a0','#d9f0ff',lightSettings.temp);sun.color.set(mixHex(warm,'#829bd0',night));const ang=lightSettings.rotation*Math.PI/180;sun.position.set(Math.cos(ang)*650,800,Math.sin(ang)*650);renderer.toneMappingExposure=THREE.MathUtils.lerp(.88,.68,night)*lightSettings.brightness;renderer.domElement.style.filter=`contrast(${lightSettings.contrast})`;
@@ -324,7 +336,7 @@ function updateWorldClock(now){
  el.querySelector('.secondHand')?.style.setProperty('--rot',secDeg+'deg');
 }
 
-function updateDayNight(now){const night=worldSettings.realtime?realTimeNightAmount():worldSettings.dayMode==='day'?0:worldSettings.dayMode==='night'?1:nightAmountAt((now-dayNightStart)/1000);if(now-skyTick>90){skyTick=now;updateSky(night)}updateNightLights(night);updateCarLights(night);updateWorldClock(now);updateSettingsClock();}
+function updateDayNight(now){const night=worldSettings.realtime?realTimeNightAmount():worldSettings.dayMode==='day'?0:worldSettings.dayMode==='night'?1:nightAmountAt((now-dayNightStart)/1000);if(now-skyTick>90){skyTick=now;updateSky(night,currentSkyHour(now))}updateNightLights(night);updateCarLights(night);updateWorldClock(now);updateSettingsClock();}
 
 const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.target.set(0,0,0);controls.enableRotate=false;controls.mouseButtons={LEFT:null,MIDDLE:null,RIGHT:null};controls.touches={ONE:null,TWO:THREE.TOUCH.DOLLY_PAN};
 const BUILD_HALF=1500;
