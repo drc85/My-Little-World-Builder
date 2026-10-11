@@ -1504,3 +1504,6 @@ header#imageToolbar #bulldozerBtn[aria-pressed=true] .toolArt{filter:drop-shadow
 #assetDock:not([data-flow=home]) .dockLabel,#assetDock:not([data-flow=home]) .dockBack span{text-shadow:0 2px 4px #000,0 0 9px #000!important;}
 @media(max-width:1150px){header#imageToolbar{top:34px!important;grid-template-columns:1fr 89px 1fr!important;gap:5px!important;}#mainArtworkLogo{width:89px!important;}}
 @media(max-width:650px){header#imageToolbar{grid-template-columns:1fr 60px 1fr!important;gap:3px!important;}#mainArtworkLogo{width:60px!important;}}
+
+/* Keep the edge artwork and hover enlargement inside the scrolling viewport. */
+#assetDock[data-flow=home] .dockItems{padding-left:72px!important;padding-right:72px!important;scroll-padding-inline:72px;}
