@@ -884,7 +884,8 @@ function colorValue(value){return /^#[0-9a-f]{6}$/i.test(value||'')?value:'#ff66
 function groupMembers(p){return p.groupId?placed.filter(q=>q.groupId===p.groupId):[p];}
 function expandGroups(items){return [...new Set(items.flatMap(groupMembers))];}
 function oneGroup(items){return items.length>0&&!!items[0].groupId&&items.every(p=>p.groupId===items[0].groupId);}
-function hideInspector(){inspectorVisible=false;document.getElementById('selectionTools').classList.remove('show');document.getElementById('selectionBadge').style.display='none';document.getElementById('groupColorPanel').hidden=true;}
+let inspectorFramingKey='',inspectorFramingActive=false;
+function hideInspector(){inspectorFramingKey='';inspectorFramingActive=false;inspectorVisible=false;document.getElementById('selectionTools').classList.remove('show');document.getElementById('selectionBadge').style.display='none';document.getElementById('groupColorPanel').hidden=true;}
 function selectionOutlines(items){
  outlinePass.selectedObjects=items.filter(p=>!p.groupId).map(p=>p.root);
  const colors=new Map();for(const p of items){if(p.groupId){const color=colorValue(p.groupColor);if(!colors.has(color))colors.set(color,[]);colors.get(color).push(p.root);}}
@@ -1504,10 +1505,12 @@ function updatePinPosition(){
  if(repeater){const anchor=lastRepeatSelection.filter(p=>placed.includes(p)),box=screenObjectBounds(anchor);if(box){const r=viewport.getBoundingClientRect();status.style.left=(r.left+Math.max(18,Math.min(viewport.clientWidth-38,box.right+8)))+'px';status.style.top=(r.top+Math.max(18,Math.min(viewport.clientHeight-38,box.top)))+'px';}}
  const arr=currentSelection();if(!arr.length||!tools.classList.contains('show')||placingCopies||placingCopy||repeater)return;
  const box=screenObjectBounds(arr);if(!box)return;
+ const framingKey=arr.map(p=>p.id).join(',')+':'+viewport.clientWidth+':'+viewport.clientHeight;if(framingKey!==inspectorFramingKey){inspectorFramingKey=framingKey;inspectorFramingActive=true;}
  const width=Math.max(tools.offsetWidth,badge.offsetWidth),height=tools.offsetHeight+badge.offsetHeight+5,w=viewport.clientWidth,h=viewport.clientHeight;
  let left=box.left-width-14,top=(box.top+box.bottom-height)/2;
  const dx=left<12?12-left:left+width>w-12?w-12-left-width:0,dy=top<12?12-top:top+height>h-12?h-12-top-height:0;
- if((Math.abs(dx)>1||Math.abs(dy)>1)&&!dragging&&!draggingGroup&&!panning){const r=viewport.getBoundingClientRect(),from=hitGround({clientX:r.left+w/2,clientY:r.top+h/2}),to=hitGround({clientX:r.left+w/2+dx*.2,clientY:r.top+h/2+dy*.2});if(from&&to){const delta=from.sub(to);camera.position.add(delta);controls.target.add(delta);controls.update();}}
+ if(Math.abs(dx)<=1&&Math.abs(dy)<=1)inspectorFramingActive=false;
+ if(inspectorFramingActive&&(Math.abs(dx)>1||Math.abs(dy)>1)&&!dragging&&!draggingGroup&&!panning){const r=viewport.getBoundingClientRect(),from=hitGround({clientX:r.left+w/2,clientY:r.top+h/2}),to=hitGround({clientX:r.left+w/2+dx*.2,clientY:r.top+h/2+dy*.2});if(from&&to){const delta=from.sub(to);camera.position.add(delta);controls.target.add(delta);controls.update();}}
  left=Math.max(12,Math.min(w-width-12,left));top=Math.max(12,Math.min(h-height-12,top));
  badge.style.left=tools.style.left=left+'px';badge.style.top=top+'px';tools.style.top=(top+badge.offsetHeight+5)+'px';
 }
