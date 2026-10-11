@@ -245,11 +245,16 @@ function updateSky(night){
  if(pbr==='warm')sun.color.lerp(new THREE.Color('#ffd0a0'),.24);else if(pbr==='cool')sun.color.lerp(new THREE.Color('#cfe7ff'),.24);
 
 }
+function modelLightColor(mesh,material){
+ const color=material.emissive?.clone()||material.color?.clone()||new THREE.Color(0xffffff);
+ if(material.vertexColors){const colors=mesh.geometry.getAttribute('color');if(colors?.count){const average=new THREE.Color(0,0,0);for(let i=0;i<colors.count;i++){average.r+=colors.getX(i);average.g+=colors.getY(i);average.b+=colors.getZ(i);}average.multiplyScalar(1/colors.count);color.multiply(average);}}
+ return color;
+}
 let lampGlowTexture;
 function addLampEffects(p,mesh,material,lamp=false){
  if(!lampGlowTexture){const c=document.createElement('canvas');c.width=c.height=64;const ctx=c.getContext('2d'),g=ctx.createRadialGradient(32,32,0,32,32,32);g.addColorStop(0,'rgba(255,255,255,.6)');g.addColorStop(.25,'rgba(255,255,255,.22)');g.addColorStop(1,'rgba(255,255,255,0)');ctx.fillStyle=g;ctx.fillRect(0,0,64,64);lampGlowTexture=new THREE.CanvasTexture(c);}
  p.root.updateMatrixWorld(true);const box=new THREE.Box3().setFromObject(mesh),center=box.getCenter(new THREE.Vector3()),size=box.getSize(new THREE.Vector3());p.root.worldToLocal(center);
- const color=material.color?.clone()||new THREE.Color(0xffedbc),red=color.r>color.g*2&&color.r>color.b*2;
+ const color=modelLightColor(mesh,material),red=color.r>color.g*2&&color.r>color.b*2;
  const sprite=new THREE.Sprite(new THREE.SpriteMaterial({map:lampGlowTexture,color,transparent:true,opacity:0,depthWrite:false,blending:THREE.AdditiveBlending}));sprite.position.copy(center);sprite.scale.setScalar(Math.min(p.asset.cat==='Houses'?26:18,Math.max(4,size.length()*1.6)));sprite.userData.lightEffect=true;sprite.raycast=()=>{};p.root.add(sprite);
  const effects=p.root.userData.lampEffects||(p.root.userData.lampEffects=[]);effects.push({object:sprite,opacity:p.asset.cat==='Houses'?.72:.32});
  if(isVehicle(p)){
@@ -286,7 +291,11 @@ function ensureNightLights(p){
  p.root.traverse(mesh=>{if(!mesh.isMesh||mesh.userData.lightEffect)return;let named=legacyWindow(mesh.name),lamp=false;
   for(let n=mesh;n&&n!==p.root;n=n.parent){named=named||lightMarker(n.name)||n.userData.lightMarker;lamp=lamp||lampMarker(n.name)||n.userData.lampMarker;}
   const src=Array.isArray(mesh.material)?mesh.material:[mesh.material];let effect=null;
-  const out=src.map(m=>{const isLamp=lamp||lampMarker(m.name);if(!named&&!isLamp&&!lightMarker(m.name))return m;const clone=m.clone();if(!clone.emissive)return m;const base=clone.emissiveIntensity||0,color=clone.emissive.clone();if(color.r+color.g+color.b<.001)color.copy(clone.color);clone.emissive.copy(color);clone.emissiveIntensity=0;clone.userData.nightBase=base;materials.push(clone);effect={mesh,material:clone,lamp:isLamp};return clone;});mesh.material=Array.isArray(mesh.material)?out:out[0];if(effect)lamps.push(effect);
+  const out=src.map(m=>{const isLamp=lamp||lampMarker(m.name);if(!named&&!isLamp&&!lightMarker(m.name))return m;const clone=m.clone();if(!clone.emissive)return m;const base=clone.emissiveIntensity||0,color=clone.emissive.clone();if(color.r+color.g+color.b<.001)color.copy(clone.color);clone.emissive.copy(color);
+ // GLB vertex colours tint the surface, but Three does not apply them to emission automatically.
+ if(clone.vertexColors&&mesh.geometry.getAttribute('color')){clone.onBeforeCompile=shader=>{shader.fragmentShader=shader.fragmentShader.replace('#include <emissivemap_fragment>','#include <emissivemap_fragment>\n#if defined( USE_COLOR ) || defined( USE_COLOR_ALPHA )\n totalEmissiveRadiance *= vColor.rgb;\n#endif');};clone.customProgramCacheKey=()=> 'model-colored-emission-v1';}
+ if(!clone.emissiveMap&&clone.map)clone.emissiveMap=clone.map;
+ clone.emissiveIntensity=0;clone.userData.nightBase=base;materials.push(clone);effect={mesh,material:clone,lamp:isLamp};return clone;});mesh.material=Array.isArray(mesh.material)?out:out[0];if(effect)lamps.push(effect);
  });p.root.userData.windowMaterials=materials;for(const item of lamps)addLampEffects(p,item.mesh,item.material,item.lamp);
 }
 function updateNightLights(night){const v=THREE.MathUtils.smoothstep(night,.28,.78);for(const p of placed){ensureNightLights(p);for(const m of p.root.userData.windowMaterials||[])m.emissiveIntensity=v*((m.userData.nightBase||0)+2.5);for(const e of p.root.userData.lampEffects||[]){e.object.material.opacity=e.opacity*v;e.object.visible=v>.01;}}}
