@@ -1101,6 +1101,7 @@ renderer.domElement.addEventListener('pointerdown',e=>{
  if(repeater&&(placingCopies||placingCopy)){startRoller(e);return;}
  if(placingCopies||placingCopy){commitPlacement(e);return;}
  dragBefore=sceneSnapshot();pointer(e);const hit=ray.intersectObjects(placed.map(p=>p.root),true)[0],p=hit?findPlacedObject(hit.object):null;
+ if(!p&&assetDockEl.classList.contains('dock-open')){clearTimeout(dockHideTimer);dockHideTimer=null;}
  pointerGesture={x:e.clientX,y:e.clientY,moved:false,p,dockBack:!p&&assetDockEl.classList.contains('dock-open')&&!placingCopy&&!placingCopies&&!placementLoading};hideInspector();
  if(p){
   if(isVehicle(p))carHorn();else if(p.asset.cat==='Houses')houseBell();else if(pedestrian(p))characterMurmur();
@@ -1138,7 +1139,7 @@ window.addEventListener('pointerup',e=>{
  if(dragBefore&&!sameSnapshot(dragBefore,sceneSnapshot()))remember(dragBefore);
  if(pointerGesture?.moved){const items=currentSelection();if(!(items.length>1&&items.every(p=>!p.groupId)))select(null);hideInspector();}
  else if(pointerGesture?.p){inspectorVisible=true;refreshSelectionUI();}
- else if(pointerGesture?.dockBack){if(dockPath.length){dockBack.onclick();openAutoDock();closeAutoDockDelayed();}else closeAutoDockNow();}
+ else if(pointerGesture?.dockBack){clearTimeout(dockHideTimer);dockHideTimer=null;if(dockPath.length){dockBack.onclick();openAutoDock();}else closeAutoDockNow();}
  pointerGesture=null;dragBefore=null;dragging=null;dragStartPos=null;draggingGroup=null;dragGroupStart=null;panning=false;panLast=null;renderer.domElement.style.cursor=repeater?'copy':'default';
  try{renderer.domElement.releasePointerCapture?.(e.pointerId)}catch(_){}
 });
@@ -1432,9 +1433,8 @@ function closeAutoDockNow(){
  if(!dockAutoHide||dockIntro)return;
  if(placingCopy||placingCopies||placementLoading){openAutoDock();return;}
  clearTimeout(dockHideTimer);dockHideTimer=null;
- // Always restore the main category page as the dock starts going down.
- dockPath=[];dockTransitionOriginX=null;positionDockBack(innerWidth/2);
- renderDock();
+ // Hiding is not navigation: retain the current level for the next open.
+
  assetDockEl.classList.remove('dock-open');
 }
 function closeAutoDockDelayed(){if(!dockAutoHide||dockIntro)return;clearTimeout(dockHideTimer);dockHideTimer=setTimeout(closeAutoDockNow,DOCK_HIDE_DELAY)}
@@ -1642,10 +1642,11 @@ document.getElementById('exportParts').onclick=async()=>{const text=partsText(),
 
 // Independent source artwork, laid out by its visible content bounds.
 {
- const header=document.querySelector('header'),bounds={"3dprint.png": {"w": 199, "h": 269, "x": 18, "y": 15, "cw": 164, "ch": 236}, "bulldozer.png": {"w": 225, "h": 259, "x": 20, "y": 15, "cw": 185, "ch": 229}, "center.png": {"w": 203, "h": 253, "x": 17, "y": 15, "cw": 170, "ch": 222}, "help.png": {"w": 199, "h": 234, "x": 18, "y": 16, "cw": 162, "ch": 203}, "logo middle.png": {"w": 422, "h": 507, "x": 15, "y": 15, "cw": 391, "ch": 477}, "new.png": {"w": 211, "h": 245, "x": 25, "y": 4, "cw": 170, "ch": 229}, "open.png": {"w": 195, "h": 239, "x": 17, "y": 15, "cw": 162, "ch": 210}, "redo.png": {"w": 190, "h": 242, "x": 17, "y": 15, "cw": 158, "ch": 211}, "save.png": {"w": 192, "h": 237, "x": 17, "y": 14, "cw": 159, "ch": 215}, "sound.png": {"w": 203, "h": 239, "x": 15, "y": 15, "cw": 166, "ch": 209}, "udno.png": {"w": 196, "h": 242, "x": 18, "y": 16, "cw": 160, "ch": 211}, "weather.png": {"w": 215, "h": 258, "x": 21, "y": 15, "cw": 173, "ch": 225}};
+ const header=document.querySelector('header'),bounds={"3dprint.png": {"w": 199, "h": 269, "x": 18, "y": 15, "cw": 164, "ch": 236}, "bulldozer.png": {"w": 225, "h": 259, "x": 20, "y": 15, "cw": 185, "ch": 229}, "center.png": {"w": 203, "h": 253, "x": 17, "y": 15, "cw": 170, "ch": 222}, "help.png": {"w": 199, "h": 234, "x": 18, "y": 16, "cw": 162, "ch": 203}, "logo middle.png": {"w": 422, "h": 507, "x": 15, "y": 15, "cw": 391, "ch": 477}, "new.png": {"w": 211, "h": 245, "x": 25, "y": 4, "cw": 170, "ch": 229}, "open.png": {"w": 195, "h": 239, "x": 17, "y": 15, "cw": 162, "ch": 210}, "redo.png": {"w": 190, "h": 242, "x": 17, "y": 15, "cw": 158, "ch": 211}, "save.png": {"w": 192, "h": 237, "x": 17, "y": 14, "cw": 159, "ch": 215}, "sound.png": {"w": 203, "h": 239, "x": 15, "y": 15, "cw": 166, "ch": 209}, "udno.png": {"w": 196, "h": 242, "x": 18, "y": 16, "cw": 160, "ch": 211}, "weather.png": {"w": 215, "h": 258, "x": 21, "y": 15, "cw": 173, "ch": 225}, "screenshot.png": {"w": 199, "h": 234, "x": 18, "y": 16, "cw": 162, "ch": 203}};
  const artwork=(name)=>{const b=bounds[name],el=document.createElement('div');el.className='toolArt';el.style.aspectRatio=b.cw+'/'+b.ch;const img=document.createElement('img');img.src='assets/IMG/psd/TOPBAR/'+encodeURIComponent(name)+'?v=clean-art-20261011';img.alt='';img.draggable=false;Object.assign(img.style,{position:'absolute',left:(-b.x/b.cw*100)+'%',top:(-b.y/b.ch*100)+'%',width:(b.w/b.cw*100)+'%',height:'auto',maxWidth:'none',pointerEvents:'none'});el.append(img);return el;};
  const left=document.createElement('div'),right=document.createElement('div');left.className=right.className='toolBank';
- const names=[['clearBtn','new.png'],['loadBtn','open.png'],['saveBtn','save.png'],['partsBtn','3dprint.png'],['undoBtn','udno.png'],['redoBtn','redo.png'],['soundBtn','sound.png'],['helpBtn','help.png'],['cloudBtn','weather.png'],['centerBtn','center.png'],['bulldozerBtn','bulldozer.png']];
+ const screenshotBtn=document.createElement('button');screenshotBtn.id='screenshotBtn';screenshotBtn.title='Save screenshot';screenshotBtn.setAttribute('aria-label','Save screenshot');screenshotBtn.onclick=saveScreenshot;header.append(screenshotBtn);
+ const names=[['clearBtn','new.png'],['loadBtn','open.png'],['saveBtn','save.png'],['partsBtn','3dprint.png'],['undoBtn','udno.png'],['redoBtn','redo.png'],['soundBtn','sound.png'],['helpBtn','help.png'],['cloudBtn','weather.png'],['centerBtn','center.png'],['screenshotBtn','screenshot.png'],['bulldozerBtn','bulldozer.png']];
  names.forEach(([id,file],i)=>{const b=document.getElementById(id);b.className='imageTool';b.replaceChildren(artwork(file));if(id==='soundBtn'){const slash=document.createElement('i');slash.className='muteSlash';b.append(slash);}let timer;b.addEventListener('click',()=>{b.classList.add('toolClicked');clearTimeout(timer);timer=setTimeout(()=>b.classList.remove('toolClicked'),180);},true);(i<6?left:right).append(b);});
  const logo=artwork('logo middle.png');logo.id='mainArtworkLogo';logo.setAttribute('role','img');logo.setAttribute('aria-label','My Little World Builder');
  const credit=header.querySelector('.brandCredit');if(credit){credit.id='cornerBrandCredit';document.body.append(credit);}
@@ -1670,3 +1671,18 @@ function hoverTick(){
  const t=audioCtx.currentTime,o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='triangle';o.frequency.setValueAtTime(1500,t);o.frequency.exponentialRampToValueAtTime(460,t+.025);g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(.035,t+.002);g.gain.exponentialRampToValueAtTime(.0001,t+.028);o.connect(g).connect(audioMaster);o.start(t);o.stop(t+.03);
 }
 document.addEventListener('pointerover',e=>{if(e.pointerType==='touch')return;const button=e.target.closest?.('#imageToolbar .imageTool,#assetDock .dockItem,#assetDock .dockBack,#assetDock .dockScroll');if(button&&!button.contains(e.relatedTarget))hoverTick();});
+
+function screenshotBlob(){
+ const passes=[outlinePass,...groupOutlinePasses],enabled=passes.map(p=>p.enabled);for(const p of passes)p.enabled=false;
+ try{composer.render();return new Promise((resolve,reject)=>renderer.domElement.toBlob(blob=>blob?resolve(blob):reject(new Error('Screenshot unavailable')),'image/png'));}
+ finally{passes.forEach((p,i)=>p.enabled=enabled[i]);}
+}
+async function saveScreenshot(){
+ try{
+  const stamp=new Date().toISOString().slice(0,19).replace(/[:T]/g,'-'),name='my-little-world-'+stamp+'.png';
+  const handlePromise=window.showSaveFilePicker?window.showSaveFilePicker({suggestedName:name,types:[{description:'PNG image',accept:{'image/png':['.png']}}]}):null;
+  const blobPromise=screenshotBlob(),handle=handlePromise?await handlePromise:null,blob=await blobPromise;
+  if(handle){const writer=await handle.createWritable();await writer.write(blob);await writer.close();}
+  else{const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),10000);}
+ }catch(error){if(error.name!=='AbortError'){console.error('Screenshot failed',error);placementNotice('Screenshot could not be saved. Please try again.');}}
+}
