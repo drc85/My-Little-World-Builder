@@ -1,6 +1,6 @@
-import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261011-polish';
-import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261011-polish';
-import {fitModel,gltfRoot} from './model-rules.js?v=desktop-release-20261011-polish';
+import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261011-artwork';
+import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261011-artwork';
+import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261011-artwork';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
@@ -246,16 +246,23 @@ function updateSky(night){
 
 }
 let lampGlowTexture;
-function addLampEffects(p,mesh,material){
+function addLampEffects(p,mesh,material,lamp=false){
  if(!lampGlowTexture){const c=document.createElement('canvas');c.width=c.height=64;const ctx=c.getContext('2d'),g=ctx.createRadialGradient(32,32,0,32,32,32);g.addColorStop(0,'rgba(255,255,255,.6)');g.addColorStop(.25,'rgba(255,255,255,.22)');g.addColorStop(1,'rgba(255,255,255,0)');ctx.fillStyle=g;ctx.fillRect(0,0,64,64);lampGlowTexture=new THREE.CanvasTexture(c);}
  p.root.updateMatrixWorld(true);const box=new THREE.Box3().setFromObject(mesh),center=box.getCenter(new THREE.Vector3()),size=box.getSize(new THREE.Vector3());p.root.worldToLocal(center);
  const color=material.color?.clone()||new THREE.Color(0xffedbc),red=color.r>color.g*2&&color.r>color.b*2;
  const sprite=new THREE.Sprite(new THREE.SpriteMaterial({map:lampGlowTexture,color,transparent:true,opacity:0,depthWrite:false,blending:THREE.AdditiveBlending}));sprite.position.copy(center);sprite.scale.setScalar(Math.min(p.asset.cat==='Houses'?26:18,Math.max(4,size.length()*1.6)));sprite.userData.lightEffect=true;sprite.raycast=()=>{};p.root.add(sprite);
- const effects=p.root.userData.lampEffects||(p.root.userData.lampEffects=[]);effects.push({object:sprite,opacity:p.asset.cat==='Houses'?.58:.32});
+ const effects=p.root.userData.lampEffects||(p.root.userData.lampEffects=[]);effects.push({object:sprite,opacity:p.asset.cat==='Houses'?.72:.32});
  if(isVehicle(p)){
   const yaw=vehicleForward(p),dir=new THREE.Vector3(Math.sin(yaw),0,Math.cos(yaw)).multiplyScalar(red?-1:1),length=red?14:34;
   const beam=new THREE.Mesh(new THREE.ConeGeometry(red?3:7,length,16,1,true),new THREE.MeshBasicMaterial({color:red?0xff3024:0xfff5db,transparent:true,opacity:0,depthWrite:false,side:THREE.DoubleSide,blending:THREE.AdditiveBlending}));beam.position.copy(center).addScaledVector(dir,length/2);beam.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),dir.clone().negate());beam.userData.lightEffect=true;beam.raycast=()=>{};p.root.add(beam);effects.push({object:beam,opacity:red?.035:.055});
  }
+ if(!isVehicle(p)){
+  const floor=(p.asset.placementBase?.bottom||0)+7,length=lamp?Math.max(5,Math.min(45,center.y-floor)):9;
+  const relative=center.clone().sub(new THREE.Vector3(p.asset.placementBase?.x||0,0,p.asset.placementBase?.z||0));
+  const dir=lamp?new THREE.Vector3(0,-1,0):size.x<size.z?new THREE.Vector3(Math.sign(relative.x)||1,0,0):new THREE.Vector3(0,0,Math.sign(relative.z)||1);
+  const cone=new THREE.Mesh(new THREE.ConeGeometry(lamp?length*.36:Math.min(7,size.length()*.4),length,12,1,true),new THREE.MeshBasicMaterial({color,transparent:true,opacity:0,depthWrite:false,side:THREE.DoubleSide,blending:THREE.AdditiveBlending}));cone.position.copy(center).addScaledVector(dir,length/2);cone.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),dir.clone().negate());cone.userData.lightEffect=true;cone.raycast=()=>{};p.root.add(cone);effects.push({object:cone,opacity:lamp?.065:.025});
+ }
+
 }
 let lastWorldHorn=-Infinity;
 function worldTone(frequency,start,duration,volume,type='sine'){
@@ -271,11 +278,16 @@ function assetPlacementSound(items){if(items.some(isVehicle))carHorn();else if(i
 let nextAmbientHorn=performance.now()+15000+Math.random()*30000;
 function ambientVehicleSound(){const now=performance.now();if(now<nextAmbientHorn)return;nextAmbientHorn=now+18000+Math.random()*45000;if(placed.some(isVehicle))carHorn(true);}
 
-function lightMarker(name){return /^LIGHTS?(?:_|$)/i.test(String(name||'').trim());}
+function lightMarker(name){return /^LIGHTS?(?:[_\s]|$)/i.test(String(name||'').trim());}
+function lampMarker(name){return /^LAMPS?(?:[_\s]|$)/i.test(String(name||'').trim());}
 function legacyWindow(name){return /^fenster[ _]light(?:[ _.]\d+)?$/i.test(String(name||'').trim());}
 function ensureNightLights(p){
- if(p.root.userData.nightReady)return;p.root.userData.nightReady=true;
- const materials=[],lamps=[];p.root.traverse(mesh=>{if(!mesh.isMesh)return;let named=legacyWindow(mesh.name);for(let node=mesh;node&&node!==p.root;node=node.parent)named=named||lightMarker(node.name);const src=Array.isArray(mesh.material)?mesh.material:[mesh.material];const out=src.map(m=>{if(!named&&!lightMarker(m.name))return m;const clone=m.clone();if(!clone.emissive)return m;const base=clone.emissiveIntensity||0;const color=clone.emissive.clone();if(color.r+color.g+color.b<.001)color.copy(clone.color);clone.emissive.copy(color);clone.emissiveIntensity=base;clone.userData.nightBase=base;materials.push(clone);lamps.push({mesh,material:clone});return clone;});mesh.material=Array.isArray(mesh.material)?out:out[0];});p.root.userData.windowMaterials=materials;for(const {mesh,material} of lamps)addLampEffects(p,mesh,material);
+ if(p.root.userData.nightReady)return;p.root.userData.nightReady=true;const materials=[],lamps=[];
+ p.root.traverse(mesh=>{if(!mesh.isMesh||mesh.userData.lightEffect)return;let named=legacyWindow(mesh.name),lamp=false;
+  for(let n=mesh;n&&n!==p.root;n=n.parent){named=named||lightMarker(n.name)||n.userData.lightMarker;lamp=lamp||lampMarker(n.name)||n.userData.lampMarker;}
+  const src=Array.isArray(mesh.material)?mesh.material:[mesh.material];let effect=null;
+  const out=src.map(m=>{const isLamp=lamp||lampMarker(m.name);if(!named&&!isLamp&&!lightMarker(m.name))return m;const clone=m.clone();if(!clone.emissive)return m;const base=clone.emissiveIntensity||0,color=clone.emissive.clone();if(color.r+color.g+color.b<.001)color.copy(clone.color);clone.emissive.copy(color);clone.emissiveIntensity=0;clone.userData.nightBase=base;materials.push(clone);effect={mesh,material:clone,lamp:isLamp};return clone;});mesh.material=Array.isArray(mesh.material)?out:out[0];if(effect)lamps.push(effect);
+ });p.root.userData.windowMaterials=materials;for(const item of lamps)addLampEffects(p,item.mesh,item.material,item.lamp);
 }
 function updateNightLights(night){const v=THREE.MathUtils.smoothstep(night,.28,.78);for(const p of placed){ensureNightLights(p);for(const m of p.root.userData.windowMaterials||[])m.emissiveIntensity=v*((m.userData.nightBase||0)+2.5);for(const e of p.root.userData.lampEffects||[]){e.object.material.opacity=e.opacity*v;e.object.visible=v>.01;}}}
 function addCarLights(car){if(car.userData.lights)return;const front=new THREE.PointLight(0xfff1c7,0,62,2),rear=new THREE.PointLight(0xff2d24,0,34,2);front.position.set(10,8,0);rear.position.set(-10,8,0);car.add(front,rear);const fm=new THREE.MeshBasicMaterial({color:0xfff2bd,transparent:true,opacity:0}),rm=new THREE.MeshBasicMaterial({color:0xff2d24,transparent:true,opacity:0});const bulbs=[];for(const z of [-2.7,2.7]){const f=new THREE.Mesh(new THREE.SphereGeometry(1.15,8,6),fm);f.position.set(9.4,8.2,z);car.add(f);bulbs.push(f);const r=new THREE.Mesh(new THREE.SphereGeometry(.9,8,6),rm);r.position.set(-9.4,8.1,z);car.add(r);bulbs.push(r)}car.userData.lights=[front,rear];car.userData.lightBulbs=bulbs}
@@ -446,10 +458,14 @@ function tryTrafficTurn(p,state){
  }
  p.drive=candidate;p.trafficWait=0;return true;
 }
-function characterMurmur(){
- if(!soundOn||!audioCtx||audioCtx.state!=='running')return;
- const now=audioCtx.currentTime;
- for(let i=0;i<3;i++){const o=audioCtx.createOscillator(),filter=audioCtx.createBiquadFilter(),g=audioCtx.createGain(),t=now+i*.115;o.type='sawtooth';o.frequency.setValueAtTime(115+Math.random()*40,t);o.frequency.linearRampToValueAtTime(95+Math.random()*40,t+.13);filter.type='bandpass';filter.frequency.setValueAtTime([520,850,620][i],t);filter.Q.value=3;g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(.065,t+.035);g.gain.exponentialRampToValueAtTime(.0001,t+.14);o.connect(filter).connect(g).connect(audioMaster);o.start(t);o.stop(t+.15);}
+async function characterMurmur(){
+ if(!soundOn)return;
+ try{
+  if(!audioCtx){audioCtx=new (window.AudioContext||window.webkitAudioContext)();audioMaster=audioCtx.createGain();audioMaster.gain.value=.92;audioMaster.connect(audioCtx.destination);}
+  if(audioCtx.state!=='running')await audioCtx.resume();
+  const now=audioCtx.currentTime;
+  [[650,1100],[400,1800],[750,1300],[450,950]].forEach((v,i)=>{const t=now+i*.115,o=audioCtx.createOscillator(),envelope=audioCtx.createGain();o.type='sawtooth';o.frequency.setValueAtTime(165+(i%2)*38+Math.random()*20,t);o.frequency.linearRampToValueAtTime(150+Math.random()*50,t+.12);envelope.gain.setValueAtTime(.0001,t);envelope.gain.linearRampToValueAtTime(.11,t+.02);envelope.gain.exponentialRampToValueAtTime(.0001,t+.14);o.connect(envelope);for(const f of v){const band=audioCtx.createBiquadFilter();band.type='bandpass';band.frequency.value=f;band.Q.value=4;envelope.connect(band);band.connect(audioMaster);}o.start(t);o.stop(t+.15);});
+ }catch(error){console.warn('Character sound unavailable',error);}
 }
 
 function updatePlacedVehicles(dt){
@@ -683,9 +699,10 @@ function standingTile(p){
 }
 // Double-sided probes also detect a point already inside a tall wall.
 const walkProbeMaterial=new THREE.MeshBasicMaterial({side:THREE.DoubleSide});
-const walkProbeMeshes=new WeakMap();
+const walkProbeMeshes=new WeakMap(),walkMeshBounds=new WeakMap(),houseWalkCache=new WeakMap();
+let walkPlanDeadline=Infinity;
 function blocksPedestrian(mesh,x,y,z,height){
- const box=new THREE.Box3().setFromObject(mesh);if(x<box.min.x||x>box.max.x||z<box.min.z||z>box.max.z||box.max.y<=y+.5||box.min.y>=y+height)return false;
+ const box=walkMeshBounds.get(mesh)||new THREE.Box3().setFromObject(mesh);if(x<box.min.x||x>box.max.x||z<box.min.z||z>box.max.z||box.max.y<=y+.5||box.min.y>=y+height)return false;
  let proxy=walkProbeMeshes.get(mesh);if(!proxy){proxy=new THREE.Mesh(mesh.geometry,walkProbeMaterial);proxy.matrixAutoUpdate=false;walkProbeMeshes.set(mesh,proxy);}proxy.matrixWorld.copy(mesh.matrixWorld);
  const probe=new THREE.Raycaster(new THREE.Vector3(x,y+.5,z),new THREE.Vector3(0,1,0)),hits=probe.intersectObject(proxy,false);const distances=hits.map(h=>h.distance).filter((d,i,a)=>!i||Math.abs(d-a[i-1])>.01);
  return distances.length%2===1||distances.some(d=>d<height-.5);
@@ -701,11 +718,15 @@ function walkSurfaceAt(x,z,actor){
   const d=dimsFor(q),pos=placementCenter(q);if(Math.abs(x-pos.x)>d.w/2+.01||Math.abs(z-pos.z)>d.d/2+.01)continue;
   let y=verticalRange(q).max;
   if(courtyard(q)){
-   q.root.updateMatrixWorld(true);const bases=[];q.root.traverse(n=>{if(n.isMesh){for(let a=n;a&&a!==q.root;a=a.parent)if(/^PLACEMENT_BASE$/i.test(a.name)||a.userData.placementBaseMarker){bases.push(n);break;}}});
-   const probe=new THREE.Raycaster(new THREE.Vector3(x,verticalRange(q).max+1,z),new THREE.Vector3(0,-1,0));const baseHit=probe.intersectObjects(bases,false)[0];if(!baseHit)continue;y=baseHit.point.y;
-   // Only geometry within a pedestrian's headroom blocks the courtyard.
-   const height=Math.max(8,actor.asset.h||20),obstacles=[];q.root.traverse(n=>{if(n.isMesh&&!bases.includes(n)&&!n.userData.lightEffect)obstacles.push(n);});
-   if(obstacles.some(mesh=>blocksPedestrian(mesh,x,y,z,height)))continue;
+   const key=[q.root.position.x,q.root.position.y,q.root.position.z,q.rotation].join(',');let data=houseWalkCache.get(q.root);
+   if(!data||data.key!==key){q.root.updateMatrixWorld(true);const bases=[],obstacles=[];q.root.traverse(n=>{if(!n.isMesh||n.userData.lightEffect)return;let isBase=false;for(let a=n;a&&a!==q.root;a=a.parent)if(placementMarker(a.name)||a.userData.placementBaseMarker){isBase=true;break;}if(isBase)bases.push(n);else{obstacles.push(n);walkMeshBounds.set(n,new THREE.Box3().setFromObject(n));}});data={key,bases,obstacles,points:new Map()};houseWalkCache.set(q.root,data);}
+   const height=Math.max(8,actor.asset.h||20),sample=[x.toFixed(2),z.toFixed(2),height].join(',');
+   if(data.points.has(sample)){y=data.points.get(sample);if(y===null)continue;}
+   else{
+    const probe=new THREE.Raycaster(new THREE.Vector3(x,verticalRange(q).max+1,z),new THREE.Vector3(0,-1,0)),hit=probe.intersectObjects(data.bases,false)[0];
+    y=hit&&!data.obstacles.some(mesh=>blocksPedestrian(mesh,x,hit.point.y,z,height))?hit.point.y:null;
+    if(data.points.size>20000)data.points.delete(data.points.keys().next().value);data.points.set(sample,y);if(y===null)continue;
+   }
   }
   if(!best||y>best.y)best={p:q,y};
  }
@@ -796,14 +817,14 @@ function refreshWalkWorld(){
 function navSurface(p,x,z){
  x=Math.round(x/5)*5;z=Math.round(z/5)*5;
  const key=[p.asset.w,p.asset.d,p.asset.h,x.toFixed(2),z.toFixed(2)].join(',');
- if(!walkSurfaceCache.has(key)){if(walkSurfaceCache.size>24000)walkSurfaceCache.clear();walkSurfaceCache.set(key,standingSurface(p,x,z));}return walkSurfaceCache.get(key);
+ if(!walkSurfaceCache.has(key)){if(walkSurfaceCache.size>24000)walkSurfaceCache.delete(walkSurfaceCache.keys().next().value);walkSurfaceCache.set(key,standingSurface(p,x,z));}return walkSurfaceCache.get(key);
 }
 function beginWalkSearch(p,escape=false){
  const origin=placementCenter(p),x=Math.round(origin.x/5)*5,z=Math.round(origin.z/5)*5,start=navSurface(p,x,z);if(!start){p.walkWait=.5;return;}
  let targets=[];
  if(escape&&p.walkLastSafe)targets.push({...p.walkLastSafe,x:Math.round(p.walkLastSafe.x/5)*5,z:Math.round(p.walkLastSafe.z/5)*5,retreat:true});
  const surfaces=placed.filter(q=>(standingTile(q)||courtyard(q))&&Math.hypot(placementCenter(q).x-origin.x,placementCenter(q).z-origin.z)<=650).sort(()=>Math.random()-.5).slice(0,16);
- for(const q of surfaces){const pos=placementCenter(q),distance=Math.hypot(pos.x-origin.x,pos.z-origin.z);if(distance>650)continue;const d=dimsFor(q);
+ for(const q of surfaces){if(targets.length>=4||performance.now()>walkPlanDeadline)break;const pos=placementCenter(q),distance=Math.hypot(pos.x-origin.x,pos.z-origin.z);if(distance>650)continue;const d=dimsFor(q);
   for(const [u,v] of [[0,0],[.3,.3],[-.3,.3],[.3,-.3],[-.3,-.3]]){const tx=Math.round((pos.x+u*d.w)/5)*5,tz=Math.round((pos.z+v*d.d)/5)*5,s=navSurface(p,tx,tz);if(s&&!s.crossing&&Math.hypot(tx-x,tz-z)>15)targets.push({x:tx,z:tz,y:s.y,tile:q.id});}
  }
  targets=targets.filter(t=>!p.walkFailedTargets?.has(t.x+','+t.z));if(!targets.length){p.walkFailedTargets=new Set();p.walkWait=.5;return;}
@@ -816,6 +837,7 @@ function stepWalkSearch(p,budget=24){
  const search=p.walkSearch;if(!search)return;
  const h=n=>Math.abs(n.x-search.target.x)+Math.abs(n.z-search.target.z);
  for(let i=0;i<budget&&search.open.length;i++){
+  if(performance.now()>walkPlanDeadline)break;
   search.open.sort((a,b)=>(b.g+h(b))-(a.g+h(a)));const n=search.open.pop();if(n.g!==search.best.get(n.key))continue;
   if(h(n)<.1){const path=[];for(let v=n;v;v=v.parent)path.push({x:v.x,z:v.z,y:v.y});path.reverse();p.walkRoute=path;p.walkSearch=null;p.walkVisited=search.target.tile;return;}
   if(++search.count>6500){(p.walkFailedTargets||(p.walkFailedTargets=new Set())).add(search.target.x+','+search.target.z);p.walkSearch=null;p.walkWait=.15;return;}
@@ -834,7 +856,7 @@ function chooseCharacterTarget(p){
  if(p.walkRoute?.length)chooseCharacterTarget(p);
 }
 function updateCharacters(dt){
- if(placementLoading)return;refreshWalkWorld();const deadline=performance.now()+5;
+ if(placementLoading)return;refreshWalkWorld();const deadline=performance.now()+2;walkPlanDeadline=deadline;
  for(const p of placed){if(!p.asset.walk||p.locked||p.groupId||p===dragging||p===placingCopy||placingCopies?.includes(p))continue;
   const pos=placementCenter(p),surface=navSurface(p,pos.x,pos.z);
   if(surface&&!surface.crossing)p.walkLastSafe={x:pos.x,z:pos.z,y:surface.y};
@@ -844,6 +866,7 @@ function updateCharacters(dt){
    if(t>=1){p.root.position.copy(p.walkTo);p.walkTo=null;p.walkCrossing=false;p.walkWait=p.walkRoute?.length?0:surface?.crossing?0:.7+Math.random()*1.3;if(p.walkRoute?.length)chooseCharacterTarget(p);}
   }else{p.walkWait=(p.walkWait||0)-dt;if(p.walkWait<=0&&performance.now()<deadline)chooseCharacterTarget(p);}
  }
+ walkPlanDeadline=Infinity;
 }
 
 function pointer(e){const r=renderer.domElement.getBoundingClientRect();mouse.x=((e.clientX-r.left)/r.width)*2-1;mouse.y=-((e.clientY-r.top)/r.height)*2+1;ray.setFromCamera(mouse,camera)}
@@ -1088,7 +1111,7 @@ window.addEventListener('pointerup',e=>{
  if(e.button===1){panning=false;panLast=null;renderer.domElement.style.cursor='default';try{renderer.domElement.releasePointerCapture(e.pointerId)}catch(_){}return;}
  if(e.button!==0)return;
  if(dragBefore&&!sameSnapshot(dragBefore,sceneSnapshot()))remember(dragBefore);
- if(pointerGesture?.moved){if(dragging||draggingGroup)assetPlacementSound(currentSelection());const items=currentSelection();if(!(items.length>1&&items.every(p=>!p.groupId)))select(null);hideInspector();}
+ if(pointerGesture?.moved){const items=currentSelection();if(!(items.length>1&&items.every(p=>!p.groupId)))select(null);hideInspector();}
  else if(pointerGesture?.p){inspectorVisible=true;refreshSelectionUI();}
  pointerGesture=null;dragBefore=null;dragging=null;dragStartPos=null;draggingGroup=null;dragGroupStart=null;panning=false;panLast=null;renderer.domElement.style.cursor=repeater?'copy':'default';
  try{renderer.domElement.releasePointerCapture?.(e.pointerId)}catch(_){}
@@ -1578,25 +1601,19 @@ function partsText(){const counts={};for(const {p} of sceneSnapshot())counts[p.a
 document.getElementById('exportParts').onclick=async()=>{const text=partsText(),status=document.getElementById('exportStatus');status.textContent='';try{if(window.showSaveFilePicker){const handle=await window.showSaveFilePicker({suggestedName:'my-little-world-print-list.txt',types:[{description:'Text file',accept:{'text/plain':['.txt']}}]});const writable=await handle.createWritable();await writable.write(text);await writable.close();status.textContent='List exported.';}else{const url=URL.createObjectURL(new Blob([text],{type:'text/plain;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download='my-little-world-print-list.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);status.textContent='List downloaded.';}}catch(error){if(error.name!=='AbortError')status.textContent='Export failed: '+error.message;}};
 
 
-// Use the user's artwork as the complete toolbar; retain the real button handlers.
+// Independent source artwork, laid out by its visible content bounds.
 {
- const header=document.querySelector('header'),art=document.createElement('img'),clock=document.getElementById('worldClock');
- art.id='topBarArt';art.src='assets/IMG/TOP%20BAR.png';art.alt='My Little World Builder';art.draggable=false;
- const redoButton=document.getElementById('redoBtn')||document.createElement('button');redoButton.id='redoBtn';redoButton.title='Redo (Ctrl+Shift+Z / Ctrl+Y)';redoButton.setAttribute('aria-label','Redo');redoButton.onclick=redo;
- const areas=[['clearBtn',.095,.049],['loadBtn',.147,.048],['saveBtn',.198,.047],['partsBtn',.252,.056],['undoBtn',.322,.042],['redoBtn',.366,.041],['soundBtn',.599,.045],['helpBtn',.649,.045],['cloudBtn',.727,.052],['centerBtn',.780,.050],['bulldozerBtn',.835,.058]];
- const buttons=areas.map(([id,left,width])=>{
-  const button=id==='redoBtn'?redoButton:document.getElementById(id);
-  let feedbackTimer;
-  button.addEventListener('click',()=>{button.classList.remove('topBarClicked');void button.offsetWidth;button.classList.add('topBarClicked');clearTimeout(feedbackTimer);feedbackTimer=setTimeout(()=>button.classList.remove('topBarClicked'),320);},true);
-  button.classList.add('topBarHotspot');button.style.setProperty('--hotspot-x',left*100+'%');button.style.setProperty('--hotspot-w',width*100+'%');return button;
- });
+ const header=document.querySelector('header'),bounds={"3dprint.png": {"w": 199, "h": 381, "x": 18, "y": 15, "cw": 164, "ch": 236}, "bulldozer.png": {"w": 1875, "h": 621, "x": 1670, "y": 193, "cw": 185, "ch": 229}, "center.png": {"w": 208, "h": 481, "x": 22, "y": 159, "cw": 170, "ch": 222}, "help.png": {"w": 199, "h": 312, "x": 18, "y": 16, "cw": 162, "ch": 203}, "logo middle.png": {"w": 483, "h": 521, "x": 76, "y": 15, "cw": 391, "ch": 477}, "new.png": {"w": 211, "h": 472, "x": 25, "y": 15, "cw": 170, "ch": 229}, "open.png": {"w": 195, "h": 477, "x": 17, "y": 89, "cw": 162, "ch": 210}, "redo.png": {"w": 275, "h": 390, "x": 102, "y": 15, "cw": 158, "ch": 211}, "save.png": {"w": 192, "h": 396, "x": 17, "y": 14, "cw": 159, "ch": 215}, "sound.png": {"w": 203, "h": 239, "x": 15, "y": 15, "cw": 166, "ch": 209}, "udno.png": {"w": 196, "h": 341, "x": 18, "y": 42, "cw": 160, "ch": 211}, "weather.png": {"w": 215, "h": 258, "x": 21, "y": 15, "cw": 173, "ch": 225}};
+ const artwork=(name)=>{const b=bounds[name],el=document.createElement('div');el.className='toolArt';el.style.aspectRatio=b.cw+'/'+b.ch;el.style.backgroundImage='url("assets/IMG/psd/TOPBAR/'+encodeURIComponent(name)+'")';el.style.backgroundSize=(b.w/b.cw*100)+'% '+(b.h/b.ch*100)+'%';el.style.backgroundPosition=(b.w===b.cw?0:b.x/(b.w-b.cw)*100)+'% '+(b.h===b.ch?0:b.y/(b.h-b.ch)*100)+'%';return el;};
+ const left=document.createElement('div'),right=document.createElement('div');left.className=right.className='toolBank';
+ const names=[['clearBtn','new.png'],['loadBtn','open.png'],['saveBtn','save.png'],['partsBtn','3dprint.png'],['undoBtn','udno.png'],['redoBtn','redo.png'],['soundBtn','sound.png'],['helpBtn','help.png'],['cloudBtn','weather.png'],['centerBtn','center.png'],['bulldozerBtn','bulldozer.png']];
+ names.forEach(([id,file],i)=>{const b=document.getElementById(id);b.className='imageTool';b.replaceChildren(artwork(file));if(id==='soundBtn'){const slash=document.createElement('i');slash.className='muteSlash';b.append(slash);}let timer;b.addEventListener('click',()=>{b.classList.add('toolClicked');clearTimeout(timer);timer=setTimeout(()=>b.classList.remove('toolClicked'),180);},true);(i<6?left:right).append(b);});
+ const logo=artwork('logo middle.png');logo.id='mainArtworkLogo';logo.setAttribute('role','img');logo.setAttribute('aria-label','My Little World Builder');
  const credit=header.querySelector('.brandCredit');if(credit){credit.id='cornerBrandCredit';document.body.append(credit);}
- document.body.append(cloudDrop);header.replaceChildren(art,...buttons,clock);header.id='pictureToolbar';header.classList.add('pictureTopbar');
- const positionClock=()=>{const box=art.getBoundingClientRect();clock.style.setProperty('--clock-x',box.width*.497+'px');clock.style.setProperty('--clock-y',box.height*.695+'px');clock.style.setProperty('--clock-scale',String(box.width*.0305/54));};
- const positionWeather=()=>{if(!cloudDrop.classList.contains('open'))return;const button=cloudBtn.getBoundingClientRect(),width=cloudDrop.getBoundingClientRect().width;cloudDrop.style.setProperty('--weather-x',Math.max(12,Math.min(button.left,innerWidth-width-12))+'px');cloudDrop.style.setProperty('--weather-y',button.bottom+8+'px');};
- new ResizeObserver(()=>{positionClock();positionWeather();}).observe(art);art.addEventListener('load',positionClock);cloudBtn.addEventListener('click',positionWeather);window.addEventListener('resize',positionWeather);
- const soundState=()=>soundBtn.setAttribute('aria-pressed',String(soundOn));soundState();soundBtn.addEventListener('click',()=>setTimeout(soundState,0));
- positionClock();updateUndo();
+ document.getElementById('worldClock')?.remove();document.body.append(cloudDrop);header.replaceChildren(left,logo,right);header.id='imageToolbar';header.classList.add('pictureTopbar');
+ const positionWeather=()=>{if(!cloudDrop.classList.contains('open'))return;const r=cloudBtn.getBoundingClientRect(),w=cloudDrop.getBoundingClientRect().width;cloudDrop.style.setProperty('--weather-x',Math.max(12,Math.min(r.left,innerWidth-w-12))+'px');cloudDrop.style.setProperty('--weather-y',r.bottom+8+'px');};
+ new ResizeObserver(positionWeather).observe(header);cloudBtn.addEventListener('click',positionWeather);window.addEventListener('resize',positionWeather);
+ const sync=()=>soundBtn.setAttribute('aria-pressed',String(soundOn));sync();soundBtn.addEventListener('click',()=>setTimeout(sync,0));updateUndo();
 }
 
 {

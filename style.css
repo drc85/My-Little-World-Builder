@@ -1450,3 +1450,37 @@ header#pictureToolbar.pictureTopbar button.topBarHotspot.topBarClicked::after{co
 #assetDock .dockItems{min-width:0!important;scroll-behavior:smooth;overscroll-behavior-x:contain;}
 #assetDock .dockScroll{position:absolute;bottom:72px;z-index:8;width:28px;height:40px;padding:0;border:1px solid #ffffff40;border-radius:12px;background:#162b36bb;color:white;font:24px system-ui;cursor:pointer;}
 #assetDock .dockScrollLeft{left:0}#assetDock .dockScrollRight{right:0}#assetDock .dockScroll[hidden]{display:none!important;}
+
+/* Separate PNG controls; the middle branding stays fixed. */
+header#imageToolbar{left:50%!important;right:auto!important;top:8px!important;transform:translateX(-50%)!important;width:min(1100px,calc(100vw - 330px))!important;height:auto!important;display:grid!important;grid-template-columns:1fr 135px 1fr!important;align-items:start!important;gap:18px!important;overflow:visible!important;}
+#imageToolbar .toolBank{display:flex;align-items:flex-end;justify-content:center;gap:3px;padding-top:8px;min-width:0;}
+header#imageToolbar button.imageTool{position:relative!important;display:block!important;flex:1 1 0!important;width:0!important;min-width:0!important;max-width:64px!important;height:auto!important;padding:0!important;margin:0!important;border:0!important;outline:0!important;background:none!important;box-shadow:none!important;filter:none!important;transform:none!important;pointer-events:auto!important;cursor:pointer!important;}
+header#imageToolbar button.imageTool::before,header#imageToolbar button.imageTool::after{display:none!important;content:none!important;}
+#imageToolbar .toolArt{display:block;width:100%;background-repeat:no-repeat;transform-origin:50% 80%;transition:transform .16s ease,filter .16s ease;pointer-events:none;}
+header#imageToolbar button.imageTool:hover .toolArt{transform:translateY(-3px) scale(1.11);}
+header#imageToolbar button.imageTool.toolClicked .toolArt{transform:scale(.94);filter:brightness(1.18);}
+header#imageToolbar button.imageTool:disabled{opacity:.55!important;cursor:default!important;}
+header#imageToolbar button.imageTool:focus-visible .toolArt{filter:drop-shadow(0 0 3px #fff);}
+header#imageToolbar #bulldozerBtn[aria-pressed=true] .toolArt{filter:drop-shadow(0 0 4px #ffce62);}
+#mainArtworkLogo{width:135px!important;transform:none!important;}
+#imageToolbar .muteSlash{display:none;position:absolute;left:13%;top:43%;width:76%;height:4px;background:#ee3f3f;border-radius:4px;transform:rotate(-43deg);pointer-events:none;box-shadow:0 0 2px #6c0000;}
+#imageToolbar #soundBtn[aria-pressed=false] .muteSlash{display:block;}
+#cornerBrandCredit a:hover img{filter:brightness(0) invert(.45) drop-shadow(0 2px 3px #0006)!important;}
+@media(max-width:1150px){header#imageToolbar{top:44px!important;width:calc(100vw - 30px)!important;grid-template-columns:1fr 105px 1fr!important;gap:10px!important;}#mainArtworkLogo{width:105px!important;}}
+@media(max-width:650px){header#imageToolbar{grid-template-columns:1fr 70px 1fr!important;gap:5px!important;}#mainArtworkLogo{width:70px!important;}#imageToolbar .toolBank{gap:1px;}}
+/* Source artwork already includes its edge and shadow. */
+#assetDock::before,#assetDock::after{display:none!important;}
+#assetDock .dockIcon,#assetDock .dockThumb,#assetDock .dockMosaic,#assetDock .dockItem:hover .dockIcon,#assetDock .dockItem:hover .dockThumb,#assetDock .dockItem:hover .dockMosaic{filter:none!important;box-shadow:none!important;outline:none!important;border:0!important;}
+#assetDock .dockLabel,#assetDock .dockBack span{text-shadow:none!important;-webkit-text-stroke:0!important;}
+#assetDock[data-flow=home] .dockLabel{display:none!important;}
+#assetDock[data-flow=home] .dockItems{gap:2px!important;height:255px!important;min-height:255px!important;padding:66px 18px 6px!important;}
+#assetDock[data-flow=home] .dockItem{width:112px!important;min-width:112px!important;flex:0 0 112px!important;height:180px!important;justify-content:flex-end!important;gap:0!important;}
+#assetDock[data-flow=home] .dockIcon{width:112px!important;min-width:0!important;height:auto!important;max-height:none!important;display:block!important;}
+#assetDock[data-flow=home] .dockIcon img{display:block!important;width:100%!important;height:auto!important;max-height:none!important;object-fit:unset!important;}
+#assetDock .dockItems{gap:6px!important;}
+#assetDock:not([data-flow=home]) .dockIcon{height:76px!important;max-height:76px!important;}
+
+header#imageToolbar button.imageTool>.toolArt{display:block!important;}
+
+#assetDock[data-flow=home] .dockIcon{width:132px!important;margin-left:-10px!important;}
+#assetDock[data-flow=home] .dockItems{height:300px!important;min-height:300px!important;}

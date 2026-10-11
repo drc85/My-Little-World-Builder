@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+export function placementMarker(name){return /^PLACEMENT_(?:BASE|PLATE)(?:_|$)/i.test(String(name||'').trim());}
 
 function sourceBaseBounds(obj,a){
  const gltf=!!a.glb||['glb','gltf'].includes(a.type)||/\.gl(?:b|tf)$/i.test(a.file||'');
@@ -6,7 +7,7 @@ function sourceBaseBounds(obj,a){
  obj.updateWorldMatrix(true,true);
  const base=new THREE.Box3();let found=false;
  obj.traverse(node=>{
-  if(String(node.name||'').toUpperCase()!=='PLACEMENT_BASE'&&!node.userData?.placementBaseMarker)return;
+  if(!placementMarker(node.name)&&!node.userData?.placementBaseMarker)return;
   const box=new THREE.Box3().setFromObject(node,true);
   if(!box.isEmpty()){base.union(box);found=true;}
  });
@@ -38,6 +39,6 @@ export async function gltfRoot(gltf){
  let root=gltf.scene||gltf.scenes?.[0];
  if(!root){root=new THREE.Group();const defs=gltf.parser.json.nodes||[],children=new Set(defs.flatMap(n=>n.children||[]));for(let i=0;i<defs.length;i++)if(!children.has(i))root.add(await gltf.parser.getDependency('node',i));if(!root.children.length)throw Error('Model contains no scene or mesh nodes');}
  // GLTFLoader may replace a mesh name with its node name; retain the source marker.
- root.traverse(node=>{const ref=gltf.parser?.associations?.get(node),json=gltf.parser?.json;const names=[node.name,json?.nodes?.[ref?.nodes]?.name,json?.meshes?.[ref?.meshes]?.name];if(names.some(name=>String(name||'').toUpperCase()==='PLACEMENT_BASE'))node.userData.placementBaseMarker=true;});
+ root.traverse(node=>{const ref=gltf.parser?.associations?.get(node),json=gltf.parser?.json;const names=[node.name,json?.nodes?.[ref?.nodes]?.name,json?.meshes?.[ref?.meshes]?.name];if(names.some(placementMarker))node.userData.placementBaseMarker=true;if(names.some(name=>/^lights?(?:[_\s]|$)/i.test(String(name||'').trim())))node.userData.lightMarker=true;if(names.some(name=>/^lamps?(?:[_\s]|$)/i.test(String(name||'').trim())))node.userData.lampMarker=true;});
  return root;
 }
