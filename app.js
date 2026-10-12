@@ -1,9 +1,9 @@
 import {LineSegments2} from 'three/addons/lines/LineSegments2.js';
 import {LineSegmentsGeometry} from 'three/addons/lines/LineSegmentsGeometry.js';
 import {LineMaterial} from 'three/addons/lines/LineMaterial.js';
-import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261012-smoke';
-import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261012-smoke';
-import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261012-smoke';
+import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261012-shift-select';
+import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261012-shift-select';
+import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261012-shift-select';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
@@ -1047,7 +1047,7 @@ async function startPasteFromClipboard(keepSelection=false){
 
 function findPlacedObject(obj){while(obj&&obj!==scene){const p=placed.find(x=>x.root===obj);if(p)return p;obj=obj.parent}return null}
 const marquee=document.getElementById('marqueeSelect');
-let marqueeActive=false,marqueeStart=null,marqueeMoved=false,marqueeFinishedAt=0;
+let marqueeActive=false,marqueeStart=null,marqueeMoved=false,marqueeFinishedAt=0,marqueeClickTarget=null;
 function marqueeRectNow(e){
  const r=document.getElementById('viewportWrap').getBoundingClientRect();
  const x1=Math.max(0,Math.min(r.width,marqueeStart.x-r.left)),y1=Math.max(0,Math.min(r.height,marqueeStart.y-r.top));
@@ -1121,7 +1121,7 @@ function finishBulldozer(){if(!bulldozerStroke)return;const before=bulldozerStro
 document.getElementById('bulldozerBtn').onclick=()=>{const on=!bulldozerMode;cancelPlacement();setBulldozer(on);};
 
 renderer.domElement.addEventListener('pointerdown',e=>{
- clearTimeout(rotationFlashTimer);rotationFlashTimer=null;
+ marqueeClickTarget=null;clearTimeout(rotationFlashTimer);rotationFlashTimer=null;
  if(e.pointerType==='touch'){activeTouchPointers.add(e.pointerId);if(activeTouchPointers.size>1){cancelTouchHold();dragging=null;draggingGroup=null;dragBefore=null;pointerGesture=null;hideInspector();return;}}
  if(e.button===1){e.preventDefault();hideInspector();pointerGesture=null;panning=true;panLast=hitGround(e);renderer.domElement.style.cursor='grabbing';renderer.domElement.setPointerCapture?.(e.pointerId);return;}
  if(e.button===2){if(placingCopy||placingCopies){e.preventDefault();return;}pointer(e);const hit=ray.intersectObjects(placed.map(p=>p.root),true)[0];if(!hit){e.preventDefault();hideInspector();marqueeActive=true;marqueeMoved=false;marqueeStart={x:e.clientX,y:e.clientY};marquee.classList.add('show');drawMarquee(e);renderer.domElement.setPointerCapture?.(e.pointerId)}return;}
@@ -1129,7 +1129,7 @@ renderer.domElement.addEventListener('pointerdown',e=>{
  if(bulldozerMode){e.preventDefault();bulldozerStroke={before:sceneSnapshot(),last:{clientX:e.clientX,clientY:e.clientY}};eraseAt(e);renderer.domElement.setPointerCapture?.(e.pointerId);return;}
  if(repeater&&(placingCopies||placingCopy)){startRoller(e);return;}
  if(placingCopies||placingCopy){commitPlacement(e);return;}
- if(e.shiftKey||multiMode){e.preventDefault();hideInspector();marqueeActive=true;marqueeMoved=false;marqueeStart={x:e.clientX,y:e.clientY};marquee.classList.add('show');drawMarquee(e);renderer.domElement.setPointerCapture?.(e.pointerId);return;}
+ if(e.shiftKey||multiMode){e.preventDefault();pointer(e);const hit=ray.intersectObjects(placed.map(p=>p.root),true).find(h=>!h.object.userData.lightEffect);marqueeClickTarget=hit?findPlacedObject(hit.object):null;hideInspector();marqueeActive=true;marqueeMoved=false;marqueeStart={x:e.clientX,y:e.clientY};marquee.classList.add('show');drawMarquee(e);renderer.domElement.setPointerCapture?.(e.pointerId);return;}
  dragBefore=sceneSnapshot();pointer(e);const hit=ray.intersectObjects(placed.map(p=>p.root),true)[0],p=hit?findPlacedObject(hit.object):null;
  if(!p&&assetDockEl.classList.contains('dock-open')){clearTimeout(dockHideTimer);dockHideTimer=null;}
  const alreadyInspected=inspectorVisible&&selectedGroup.has(p);
@@ -1165,7 +1165,7 @@ window.addEventListener('pointerup',e=>{clearTimeout(desktopSelectHold);
  if(e.button===0&&bulldozerStroke){finishBulldozer();return;}
  if(e.button===0&&rollerStroke){rollerStroke.released=true;pumpRoller(rollerStroke);return;}
  if(e.pointerType==='touch'){activeTouchPointers.delete(e.pointerId);cancelTouchHold();if(touchHoldTriggered){touchHoldTriggered=false;return;}}
- if((e.button===2||e.button===0)&&marqueeActive){pointerGesture=null;dragging=null;draggingGroup=null;dragBefore=null;if(marqueeMoved)finishMarquee(e);else{marqueeActive=false;marqueeStart=null;marquee.classList.remove('show');}return;}
+ if((e.button===2||e.button===0)&&marqueeActive){pointerGesture=null;dragging=null;draggingGroup=null;dragBefore=null;if(marqueeMoved)finishMarquee(e);else{marqueeActive=false;marqueeStart=null;marquee.classList.remove('show');if(e.button===0&&marqueeClickTarget){select(marqueeClickTarget,true);inspectorVisible=currentSelection().length>0;refreshSelectionUI();}}marqueeClickTarget=null;try{renderer.domElement.releasePointerCapture?.(e.pointerId)}catch(_){}return;}
  if(e.button===1){panning=false;panLast=null;renderer.domElement.style.cursor='default';try{renderer.domElement.releasePointerCapture(e.pointerId)}catch(_){}return;}
  if(e.button!==0)return;
  if(dragBefore&&!sameSnapshot(dragBefore,sceneSnapshot()))remember(dragBefore);

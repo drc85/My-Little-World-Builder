@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "revision": 458,
+  "revision": 463,
   "assets": [
     {
       "name": "5x5 Grass Beam 5mm",
@@ -3752,7 +3752,7 @@
       "missing": false,
       "previewFile": "assets/BROWSER/Terrain/CUSTOM COLOR - brown sand, hellgrau etc/_Previews/Folder-Preview.png",
       "thumbKey": "c6131eecb3253b4bf738a351",
-      "previewReady": false
+      "previewReady": true
     },
     {
       "path": "Bridges",
@@ -3891,7 +3891,7 @@
       "name": "BUILDINGS",
       "icon": "🏘️",
       "mode": "image",
-      "preview": "assets/BROWSER/Houses/_Previews/Custom-Image-96d5dd9baeaa.png",
+      "preview": "assets/BROWSER/Houses/_Previews/Custom-Image-49fb7c8e4d5c.png",
       "order": 5,
       "missing": false,
       "previewFile": "assets/BROWSER/Houses/_Previews/Folder-Preview.png",
@@ -3990,5 +3990,5 @@
     "missing": [],
     "newFolders": []
   },
-  "updated": "2026-10-12T23:17:47+02:00"
+  "updated": "2026-10-12T23:44:32+02:00"
 }
