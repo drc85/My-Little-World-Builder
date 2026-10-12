@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "revision": 454,
+  "revision": 458,
   "assets": [
     {
       "name": "5x5 Grass Beam 5mm",
@@ -3743,6 +3743,18 @@
       "previewReady": true
     },
     {
+      "path": "Terrain/CUSTOM COLOR - brown sand, hellgrau etc",
+      "name": "CUSTOM COLOR - brown sand, hellgrau etc",
+      "icon": "✨",
+      "mode": "mosaic",
+      "preview": "",
+      "order": 12,
+      "missing": false,
+      "previewFile": "assets/BROWSER/Terrain/CUSTOM COLOR - brown sand, hellgrau etc/_Previews/Folder-Preview.png",
+      "thumbKey": "c6131eecb3253b4bf738a351",
+      "previewReady": false
+    },
+    {
       "path": "Bridges",
       "name": "BRIDGES",
       "icon": "🌉",
@@ -3978,5 +3990,5 @@
     "missing": [],
     "newFolders": []
   },
-  "updated": "2026-10-12T12:27:11+02:00"
+  "updated": "2026-10-12T23:17:47+02:00"
 }

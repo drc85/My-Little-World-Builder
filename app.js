@@ -1,9 +1,9 @@
 import {LineSegments2} from 'three/addons/lines/LineSegments2.js';
 import {LineSegmentsGeometry} from 'three/addons/lines/LineSegmentsGeometry.js';
 import {LineMaterial} from 'three/addons/lines/LineMaterial.js';
-import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261012-weather-complete';
-import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261012-weather-complete';
-import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261012-weather-complete';
+import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261012-smoke';
+import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261012-smoke';
+import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261012-smoke';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
@@ -221,7 +221,7 @@ const viewport=document.getElementById('viewport'); const scene=new THREE.Scene(
 // V1 sky: soft blue-to-lilac sunset gradient
 const skyCanvas=document.createElement('canvas');skyCanvas.width=8;skyCanvas.height=512;const skyCtx=skyCanvas.getContext('2d');const skyGrad=skyCtx.createLinearGradient(0,0,0,512);skyGrad.addColorStop(0,'#78CCF5');skyGrad.addColorStop(.58,'#83C7F2');skyGrad.addColorStop(1,'#B59BEA');skyCtx.fillStyle=skyGrad;skyCtx.fillRect(0,0,8,512);const skyTexture=new THREE.CanvasTexture(skyCanvas);skyTexture.colorSpace=THREE.SRGBColorSpace;scene.background=skyTexture;
 const camera=new THREE.OrthographicCamera(-500,500,350,-350,1,4000);camera.position.set(700,700,700);camera.lookAt(0,0,0);
-const renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.shadowMap.enabled=true;viewport.appendChild(renderer.domElement);
+const renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,1.25));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.shadowMap.enabled=true;viewport.appendChild(renderer.domElement);
 const composer=new EffectComposer(renderer);const renderPass=new RenderPass(scene,camera);composer.addPass(renderPass);const outlinePass=new OutlinePass(new THREE.Vector2(1,1),scene,camera);outlinePass.visibleEdgeColor.set(0xf5fdff);outlinePass.hiddenEdgeColor.set(0xf5fdff);outlinePass.edgeStrength=5.0;outlinePass.edgeGlow=.25;outlinePass.edgeThickness=1.35;outlinePass.pulsePeriod=0;composer.addPass(outlinePass);
 const groupOutlinePasses=[];
 const hemi=new THREE.HemisphereLight(0xffffff,0xaeb8c0,1.85);scene.add(hemi);const ambient=new THREE.AmbientLight(0xffffff,.62);scene.add(ambient);const sun=new THREE.DirectionalLight(0xffffff,1.18);sun.position.set(400,800,300);scene.add(sun);
@@ -253,12 +253,8 @@ function currentSkyHour(now=performance.now()){return worldSettings.realtime?rea
 function updateSky(night,hour=currentSkyHour()){
  const g=skyCtx.createLinearGradient(0,0,0,512);for(let i=0;i<=64;i++){const y=i/64;g.addColorStop(y,skyColorAt(hour,y));}skyCtx.fillStyle=g;skyCtx.fillRect(0,0,8,512);skyTexture.needsUpdate=true;
  grid.material.color.set(mixHex('#737b84','#64758e',night));grid.material.opacity=.46+night*.18;
- hemi.intensity=THREE.MathUtils.lerp(1.85,.8,night)*lightSettings.brightness;ambient.intensity=THREE.MathUtils.lerp(.62,.34,night)*lightSettings.brightness;sun.intensity=THREE.MathUtils.lerp(1.18,.22,night)*lightSettings.brightness;
- const tint=new THREE.Color(0xffffff).lerp(new THREE.Color(lightSettings.temp<.5?'#ffac63':'#72b9ff'),Math.abs(lightSettings.temp-.5)*1.25);hemi.color.copy(tint);ambient.color.copy(tint);const warm=mixHex('#ff942e','#74b8ff',lightSettings.temp);sun.color.set(mixHex(warm,'#829bd0',night));const ang=35*Math.PI/180;const solar=(currentSkyHour()-12)/24*Math.PI*2+ang;sun.position.set(Math.cos(solar)*650,800,Math.sin(solar)*650);if(window.mlwShadowsReady){const house=placed.find(p=>p.asset.cat==='Houses');windowShadow.intensity=0;if(house){const c=placementCenter(house);windowShadow.position.set(c.x,house.root.position.y+35,c.z+house.asset.d/2+5);}}renderer.toneMappingExposure=THREE.MathUtils.lerp(.88,.78,night)*lightSettings.brightness;renderer.domElement.style.filter=`contrast(${lightSettings.contrast}) brightness(${(liveWeather.rain>.01?.94:1)*Math.pow(lightSettings.brightness,.65)}) sepia(${(1-night)*(worldSettings.manualWeather?.sun ? .14 : 0)}) saturate(${1+(1-night)*(worldSettings.manualWeather?.sun ? .15 : 0)}) ${lightSettings.visualFilter==='mono'?'grayscale(1)':lightSettings.visualFilter==='warm'?'sepia(.4) saturate(1.2)':lightSettings.visualFilter==='vivid'?'saturate(1.55) contrast(1.18)':''}`;
- const pbr='neutral';
- const pbrMap={neutral:{hemi:1,amb:1,sun:1,exp:1},soft:{hemi:1.10,amb:1.10,sun:.82,exp:.98},studio:{hemi:.92,amb:.88,sun:1.18,exp:1.03},warm:{hemi:1.02,amb:1.0,sun:1.05,exp:1.0},cool:{hemi:1.06,amb:1.02,sun:.96,exp:.99}};
- const pm=pbrMap[pbr]||pbrMap.neutral;hemi.intensity*=pm.hemi;ambient.intensity*=pm.amb;sun.intensity*=pm.sun;renderer.toneMappingExposure*=pm.exp;
- if(pbr==='warm')sun.color.lerp(new THREE.Color('#ffd0a0'),.24);else if(pbr==='cool')sun.color.lerp(new THREE.Color('#cfe7ff'),.24);
+ hemi.intensity=THREE.MathUtils.lerp(1.5,.8,night)*lightSettings.brightness;ambient.intensity=THREE.MathUtils.lerp(.42,.34,night)*lightSettings.brightness;sun.intensity=THREE.MathUtils.lerp(1.65,.22,night)*lightSettings.brightness;
+ const tint=new THREE.Color(0xffffff).lerp(new THREE.Color(lightSettings.temp<.5?'#ffac63':'#72b9ff'),Math.abs(lightSettings.temp-.5)*1.25);hemi.color.copy(tint);ambient.color.copy(tint);const warm=mixHex('#ff942e','#74b8ff',lightSettings.temp);sun.color.set(mixHex(warm,'#829bd0',night));const ang=35*Math.PI/180;const solar=(hour-12)/24*Math.PI*2+ang,elevation=650+1350*Math.abs(Math.sin((hour-6)/12*Math.PI));sun.position.set(Math.cos(solar)*1800,elevation,Math.sin(solar)*1800);if(window.mlwShadowsReady){const house=placed.find(p=>p.asset.cat==='Houses');windowShadow.intensity=0;if(house){const c=placementCenter(house);windowShadow.position.set(c.x,house.root.position.y+35,c.z+house.asset.d/2+5);}}renderer.toneMappingExposure=THREE.MathUtils.lerp(.88,.78,night)*lightSettings.brightness;renderer.domElement.style.filter=`contrast(${lightSettings.contrast}) brightness(${(liveWeather.rain>.01?.94:1)*Math.pow(lightSettings.brightness,.65)}) sepia(${(1-night)*(worldSettings.manualWeather?.sun ? .14 : 0)}) saturate(${1+(1-night)*(worldSettings.manualWeather?.sun ? .15 : 0)}) ${lightSettings.visualFilter==='mono'?'grayscale(1)':lightSettings.visualFilter==='warm'?'sepia(.4) saturate(1.2)':lightSettings.visualFilter==='vivid'?'saturate(1.55) contrast(1.18)':''}`;
 
 }
 function modelLightColor(mesh,material){
@@ -319,7 +315,7 @@ function addCarLights(car){if(car.userData.lights)return;const front=new THREE.P
 function updateCarLights(night){const v=Math.max(0,Math.min(1,(night-.22)/.55));for(const t of traffic){addCarLights(t.car);t.car.userData.lights[0].intensity=v*2.2;t.car.userData.lights[1].intensity=v*.9;if(t.car.userData.lightBulbs){t.car.userData.lightBulbs.forEach((b,i)=>{b.material.opacity=v*(i%2?1:.95);b.visible=v>.02})}}}
 let skyTick=0;
 let worldSettings={city:'Nürnberg',live:false,weather:false,realtime:false,clock:true,timezone:null,weatherCode:null,temp:null,cloudCover:0,precipitation:0,snowfall:0};
-let lightSettings={brightness:1,rotation:35,temp:.5,contrast:1,pbrPreset:'neutral'};let cloudSettings={amount:.55,speed:1,shape:1,inner:190,outer:520,innerOpacity:.04,outerOpacity:.80,nearDensity:.48,farDensity:.90,cityDensity:.035};try{Object.assign(lightSettings,JSON.parse(localStorage.getItem('mlw-light-settings')||'{}'));Object.assign(cloudSettings,JSON.parse(localStorage.getItem('mlw-cloud-settings')||'{}'))}catch(e){}
+let lightSettings={brightness:1,temp:.5,contrast:1};let cloudSettings={amount:.55,speed:1,shape:1,inner:190,outer:520,innerOpacity:.04,outerOpacity:.80,nearDensity:.48,farDensity:.90,cityDensity:.035};try{Object.assign(lightSettings,JSON.parse(localStorage.getItem('mlw-light-settings')||'{}'));Object.assign(cloudSettings,JSON.parse(localStorage.getItem('mlw-cloud-settings')||'{}'))}catch(e){}
 let liveWeather={cloud:.12,rain:0,snow:0,fog:0,storm:0};
 function realTimeHour(){let d=new Date(),hour=d.getHours()+d.getMinutes()/60+d.getSeconds()/3600;if(worldSettings.timezone){try{const parts=new Intl.DateTimeFormat('en-GB',{timeZone:worldSettings.timezone,hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).formatToParts(d);hour=Number(parts.find(x=>x.type==='hour')?.value||0)+Number(parts.find(x=>x.type==='minute')?.value||0)/60+Number(parts.find(x=>x.type==='second')?.value||0)/3600}catch(e){}}return hour}
 function realTimeNightAmount(){return nightAmountForHour(realTimeHour())}
@@ -378,13 +374,15 @@ function fitWorldDepth(){
  for(const x of [-BUILD_HALF-450,BUILD_HALF+450])for(const y of [-50,height])for(const z of [-BUILD_HALF-450,BUILD_HALF+450]){
   const depth=new THREE.Vector3(x,y,z).sub(camera.position).dot(direction);nearest=Math.min(nearest,depth);farthest=Math.max(farthest,depth);
  }
+ for(const c of clouds){const radius=Math.hypot(c.scale.x,c.scale.y)*.5,depth=c.position.clone().sub(camera.position).dot(direction);nearest=Math.min(nearest,depth-radius);farthest=Math.max(farthest,depth+radius);}
  if(nearest<100){const shift=100-nearest;camera.position.addScaledVector(direction,-shift);farthest+=shift;}
  if(farthest+200>camera.far){camera.far=farthest+400;camera.updateProjectionMatrix();}
  camera.updateMatrixWorld();
 }
 function updateOuterClouds(){fitWorldDepth();updateWeatherFogDepth();outerCloudPass.uniforms.bounds.value.set(-BUILD_HALF,BUILD_HALF,-BUILD_HALF,BUILD_HALF);camera.updateMatrixWorld();outerCloudPass.uniforms.inverseCamera.value.multiplyMatrices(camera.matrixWorld,camera.projectionMatrixInverse);outerCloudPass.uniforms.time.value=performance.now()/1000;}
 // Distance to the actual built footprint, not just each tile's center.
-function cloudFootprints(){return placed.map(p=>{const d=dimsFor(p),pos=placementCenter(p);return {x:pos.x,z:pos.z,w:d.w,d:d.d,top:verticalRange(p).max};});}
+let cloudFootprintCache=[],cloudFootprintAt=-Infinity,cloudFootprintCount=-1,cloudFootprintRevision=0;
+function cloudFootprints(){const now=performance.now();if(placed.length!==cloudFootprintCount||now-cloudFootprintAt>400){cloudFootprintAt=now;cloudFootprintCount=placed.length;cloudFootprintRevision++;cloudFootprintCache=placed.filter(p=>!p.asset.noCollision).map(p=>{const d=dimsFor(p),pos=placementCenter(p);return {x:pos.x,z:pos.z,w:d.w,d:d.d,top:verticalRange(p).max};});}return cloudFootprintCache;}
 function cloudDensity(distance){
  const near=cloudSettings.nearDensity,far=cloudSettings.farDensity;
  const reveal=THREE.MathUtils.smoothstep(distance,0,110);
@@ -394,21 +392,22 @@ function cloudDensity(distance){
 function updateClouds(dt){
  const footprints=cloudFootprints(),high=Math.max(160,...footprints.map(p=>p.top))+80;
  const cloudy=THREE.MathUtils.smoothstep(liveWeather.cloud,.1,.8),extent=Math.max(BUILD_HALF+150,2400/Math.max(.3,camera.zoom));
- const cx=controls.target.x,cz=controls.target.z;
+ const cx=controls.target.x,cz=controls.target.z,view=camera.getWorldDirection(new THREE.Vector3());
  for(let i=0;i<clouds.length;i++){
-  const c=clouds[i],over=c.userData.overCity;
+  const c=clouds[i],over=c.userData.overCity;c.scale.y=(c.scale.x/1.7)*cloudSettings.shape;const refresh=(c.userData.densityClock=(c.userData.densityClock??i*.007)-dt)<=0;if(refresh)c.userData.densityClock=.35;const changed=c.userData.footprintRevision!==cloudFootprintRevision;c.userData.footprintRevision=cloudFootprintRevision;
   c.position.x+=c.userData.speed*cloudSettings.speed*(1+4*(liveWeather.wind||0))*dt;
   c.position.z+=Math.sin(performance.now()*.00018+c.userData.phase)*dt*2;
   if(over&&footprints.length){
    if(!c.userData.citySeeded||Math.abs(c.position.x-c.userData.cityX)>220){const p=footprints[(i*37)%footprints.length];c.position.x=p.x+(Math.random()-.5)*p.w;c.position.z=p.z+(Math.random()-.5)*p.d;c.userData.cityX=c.position.x;c.userData.citySeeded=true;}
   }else{c.userData.citySeeded=false;const previous=c.userData.extent||BUILD_HALF+150;if(Math.abs(previous-extent)>1){const ratio=extent/previous;c.position.x=cx+(c.position.x-cx)*ratio;c.position.z=cz+(c.position.z-cz)*ratio;c.userData.baseWidth??=c.scale.x;c.scale.x=c.userData.baseWidth*Math.min(3,extent/(BUILD_HALF+150));c.userData.extent=extent;}if(Math.abs(c.position.x-cx)>extent)c.position.x=cx-extent+Math.random()*extent*2;if(Math.abs(c.position.z-cz)>extent)c.position.z=cz-extent+Math.random()*extent*2;}
-  let distance=Infinity;for(const p of footprints){const dx=Math.max(0,Math.abs(c.position.x-p.x)-p.w/2),dz=Math.max(0,Math.abs(c.position.z-p.z)-p.d/2);distance=Math.min(distance,Math.hypot(dx,dz));}
-  let target=Math.min(.95,cloudDensity(Math.max(0,distance-c.scale.x*.3))*(1.3+cloudy));
+  let distance=c.userData.nearestDistance??Infinity;if((refresh||changed)&&!over){distance=Infinity;const px=c.position.x-view.x/view.y*c.position.y,pz=c.position.z-view.z/view.y*c.position.y;for(const p of footprints){const dx=Math.max(0,Math.abs(px-p.x)-p.w/2),dz=Math.max(0,Math.abs(pz-p.z)-p.d/2);distance=Math.min(distance,Math.hypot(dx,dz));}c.userData.nearestDistance=distance;}
+  let target=.95*cloudDensity(Math.max(0,distance-Math.max(c.scale.x,c.scale.y)*.55));
   if(c.userData.weatherOnly)target*=cloudy;
-  if(over){c.position.y=high;target=Math.min(.65,cloudSettings.cityDensity*2.5+cloudy*.22);}
-  c.scale.y=(c.scale.x/1.7)*cloudSettings.shape;
-  c.material.opacity+=(target-c.material.opacity)*(1-Math.exp(-2*dt));c.visible=c.material.opacity>.001;
+  if(over){c.position.y=high;target=footprints.length?cloudSettings.cityDensity*.25*(1+cloudy*.8):0;}
+  c.scale.y=(c.scale.x/1.7)*cloudSettings.shape;if(!over)c.position.y=80;
+  c.material.opacity+=(target-c.material.opacity)*(1-Math.exp(-(target<c.material.opacity?12:2)*dt));c.visible=c.material.opacity>.001;
  }
+ if(window.mlwCloudBatchesReady)updateCloudBatches();
 }
 let cloudClock=performance.now();
 
@@ -447,8 +446,11 @@ function roadY(p,x,z){
  const hits=probe.intersectObject(p.root,true).filter(h=>!h.object.userData.lightEffect&&Math.abs(h.point.y-expected)<=10);hits.sort((a,b)=>Math.abs(a.point.y-expected)-Math.abs(b.point.y-expected));
  return hits[0]?.point.y??expected;
 }
+let roadGraphSignature='',roadGraphCache=new Map();
+function refreshRoadGraph(){const signature=placed.filter(drivable).map(p=>[p.id,p.root.position.x,p.root.position.y,p.root.position.z,p.rotation,p.deckHeight].join(',')).join(';');if(signature!==roadGraphSignature){roadGraphSignature=signature;roadGraphCache.clear();}}
+function roadNeighbor(p,d){const key=p.id+':'+d.x+','+d.z;if(!roadGraphCache.has(key))roadGraphCache.set(key,uncachedRoadNeighbor(p,d));return roadGraphCache.get(key);}
 function sameDirection(a,b){return a.x===b.x&&a.z===b.z;}
-function roadNeighbor(p,d){const edge=roadEdge(p,d);return placed.find(q=>q!==p&&drivable(q)&&roadDirections(q).some(e=>{const other=roadEdge(q,e);return e.x===-d.x&&e.z===-d.z&&Math.hypot(edge.x-other.x,edge.z-other.z)<1&&Math.abs(roadY(p,edge.x,edge.z)-roadY(q,other.x,other.z))<2;}));}
+function uncachedRoadNeighbor(p,d){const edge=roadEdge(p,d);return placed.find(q=>q!==p&&drivable(q)&&roadDirections(q).some(e=>{const other=roadEdge(q,e);return e.x===-d.x&&e.z===-d.z&&Math.hypot(edge.x-other.x,edge.z-other.z)<1&&Math.abs(roadY(p,edge.x,edge.z)-roadY(q,other.x,other.z))<2;}));}
 function laneRoute(tile,entry,exit){
  const a=roadEdge(tile,entry),b=roadEdge(tile,exit),incoming={x:-entry.x,z:-entry.z};
  const start=new THREE.Vector3(a.x-incoming.z*25,0,a.z+incoming.x*25),end=new THREE.Vector3(b.x-exit.z*25,0,b.z+exit.x*25);
@@ -539,7 +541,7 @@ function spawnTraffic(){
 }
 let trafficTimer=0;
 function updateTraffic(dt){
- updatePlacedVehicles(dt);
+ refreshRoadGraph();updatePlacedVehicles(dt);
  for(let i=traffic.length-1;i>=0;i--){
   const t=traffic[i];if(!placed.includes(t.tile)){trafficGroup.remove(t.car);traffic.splice(i,1);continue}
   t.progress+=t.speed*dt;
@@ -815,7 +817,7 @@ function surfaceAt(x,z,walkOnly=false){
 let placementNoticeTimer=null,placementNoticeText='';
 function placementNotice(text){if(text&&text===placementNoticeText)return;placementNoticeText=text;clearTimeout(placementNoticeTimer);let el=document.getElementById('placementNotice');if(!el){el=document.createElement('div');el.id='placementNotice';el.style.cssText='position:fixed;bottom:160px;left:50%;transform:translateX(-50%);padding:12px 18px;background:#182b35;color:white;border-radius:12px;z-index:30;pointer-events:none;font:14px sans-serif';document.body.append(el);}el.textContent=text;el.hidden=!text;if(text)placementNoticeTimer=setTimeout(()=>{el.hidden=true;},3000);}
 function withinGrid(p){const d=dimsFor(p),pos=placementCenter(p);return Math.abs(pos.x)+d.w/2<=BUILD_HALF+.01&&Math.abs(pos.z)+d.d/2<=BUILD_HALF+.01;}
-function snapPlaced(p,x,z){const footprint=dimsFor(p);x=THREE.MathUtils.clamp(x,-BUILD_HALF+footprint.w/2,BUILD_HALF-footprint.w/2);z=THREE.MathUtils.clamp(z,-BUILD_HALF+footprint.d/2,BUILD_HALF-footprint.d/2);const previous=p.root.position.clone(),rotation=p.rotation,deckHeight=p.deckHeight;snapPlacedInternal(p,x,z);if(!withinGrid(p)){const pending=p===placingCopy||placingCopies?.includes(p)||!placed.includes(p);p.placementValid=false;placementNotice('The build area ends at the edge of the grid.');if(!pending){p.root.position.copy(previous);p.rotation=rotation;p.root.rotation.y=rotation;p.deckHeight=deckHeight;p.placementValid=true;}else{const d=dimsFor(p),pos=placementCenter(p);setPlacementCenter(p,THREE.MathUtils.clamp(pos.x,-BUILD_HALF+d.w/2,BUILD_HALF-d.w/2),pos.y,THREE.MathUtils.clamp(pos.z,-BUILD_HALF+d.d/2,BUILD_HALF-d.d/2));}}}
+function snapPlaced(p,x,z){roadGraphSignature="";roadGraphCache.clear();const footprint=dimsFor(p);x=THREE.MathUtils.clamp(x,-BUILD_HALF+footprint.w/2,BUILD_HALF-footprint.w/2);z=THREE.MathUtils.clamp(z,-BUILD_HALF+footprint.d/2,BUILD_HALF-footprint.d/2);const previous=p.root.position.clone(),rotation=p.rotation,deckHeight=p.deckHeight;snapPlacedInternal(p,x,z);if(!withinGrid(p)){const pending=p===placingCopy||placingCopies?.includes(p)||!placed.includes(p);p.placementValid=false;placementNotice('The build area ends at the edge of the grid.');if(!pending){p.root.position.copy(previous);p.rotation=rotation;p.root.rotation.y=rotation;p.deckHeight=deckHeight;p.placementValid=true;}else{const d=dimsFor(p),pos=placementCenter(p);setPlacementCenter(p,THREE.MathUtils.clamp(pos.x,-BUILD_HALF+d.w/2,BUILD_HALF-d.w/2),pos.y,THREE.MathUtils.clamp(pos.z,-BUILD_HALF+d.d/2,BUILD_HALF-d.d/2));}}}
 function snapPlacedInternal(p,x,z){
  if(transportKind(p.asset)||p.asset.cat==='Fences'){p.placementValid=specialPlacement(p,x,z);if(!p.placementValid)placementNotice(p.asset.cat==='Fences'?'Place the fence along a ground-tile edge.':transportKind(p.asset)==='train'?'Place the train on rails.':'Place the ship on water.');else placementNotice('');return;}
  if(needsGround(p.asset)){const old=p.root.position.clone(),pending=p===placingCopy||placingCopies?.includes(p)||!placed.includes(p);p.placementValid=standingTarget(p,x,z);if(!p.placementValid){if(pending)setPlacementCenter(p,x,5,z);else{p.root.position.copy(old);p.placementValid=true;}placementNotice('Place this on walkable terrain, a crosswalk or a clear house base plate.');}else placementNotice('');return;}
@@ -1216,7 +1218,7 @@ function connectorPinStats(){
  }
  return {total,byAsset};
 }
-async function updateParts(){
+async function updateParts(){roadGraphSignature="";roadGraphCache.clear();
  const counts={};sceneSnapshot().forEach(({p})=>counts[p.asset.id]=(counts[p.asset.id]||0)+1);
  const pinStats=connectorPinStats();
  const list=document.getElementById('partsList');list.innerHTML='';
@@ -1552,8 +1554,8 @@ function updatePinPosition(){
  badge.style.left=tools.style.left=left+'px';badge.style.top=top+'px';tools.style.top=(top+badge.offsetHeight+5)+'px';
 }
 
-function resize(){const w=viewport.clientWidth,h=viewport.clientHeight;renderer.setSize(w,h);composer.setSize(w,h);outlinePass.resolution.set(w,h);for(const pass of groupOutlinePasses)pass.resolution.set(w,h);const fr=700,aspect=w/h;camera.left=-fr*aspect/2;camera.right=fr*aspect/2;camera.top=fr/2;camera.bottom=-fr/2;camera.updateProjectionMatrix()}window.addEventListener('resize',resize);resize();
-function animate(){requestAnimationFrame(animate);const now=performance.now(),dt=Math.min(.05,(now-cloudClock)/1000);cloudClock=now;controls.update();updateOuterClouds();updateClouds(dt);updateTraffic(dt);updateWildlife(dt);updateCharacters(dt);updateWeatherFx(dt);updateDayNight(now);updatePinPosition();updateExtraEffects(dt,now);updateWeatherScreen(dt,now);composer.render()}
+function resize(){window.mlwModalFrozen=false;const w=viewport.clientWidth,h=viewport.clientHeight;const ratio=Math.min(devicePixelRatio,1.25,Math.sqrt(2073600/Math.max(1,w*h)));renderer.setPixelRatio(ratio);renderer.setSize(w,h);composer.setPixelRatio(ratio);composer.setSize(w,h);outlinePass.resolution.set(w,h);for(const pass of groupOutlinePasses)pass.resolution.set(w,h);const fr=700,aspect=w/h;camera.left=-fr*aspect/2;camera.right=fr*aspect/2;camera.top=fr/2;camera.bottom=-fr/2;camera.updateProjectionMatrix()}window.addEventListener('resize',resize);resize();
+function animate(){requestAnimationFrame(animate);if(document.hidden)return;const modal=document.querySelector('.helpOverlay.open,.helpOverlay.panel-closing');if(modal){cloudClock=performance.now();if(!window.mlwModalFrozen){composer.render();window.mlwModalFrozen=true;}return;}window.mlwModalFrozen=false;const now=performance.now(),dt=Math.min(.05,(now-cloudClock)/1000);cloudClock=now;controls.update();updateOuterClouds();updateClouds(dt);updateTraffic(dt);updateWildlife(dt);updateCharacters(dt);updateWeatherFx(dt);updateDayNight(now);updatePinPosition();updateExtraEffects(dt,now);updateWeatherScreen(dt,now);if(window.mlwSmokeReady)updateSmoke(dt);composer.render()}
 
 
 
@@ -1619,8 +1621,7 @@ setInterval(()=>{if(worldSettings.live)checkWeather()},10*60*1000);setInterval((
 const cloudBtn=document.getElementById('cloudBtn'),cloudDrop=document.getElementById('cloudDrop');
 cloudBtn.addEventListener('click',e=>{e.stopPropagation();uiClick();cloudDrop.classList.toggle('open')});cloudDrop.addEventListener('click',e=>e.stopPropagation());document.addEventListener('click',()=>cloudDrop.classList.remove('open'));
 let lastSliderTick=0;const bindRange=(id,obj,key,scale=1)=>{const el=document.getElementById(id);el.value=Math.round(obj[key]*scale);el.addEventListener('input',()=>{obj[key]=Number(el.value)/scale;localStorage.setItem(obj===lightSettings?'mlw-light-settings':'mlw-cloud-settings',JSON.stringify(obj));const now=performance.now();if(now-lastSliderTick>75){uiClick();lastSliderTick=now}})};
-bindRange('lightBrightness',lightSettings,'brightness',100);bindRange('lightRotation',lightSettings,'rotation',1);bindRange('lightTemp',lightSettings,'temp',100);bindRange('lightContrast',lightSettings,'contrast',100);
-const lightPbrPreset=document.getElementById('lightPbrPreset');if(lightPbrPreset){lightPbrPreset.value=lightSettings.pbrPreset||'neutral';lightPbrPreset.addEventListener('change',()=>{lightSettings.pbrPreset=lightPbrPreset.value;localStorage.setItem('mlw-light-settings',JSON.stringify(lightSettings));uiClick()})}
+bindRange('lightBrightness',lightSettings,'brightness',100);bindRange('lightTemp',lightSettings,'temp',100);bindRange('lightContrast',lightSettings,'contrast',100);
 bindRange('cloudNearDensity',cloudSettings,'nearDensity',100);bindRange('cloudFarDensity',cloudSettings,'farDensity',100);bindRange('cloudCityDensity',cloudSettings,'cityDensity',100);bindRange('cloudSpeed',cloudSettings,'speed',100);bindRange('cloudShape',cloudSettings,'shape',100);
 
 // V6.3 quick guide
@@ -1757,13 +1758,13 @@ function applyManualWeather(){const m=worldSettings.manualWeather;if(!m||worldSe
 if(!worldSettings.manualWeather&&!worldSettings.live)worldSettings.manualWeather={sun:worldSettings.weatherCode===0,clouds:liveWeather.cloud>.1,rain:liveWeather.rain>0,snow:liveWeather.snow>0,fog:liveWeather.fog>0,wind:liveWeather.wind>.2,thunder:liveWeather.storm>0,tornado:false,moon:true};
 if(worldSettings.manualWeather){worldSettings.manualWeather.moon??=true;manualWeather.querySelectorAll('input').forEach(i=>i.checked=!!worldSettings.manualWeather[i.value]);applyManualWeather();}
 const exampleButton=document.createElement('button');exampleButton.id='exampleWorld';exampleButton.textContent='Load example city';document.querySelector('#helpOverlay .helpModal').append(exampleButton);
-exampleButton.onclick=async()=>{if(placed.length&&!confirm('Replace the current world with the example city? Save your world first if needed.'))return;try{const r=await fetch('assets/example-city.mlw');if(!r.ok)throw Error('Example unavailable');await loadProjectData(await r.json());frameExampleCity();setHelp(false);}catch(e){placementNotice(e.message);}};
+exampleButton.onclick=async()=>{if(exampleButton.disabled)return;if(placed.length&&!confirm('Replace the current world with the example city? Save your world first if needed.'))return;setHelp(false);exampleButton.disabled=true;try{const r=await fetch('assets/example-city.mlw');if(!r.ok)throw Error('Example unavailable');await loadProjectData(await r.json());frameExampleCity();}catch(e){placementNotice(e.message);}finally{exampleButton.disabled=false;}};
 
 const credit=document.getElementById('cornerBrandCredit');credit.querySelector('.brandMade')?.remove();const logos=credit.querySelector('.brandLogos');logos.insertAdjacentHTML('beforeend','<span title="DRC Grapix"><img src="assets/IMG/drc.svg" alt="DRC Grapix"></span><a href="https://www.instagram.com/3drc_grapix/" target="_blank" rel="noopener" title="Instagram"><svg width="24" height="24" viewBox="0 0 24 24" aria-label="Instagram" style="color:black"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg></a>');
 let nextAnimalSound=0,splashClock=0;
 const splashPool=Array.from({length:24},()=>{const o=new THREE.Mesh(new THREE.RingGeometry(.4,.7,8),new THREE.MeshBasicMaterial({color:0xcceeff,transparent:true,opacity:0,depthWrite:false,side:THREE.DoubleSide}));o.rotation.x=-Math.PI/2;o.visible=false;o.userData.lightEffect=true;scene.add(o);return {o,life:0};});
-function updateExtraEffects(dt,now){if(!window.mlwExtrasReady)return;if(now-(renderer.userDataShadowTime||0)>150){renderer.userDataShadowTime=now;renderer.shadowMap.needsUpdate=true;}grid.material.resolution.set(viewport.clientWidth,viewport.clientHeight);
- const night=nightAmountForHour(currentSkyHour(now));skySun.style.opacity=String((1-night)*(!worldSettings.live&&worldSettings.manualWeather?.sun===false?0:worldSettings.weatherCode===0?1:.25));skyMoon.style.opacity=String(worldSettings.manualWeather?.moon===false&&!worldSettings.live?0:night);manualWeather.disabled=!!worldSettings.live;
+function updateExtraEffects(dt,now){if(!window.mlwExtrasReady)return;if(now-(renderer.userDataShadowTime||0)>250){renderer.userDataShadowTime=now;renderer.shadowMap.needsUpdate=placed.length>0;}grid.material.resolution.set(viewport.clientWidth,viewport.clientHeight);
+ const night=nightAmountForHour(currentSkyHour(now));if(window.mlwNightShadowsReady)updateModelNightShadows(now,night);skySun.style.opacity=String((1-night)*(!worldSettings.live&&worldSettings.manualWeather?.sun===false?0:worldSettings.weatherCode===0?1:.25));skyMoon.style.opacity=String(worldSettings.manualWeather?.moon===false&&!worldSettings.live?0:night);manualWeather.disabled=!!worldSettings.live;
  for(const [button,panel] of [['cloudBtn','cloudDrop'],['partsBtn','partsOverlay'],['helpBtn','helpOverlay']])document.getElementById(button).classList.toggle('panel-active',document.getElementById(panel).classList.contains('open'));
  updateTransit(dt);if(now>nextAnimalSound){nextAnimalSound=now+22000+Math.random()*22000;const sounds=[];if(placed.some(p=>p.asset.cat==='Animals'))sounds.push(animalMeow);if(placed.some(p=>transportKind(p.asset)==='train'))sounds.push(trainWhistle);if(placed.some(p=>pedestrian(p)&&p.asset.cat!=='Animals'))sounds.push(characterMurmur);sounds[Math.floor(Math.random()*sounds.length)]?.();}
  for(const s of splashPool){s.life=Math.max(0,s.life-dt);s.o.visible=s.life>0;s.o.material.opacity=s.life*1.8;s.o.scale.setScalar(1+(1-s.life/.35)*2);}
@@ -1772,8 +1773,8 @@ function updateExtraEffects(dt,now){if(!window.mlwExtrasReady)return;if(now-(ren
 
 window.mlwExtrasReady=true;
 
-sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);sun.shadow.camera.left=-900;sun.shadow.camera.right=900;sun.shadow.camera.top=900;sun.shadow.camera.bottom=-900;sun.shadow.camera.near=10;sun.shadow.camera.far=3000;sun.shadow.bias=-.0003;sun.shadow.normalBias=.5;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.shadowMap.autoUpdate=false;
-const shadowFloor=new THREE.Mesh(new THREE.PlaneGeometry(BUILD_HALF*2,BUILD_HALF*2),new THREE.ShadowMaterial({opacity:.22}));shadowFloor.rotation.x=-Math.PI/2;shadowFloor.position.y=.02;shadowFloor.receiveShadow=true;scene.add(shadowFloor);
+sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);sun.shadow.camera.left=-2200;sun.shadow.camera.right=2200;sun.shadow.camera.top=2200;sun.shadow.camera.bottom=-2200;sun.shadow.camera.near=10;sun.shadow.camera.far=6500;sun.shadow.bias=-.0003;sun.shadow.normalBias=.5;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.shadowMap.autoUpdate=false;
+const shadowFloor=new THREE.Mesh(new THREE.PlaneGeometry(BUILD_HALF*2,BUILD_HALF*2),new THREE.ShadowMaterial({opacity:.34,depthWrite:false}));shadowFloor.rotation.x=-Math.PI/2;shadowFloor.position.y=.02;shadowFloor.receiveShadow=true;scene.add(shadowFloor);
 const windowShadow=new THREE.PointLight(0xffdab0,0,280,2);windowShadow.castShadow=true;windowShadow.shadow.mapSize.set(256,256);windowShadow.shadow.bias=-.001;scene.add(windowShadow);
 
 window.mlwShadowsReady=true;
@@ -1822,7 +1823,16 @@ function updateWeatherScreen(dt,now){
  if(snow>.01&&(snowDustClock-=dt)<0){snowDustClock=.18;const floors=placed.filter(p=>['Terrain','Streets'].includes(p.asset.cat)),tile=floors[Math.floor(Math.random()*floors.length)],patch=snowDust.find(p=>!p.life);if(tile&&patch){const c=placementCenter(tile),d=dimsFor(tile);patch.mesh.position.set(c.x+(Math.random()-.5)*d.w,verticalRange(tile).max+.2,c.z+(Math.random()-.5)*d.d);patch.mesh.scale.setScalar(3+Math.random()*4);patch.life=3+Math.random()*3;}}
 }
 // Opening/closing is anchored to the toolbar icon; modal backdrop remains blurred.
-function attachPanelMotion(panel,icon,content=panel){let wasOpen=panel.classList.contains('open'),motion=null;const run=open=>{motion?.cancel();const a=icon.getBoundingClientRect();if(!open)panel.classList.add('panel-closing');const b=content.getBoundingClientRect(),dx=a.left+a.width/2-(b.left+b.width/2),dy=a.top+a.height/2-(b.top+b.height/2);const small={transform:`translate(${dx}px,${dy}px) scale(.035,.055)`,opacity:0},large={transform:'translate(0,0) scale(1)',opacity:1};motion=content.animate(open?[small,large]:[large,small],{duration:open?360:260,easing:open?'cubic-bezier(.16,.8,.2,1)':'cubic-bezier(.6,0,.8,.4)'});motion.onfinish=()=>panel.classList.remove('panel-closing');if(open)panel.classList.remove('panel-closing');};new MutationObserver(()=>{const open=panel.classList.contains('open');if(open!==wasOpen){wasOpen=open;run(open);}}).observe(panel,{attributes:true,attributeFilter:['class']});}
+function attachPanelMotion(panel,icon,content=panel){
+ let wasOpen=panel.classList.contains('open'),motion=null,revision=0;
+ const run=open=>{const token=++revision;motion?.cancel();if(!open)panel.classList.add('panel-closing');else panel.classList.remove('panel-closing');
+  const a=icon.getBoundingClientRect(),b=content.getBoundingClientRect(),dx=a.left+a.width/2-b.left-b.width/2,dy=a.top+a.height/2-b.top-b.height/2;
+  const small={transform:`translate(${dx}px,${dy}px) scale(.08)`,opacity:0},large={transform:'translate(0,0) scale(1)',opacity:1};
+  motion=content.animate(open?[small,large]:[large,small],{duration:open?190:150,easing:'ease-out',fill:'forwards'});
+  motion.onfinish=()=>{if(token!==revision)return;if(!open)panel.classList.remove('panel-closing');requestAnimationFrame(()=>{if(token===revision){motion?.cancel();motion=null;}});};
+ };
+ new MutationObserver(()=>{const open=panel.classList.contains('open');if(open!==wasOpen){wasOpen=open;run(open);}}).observe(panel,{attributes:true,attributeFilter:['class']});
+}
 attachPanelMotion(helpOverlay,helpBtn,helpOverlay.querySelector('.helpModal'));attachPanelMotion(partsOverlay,partsBtn,partsOverlay.querySelector('.helpModal'));attachPanelMotion(cloudDrop,cloudBtn);
 window.mlwWeatherScreenReady=true;
 
@@ -1830,8 +1840,8 @@ window.mlwWeatherScreenReady=true;
 for(let i=0;i<60;i++){const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:cloudTexture,transparent:true,opacity:0,depthWrite:false}));const size=150+Math.random()*170;sp.scale.set(size*1.7,size,1);sp.position.set((Math.random()-.5)*BUILD_HALF*2,55+Math.random()*55,(Math.random()-.5)*BUILD_HALF*2);Object.assign(sp.userData,{weatherOnly:true,overCity:false,speed:3+Math.random()*7,phase:Math.random()*Math.PI*2});cloudGroup.add(sp);clouds.push(sp);}
 
 // A bounded cloud pool; extra over-city puffs stay above the highest building.
-for(let i=0;i<90;i++){
- const over=i<60,sp=new THREE.Sprite(new THREE.SpriteMaterial({map:cloudTexture,transparent:true,opacity:0,depthWrite:false,depthTest:!over}));
+for(let i=0;i<24;i++){
+ const over=i<12,sp=new THREE.Sprite(new THREE.SpriteMaterial({map:cloudTexture,transparent:true,opacity:0,depthWrite:false,depthTest:!over}));
  const size=130+Math.random()*150;sp.scale.set(size*1.7,size,1);sp.position.set((Math.random()-.5)*BUILD_HALF*2,55+Math.random()*55,(Math.random()-.5)*BUILD_HALF*2);
  Object.assign(sp.userData,{overCity:over,speed:8+Math.random()*12,phase:Math.random()*Math.PI*2});if(over)sp.renderOrder=2;cloudGroup.add(sp);clouds.push(sp);
 }
@@ -1868,8 +1878,8 @@ function updateWeatherAudio(now){
 const analog=document.createElement('div');analog.className='dataAnalog';analog.innerHTML='<i class="dataHour"></i><i class="dataMinute"></i><i class="dataSecond"></i><b></b>';dataWidget.append(analog);
 function updateAnalogClock(now){const hour=currentSkyHour(now);analog.querySelector('.dataHour').style.transform=`rotate(${hour*30}deg)`;analog.querySelector('.dataMinute').style.transform=`rotate(${hour*360}deg)`;analog.querySelector('.dataSecond').style.transform=`rotate(${hour*21600}deg)`;}
 const oldDataUpdate=new MutationObserver(()=>{const status=worldSettings.live?(document.getElementById('weatherNow')?.textContent||''):[['tornado','Tornado'],['thunder','Thunder'],['rain','Rain'],['snow','Snow'],['fog','Fog'],['wind','Wind'],['clouds','Cloudy'],['sun','Sunny']].filter(([key])=>worldSettings.manualWeather?.[key]).map(([,name])=>name).join(', ')||'Clear';dataWidget.querySelector('.dataTemp').textContent=(worldSettings.live&&Number.isFinite(worldSettings.temp)?Math.round(worldSettings.temp)+' °C · ':'— °C · ')+status;});oldDataUpdate.observe(dataWidget.querySelector('.dataDate'),{childList:true});
-document.getElementById('lightRotation').closest('label').hidden=true;
-document.getElementById('lightPbrPreset').closest('label').hidden=true;
+
+
 const filterLabel=document.createElement('label');filterLabel.innerHTML='Look <select id="visualFilter"><option value="natural">Natural</option><option value="vivid">Vivid</option><option value="mono">Black & white</option><option value="warm">Warm film</option></select>';document.querySelector('.lightStack').prepend(filterLabel);
 const visualFilter=document.getElementById('visualFilter');visualFilter.value=lightSettings.visualFilter||'natural';visualFilter.onchange=()=>{lightSettings.visualFilter=visualFilter.value;localStorage.setItem('mlw-light-settings',JSON.stringify(lightSettings));updateSky(nightAmountForHour(currentSkyHour()));};
 // The eyedropper is directly in the selection bar; no intermediate popover.
@@ -1905,3 +1915,81 @@ float lum(vec3 c){return dot(c,vec3(.299,.587,.114));}
 void main(){vec2 stepUV=(mode>1.5?vec2(3.):vec2(1.))/resolution;vec2 uv=mode>1.5?(floor(uvLook/stepUV)+.5)*stepUV:uvLook;vec4 c=texture2D(tDiffuse,uv);float dx=lum(texture2D(tDiffuse,uv+vec2(stepUV.x,0.)).rgb)-lum(texture2D(tDiffuse,uv-vec2(stepUV.x,0.)).rgb);float dy=lum(texture2D(tDiffuse,uv+vec2(0.,stepUV.y)).rgb)-lum(texture2D(tDiffuse,uv-vec2(0.,stepUV.y)).rgb);float edge=smoothstep(.12,.32,length(vec2(dx,dy)));vec3 rgb=mode<1.5?floor(clamp((c.rgb-.5)*1.2+.5,0.,1.)*7.+.5)/7.:c.rgb;gl_FragColor=vec4(mix(rgb,vec3(.035),edge*.85),c.a);}`});composer.addPass(lookPass);
 const syncLook=()=>{lookPass.enabled=['cartoon','pixel'].includes(lightSettings.visualFilter);lookPass.uniforms.mode.value=lightSettings.visualFilter==='pixel'?2:1;lookPass.uniforms.resolution.value.set(renderer.domElement.width,renderer.domElement.height);};
 visualFilter.addEventListener('change',syncLook);window.addEventListener('resize',syncLook);syncLook();
+
+// Guide: mouse / keyboard / touch on the left, tools and actions on the right.
+{
+ const columns=[...document.querySelectorAll('#helpOverlay .guideColumn')],left=columns[0],right=columns[1];
+ const headings=[...right.querySelectorAll('.guideSection')],keyboard=headings.find(e=>e.textContent==='KEYBOARD'),touch=[...left.querySelectorAll('.guideSection')].find(e=>e.textContent==='TOUCH');
+ if(keyboard&&touch){let node=keyboard;while(node&&node!==headings.find(e=>e.textContent==='DOCK & TOOLS')){const next=node.nextElementSibling;left.insertBefore(node,touch);node=next;}}
+ const row=(key,text)=>{const e=document.createElement('div');const k=document.createElement('kbd'),t=document.createElement('span');k.textContent=key;t.textContent=text;e.append(k,t);return e;};
+ right.append(row('Custom color','Color circle: preview COLOR_ parts live; green ✓ confirms, × cancels.'),row('Eyedropper','Pick a screen color when your browser supports it.'),row('Screenshot','Save the scene with the logo, without the grid or controls.'));
+ left.insertBefore(row('Hold + Drag','Hold on a tile briefly, then drag to box-select. Shift + drag also works.'),touch);
+ const actions=document.createElement('div');actions.className='guideActions';actions.append(exampleButton);const manager=document.querySelector('.assetManagerLink');if(manager)actions.append(manager);right.append(actions);
+}
+// Weather pane order matches the user reference. Preserve all existing handlers.
+{
+ const pane=document.querySelector('.livePane'),toggle=pane.querySelector('.compactToggle'),city=pane.querySelector('.weatherField'),status=pane.querySelector('.weatherStatus'),heading=pane.querySelector('h3');
+ pane.replaceChildren(toggle,city,status,dayModeControl,heading,manualWeather,dataButton);
+ filterLabel.firstChild.textContent='Style ';dataButton.textContent='Show clock';
+}
+// Two nearby model lights cast subtle night shadows, instead of one fixed world light.
+scene.remove(windowShadow);
+const nightShadowLights=Array.from({length:2},()=>{const light=new THREE.SpotLight(0xffd9a0,0,180,Math.PI/3,.65,1.5);light.castShadow=true;light.shadow.mapSize.set(256,256);light.shadow.bias=-.001;light.shadow.normalBias=.15;scene.add(light,light.target);return light;});
+let nextNightShadow=0;
+function updateModelNightShadows(now,night){
+ const strength=THREE.MathUtils.smoothstep(night,.4,.9);
+ if(!strength){for(const l of nightShadowLights){l.intensity=0;}return;}
+ if(now<nextNightShadow)return;nextNightShadow=now+600;
+ const candidates=placed.filter(p=>p.asset.cat==='Houses'&&p.root.userData.lampEffects?.length).sort((a,b)=>a.root.position.distanceToSquared(controls.target)-b.root.position.distanceToSquared(controls.target)).slice(0,2);
+ nightShadowLights.forEach((light,i)=>{const p=candidates[i];light.visible=true;if(!p){light.intensity=0;return;}p.root.updateMatrixWorld(true);const emitter=p.root.userData.lampEffects.find(e=>e.object.isSprite)?.object;if(!emitter){light.intensity=0;return;}emitter.getWorldPosition(light.position);const center=placementCenter(p),out=new THREE.Vector3(light.position.x-center.x,0,light.position.z-center.z);if(out.lengthSq()<1)out.set(0,0,1);out.normalize();light.position.addScaledVector(out,2);light.target.position.set(light.position.x+out.x*24,p.root.position.y+5,light.position.z+out.z*24);light.color.copy(emitter.material.color);light.intensity=40*strength;});
+}
+window.mlwNightShadowsReady=true;
+
+const cloudBatches=[false,true].map(over=>{
+ const members=clouds.filter(c=>!!c.userData.overCity===over),geometry=new THREE.PlaneGeometry(1,1),opacity=new THREE.InstancedBufferAttribute(new Float32Array(members.length),1);opacity.setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('cloudOpacity',opacity);
+ const material=new THREE.MeshBasicMaterial({map:cloudTexture,transparent:true,depthWrite:false,depthTest:!over});
+ material.onBeforeCompile=shader=>{shader.vertexShader='attribute float cloudOpacity; varying float vCloudOpacity;\n'+shader.vertexShader;shader.vertexShader=shader.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\nvCloudOpacity=cloudOpacity;');shader.fragmentShader='varying float vCloudOpacity;\n'+shader.fragmentShader;shader.fragmentShader=shader.fragmentShader.replace('#include <color_fragment>','#include <color_fragment>\ndiffuseColor.a*=vCloudOpacity;');};
+ const mesh=new THREE.InstancedMesh(geometry,material,members.length);mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);mesh.frustumCulled=false;if(over)mesh.renderOrder=2;cloudGroup.add(mesh);for(const c of members)cloudGroup.remove(c);return {members,mesh,opacity};
+});
+const cloudMatrix=new THREE.Matrix4(),cloudScale=new THREE.Vector3(),cloudView=new THREE.Matrix4(),cloudFrustum=new THREE.Frustum(),cloudSphere=new THREE.Sphere();
+function updateCloudBatches(){
+ cloudView.multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse);cloudFrustum.setFromProjectionMatrix(cloudView);
+ for(const batch of cloudBatches){let count=0;
+  for(const c of batch.members){if(!c.visible)continue;cloudSphere.center.copy(c.position);cloudSphere.radius=Math.hypot(c.scale.x,c.scale.y)*.5;if(!cloudFrustum.intersectsSphere(cloudSphere))continue;
+   cloudScale.set(c.scale.x,c.scale.y,1);cloudMatrix.compose(c.position,camera.quaternion,cloudScale);batch.mesh.setMatrixAt(count,cloudMatrix);batch.opacity.setX(count,c.material.opacity);count++;
+  }
+  batch.mesh.count=count;batch.mesh.visible=count>0;if(count){batch.mesh.instanceMatrix.needsUpdate=true;batch.opacity.needsUpdate=true;}
+ }
+}
+window.mlwCloudBatchesReady=true;
+
+// Smoke markers emit a bounded, shared particle pool; model geometry stays untouched.
+function smokeMarker(name){return /^smoke(?:_|$)/i.test(String(name||'').trim());}
+const smokeEmitterCache=new WeakMap();
+function smokeEmitters(p){
+ if(smokeEmitterCache.has(p.root))return smokeEmitterCache.get(p.root);
+ p.root.updateMatrixWorld(true);const result=[];
+ p.root.traverse(n=>{if(!(smokeMarker(n.name)||n.userData.smokeMarker))return;for(let parent=n.parent;parent&&parent!==p.root;parent=parent.parent)if(smokeMarker(parent.name)||parent.userData.smokeMarker)return;
+ const box=new THREE.Box3().setFromObject(n),point=new THREE.Vector3();if(box.isEmpty())n.getWorldPosition(point);else{box.getCenter(point);point.y=box.max.y;}p.root.worldToLocal(point);result.push(point);
+ });smokeEmitterCache.set(p.root,result);return result;
+}
+const smokePool=Array.from({length:96},()=>({life:0,age:0,pos:new THREE.Vector3(),drift:0}));
+const smokeGeometry=new THREE.PlaneGeometry(1,1),smokeAlpha=new THREE.InstancedBufferAttribute(new Float32Array(96),1);smokeAlpha.setUsage(THREE.DynamicDrawUsage);smokeGeometry.setAttribute('smokeAlpha',smokeAlpha);
+const smokeMaterial=new THREE.MeshBasicMaterial({map:cloudTexture,color:0xffffff,transparent:true,depthWrite:false});
+smokeMaterial.onBeforeCompile=shader=>{shader.vertexShader='attribute float smokeAlpha;varying float vSmokeAlpha;\n'+shader.vertexShader;shader.vertexShader=shader.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\nvSmokeAlpha=smokeAlpha;');shader.fragmentShader='varying float vSmokeAlpha;\n'+shader.fragmentShader;shader.fragmentShader=shader.fragmentShader.replace('#include <color_fragment>','#include <color_fragment>\ndiffuseColor.a*=vSmokeAlpha;');};
+const smokeMesh=new THREE.InstancedMesh(smokeGeometry,smokeMaterial,96);smokeMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);smokeMesh.frustumCulled=false;smokeMesh.count=0;smokeMesh.raycast=()=>{};scene.add(smokeMesh);
+const smokeMatrix=new THREE.Matrix4(),smokeScale=new THREE.Vector3();let smokeSources=[],smokeRefresh=0,smokeCount=-1,smokeNext=0,smokeCursor=0;
+function updateSmoke(dt){
+ smokeRefresh-=dt;if(smokeRefresh<=0||smokeCount!==placed.length){smokeRefresh=.5;smokeCount=placed.length;smokeSources=[];for(const p of placed)for(const point of smokeEmitters(p))smokeSources.push({p,point});}
+ smokeNext-=dt;if(smokeSources.length&&smokeNext<=0){smokeNext=Math.max(.025,.65/smokeSources.length);const source=smokeSources[smokeCursor++%smokeSources.length],particle=smokePool.find(p=>!p.life);if(particle&&placed.includes(source.p)){source.p.root.updateMatrixWorld(true);particle.pos.copy(source.point).applyMatrix4(source.p.root.matrixWorld);particle.age=0;particle.life=2.4+Math.random()*.7;particle.drift=(Math.random()-.5)*2;}}
+ let count=0;for(const p of smokePool){if(!p.life)continue;p.age+=dt;if(p.age>=p.life){p.life=0;continue;}p.pos.y+=12*dt;p.pos.x+=p.drift*dt;p.pos.z+=Math.sin(p.age*2+p.drift)*dt;const t=p.age/p.life,size=7+t*15;smokeScale.set(size*1.5,size,1);smokeMatrix.compose(p.pos,camera.quaternion,smokeScale);smokeMesh.setMatrixAt(count,smokeMatrix);smokeAlpha.setX(count,Math.min(1,t*8)*(1-t)*.42);count++;}
+ smokeMesh.count=count;smokeMesh.visible=count>0;if(count){smokeMesh.instanceMatrix.needsUpdate=true;smokeAlpha.needsUpdate=true;}
+}
+window.mlwSmokeReady=true;
+
+// Double-click an existing model to use the same copy workflow as its label.
+renderer.domElement.addEventListener('dblclick',e=>{
+ if(e.button!==0||e.shiftKey||e.ctrlKey||e.metaKey||multiMode||bulldozerMode||repeater||placementLoading||placingCopy||placingCopies)return;
+ pointer(e);const hit=ray.intersectObjects(placed.map(p=>p.root),true).find(h=>!h.object.userData.lightEffect),p=hit?findPlacedObject(hit.object):null;if(!p)return;
+ e.preventDefault();clearTimeout(desktopSelectHold);if(!currentSelection().includes(p))select(p);copyBtn.click();
+});
