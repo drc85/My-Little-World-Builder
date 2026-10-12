@@ -1582,3 +1582,56 @@ header#imageToolbar button.imageTool:hover .toolArt,header#imageToolbar button.i
 /* Center the visible artwork, not the old oversized image container. */
 #weatherData .dataDate{top:49.5%;font-size:9px;}
 #weatherData .dataTemp{top:57.3%;font-size:11px;}
+
+/* Current layout overrides: safe areas and complete artwork on small screens. */
+#cornerBrandCredit{top:auto!important;bottom:calc(10px + env(safe-area-inset-bottom))!important;right:12px!important;width:195px!important;}
+#assetDock.assetDock:not(.dock-open),#assetDock.assetDock:not(.dock-open):hover{bottom:-360px!important;}
+#assetDock[data-flow=home] .dockItems{height:350px!important;min-height:350px!important;padding-top:116px!important;}
+#assetDock .dockBack:hover{color:white!important;background:transparent!important;box-shadow:none!important;}
+#assetDock .dockBack:hover .backArrow{color:white!important;}
+#weatherData{width:160px!important;top:8px!important;left:8px!important;}
+#weatherData .dataTime{font-size:11px!important;top:33%!important;}
+#weatherData .dataDate{font-size:6px!important;top:49%!important;}
+#weatherData .dataTemp{font-size:6px!important;top:59%!important;white-space:normal;}
+.dataAnalog{position:absolute;left:16.3%;top:25.4%;width:28%;aspect-ratio:1;border-radius:50%;background:#fffdf6;border:1px solid #4d4d4d;color:#111;}
+.dataAnalog i{position:absolute;left:49%;bottom:50%;width:2px;height:33%;background:#30343b;transform-origin:50% 100%;border-radius:2px;}
+.dataAnalog i.dataHour{height:23%;width:2px;}.dataAnalog i.dataSecond{width:1px;height:35%;background:#e8413a;}
+.dataAnalog b{position:absolute;left:46%;top:46%;width:8%;height:8%;background:#30343b;border-radius:50%;}
+.dataAnalog span{position:absolute;font:5px Arial;}.dataAnalog span:nth-child(1){top:1%;left:40%;}.dataAnalog span:nth-child(2){right:3%;top:43%;}.dataAnalog span:nth-child(3){bottom:1%;left:45%;}.dataAnalog span:nth-child(4){left:3%;top:43%;}
+.lightStack label[hidden],#groupEyedropper[hidden]{display:none!important;}
+#groupColorPanel{position:fixed!important;opacity:0!important;width:1px!important;height:1px!important;pointer-events:none!important;}
+#groupEyedropper{border-radius:50%;width:26px;height:26px;padding:0;}
+@media(max-width:700px){
+ html,body{height:100%;height:100dvh;overflow:hidden;}
+ #viewportWrap{position:fixed!important;inset:0!important;height:100dvh!important;}
+ header#imageToolbar{top:calc(5px + env(safe-area-inset-top))!important;width:calc(100vw - 12px)!important;grid-template-columns:1fr 58px 1fr!important;gap:3px!important;}
+ #imageToolbar .toolBank{display:flex!important;visibility:visible!important;opacity:1!important;gap:1px!important;}
+ header#imageToolbar button.imageTool{display:block!important;visibility:visible!important;opacity:1!important;min-height:38px!important;}
+ #mainArtworkLogo{width:58px!important;}
+ #weatherData{top:85px!important;width:145px!important;}
+ #assetDock.assetDock.dock-open{bottom:calc(6px + env(safe-area-inset-bottom))!important;}
+ #assetDock{zoom:.62!important;}
+ #dockHotZone{bottom:env(safe-area-inset-bottom)!important;height:24px!important;}
+ #cornerBrandCredit{bottom:calc(4px + env(safe-area-inset-bottom))!important;width:115px!important;z-index:15!important;}
+ #cornerBrandCredit .brandLogos{gap:4px!important;}#cornerBrandCredit .brandLogos img{max-width:29px!important;height:15px!important;}
+}
+
+/* Clock uses the user's updated artwork, keeping its printed dial intact. */
+#weatherData{aspect-ratio:1722/907!important;width:160px!important;}
+#weatherData .dataTime{left:51%!important;top:44%!important;width:40%!important;font-size:12px!important;}
+#weatherData .dataDate{left:51%!important;top:63%!important;width:40%!important;font-size:7px!important;}
+#weatherData .dataTemp{left:51%!important;top:70%!important;width:40%!important;font-size:6px!important;}
+.dataAnalog{left:12.5%!important;top:24%!important;width:29.4%!important;background:transparent!important;border:0!important;}
+#customPalette{position:absolute;left:0;top:38px;width:205px;padding:10px;border-radius:12px;background:#303945ed;border:1px solid #ffffff44;color:white;box-shadow:0 5px 18px #0005;display:grid;grid-template-columns:1fr 30px 30px;gap:8px;}
+#customPalette[hidden]{display:none!important;}#customPalette>b,#customPalette .colorField,#customPalette .colorHue{grid-column:1/-1;}
+.colorField{height:125px;background:linear-gradient(to top,black,transparent),linear-gradient(to right,white,transparent);background-color:red;cursor:crosshair;touch-action:none;border-radius:5px;}
+#customPalette .colorHex{min-width:0;width:100%;background:#ffffff18;color:white;border:1px solid #fff4;border-radius:6px;}
+#customPalette button{border:0;border-radius:50%;width:28px;height:28px;color:white;font:20px Arial;cursor:pointer;}.colorConfirm{background:#25aa63!important;}.colorCancel{background:#973d46!important;}
+
+#assetDock #dockBack:hover .backArrow,#assetDock #dockBack:focus-visible .backArrow{filter:none!important;}
+@media(max-width:700px){
+ #imageToolbar .toolBank{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;justify-items:center;align-items:start;gap:3px!important;}
+ header#imageToolbar button.imageTool{width:100%!important;min-height:44px!important;max-width:44px!important;}
+ #weatherData{top:132px!important;width:135px!important;}
+ #weatherData .dataTime{font-size:10px!important;}#weatherData .dataDate{font-size:6px!important;}#weatherData .dataTemp{font-size:5px!important;}
+}
