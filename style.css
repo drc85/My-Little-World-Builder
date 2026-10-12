@@ -1678,3 +1678,10 @@ header#imageToolbar button.imageTool:hover .toolArt,header#imageToolbar button.i
 #weatherData .dataTime{top:41%!important;}
 #weatherData .dataDate{top:60%!important;}
 #weatherData .dataTemp{top:67%!important;}
+
+/* Keep export beside the title, above the print list. */
+.partsHeader{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-right:44px;margin-bottom:14px;flex-wrap:wrap;}
+.partsHeader #partsTitle{margin:0;}
+.partsHeader .printActions{margin:0;align-items:flex-end;gap:4px;}
+.partsHeader #exportParts{padding:9px 18px;}
+.partsHeader #exportStatus:empty{display:none;}
