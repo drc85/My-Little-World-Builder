@@ -1519,3 +1519,42 @@ header#imageToolbar #bulldozerBtn[aria-pressed=true] .toolArt{filter:drop-shadow
 #repeatStatus{padding:0!important;background:none!important;border:0!important;box-shadow:none!important;transform:none!important;bottom:auto!important;width:30px;height:30px;}
 #repeatStatus #stopRepeat{width:30px;height:30px;padding:0;border:1px solid #ffb5b5;border-radius:50%;background:#b72e38e8;color:#fff;font:bold 21px/1 system-ui;box-shadow:0 2px 7px #0005;cursor:pointer;}
 #repeatStatus #stopRepeat:hover{background:#ed3946;transform:scale(1.1);}
+
+/* October UI refinement */
+#assetDock{zoom:.765;transition:bottom .7s cubic-bezier(.22,.7,.25,1)!important;}
+#dockHotZone::after{content:'';position:absolute;bottom:0;left:50%;width:min(600px,70vw);height:3px;transform:translateX(-50%);background:#ffe15b88;box-shadow:0 0 14px 5px #ffcd3445;border-radius:50%;pointer-events:none;}
+#viewportWrap:has(#assetDock.dock-open) #dockHotZone::after{opacity:0;}
+header#imageToolbar button.imageTool:hover .toolArt,header#imageToolbar button.imageTool.panel-active .toolArt{filter:drop-shadow(1.5px 0 0 #ffe326) drop-shadow(-1.5px 0 0 #ffe326) drop-shadow(0 1.5px 0 #ffe326) drop-shadow(0 -1.5px 0 #ffe326) drop-shadow(0 0 5px #ffd54199)!important;}
+#assetDock .dockItem:hover .dockIcon,#assetDock .dockBack:hover{filter:drop-shadow(1px 0 0 #ffe326) drop-shadow(-1px 0 0 #ffe326) drop-shadow(0 0 5px #ffdf3988)!important;}
+.helpOverlay .helpModal,#cloudDrop.weatherDrop{background:rgba(49,56,65,.78)!important;backdrop-filter:blur(20px)!important;border:1px solid #d5e6ff55!important;box-shadow:0 15px 55px #0005!important;}
+.helpClose{width:34px!important;height:34px!important;border-radius:50%!important;background:#cf3748!important;color:#fff!important;border:1px solid #ff9aa455!important;font:26px/1 Arial!important;}
+#partsTitle,#cloudDrop h3,#cloudDrop legend,#cloudDrop>b,.guideSection{font-family:Milkyway,Arial,sans-serif!important;color:white!important;letter-spacing:.04em;}
+#cloudDrop.weatherDrop{max-width:min(620px,calc(100vw - 24px))!important;font-size:11px!important;}
+.helpModal input,#cloudDrop input{accent-color:#9ad7ff!important;}
+.toggleRow input:checked+i{background:#85c8ee!important;}
+#manualWeather{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:8px;border:1px solid #ffffff22;border-radius:10px;margin:8px 0;}
+#manualWeather:disabled{opacity:.4;}
+#manualWeather label{display:flex!important;gap:6px;align-items:center;}
+#groupBtn{border-radius:9px!important;background:#248e62!important;color:white!important;}
+#groupBtn.ungroup{background:#c5394a!important;}
+#exampleWorld{display:block;margin:12px auto;padding:10px 24px;border-radius:12px;background:#536c84;color:white;border:1px solid #a6d7ff77;cursor:pointer;}
+#skySun,#skyMoon{position:fixed;width:190px;height:190px;top:-142px;font-size:185px;line-height:1;pointer-events:none;z-index:4;animation:skyFloat 8s ease-in-out infinite;}
+#skySun{left:-100px;filter:drop-shadow(0 0 18px #ffd64a);}
+#skyMoon{right:-100px;filter:drop-shadow(0 0 14px #bcdcff);animation-delay:-3s;}
+@keyframes skyFloat{50%{transform:translate(7px,8px) scale(1.025);}}
+#cornerBrandCredit{width:195px!important;display:flex!important;align-items:center!important;}
+#cornerBrandCredit .brandLogos{display:flex;align-items:center;gap:9px!important;}
+#cornerBrandCredit .brandLogos img{max-width:48px!important;height:23px!important;object-fit:contain;}
+
+/* Shared glass controls and compact weather switches. */
+#groupBtn[hidden],#groupColorBtn[hidden]{display:none!important;}
+.dayModeControl input:checked+span{background:#86c7ef!important;color:#142333!important;}
+#cloudDrop select,#cloudDrop .weatherStatus>div{background:#ffffff0d!important;}
+#manualWeather label{position:relative;min-height:25px;margin:0!important;cursor:pointer;}
+#manualWeather input{position:absolute;width:30px;height:18px;opacity:0;cursor:pointer;}
+#manualWeather i{display:block;flex:none;width:30px;height:18px;border-radius:12px;background:#ffffff28;transition:background .18s;}
+#manualWeather i::after{content:'';display:block;width:12px;height:12px;border-radius:50%;background:#e9edf2;margin:3px;transition:transform .18s;}
+#manualWeather input:checked+i{background:#8ecdf2;}
+#manualWeather input:checked+i::after{transform:translateX(12px);background:white;}
+#manualWeather input:focus-visible+i{outline:2px solid white;outline-offset:2px;}
+#manualWeather:disabled label{cursor:default;}

@@ -1,4 +1,4 @@
-import {fitModel,gltfRoot} from '../model-rules.js?v=desktop-release-20261011-artwork';
+import {fitModel,gltfRoot} from '../model-rules.js?v=desktop-release-20261012-city-weather-color';
 import * as THREE from 'three';
 import {OBJLoader} from 'three/addons/loaders/OBJLoader.js';
 import {MTLLoader} from 'three/addons/loaders/MTLLoader.js';
