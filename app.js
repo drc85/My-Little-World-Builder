@@ -1,9 +1,9 @@
 import {LineSegments2} from 'three/addons/lines/LineSegments2.js';
 import {LineSegmentsGeometry} from 'three/addons/lines/LineSegmentsGeometry.js';
 import {LineMaterial} from 'three/addons/lines/LineMaterial.js';
-import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261012-city-weather-color';
-import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261012-city-weather-color';
-import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261012-city-weather-color';
+import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261012-weather-followup';
+import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261012-weather-followup';
+import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261012-weather-followup';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
@@ -252,9 +252,9 @@ function skyColorAt(hour,y){
 function currentSkyHour(now=performance.now()){return worldSettings.realtime?realTimeHour():worldSettings.dayMode==='day'?12:worldSettings.dayMode==='night'?0:demoWorldHour((now-dayNightStart)/1000);}
 function updateSky(night,hour=currentSkyHour()){
  const g=skyCtx.createLinearGradient(0,0,0,512);for(let i=0;i<=64;i++){const y=i/64;g.addColorStop(y,skyColorAt(hour,y));}skyCtx.fillStyle=g;skyCtx.fillRect(0,0,8,512);skyTexture.needsUpdate=true;
- grid.material.color.set(mixHex('#737b84','#d9e1ef',night));grid.material.opacity=.46+night*.18;
+ grid.material.color.set(mixHex('#737b84','#64758e',night));grid.material.opacity=.46+night*.18;
  hemi.intensity=THREE.MathUtils.lerp(1.85,.8,night)*lightSettings.brightness;ambient.intensity=THREE.MathUtils.lerp(.62,.34,night)*lightSettings.brightness;sun.intensity=THREE.MathUtils.lerp(1.18,.22,night)*lightSettings.brightness;
- const warm=mixHex('#ffd8a0','#d9f0ff',lightSettings.temp);sun.color.set(mixHex(warm,'#829bd0',night));const ang=lightSettings.rotation*Math.PI/180;const solar=(currentSkyHour()-12)/24*Math.PI*2+ang;sun.position.set(Math.cos(solar)*650,800,Math.sin(solar)*650);if(window.mlwShadowsReady){const house=placed.find(p=>p.asset.cat==='Houses');windowShadow.intensity=house?night*100:0;if(house){const c=placementCenter(house);windowShadow.position.set(c.x,house.root.position.y+35,c.z+house.asset.d/2+5);}}renderer.toneMappingExposure=THREE.MathUtils.lerp(.88,.78,night)*lightSettings.brightness;renderer.domElement.style.filter=`contrast(${lightSettings.contrast})`;
+ const warm=mixHex('#ffd8a0','#d9f0ff',lightSettings.temp);sun.color.set(mixHex(warm,'#829bd0',night));const ang=lightSettings.rotation*Math.PI/180;const solar=(currentSkyHour()-12)/24*Math.PI*2+ang;sun.position.set(Math.cos(solar)*650,800,Math.sin(solar)*650);if(window.mlwShadowsReady){const house=placed.find(p=>p.asset.cat==='Houses');windowShadow.intensity=house?night*100:0;if(house){const c=placementCenter(house);windowShadow.position.set(c.x,house.root.position.y+35,c.z+house.asset.d/2+5);}}renderer.toneMappingExposure=THREE.MathUtils.lerp(.88,.78,night)*lightSettings.brightness;renderer.domElement.style.filter=`contrast(${lightSettings.contrast}) brightness(${liveWeather.rain>.01?.94:1}) sepia(${(!night&&worldSettings.manualWeather?.sun) ? .09 : 0}) saturate(${!night&&worldSettings.manualWeather?.sun?1.08:1})`;
  const pbr=lightSettings.pbrPreset||'neutral';
  const pbrMap={neutral:{hemi:1,amb:1,sun:1,exp:1},soft:{hemi:1.10,amb:1.10,sun:.82,exp:.98},studio:{hemi:.92,amb:.88,sun:1.18,exp:1.03},warm:{hemi:1.02,amb:1.0,sun:1.05,exp:1.0},cool:{hemi:1.06,amb:1.02,sun:.96,exp:.99}};
  const pm=pbrMap[pbr]||pbrMap.neutral;hemi.intensity*=pm.hemi;ambient.intensity*=pm.amb;sun.intensity*=pm.sun;renderer.toneMappingExposure*=pm.exp;
@@ -394,15 +394,15 @@ function cloudDensity(distance){
 function updateClouds(dt){
  const footprints=cloudFootprints();
  const high=Math.max(160,...footprints.map(p=>p.top))+80;
- const weatherFactor=.85+.15*Math.max(0,Math.min(1,liveWeather.cloud));
+ const weatherFactor=1+1.1*Math.max(0,Math.min(1,liveWeather.cloud));
  for(const c of clouds){
-  c.position.x+=c.userData.speed*cloudSettings.speed*dt;
+  c.position.x+=c.userData.speed*cloudSettings.speed*(1+4*(liveWeather.wind||0))*dt;
   c.position.z+=Math.sin(performance.now()*.00018+c.userData.phase)*dt*2;
   if(c.position.x>BUILD_HALF+150)c.position.x=-BUILD_HALF-150;
   let distance=Infinity;
   for(const p of footprints){const dx=Math.max(0,Math.abs(c.position.x-p.x)-p.w/2),dz=Math.max(0,Math.abs(c.position.z-p.z)-p.d/2);distance=Math.min(distance,Math.hypot(dx,dz));}
   // Fade the broad low sprites before their edges obscure buildings.
-  let target=cloudDensity(Math.max(0,distance-c.scale.x*.38))*weatherFactor;
+  let target=cloudDensity(Math.max(0,distance-c.scale.x*.38))*weatherFactor;if(c.userData.weatherOnly)target*=THREE.MathUtils.smoothstep(liveWeather.cloud,.1,.7);
   if(c.userData.overCity){c.position.y=high;target=cloudSettings.cityDensity;}
   c.scale.y=(c.scale.x/1.7)*cloudSettings.shape;
   c.material.opacity+=(target-c.material.opacity)*(1-Math.exp(-5*dt));
@@ -487,7 +487,7 @@ function tryTrafficTurn(p,state){
  if(state.turn||!sameDirection(state.entry,{x:-state.exit.x,z:-state.exit.z}))return false;
  const candidate=startVehicleTurn(p,state),center=placementCenter(state.tile),d=dimsFor(state.tile);
  for(let i=0;i<=12;i++){const pos=candidate.curve.getPointAt(i/12);if(Math.abs(pos.x-center.x)>d.w/2-6||Math.abs(pos.z-center.z)>d.d/2-6)return false;
-  if(placed.some(q=>q!==p&&isVehicle(q)&&Math.abs(placementCenter(q).y-placementCenter(p).y)<8&&Math.hypot(placementCenter(q).x-pos.x,placementCenter(q).z-pos.z)<22))return false;
+  if(placed.some(q=>q!==p&&isVehicle(q)&&Math.abs(placementCenter(q).y-placementCenter(p).y)<8&&Math.hypot(placementCenter(q).x-pos.x,placementCenter(q).z-pos.z)<48))return false;
  }
  p.drive=candidate;p.trafficWait=0;return true;
 }
@@ -514,7 +514,7 @@ function updatePlacedVehicles(dt){
   const next=roadNeighbor(tile,state.exit),entry={x:-state.exit.x,z:-state.exit.z};
   const options=next?roadDirections(next).filter(e=>!sameDirection(e,entry)):[];
   state.distance+=(14+(p.id%7)*.6)*1.15*dt;
-  if(!next&&state.distance>=Math.max(0,state.length-50)&&!sameDirection(state.entry,state.exit)){state.distance=Math.max(0,state.length-50);state=startVehicleTurn(p,state);p.drive=state;}
+  if(!next&&state.distance>=Math.max(0,state.length-50)&&!sameDirection(state.entry,state.exit)){state.distance=Math.max(0,state.length-50);if(tryTrafficTurn(p,state))state=p.drive;}
   else if(state.distance>=state.length){
    if(next){const connected=options.filter(e=>roadNeighbor(next,e)),choices=connected.length?connected:options;const exit=chooseTrafficExit(p,next,choices)||entry;state=laneRoute(next,entry,exit);p.drive=state;}
    else {state.distance=0;}
@@ -748,7 +748,7 @@ function crosswalk(p){return p.asset.cat==='Streets'&&/crosswalk|zebra/i.test(p.
 function courtyard(p){return p.asset.cat==='Houses'&&!!p.asset.placementBase&&!role(p);}
 function walkSurfaceAt(x,z,actor){
  let best=null;
- for(const q of placed){
+ for(const q of (walkUsingIndex?(walkSpatial.get(Math.floor(x/100)+','+Math.floor(z/100))||[]):placed)){
   if(!standingTile(q)&&!(pedestrian(actor)&&(courtyard(q)||crosswalk(q))))continue;
   const d=dimsFor(q),pos=placementCenter(q);if(Math.abs(x-pos.x)>d.w/2+.01||Math.abs(z-pos.z)>d.d/2+.01)continue;
   let y=verticalRange(q).max;
@@ -846,22 +846,22 @@ function crossingDestination(p,from,dx,dz){
  }return null;
 }
 // Shared, bounded navigation cache; invalidated when walkable scenery changes.
-let walkWorldKey='',walkSurfaceCache=new Map();
+let walkWorldKey='',walkSurfaceCache=new Map(),walkSpatial=new Map(),walkUsingIndex=false;
 function refreshWalkWorld(){
  const key=placed.filter(q=>standingTile(q)||courtyard(q)||crosswalk(q)||q.asset.cat==='Fences').map(q=>[q.id,q.root.position.x,q.root.position.y,q.root.position.z,q.rotation,q.asset.h].join(',')).join(';');
- if(key!==walkWorldKey){walkWorldKey=key;walkSurfaceCache.clear();for(const p of placed){p.walkSearch=null;p.walkRoute=null;p.walkFailedTargets=new Set();}}
+ if(key!==walkWorldKey){walkSpatial.clear();for(const q of placed.filter(q=>standingTile(q)||courtyard(q)||crosswalk(q))){const c=placementCenter(q),d=dimsFor(q);for(let x=Math.floor((c.x-d.w/2)/100);x<=Math.floor((c.x+d.w/2)/100);x++)for(let z=Math.floor((c.z-d.d/2)/100);z<=Math.floor((c.z+d.d/2)/100);z++){const k=x+','+z;if(!walkSpatial.has(k))walkSpatial.set(k,[]);walkSpatial.get(k).push(q);}}walkWorldKey=key;walkSurfaceCache.clear();for(const p of placed){p.walkSearch=null;p.walkRoute=null;p.walkFailedTargets=new Set();}}
 }
 function navSurface(p,x,z){
  x=Math.round(x/5)*5;z=Math.round(z/5)*5;
  const key=[p.asset.w,p.asset.d,p.asset.h,x.toFixed(2),z.toFixed(2)].join(',');
- if(!walkSurfaceCache.has(key)){if(walkSurfaceCache.size>24000)walkSurfaceCache.delete(walkSurfaceCache.keys().next().value);walkSurfaceCache.set(key,standingSurface(p,x,z));}return walkSurfaceCache.get(key);
+ if(!walkSurfaceCache.has(key)){if(walkSurfaceCache.size>24000)walkSurfaceCache.delete(walkSurfaceCache.keys().next().value);walkUsingIndex=true;try{walkSurfaceCache.set(key,standingSurface(p,x,z));}finally{walkUsingIndex=false;}}return walkSurfaceCache.get(key);
 }
 function beginWalkSearch(p,escape=false){
  const origin=placementCenter(p),x=Math.round(origin.x/5)*5,z=Math.round(origin.z/5)*5,start=navSurface(p,x,z);if(!start){p.walkWait=.5;return;}
  let targets=[];
  if(escape&&p.walkLastSafe)targets.push({...p.walkLastSafe,x:Math.round(p.walkLastSafe.x/5)*5,z:Math.round(p.walkLastSafe.z/5)*5,retreat:true});
  const surfaces=placed.filter(q=>(standingTile(q)||courtyard(q))&&Math.hypot(placementCenter(q).x-origin.x,placementCenter(q).z-origin.z)<=650).sort(()=>Math.random()-.5).slice(0,16);
- for(const q of surfaces){if(targets.length>=4||performance.now()>walkPlanDeadline)break;const pos=placementCenter(q),distance=Math.hypot(pos.x-origin.x,pos.z-origin.z);if(distance>650)continue;const d=dimsFor(q);
+ for(const q of surfaces){if(targets.length>=4||(targets.length&&performance.now()>walkPlanDeadline))break;const pos=placementCenter(q),distance=Math.hypot(pos.x-origin.x,pos.z-origin.z);if(distance>650)continue;const d=dimsFor(q);
   for(const [u,v] of [[0,0],[.3,.3],[-.3,.3],[.3,-.3],[-.3,-.3]]){const tx=Math.round((pos.x+u*d.w)/5)*5,tz=Math.round((pos.z+v*d.d)/5)*5,s=navSurface(p,tx,tz);if(s&&!s.crossing&&Math.hypot(tx-x,tz-z)>15)targets.push({x:tx,z:tz,y:s.y,tile:q.id});}
  }
  targets=targets.filter(t=>!p.walkFailedTargets?.has(t.x+','+t.z));if(!targets.length){p.walkFailedTargets=new Set();p.walkWait=.5;return;}
@@ -877,7 +877,7 @@ function stepWalkSearch(p,budget=24){
   if(performance.now()>walkPlanDeadline)break;
   search.open.sort((a,b)=>(b.g+h(b))-(a.g+h(a)));const n=search.open.pop();if(n.g!==search.best.get(n.key))continue;
   if(h(n)<.1){const path=[];for(let v=n;v;v=v.parent)path.push({x:v.x,z:v.z,y:v.y});path.reverse();p.walkRoute=path;p.walkSearch=null;p.walkVisited=search.target.tile;return;}
-  if(++search.count>6500){(p.walkFailedTargets||(p.walkFailedTargets=new Set())).add(search.target.x+','+search.target.z);p.walkSearch=null;p.walkWait=.15;return;}
+  if(!search.closest||h(n)<h(search.closest))search.closest=n;if(++search.count>900){if(search.closest&&search.closest.g>=30){const path=[];for(let v=search.closest;v;v=v.parent)path.push({x:v.x,z:v.z,y:v.y});p.walkRoute=path.reverse();p.walkSearch=null;return;}(p.walkFailedTargets||(p.walkFailedTargets=new Set())).add(search.target.x+','+search.target.z);p.walkSearch=null;p.walkWait=.15;return;}
   for(const [dx,dz] of [[5,0],[-5,0],[0,5],[0,-5]]){const x=n.x+dx,z=n.z+dz,key=x+','+z,g=n.g+5;if((search.best.get(key)??Infinity)<=g)continue;const s=navSurface(p,x,z);if(!s||Math.abs(s.y-n.y)>3.1)continue;search.best.set(key,g);search.open.push({x,z,y:s.y,g,key,parent:n});}
  }
  if(!search.open.length){(p.walkFailedTargets||(p.walkFailedTargets=new Set())).add(search.target.x+','+search.target.z);p.walkSearch=null;p.walkWait=.15;}
@@ -1433,6 +1433,7 @@ function positionDockBack(){
  let left=(bounds.width-width)/2;
  left=Math.max(18,Math.min(bounds.width-18-width,left));
  dock.style.left=(left/dockZoom)+'px';
+ if(!nested&&dockItems.scrollWidth<=dockItems.clientWidth+1){const images=[...dockItems.querySelectorAll('.dockIcon img')].map(e=>e.getBoundingClientRect());if(images.length){const center=(Math.min(...images.map(r=>r.left))+Math.max(...images.map(r=>r.right)))/2;left+=bounds.left+bounds.width/2-center;dock.style.left=(Math.max(18,Math.min(bounds.width-18-width,left))/dockZoom)+'px';}}
 }
 window.addEventListener('resize',()=>positionDockBack());
 document.fonts?.ready.then(()=>positionDockBack());
@@ -1546,7 +1547,7 @@ function updatePinPosition(){
 }
 
 function resize(){const w=viewport.clientWidth,h=viewport.clientHeight;renderer.setSize(w,h);composer.setSize(w,h);outlinePass.resolution.set(w,h);for(const pass of groupOutlinePasses)pass.resolution.set(w,h);const fr=700,aspect=w/h;camera.left=-fr*aspect/2;camera.right=fr*aspect/2;camera.top=fr/2;camera.bottom=-fr/2;camera.updateProjectionMatrix()}window.addEventListener('resize',resize);resize();
-function animate(){requestAnimationFrame(animate);const now=performance.now(),dt=Math.min(.05,(now-cloudClock)/1000);cloudClock=now;controls.update();updateOuterClouds();updateClouds(dt);updateTraffic(dt);updateWildlife(dt);updateCharacters(dt);updateWeatherFx(dt);updateDayNight(now);updatePinPosition();updateExtraEffects(dt,now);composer.render()}
+function animate(){requestAnimationFrame(animate);const now=performance.now(),dt=Math.min(.05,(now-cloudClock)/1000);cloudClock=now;controls.update();updateOuterClouds();updateClouds(dt);updateTraffic(dt);updateWildlife(dt);updateCharacters(dt);updateWeatherFx(dt);updateDayNight(now);updatePinPosition();updateExtraEffects(dt,now);updateWeatherScreen(dt,now);composer.render()}
 
 
 
@@ -1566,8 +1567,8 @@ const rainGroup=new THREE.Group();scene.add(rainGroup);let rainDrops=[];
 const snowGroup=new THREE.Group();scene.add(snowGroup);let snowFlakes=[];
 const weatherFogColor=new THREE.Color(0xc6d4e3);let lightningTimer=0;
 function clearGroup(group,arr){for(const x of arr){group.remove(x);if(x.material)x.material.dispose();}arr.length=0;}
-function setRain(amount){clearGroup(rainGroup,rainDrops);if(amount<=0)return;for(let i=0;i<Math.round(90+amount*210);i++){const drop=cartoonSprite('💧',11+Math.random()*5,.65);drop.scale.x*=.6;drop.position.set((Math.random()-.5)*1250,40+Math.random()*550,(Math.random()-.5)*1250);rainGroup.add(drop);rainDrops.push(drop);}}
-function setSnow(amount){clearGroup(snowGroup,snowFlakes);if(amount<=0)return;for(let i=0;i<Math.round(60+amount*150);i++){const flake=cartoonSprite('❄️',9+Math.random()*7,.8);flake.position.set((Math.random()-.5)*1250,40+Math.random()*550,(Math.random()-.5)*1250);flake.userData.drift=Math.random()*Math.PI*2;snowGroup.add(flake);snowFlakes.push(flake);}}
+function setRain(amount){clearGroup(rainGroup,rainDrops);}
+function setSnow(amount){clearGroup(snowGroup,snowFlakes);}
 const sunnyIcon=cartoonSprite('☀️',85,.8);scene.add(sunnyIcon);
 const fogGroup=new THREE.Group(),tornadoGroup=new THREE.Group();scene.add(fogGroup,tornadoGroup);
 for(let i=0;i<20;i++){const f=new THREE.Sprite(new THREE.SpriteMaterial({map:cloudTexture,transparent:true,opacity:.06,depthWrite:false}));f.scale.set(240,65,1);f.position.set((Math.random()-.5)*1200,18+Math.random()*30,(Math.random()-.5)*1200);fogGroup.add(f);}
@@ -1579,17 +1580,17 @@ function updateWeatherFogDepth(){
  const night=worldSettings.realtime?realTimeNightAmount():worldSettings.dayMode==='day'?0:worldSettings.dayMode==='night'?1:nightAmountAt((performance.now()-dayNightStart)/1000);
  scene.fog.color.set(mixHex(weatherFogColor,'#19253d',night));
 }
-function applyWeatherFx(){const c=worldSettings.weatherCode??0,prec=Number(worldSettings.precipitation||0),snow=Number(worldSettings.snowfall||0),cover=Math.max(0,Math.min(100,Number(worldSettings.cloudCover||0)))/100;liveWeather.cloud=Math.max(c===0?.02:0,cover);liveWeather.rain=((c>=51&&c<=67)||(c>=80&&c<=82)||c>=95)?Math.min(1,.25+prec/4):0;liveWeather.snow=((c>=71&&c<=77)||(c>=85&&c<=86))?Math.min(1,.3+snow/1.5):0;liveWeather.fog=[45,48].includes(c)?.78:0;liveWeather.storm=c>=95?1:0;liveWeather.wind=Math.min(1,Number(worldSettings.windSpeed||0)/40);setRain(liveWeather.rain);setSnow(liveWeather.snow);scene.fog=liveWeather.fog?new THREE.Fog(weatherFogColor,0,10000):null;updateWeatherFogDepth();}
+function applyWeatherFx(){liveWeather.tornado=0;const c=worldSettings.weatherCode??0,prec=Number(worldSettings.precipitation||0),snow=Number(worldSettings.snowfall||0),cover=Math.max(0,Math.min(100,Number(worldSettings.cloudCover||0)))/100;liveWeather.cloud=Math.max(c===0?.02:0,cover);liveWeather.rain=((c>=51&&c<=67)||(c>=80&&c<=82)||c>=95)?Math.min(1,.25+prec/4):0;liveWeather.snow=((c>=71&&c<=77)||(c>=85&&c<=86))?Math.min(1,.3+snow/1.5):0;liveWeather.fog=[45,48].includes(c)?.78:0;liveWeather.storm=c>=95?1:0;liveWeather.wind=Math.min(1,Number(worldSettings.windSpeed||0)/40);setRain(liveWeather.rain);setSnow(liveWeather.snow);scene.fog=liveWeather.fog?new THREE.Fog(weatherFogColor,0,10000):null;updateWeatherFogDepth();}
 function updateWeatherFx(dt){
  const t=performance.now()/1000,wind=liveWeather.wind||0;
  for(const r of rainDrops){r.position.y-=220*(.8+liveWeather.rain*.7)*dt;r.position.x+=wind*45*dt;if(r.position.y<0){r.position.y=500+Math.random()*100;r.position.x=(Math.random()-.5)*1250;}}
  for(const f of snowFlakes){f.position.y-=22*dt;f.position.x+=(Math.sin(t*1.5+f.userData.drift)*12+wind*20)*dt;f.material.rotation=Math.sin(t+f.userData.drift)*.3;if(f.position.y<0)f.position.y=500+Math.random()*100;}
  sunnyIcon.visible=false;sunnyIcon.position.set(controls.target.x-200,320,controls.target.z-160);sunnyIcon.material.opacity=(1-(worldSettings.realtime?realTimeNightAmount():worldSettings.dayMode==='day'?0:worldSettings.dayMode==='night'?1:nightAmountAt((performance.now()-dayNightStart)/1000)))*.7;sunnyIcon.material.rotation=Math.sin(t*.4)*.08;
- fogGroup.visible=liveWeather.fog>0;for(const f of fogGroup.children){f.position.x+=9*dt;if(f.position.x>700)f.position.x=-700;f.material.opacity=liveWeather.fog*.13;}
+ fogGroup.visible=false;for(const f of fogGroup.children){f.position.x+=9*dt;if(f.position.x>700)f.position.x=-700;f.material.opacity=liveWeather.fog*.13;}
  // A playful storm funnel outside the building area, never a destructive object.
- tornadoGroup.visible=liveWeather.storm>0;tornadoGroup.position.set(820,0,820);
+ tornadoGroup.visible=(liveWeather.tornado||0)>0;tornadoGroup.scale.setScalar(2.8);tornadoGroup.position.set(controls.target.x+Math.sin(t*.065)*280,0,controls.target.z+Math.cos(t*.055)*260);
  tornadoGroup.children.forEach((p,i)=>{const radius=4+i*1.1,angle=t*3+i*.72;p.position.set(Math.cos(angle)*radius,i*4.5+6,Math.sin(angle)*radius);});
- if(liveWeather.storm){lightningTimer-=dt;if(lightningTimer<=0){lightningTimer=4+Math.random()*10;const old=hemi.intensity;hemi.intensity=old+1.4;setTimeout(()=>hemi.intensity=old,90);}}
+
 }
 
 function randomWeather(){if(worldSettings.manualWeather&&!worldSettings.live){applyManualWeather();return;}
@@ -1693,10 +1694,13 @@ function hoverTick(){
 }
 document.addEventListener('pointerover',e=>{if(e.pointerType==='touch')return;const button=e.target.closest?.('#imageToolbar .imageTool,#assetDock .dockItem,#assetDock .dockBack,#assetDock .dockScroll');if(button&&!button.contains(e.relatedTarget))hoverTick();});
 
-function screenshotBlob(){
- const passes=[outlinePass,...groupOutlinePasses],enabled=passes.map(p=>p.enabled);for(const p of passes)p.enabled=false;
- try{composer.render();return new Promise((resolve,reject)=>renderer.domElement.toBlob(blob=>blob?resolve(blob):reject(new Error('Screenshot unavailable')),'image/png'));}
- finally{passes.forEach((p,i)=>p.enabled=enabled[i]);}
+async function screenshotBlob(){
+ const passes=[outlinePass,...groupOutlinePasses],enabled=passes.map(p=>p.enabled),wasGrid=grid.visible;for(const p of passes)p.enabled=false;grid.visible=false;
+ const canvas=document.createElement('canvas');canvas.width=renderer.domElement.width;canvas.height=renderer.domElement.height;const ctx=canvas.getContext('2d');
+ try{composer.render();ctx.filter=getComputedStyle(renderer.domElement).filter;ctx.drawImage(renderer.domElement,0,0);ctx.filter='none';if(window.mlwWeatherScreenReady)ctx.drawImage(weatherCanvas,0,0,canvas.width,canvas.height);}finally{grid.visible=wasGrid;passes.forEach((p,i)=>p.enabled=enabled[i]);}
+ const logo=document.getElementById('mainArtworkLogo'),img=logo?.tagName==='IMG'?logo:logo?.querySelector('img');
+ if(img){await img.decode();const box=img.getBoundingClientRect(),view=renderer.domElement.getBoundingClientRect(),sx=canvas.width/view.width,sy=canvas.height/view.height;ctx.drawImage(img,(box.left-view.left)*sx,(box.top-view.top)*sy,box.width*sx,box.height*sy);}
+ return new Promise((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(blob):reject(Error('Screenshot unavailable')),'image/png'));
 }
 async function saveScreenshot(){
  try{
@@ -1710,13 +1714,18 @@ async function saveScreenshot(){
 
 const junctionOwners=new Map();
 function junctionYield(p,state){
- const upcoming=roadNeighbor(state.tile,state.exit),node=roadDirections(state.tile).length>2?state.tile:upcoming&&roadDirections(upcoming).length>2&&state.length-state.distance<40?upcoming:null;
+ if(state.turn){for(const [id,owner] of junctionOwners)if(owner===p.id&&state.tile.id!==id)junctionOwners.delete(id);return false;}
+ const upcoming=roadNeighbor(state.tile,state.exit),node=roadDirections(state.tile).length>2?state.tile:upcoming&&roadDirections(upcoming).length>2&&state.length-state.distance<70?upcoming:null;
  for(const [id,owner] of junctionOwners){const q=placed.find(q=>q.id===owner);if(!q?.drive||(q.drive.tile.id!==id&&roadNeighbor(q.drive.tile,q.drive.exit)?.id!==id))junctionOwners.delete(id);}
  if(!node)return false;const owner=junctionOwners.get(node.id);if(owner&&owner!==p.id)return true;junctionOwners.set(node.id,p.id);return false;
 }
 function vehicleStepBlocked(p,state,dt){
- const next=state.curve.getPointAt(Math.min(1,(state.distance+(14+(p.id%7)*.6)*1.15*dt+6)/state.length)),y=roadY(state.tile,next.x,next.z);
- return placed.some(q=>q!==p&&isVehicle(q)&&Math.abs(placementCenter(q).y-y)<12&&Math.hypot(placementCenter(q).x-next.x,placementCenter(q).z-next.z)<Math.max(12,Math.min(p.asset.w,p.asset.d)*.46)+Math.max(12,Math.min(q.asset.w,q.asset.d)*.46));
+ const pos=placementCenter(p),next=state.curve.getPointAt(Math.min(1,(state.distance+(14+(p.id%7)*.6)*1.15*dt+3)/state.length)),y=roadY(state.tile,next.x,next.z);
+ return placed.some(q=>{if(q===p||!isVehicle(q))return false;const other=placementCenter(q);if(Math.abs(other.y-y)>=12)return false;
+ if(q.drive?.turn&&!state.turn){for(let i=0;i<=12;i++){const v=q.drive.curve.getPointAt(i/12);if(Math.hypot(v.x-next.x,v.z-next.z)<50)return true;}}
+ const distance=Math.hypot(other.x-next.x,other.z-next.z),current=Math.hypot(other.x-pos.x,other.z-pos.z),spacing=Math.max(12,Math.min(p.asset.w,p.asset.d)*.46)+Math.max(12,Math.min(q.asset.w,q.asset.d)*.46);
+ return distance<spacing&&distance<current-.005;
+ });
 }
 function bridgeUse(p){const path=(p.asset.folderPath||p.asset.folder||'').toLowerCase();if(p.asset.cat!=='Bridges')return '';if(/pavement/.test(path))return 'shared';if(/rails?/.test(path))return 'rail';if(/tiles?/.test(path))return 'people';return 'cars';}
 function transportKind(a){const path=(a.folderPath||a.folder||'')+'/'+(a.file||'');return /(?:^|[ /_])(trains?|locomotive)(?:[ /_.]|$)/i.test(path)?'train':/(?:^|[ /_])(ships?|boats?)(?:[ /_.]|$)/i.test(path)?'ship':'';}
@@ -1736,19 +1745,19 @@ function updateTransit(dt){for(const p of placed){const kind=transportKind(p.ass
 function animalMeow(){if(!soundOn||!audioCtx||audioCtx.state!=='running')return;const t=audioCtx.currentTime,o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='triangle';o.frequency.setValueAtTime(500,t);o.frequency.exponentialRampToValueAtTime(850,t+.13);o.frequency.exponentialRampToValueAtTime(360,t+.48);g.gain.setValueAtTime(.001,t);g.gain.linearRampToValueAtTime(.075,t+.05);g.gain.exponentialRampToValueAtTime(.001,t+.5);o.connect(g).connect(audioMaster);o.start(t);o.stop(t+.52);}
 function trainWhistle(){worldTone(620,0,.6,.06,'triangle');worldTone(780,0,.6,.035,'sine');worldTone(620,.7,.25,.05,'triangle');}
 const skySun=document.createElement('div'),skyMoon=document.createElement('div');skySun.id='skySun';skyMoon.id='skyMoon';skySun.textContent='☀️';skyMoon.textContent='🌙';document.body.append(skySun,skyMoon);
-const manualWeather=document.createElement('fieldset');manualWeather.id='manualWeather';manualWeather.innerHTML=['Sun','Clouds','Rain','Snow','Fog','Wind','Tornado'].map(n=>`<label><input type="checkbox" value="${n.toLowerCase()}" role="switch"><i aria-hidden="true"></i><span>${n}</span></label>`).join('');document.querySelector('.livePane h3').after(manualWeather);
+const manualWeather=document.createElement('fieldset');manualWeather.id='manualWeather';manualWeather.innerHTML=['Sun','Moon','Cloudy','Rain','Snow','Fog','Wind','Thunder','Tornado'].map(n=>`<label><input type="checkbox" value="${n==='Cloudy'?'clouds':n.toLowerCase()}" role="switch"><i aria-hidden="true"></i><span>${n}</span></label>`).join('');document.querySelector('.livePane h3').after(manualWeather);
 manualWeather.onchange=()=>{worldSettings.manualWeather=Object.fromEntries([...manualWeather.querySelectorAll('input')].map(i=>[i.value,i.checked]));applyManualWeather();localStorage.setItem('mlw-world-settings',JSON.stringify(worldSettings));};
-function applyManualWeather(){const m=worldSettings.manualWeather;if(!m||worldSettings.live)return;worldSettings.weatherCode=m.sun?0:m.fog?45:m.rain?61:m.snow?71:2;Object.assign(liveWeather,{cloud:m.clouds?.8:.02,rain:m.rain?.6:0,snow:m.snow?.6:0,fog:m.fog?.65:0,wind:m.wind?.75:0,storm:m.tornado?.8:0});setRain(liveWeather.rain);setSnow(liveWeather.snow);scene.fog=m.fog?new THREE.Fog(weatherFogColor,0,10000):null;weatherNowEl.textContent='Manual weather';updateWeatherFogDepth();}
-if(!worldSettings.manualWeather&&!worldSettings.live)worldSettings.manualWeather={sun:worldSettings.weatherCode===0,clouds:liveWeather.cloud>.1,rain:liveWeather.rain>0,snow:liveWeather.snow>0,fog:liveWeather.fog>0,wind:liveWeather.wind>.2,tornado:liveWeather.storm>0};
-if(worldSettings.manualWeather){manualWeather.querySelectorAll('input').forEach(i=>i.checked=!!worldSettings.manualWeather[i.value]);applyManualWeather();}
+function applyManualWeather(){const m=worldSettings.manualWeather;if(!m||worldSettings.live)return;worldSettings.weatherCode=m.sun?0:m.fog?45:m.rain?61:m.snow?71:2;Object.assign(liveWeather,{cloud:m.clouds?.8:.02,rain:m.rain?.6:0,snow:m.snow?.6:0,fog:m.fog?.65:0,wind:m.wind?.75:0,storm:m.thunder?.8:0,tornado:m.tornado?1:0});setRain(liveWeather.rain);setSnow(liveWeather.snow);scene.fog=m.fog?new THREE.Fog(weatherFogColor,0,10000):null;weatherNowEl.textContent='Manual weather';updateWeatherFogDepth();}
+if(!worldSettings.manualWeather&&!worldSettings.live)worldSettings.manualWeather={sun:worldSettings.weatherCode===0,clouds:liveWeather.cloud>.1,rain:liveWeather.rain>0,snow:liveWeather.snow>0,fog:liveWeather.fog>0,wind:liveWeather.wind>.2,thunder:liveWeather.storm>0,tornado:false,moon:true};
+if(worldSettings.manualWeather){worldSettings.manualWeather.moon??=true;manualWeather.querySelectorAll('input').forEach(i=>i.checked=!!worldSettings.manualWeather[i.value]);applyManualWeather();}
 const exampleButton=document.createElement('button');exampleButton.id='exampleWorld';exampleButton.textContent='Load example city';document.querySelector('#helpOverlay .helpModal').append(exampleButton);
 exampleButton.onclick=async()=>{if(placed.length&&!confirm('Replace the current world with the example city? Save your world first if needed.'))return;try{const r=await fetch('assets/example-city.mlw');if(!r.ok)throw Error('Example unavailable');await loadProjectData(await r.json());frameExampleCity();setHelp(false);}catch(e){placementNotice(e.message);}};
-(async()=>{if(!localStorage.getItem('mlw-example-started')){try{const response=await fetch('assets/example-city.mlw');if(response.ok&&!placed.length){await loadProjectData(await response.json());frameExampleCity();localStorage.setItem('mlw-example-started','yes');}}catch(e){console.warn('Example city unavailable',e);}}})();
-const credit=document.getElementById('cornerBrandCredit');credit.querySelector('.brandMade')?.remove();const logos=credit.querySelector('.brandLogos');logos.insertAdjacentHTML('beforeend','<a href="https://drcgrapix.framer.website/" target="_blank" rel="noopener" title="DRC Grapix"><img src="assets/IMG/drc.svg" alt="DRC Grapix"></a><a href="https://www.instagram.com/3drc_grapix/" target="_blank" rel="noopener" title="Instagram"><svg width="24" height="24" viewBox="0 0 24 24" aria-label="Instagram" style="color:black"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg></a>');
+
+const credit=document.getElementById('cornerBrandCredit');credit.querySelector('.brandMade')?.remove();const logos=credit.querySelector('.brandLogos');logos.insertAdjacentHTML('beforeend','<span title="DRC Grapix"><img src="assets/IMG/drc.svg" alt="DRC Grapix"></span><a href="https://www.instagram.com/3drc_grapix/" target="_blank" rel="noopener" title="Instagram"><svg width="24" height="24" viewBox="0 0 24 24" aria-label="Instagram" style="color:black"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg></a>');
 let nextAnimalSound=0,splashClock=0;
 const splashPool=Array.from({length:24},()=>{const o=new THREE.Mesh(new THREE.RingGeometry(.4,.7,8),new THREE.MeshBasicMaterial({color:0xcceeff,transparent:true,opacity:0,depthWrite:false,side:THREE.DoubleSide}));o.rotation.x=-Math.PI/2;o.visible=false;o.userData.lightEffect=true;scene.add(o);return {o,life:0};});
 function updateExtraEffects(dt,now){if(!window.mlwExtrasReady)return;if(now-(renderer.userDataShadowTime||0)>150){renderer.userDataShadowTime=now;renderer.shadowMap.needsUpdate=true;}grid.material.resolution.set(viewport.clientWidth,viewport.clientHeight);
- const night=nightAmountForHour(currentSkyHour(now));skySun.style.opacity=String((1-night)*(worldSettings.weatherCode===0?1:.25));skyMoon.style.opacity=String(night);manualWeather.disabled=!!worldSettings.live;
+ const night=nightAmountForHour(currentSkyHour(now));skySun.style.opacity=String((1-night)*(!worldSettings.live&&worldSettings.manualWeather?.sun===false?0:worldSettings.weatherCode===0?1:.25));skyMoon.style.opacity=String(worldSettings.manualWeather?.moon===false&&!worldSettings.live?0:night);manualWeather.disabled=!!worldSettings.live;
  for(const [button,panel] of [['cloudBtn','cloudDrop'],['partsBtn','partsOverlay'],['helpBtn','helpOverlay']])document.getElementById(button).classList.toggle('panel-active',document.getElementById(panel).classList.contains('open'));
  updateTransit(dt);if(now>nextAnimalSound){nextAnimalSound=now+22000+Math.random()*22000;const sounds=[];if(placed.some(p=>p.asset.cat==='Animals'))sounds.push(animalMeow);if(placed.some(p=>transportKind(p.asset)==='train'))sounds.push(trainWhistle);sounds[Math.floor(Math.random()*sounds.length)]?.();}
  for(const s of splashPool){s.life=Math.max(0,s.life-dt);s.o.visible=s.life>0;s.o.material.opacity=s.life*1.8;s.o.scale.setScalar(1+(1-s.life/.35)*2);}
@@ -1772,3 +1781,43 @@ function frameExampleCity(){
  for(const x of [box.min.x,box.max.x])for(const y of [box.min.y,box.max.y])for(const z of [box.min.z,box.max.z]){const v=new THREE.Vector3(x,y,z).project(camera);minX=Math.min(minX,v.x);maxX=Math.max(maxX,v.x);minY=Math.min(minY,v.y);maxY=Math.max(maxY,v.y);}
  camera.zoom=Math.max(.15,Math.min(1,1.5/Math.max(maxX-minX,maxY-minY)));camera.updateProjectionMatrix();fitWorldDepth();
 }
+
+// Screen-wide weather stays visible outside the building grid and at any zoom.
+let weatherScreenReady=false;
+const weatherCanvas=document.createElement('canvas');weatherCanvas.id='weatherScreen';document.body.append(weatherCanvas);const weatherCtx=weatherCanvas.getContext('2d');
+const weatherParticles=Array.from({length:250},()=>({x:Math.random(),y:Math.random(),size:2+Math.random()*4,speed:.6+Math.random(),phase:Math.random()*7}));
+let nextThunder=performance.now()+10000+Math.random()*10000,flashUntil=0,bolt=null,windAudio=null,weatherUIStamp=0,snowDustClock=0;
+const snowDust=Array.from({length:35},()=>{const mesh=new THREE.Mesh(new THREE.CircleGeometry(1,10),new THREE.MeshBasicMaterial({color:0xf2f8ff,transparent:true,opacity:0,depthWrite:false,side:THREE.DoubleSide}));mesh.rotation.x=-Math.PI/2;mesh.visible=false;mesh.userData.lightEffect=true;scene.add(mesh);return {mesh,life:0};});
+const dataWidget=document.createElement('div');dataWidget.id='weatherData';dataWidget.innerHTML='<img src="assets/IMG/clock.png" alt=""><b class="dataTime"></b><span class="dataDate"></span><span class="dataTemp"></span>';document.body.append(dataWidget);
+const dataButton=document.createElement('button');dataButton.id='showWeatherData';dataButton.textContent='Show Data';dataButton.setAttribute('aria-pressed',String(worldSettings.showData!==false));document.querySelector('.livePane').append(dataButton);
+dataButton.onclick=()=>{worldSettings.showData=worldSettings.showData===false;dataButton.setAttribute('aria-pressed',String(worldSettings.showData));dataWidget.hidden=!worldSettings.showData;localStorage.setItem('mlw-world-settings',JSON.stringify(worldSettings));};dataWidget.hidden=worldSettings.showData===false;
+function weatherNoise(duration,volume,lowpass,loop=false){
+ if(!soundOn||!audioCtx||audioCtx.state!=='running')return null;
+ const buffer=audioCtx.createBuffer(1,Math.ceil(audioCtx.sampleRate*duration),audioCtx.sampleRate),data=buffer.getChannelData(0);let smooth=0;for(let i=0;i<data.length;i++){smooth=.97*smooth+.03*(Math.random()*2-1);data[i]=smooth*5;}
+ const source=audioCtx.createBufferSource(),filter=audioCtx.createBiquadFilter(),gain=audioCtx.createGain();source.buffer=buffer;source.loop=loop;filter.type='lowpass';filter.frequency.value=lowpass;source.connect(filter).connect(gain).connect(audioMaster);gain.gain.setValueAtTime(volume,audioCtx.currentTime);if(!loop)gain.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+duration);source.start();if(!loop)source.stop(audioCtx.currentTime+duration);return {source,gain};
+}
+function updateWeatherScreen(dt,now){
+ if(!window.mlwWeatherScreenReady)return;
+ const w=innerWidth,h=innerHeight;if(weatherCanvas.width!==w||weatherCanvas.height!==h){weatherCanvas.width=w;weatherCanvas.height=h;}
+ const ctx=weatherCtx,t=now/1000,rain=liveWeather.rain,snow=liveWeather.snow,wind=liveWeather.wind||0,fog=liveWeather.fog||0;ctx.clearRect(0,0,w,h);
+ if(now-weatherUIStamp>500){weatherUIStamp=now;const zone=worldSettings.live&&worldSettings.timezone?{timeZone:worldSettings.timezone}:{},date=new Date();dataWidget.querySelector('.dataTime').textContent=date.toLocaleTimeString('de-DE',{...zone,hour:'2-digit',minute:'2-digit'});dataWidget.querySelector('.dataDate').textContent=date.toLocaleDateString('de-DE',zone);dataWidget.querySelector('.dataTemp').textContent=worldSettings.live&&Number.isFinite(worldSettings.temp)?Math.round(worldSettings.temp)+' °C':'— °C';dataWidget.title=worldSettings.live?worldSettings.city:'Local time · temperature requires live weather';}
+ for(let i=0;i<weatherParticles.length;i++){const p=weatherParticles[i];p.y=(p.y+dt*(rain>.01?.85:snow>.01?.045:.01)*p.speed)%1;p.x=(p.x+dt*(wind*.075+Math.sin(t+p.phase)*.004)+1)%1;
+  if(rain>.01&&i<100+rain*150){ctx.strokeStyle='rgba(190,218,244,.6)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(p.x*w,p.y*h);ctx.lineTo(p.x*w+wind*15,p.y*h+14+p.size*2);ctx.stroke();}
+  if(snow>.01&&i<90+snow*130){const x=(p.x*w+Math.sin(t+p.phase)*12)%w,y=p.y*h;ctx.fillStyle='rgba(248,253,255,.92)';ctx.beginPath();ctx.arc(x,y,p.size*.7,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#eaf7ffbb';ctx.lineWidth=1;for(let k=0;k<3;k++){const a=k*Math.PI/3;ctx.beginPath();ctx.moveTo(x-Math.cos(a)*p.size,y-Math.sin(a)*p.size);ctx.lineTo(x+Math.cos(a)*p.size,y+Math.sin(a)*p.size);ctx.stroke();}}
+ }
+ if(fog>.01)for(let i=0;i<5;i++){const x=((t*14+i*w*.31)%(w*1.7))-w*.35,y=h*(.22+i*.17);const g=ctx.createRadialGradient(x,y,0,x,y,w*.55);g.addColorStop(0,`rgba(220,231,239,${fog*.19})`);g.addColorStop(1,'rgba(220,231,239,0)');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);}
+ if(wind>.15)for(let i=0;i<9;i++){const phase=(t*.42+i*.371)%1,x=phase*(w+360)-260,y=(.14+(i*.117)% .8)*h,alpha=Math.sin(phase*Math.PI)*.38*wind;ctx.strokeStyle=`rgba(231,246,255,${alpha})`;ctx.lineWidth=1.5;ctx.beginPath();for(let k=0;k<=24;k++){const px=x+k*7,py=y+Math.sin(k*.28+t)*6;k?ctx.lineTo(px,py):ctx.moveTo(px,py);}ctx.stroke();}
+ if(wind>.15&&soundOn&&audioCtx?.state==='running'){if(!windAudio)windAudio=weatherNoise(3,.001,850,true);windAudio?.gain.gain.setTargetAtTime(wind*.1,audioCtx.currentTime,.5);}else if(windAudio){windAudio.source.stop();windAudio=null;}
+ if(liveWeather.storm>.01&&now>=nextThunder){nextThunder=now+10000+Math.random()*10000;flashUntil=now+240;const x=w*(.1+Math.random()*.8),y=h*(.05+Math.random()*.2);bolt=Array.from({length:7},(_,i)=>({x:x+(i%2?24:-12)+Math.random()*20,y:y+i*h*.06}));weatherNoise(2.8,.38,380);}
+ if(!liveWeather.storm){flashUntil=0;nextThunder=Math.max(nextThunder,now+10000);}
+ if(now<flashUntil&&bolt){ctx.fillStyle=`rgba(230,240,255,${.18+.2*Math.sin((flashUntil-now)/40)})`;ctx.fillRect(0,0,w,h);ctx.strokeStyle='#fff7cf';ctx.lineWidth=2.5;ctx.shadowColor='#bde4ff';ctx.shadowBlur=18;ctx.beginPath();bolt.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.stroke();ctx.shadowBlur=0;}
+ for(const p of snowDust){p.life=Math.max(0,p.life-dt);p.mesh.visible=p.life>0;p.mesh.material.opacity=Math.min(.75,p.life*.3);}
+ if(snow>.01&&(snowDustClock-=dt)<0){snowDustClock=.18;const floors=placed.filter(p=>['Terrain','Streets'].includes(p.asset.cat)),tile=floors[Math.floor(Math.random()*floors.length)],patch=snowDust.find(p=>!p.life);if(tile&&patch){const c=placementCenter(tile),d=dimsFor(tile);patch.mesh.position.set(c.x+(Math.random()-.5)*d.w,verticalRange(tile).max+.2,c.z+(Math.random()-.5)*d.d);patch.mesh.scale.setScalar(3+Math.random()*4);patch.life=3+Math.random()*3;}}
+}
+// Opening/closing is anchored to the toolbar icon; modal backdrop remains blurred.
+function attachPanelMotion(panel,icon,content=panel){let wasOpen=panel.classList.contains('open'),motion=null;const run=open=>{motion?.cancel();const a=icon.getBoundingClientRect();if(!open)panel.classList.add('panel-closing');const b=content.getBoundingClientRect(),dx=a.left+a.width/2-(b.left+b.width/2),dy=a.top+a.height/2-(b.top+b.height/2);const small={transform:`translate(${dx}px,${dy}px) scale(.035,.055)`,opacity:0},large={transform:'translate(0,0) scale(1)',opacity:1};motion=content.animate(open?[small,large]:[large,small],{duration:open?360:260,easing:open?'cubic-bezier(.16,.8,.2,1)':'cubic-bezier(.6,0,.8,.4)'});motion.onfinish=()=>panel.classList.remove('panel-closing');if(open)panel.classList.remove('panel-closing');};new MutationObserver(()=>{const open=panel.classList.contains('open');if(open!==wasOpen){wasOpen=open;run(open);}}).observe(panel,{attributes:true,attributeFilter:['class']});}
+attachPanelMotion(helpOverlay,helpBtn,helpOverlay.querySelector('.helpModal'));attachPanelMotion(partsOverlay,partsBtn,partsOverlay.querySelector('.helpModal'));attachPanelMotion(cloudDrop,cloudBtn);
+window.mlwWeatherScreenReady=true;
+
+// Extra puffs use the same artwork and reveal rules as the existing clouds.
+for(let i=0;i<60;i++){const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:cloudTexture,transparent:true,opacity:0,depthWrite:false}));const size=150+Math.random()*170;sp.scale.set(size*1.7,size,1);sp.position.set((Math.random()-.5)*BUILD_HALF*2,55+Math.random()*55,(Math.random()-.5)*BUILD_HALF*2);Object.assign(sp.userData,{weatherOnly:true,overCity:false,speed:3+Math.random()*7,phase:Math.random()*Math.PI*2});cloudGroup.add(sp);clouds.push(sp);}
