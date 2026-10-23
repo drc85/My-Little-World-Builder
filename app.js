@@ -1,9 +1,9 @@
 import {LineSegments2} from 'three/addons/lines/LineSegments2.js';
 import {LineSegmentsGeometry} from 'three/addons/lines/LineSegmentsGeometry.js';
 import {LineMaterial} from 'three/addons/lines/LineMaterial.js';
-import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261023-picker-clouds';
-import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261023-picker-clouds';
-import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261023-picker-clouds';
+import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261023-colored-lights';
+import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261023-colored-lights';
+import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261023-colored-lights';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
@@ -303,14 +303,14 @@ function ensureNightLights(p){
  p.root.traverse(mesh=>{if(!mesh.isMesh||mesh.userData.lightEffect)return;let named=legacyWindow(mesh.name),lamp=false;
   for(let n=mesh;n&&n!==p.root;n=n.parent){named=named||lightMarker(n.name)||n.userData.lightMarker;lamp=lamp||lampMarker(n.name)||n.userData.lampMarker;}
   const src=Array.isArray(mesh.material)?mesh.material:[mesh.material];let effect=null;
-  const out=src.map(m=>{const isLamp=lamp||lampMarker(m.name);if(!named&&!isLamp&&!lightMarker(m.name))return m;const clone=m.clone();if(!clone.emissive)return m;const base=clone.emissiveIntensity||0,color=clone.emissive.clone();if(color.r+color.g+color.b<.001)color.copy(clone.color);clone.emissive.copy(color);
+  const out=src.map(m=>{const isLamp=lamp||lampMarker(m.name);if(!named&&!isLamp&&!lightMarker(m.name))return m;const clone=m.clone();if(!clone.emissive)return m;const base=clone.emissive.r+clone.emissive.g+clone.emissive.b>.001?(clone.emissiveIntensity||0):0,color=clone.emissive.clone();if(color.r+color.g+color.b<.001)color.copy(clone.color);clone.emissive.copy(color);
  // GLB vertex colours tint the surface, but Three does not apply them to emission automatically.
  if(clone.vertexColors&&mesh.geometry.getAttribute('color')){clone.onBeforeCompile=shader=>{shader.fragmentShader=shader.fragmentShader.replace('#include <emissivemap_fragment>','#include <emissivemap_fragment>\n#if defined( USE_COLOR ) || defined( USE_COLOR_ALPHA )\n totalEmissiveRadiance *= vColor.rgb;\n#endif');};clone.customProgramCacheKey=()=> 'model-colored-emission-v1';}
  if(!clone.emissiveMap&&clone.map)clone.emissiveMap=clone.map;
  clone.emissiveIntensity=0;clone.userData.nightBase=base;materials.push(clone);effect={mesh,material:clone,lamp:isLamp};return clone;});mesh.material=Array.isArray(mesh.material)?out:out[0];if(effect)lamps.push(effect);
  });p.root.userData.windowMaterials=materials;for(const item of lamps)addLampEffects(p,item.mesh,item.material,item.lamp);
 }
-function updateNightLights(night){const v=THREE.MathUtils.smoothstep(night,.28,.78);for(const p of placed){ensureNightLights(p);for(const m of p.root.userData.windowMaterials||[])m.emissiveIntensity=v*((m.userData.nightBase||0)+2.5);for(const e of p.root.userData.lampEffects||[]){e.object.material.opacity=e.opacity*v;e.object.visible=v>.01;}}}
+function updateNightLights(night){const v=THREE.MathUtils.smoothstep(night,.28,.78);for(const p of placed){ensureNightLights(p);for(const m of p.root.userData.windowMaterials||[])m.emissiveIntensity=v*(.9+Math.min(1,m.userData.nightBase||0));for(const e of p.root.userData.lampEffects||[]){e.object.material.opacity=e.opacity*v;e.object.visible=v>.01;}}}
 function addCarLights(car){if(car.userData.lights)return;const front=new THREE.PointLight(0xfff1c7,0,62,2),rear=new THREE.PointLight(0xff2d24,0,34,2);front.position.set(10,8,0);rear.position.set(-10,8,0);car.add(front,rear);const fm=new THREE.MeshBasicMaterial({color:0xfff2bd,transparent:true,opacity:0}),rm=new THREE.MeshBasicMaterial({color:0xff2d24,transparent:true,opacity:0});const bulbs=[];for(const z of [-2.7,2.7]){const f=new THREE.Mesh(new THREE.SphereGeometry(1.15,8,6),fm);f.position.set(9.4,8.2,z);car.add(f);bulbs.push(f);const r=new THREE.Mesh(new THREE.SphereGeometry(.9,8,6),rm);r.position.set(-9.4,8.1,z);car.add(r);bulbs.push(r)}car.userData.lights=[front,rear];car.userData.lightBulbs=bulbs}
 function updateCarLights(night){const v=Math.max(0,Math.min(1,(night-.22)/.55));for(const t of traffic){addCarLights(t.car);t.car.userData.lights[0].intensity=v*2.2;t.car.userData.lights[1].intensity=v*.9;if(t.car.userData.lightBulbs){t.car.userData.lightBulbs.forEach((b,i)=>{b.material.opacity=v*(i%2?1:.95);b.visible=v>.02})}}}
 let skyTick=0;
