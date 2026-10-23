@@ -1685,3 +1685,13 @@ header#imageToolbar button.imageTool:hover .toolArt,header#imageToolbar button.i
 .partsHeader .printActions{margin:0;align-items:flex-end;gap:4px;}
 .partsHeader #exportParts{padding:9px 18px;}
 .partsHeader #exportStatus:empty{display:none;}
+
+#customPalette{grid-template-columns:1fr;}
+#customPalette .colorField{position:relative;background:linear-gradient(to bottom,transparent,#fff),linear-gradient(to right,#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00);filter:brightness(var(--brightness,1));}
+#customPalette .colorCursor{position:absolute;width:9px;height:9px;border:2px solid white;box-shadow:0 0 0 1px #000a;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;}
+#customPalette .colorBrightnessLabel{display:flex;flex-direction:column;gap:5px;color:#fff;font:11px system-ui;}
+#customPalette .colorHue{width:100%;margin:0;accent-color:#a7dbfa;}
+#customPalette .colorHex{box-sizing:border-box;}
+#pinnedLayer{position:fixed;inset:0;pointer-events:none;z-index:11;}
+.lockedPin{position:absolute;width:20px;height:26px;transform:translate(-50%,-100%);filter:drop-shadow(0 2px 2px #0008);}
+.lockedPin svg{width:100%;height:100%;}.lockedPin[hidden]{display:none;}
