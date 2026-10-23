@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "revision": 463,
+  "revision": 473,
   "assets": [
     {
       "name": "5x5 Grass Beam 5mm",
@@ -500,16 +500,16 @@
       "rotationX": 0.0,
       "preview": "",
       "enabled": true,
-      "id": "asset-021e9c8e6ba7eb36",
+      "id": "asset-5a2d5893c57b9c6e",
       "file": "BROWSER/Houses/Social/10x10 house 1.glb",
       "folder": "Houses/Social",
-      "signature": "2a068eeb1e4c6453408c51d50a3a86ca18e36b06c44033c1cdbcb0e85b79dcac",
-      "stamp": "12079024:1791799072397357300",
-      "size": 12079024,
+      "signature": "ebbb2fdbdb9042d0e68e57110e593f6556662202ca875a1bfd7103d378f1162d",
+      "stamp": "12085824:1791846480042438600",
+      "size": 12085824,
       "missing": false,
       "type": "glb",
       "warning": "",
-      "thumbKey": "6efb22c5b6a75cd70ec2d3e9",
+      "thumbKey": "629a74318cf7a54afbc26c35",
       "previewFile": "assets/BROWSER/Houses/Social/_Previews/10x10 house 1.glb.png",
       "previewReady": true,
       "makerworld": "",
@@ -532,13 +532,13 @@
       "id": "asset-fc9760b136fbfd76",
       "file": "BROWSER/Houses/Social/10x10 house 2.glb",
       "folder": "Houses/Social",
-      "signature": "b25edb07a3724d63643bbfdd9249492c547430a2ead0f1da6c89c6ac4d7887a9",
-      "stamp": "12079036:1791662989593820900",
-      "size": 12079036,
+      "signature": "06cc9ca7a777e22a8ed817c7fc33e35972f4e97b406928acce234bcd2638448a",
+      "stamp": "12079020:1791846103118242900",
+      "size": 12079020,
       "missing": false,
       "type": "glb",
       "warning": "",
-      "thumbKey": "18de6825eb95ee1276c724c2",
+      "thumbKey": "6372237ea16c97442edf30f2",
       "previewFile": "assets/BROWSER/Houses/Social/_Previews/10x10 house 2.glb.png",
       "previewReady": true,
       "makerworld": "",
@@ -3871,7 +3871,7 @@
       "order": 14,
       "missing": false,
       "previewFile": "assets/BROWSER/Houses/Social/_Previews/Folder-Preview.png",
-      "thumbKey": "506d590039f6d9292f80dd14",
+      "thumbKey": "fcc7d2d554406314079a5561",
       "previewReady": true
     },
     {
@@ -3895,7 +3895,7 @@
       "order": 5,
       "missing": false,
       "previewFile": "assets/BROWSER/Houses/_Previews/Folder-Preview.png",
-      "thumbKey": "2e30b6091a4cd982d4184c15",
+      "thumbKey": "0ddfb58ea7acfd69869d0a76",
       "previewReady": true
     },
     {
@@ -3990,5 +3990,5 @@
     "missing": [],
     "newFolders": []
   },
-  "updated": "2026-10-12T23:44:32+02:00"
+  "updated": "2026-10-13T01:27:26+02:00"
 }

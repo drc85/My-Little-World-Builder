@@ -1,4 +1,4 @@
-import {fitModel,gltfRoot} from '../model-rules.js?v=desktop-release-20261012-shift-select';
+import {fitModel,gltfRoot} from '../model-rules.js?v=desktop-release-20261023-weather-finish';
 import * as THREE from 'three';
 import {OBJLoader} from 'three/addons/loaders/OBJLoader.js';
 import {MTLLoader} from 'three/addons/loaders/MTLLoader.js';
