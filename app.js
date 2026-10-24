@@ -1,9 +1,9 @@
 import {LineSegments2} from 'three/addons/lines/LineSegments2.js';
 import {LineSegmentsGeometry} from 'three/addons/lines/LineSegmentsGeometry.js';
 import {LineMaterial} from 'three/addons/lines/LineMaterial.js';
-import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261024-shadow-drag';
-import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261024-shadow-drag';
-import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261024-shadow-drag';
+import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261024-mobile-layout';
+import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261024-mobile-layout';
+import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261024-mobile-layout';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
@@ -2130,3 +2130,12 @@ shadowFloor.material.needsUpdate=true;
 const pinnedLayer=document.createElement('div');pinnedLayer.id='pinnedLayer';document.getElementById('viewportWrap').append(pinnedLayer);const pinnedBadges=new Map(),pinPoint=new THREE.Vector3();
 function updatePersistentPins(){const active=new Set(),r=viewport.getBoundingClientRect();for(const p of placed){if(!p.locked)continue;active.add(p.id);let badge=pinnedBadges.get(p.id);if(!badge){badge=document.createElement('span');badge.className='lockedPin';badge.title='Pinned';badge.setAttribute('aria-label','Pinned object');badge.innerHTML='<svg viewBox="0 0 24 30" aria-hidden="true"><path d="M8 2h8v3l-1 2v7l5 4v3H4v-3l5-4V7L8 5z" fill="#ed3345" stroke="white" stroke-width="1.4"/><path d="M12 21v7" stroke="#ed3345" stroke-width="2.2"/></svg>';pinnedLayer.append(badge);pinnedBadges.set(p.id,badge);}const c=placementCenter(p);pinPoint.set(c.x,verticalRange(p).max+8,c.z).project(camera);badge.hidden=pinPoint.z< -1||pinPoint.z>1||Math.abs(pinPoint.x)>1.05||Math.abs(pinPoint.y)>1.05;badge.style.left=(r.left+(pinPoint.x+1)*r.width/2)+'px';badge.style.top=(r.top+(1-pinPoint.y)*r.height/2)+'px';}for(const [id,badge] of pinnedBadges)if(!active.has(id)){badge.remove();pinnedBadges.delete(id);}}
 window.mlwPersistentPinsReady=true;
+
+// Touchscreens have no persistent hover: show the same glow during a tap.
+{
+ let touched=null,glowTimer=0;
+ const clear=()=>{touched?.classList.remove('touch-glow');touched=null;};
+ document.addEventListener('pointerdown',e=>{if(e.pointerType!=='touch')return;clearTimeout(glowTimer);clear();const button=e.target.closest?.('#assetDock .dockItem,#assetDock .dockBack,#imageToolbar .imageTool');if(button&&!button.disabled){touched=button;touched.classList.add('touch-glow');}},{passive:true});
+ document.addEventListener('pointerup',e=>{if(e.pointerType==='touch')glowTimer=setTimeout(clear,400);},{passive:true});
+ document.addEventListener('pointercancel',()=>{clearTimeout(glowTimer);clear();},{passive:true});
+}

@@ -1695,3 +1695,28 @@ header#imageToolbar button.imageTool:hover .toolArt,header#imageToolbar button.i
 #pinnedLayer{position:fixed;inset:0;pointer-events:none;z-index:11;}
 .lockedPin{position:absolute;width:20px;height:26px;transform:translate(-50%,-100%);filter:drop-shadow(0 2px 2px #0008);}
 .lockedPin svg{width:100%;height:100%;}.lockedPin[hidden]{display:none;}
+
+/* Touch layout uses the visible viewport in both phone orientations. */
+@media (max-width:700px), (pointer:coarse) and (max-width:1100px){
+ html,body{height:100dvh;overflow:hidden;}
+ #viewportWrap{position:fixed!important;inset:0!important;height:100dvh!important;}
+ header#imageToolbar{position:fixed!important;left:calc(10px + env(safe-area-inset-left))!important;right:calc(10px + env(safe-area-inset-right))!important;top:calc(12px + env(safe-area-inset-top))!important;width:auto!important;transform:none!important;grid-template-columns:minmax(0,1fr) 68px minmax(0,1fr)!important;gap:5px!important;}
+ #mainArtworkLogo{width:68px!important;align-self:start!important;}
+ #imageToolbar .toolBank{display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;visibility:visible!important;opacity:1!important;gap:3px!important;min-width:0!important;align-items:start!important;justify-items:center!important;padding-top:4px!important;}
+ header#imageToolbar button.imageTool{display:block!important;visibility:visible!important;flex:none!important;width:100%!important;min-width:0!important;max-width:48px!important;min-height:40px!important;transform:none!important;}
+ header#imageToolbar button.imageTool>.toolArt{display:block!important;width:100%!important;min-width:100%!important;visibility:visible!important;opacity:1!important;}
+ #assetDock{zoom:.70!important;max-width:calc(100% - 36px)!important;}
+ #assetDock.assetDock.dock-open{bottom:calc(20px + env(safe-area-inset-bottom))!important;}
+ #dockHotZone{bottom:env(safe-area-inset-bottom)!important;height:28px!important;}
+ #weatherData{top:calc(150px + env(safe-area-inset-top))!important;}
+}
+@media(max-width:700px) and (orientation:portrait){
+ #imageToolbar .toolBank{grid-template-columns:repeat(3,minmax(0,1fr))!important;}
+ header#imageToolbar button.imageTool{max-width:44px!important;}
+}
+@media(pointer:coarse) and (orientation:landscape) and (max-width:1100px){
+ #assetDock{zoom:.80!important;}
+ #weatherData{top:calc(102px + env(safe-area-inset-top))!important;width:125px!important;}
+ #cornerBrandCredit{bottom:calc(4px + env(safe-area-inset-bottom))!important;}
+}
+#assetDock .dockItem:is(.touch-glow,:active) :is(.dockIcon,.dockThumb),#assetDock .dockBack:is(.touch-glow,:active),header#imageToolbar button.imageTool.touch-glow .toolArt{filter:drop-shadow(.7px 0 0 #ffe600) drop-shadow(-.7px 0 0 #ffe600) drop-shadow(0 .7px 0 #ffe600) drop-shadow(0 -.7px 0 #ffe600) drop-shadow(0 0 5px #ffe600aa)!important;}
