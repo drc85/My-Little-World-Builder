@@ -116,13 +116,11 @@ def read_display(folder):
     return parser
 
 def default_asset_sound(item):
-    path=item.get('folder',item.get('file','')).lower()
-    name='House bell' if path.startswith('houses') else 'Animal meow' if path.startswith('animals') else 'Character babble' if path.startswith('figures') else ('Train whistle' if any(x in item.get('file','').lower() for x in ('train','locomotive','zug')) else 'Car horn') if path.startswith('vehicles') else 'Placement pop'
-    return 'assets/MUSIC/Effects/'+name+'.wav'
+    return 'assets/MUSIC/Effects/Placement pop.wav'
 
 def validate_asset_sound(value):
     value=str(value).replace('\\','/')
-    if not value:return ''
+    if not value or value=='none':return value
     base=(ROOT/'assets/MUSIC').resolve();target=(ROOT/value).resolve()
     if not target.is_relative_to(base) or target.suffix.lower() not in AUDIO_TYPES or not target.is_file():raise ValueError('Choose an audio file from assets/MUSIC.')
     return target.relative_to(ROOT).as_posix()

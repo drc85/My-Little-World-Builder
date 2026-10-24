@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "revision": 508,
+  "revision": 511,
   "assets": [
     {
       "name": "5x5 Grass Beam 5mm",
@@ -561,7 +561,7 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
-      "soundFile": "assets/MUSIC/Effects/House bell.wav",
+      "soundFile": "assets/MUSIC/Effects/Animal meow.wav",
       "soundVolume": 1
     },
     {
@@ -4110,5 +4110,5 @@
     "missing": [],
     "newFolders": []
   },
-  "updated": "2026-10-24T06:12:13+02:00"
+  "updated": "2026-10-24T11:08:21+02:00"
 }

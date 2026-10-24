@@ -1,9 +1,9 @@
 import {LineSegments2} from 'three/addons/lines/LineSegments2.js';
 import {LineSegmentsGeometry} from 'three/addons/lines/LineSegmentsGeometry.js';
 import {LineMaterial} from 'three/addons/lines/LineMaterial.js';
-import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261024-asset-sounds';
-import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261024-asset-sounds';
-import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261024-asset-sounds';
+import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261024-light-types';
+import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261024-light-types';
+import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261024-light-types';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
@@ -262,6 +262,13 @@ function modelLightColor(mesh,material){
  if(material.vertexColors){const colors=mesh.geometry.getAttribute('color');if(colors?.count){const average=new THREE.Color(0,0,0);for(let i=0;i<colors.count;i++){average.r+=colors.getX(i);average.g+=colors.getY(i);average.b+=colors.getZ(i);}average.multiplyScalar(1/colors.count);color.multiply(average);}}
  return color;
 }
+function lightKind(mesh,p){for(let n=mesh;n&&n!==p.root;n=n.parent){const name=String(n.name||'');if(/^windows?(?:_|$)/i.test(name)||n.userData.windowMarker)return 'window';if(/^lights?_horizontal(?:_|$)/i.test(name)||n.userData.horizontalMarker)return 'horizontal';if(lampMarker(name)||n.userData.lampMarker)return 'vertical';}return '';}
+function fadingLightBeam(color,width,height,length,rectangular){
+ let geometry;
+ if(rectangular){const positions=[],fade=[];const corners=[[-width/2,-height/2],[width/2,-height/2],[width/2,height/2],[-width/2,height/2]];for(let i=0;i<4;i++){const a=corners[i],b=corners[(i+1)%4];const verts=[[...a,0],[...b,0],[b[0]*1.15,b[1]*1.15,length],[a[0]*1.15,a[1]*1.15,length]];for(const j of [0,1,2,0,2,3]){positions.push(...verts[j]);fade.push(j<2?1:0)}}geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));geometry.setAttribute('beamFade',new THREE.Float32BufferAttribute(fade,1));geometry.computeVertexNormals();}
+ else{geometry=new THREE.CylinderGeometry(Math.max(.5,width*.25),Math.max(2,width*.8),length,24,6,true);geometry.translate(0,-length/2,0);geometry.rotateX(-Math.PI/2);const points=geometry.getAttribute('position'),fade=[];for(let i=0;i<points.count;i++)fade.push(Math.pow(Math.max(0,1-points.getZ(i)/length),1.5));geometry.setAttribute('beamFade',new THREE.Float32BufferAttribute(fade,1));}
+ const material=new THREE.MeshBasicMaterial({color,transparent:true,opacity:0,depthWrite:false,side:THREE.DoubleSide,blending:THREE.AdditiveBlending});material.onBeforeCompile=shader=>{shader.vertexShader='attribute float beamFade;varying float vBeamFade;\n'+shader.vertexShader;shader.vertexShader=shader.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\nvBeamFade=beamFade;');shader.fragmentShader='varying float vBeamFade;\n'+shader.fragmentShader;shader.fragmentShader=shader.fragmentShader.replace('#include <color_fragment>','#include <color_fragment>\ndiffuseColor.a*=vBeamFade;');};material.customProgramCacheKey=()=> 'fading-light-beam-v1';const beam=new THREE.Mesh(geometry,material);beam.userData.lightEffect=true;beam.raycast=()=>{};return beam;
+}
 let lampGlowTexture;
 function addLampEffects(p,mesh,material,lamp=false,source=mesh){
  if(!lampGlowTexture){const c=document.createElement('canvas');c.width=c.height=64;const ctx=c.getContext('2d'),g=ctx.createRadialGradient(32,32,0,32,32,32);g.addColorStop(0,'rgba(255,255,255,.6)');g.addColorStop(.25,'rgba(255,255,255,.22)');g.addColorStop(1,'rgba(255,255,255,0)');ctx.fillStyle=g;ctx.fillRect(0,0,64,64);lampGlowTexture=new THREE.CanvasTexture(c);}
@@ -273,9 +280,13 @@ function addLampEffects(p,mesh,material,lamp=false,source=mesh){
   const yaw=vehicleForward(p),dir=new THREE.Vector3(Math.sin(yaw),0,Math.cos(yaw)).multiplyScalar(red?-1:1),length=red?14:34;
   const beam=new THREE.Mesh(new THREE.ConeGeometry(red?3:7,length,16,1,true),new THREE.MeshBasicMaterial({color:red?0xff3024:0xfff5db,transparent:true,opacity:0,depthWrite:false,side:THREE.DoubleSide,blending:THREE.AdditiveBlending}));beam.position.copy(center).addScaledVector(dir,length/2);beam.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),dir.clone().negate());beam.userData.lightEffect=true;beam.raycast=()=>{};p.root.add(beam);effects.push({object:beam,opacity:red?.035:.055});
  }
- if(!isVehicle(p)&&lamp){
-  const floor=(p.asset.placementBase?.bottom||0)+3,length=Math.max(5,Math.min(50,center.y-floor)),width=Math.max(5,Math.min(28,Math.max(size.x,size.z)*1.7));
-  const glow=new THREE.Sprite(new THREE.SpriteMaterial({map:lampGlowTexture,color,transparent:true,opacity:0,depthWrite:false,blending:THREE.AdditiveBlending}));glow.position.copy(center);glow.position.y-=length*.38;glow.scale.set(width,length*1.2,1);glow.userData.lightEffect=true;glow.raycast=()=>{};p.root.add(glow);effects.push({object:glow,opacity:.22});
+ const kind=lightKind(mesh,p);
+ if(!isVehicle(p)&&(lamp||kind)){
+  // Measure in model-local coordinates so rotation never changes the light shape.
+  const localBox=new THREE.Box3();mesh.updateWorldMatrix(true,false);const positions=mesh.geometry?.getAttribute('position'),point=new THREE.Vector3();if(positions)for(let i=0;i<positions.count;i++){point.fromBufferAttribute(positions,i).applyMatrix4(mesh.matrixWorld);p.root.worldToLocal(point);localBox.expandByPoint(point)}const dims=localBox.isEmpty()?size:localBox.getSize(new THREE.Vector3());
+  const vertical=lamp||kind==='vertical',relative=center.clone().sub(new THREE.Vector3(p.asset.placementBase?.x||0,0,p.asset.placementBase?.z||0));const dir=vertical?new THREE.Vector3(0,-1,0):dims.x<dims.z?new THREE.Vector3(Math.sign(relative.x)||1,0,0):new THREE.Vector3(0,0,Math.sign(relative.z)||1);
+  const width=vertical?Math.max(dims.x,dims.z):Math.max(dims.x,dims.z),height=Math.max(2,dims.y),length=vertical?Math.max(5,Math.min(60,center.y-(p.asset.placementBase?.bottom||0))):Math.max(8,Math.min(45,width*.65));
+  const beam=fadingLightBeam(color,Math.max(2,width),height,length,kind==='window');beam.position.copy(center).addScaledVector(dir,vertical?0:Math.min(dims.x,dims.z)*.51);beam.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1),dir);p.root.add(beam);effects.push({object:beam,opacity:kind==='window'?.09:.12});
  }
 
 }
@@ -292,7 +303,7 @@ function houseBell(){worldTone(880,0,.65,.07);worldTone(659,.18,.8,.06);}
 const assetSoundBuffers=new Map();let lastAssetSoundAt=-Infinity,lastAssetSoundFile='';
 function defaultAssetSound(p){return 'assets/MUSIC/Effects/'+(transportKind(p.asset)==='train'?'Train whistle':p.asset.cat==='Animals'?'Animal meow':isVehicle(p)?'Car horn':p.asset.cat==='Houses'?'House bell':pedestrian(p)?'Character babble':'Placement pop')+'.wav';}
 async function playAssetSound(p){
- if(!soundOn||!p)return;const file=p.asset.soundFile??defaultAssetSound(p),volume=p.asset.soundVolume??1;if(!file||volume<=0)return;
+ if(!soundOn||!p)return;const file=p.asset.soundFile==='none'?'':(p.asset.soundFile||'assets/MUSIC/Effects/Placement pop.wav'),volume=p.asset.soundVolume??1;if(!file||volume<=0)return;
  if(!file.startsWith('assets/MUSIC/')||file.split('/').includes('..'))return;
  const now=performance.now();if(file===lastAssetSoundFile&&now-lastAssetSoundAt<120)return;lastAssetSoundAt=now;lastAssetSoundFile=file;
  try{if(!audioCtx)await startDefaultAudio();if(audioCtx.state==='suspended')await audioCtx.resume();
@@ -304,8 +315,8 @@ function assetPlacementSound(items){if(items.length)playAssetSound(items[0]);}
 let nextAmbientHorn=performance.now()+15000+Math.random()*30000;
 function ambientVehicleSound(){const now=performance.now();if(now<nextAmbientHorn)return;nextAmbientHorn=now+18000+Math.random()*45000;if(placed.some(isVehicle))carHorn(true);}
 
-function lightMarker(name){return /^LIGHTS?(?:[_\s]|$)/i.test(String(name||'').trim());}
-function lampMarker(name){return /^(?:LAMPS?|LIGHTS?_LAMPS?)(?:[_\s]|$)/i.test(String(name||'').trim());}
+function lightMarker(name){return /^(?:LIGHTS?|WINDOWS?)(?:[_\s]|$)/i.test(String(name||'').trim());}
+function lampMarker(name){return /^(?:LAMPS?|LIGHTS?_LAMPS?|LIGHTS?_VERTICAL)(?:[_\s]|$)/i.test(String(name||'').trim());}
 function legacyWindow(name){return /^fenster[ _]light(?:[ _.]\d+)?$/i.test(String(name||'').trim());}
 function ensureNightLights(p){
  if(p.root.userData.nightReady)return;p.root.userData.nightReady=true;const materials=[],lamps=[];
@@ -869,7 +880,7 @@ function surfaceAt(x,z,walkOnly=false){
 let placementNoticeTimer=null,placementNoticeText='';
 function placementNotice(text){if(text&&text===placementNoticeText)return;placementNoticeText=text;clearTimeout(placementNoticeTimer);let el=document.getElementById('placementNotice');if(!el){el=document.createElement('div');el.id='placementNotice';el.style.cssText='position:fixed;bottom:160px;left:50%;transform:translateX(-50%);padding:12px 18px;background:#182b35;color:white;border-radius:12px;z-index:30;pointer-events:none;font:14px sans-serif';document.body.append(el);}el.textContent=text;el.hidden=!text;if(text)placementNoticeTimer=setTimeout(()=>{el.hidden=true;},3000);}
 function withinGrid(p){const d=dimsFor(p),pos=placementCenter(p);return Math.abs(pos.x)+d.w/2<=BUILD_HALF+.01&&Math.abs(pos.z)+d.d/2<=BUILD_HALF+.01;}
-function snapPlaced(p,x,z){roadGraphSignature="";roadGraphCache.clear();const footprint=dimsFor(p);x=THREE.MathUtils.clamp(x,-BUILD_HALF+footprint.w/2,BUILD_HALF-footprint.w/2);z=THREE.MathUtils.clamp(z,-BUILD_HALF+footprint.d/2,BUILD_HALF-footprint.d/2);const previous=p.root.position.clone(),rotation=p.rotation,deckHeight=p.deckHeight;snapPlacedInternal(p,x,z);if(!withinGrid(p)){const pending=p===placingCopy||placingCopies?.includes(p)||!placed.includes(p);p.placementValid=false;placementNotice('The build area ends at the edge of the grid.');if(!pending){p.root.position.copy(previous);p.rotation=rotation;p.root.rotation.y=rotation;p.deckHeight=deckHeight;p.placementValid=true;}else{const d=dimsFor(p),pos=placementCenter(p);setPlacementCenter(p,THREE.MathUtils.clamp(pos.x,-BUILD_HALF+d.w/2,BUILD_HALF-d.w/2),pos.y,THREE.MathUtils.clamp(pos.z,-BUILD_HALF+d.d/2,BUILD_HALF-d.d/2));}}}
+function snapPlaced(p,x,z){const footprint=dimsFor(p);x=THREE.MathUtils.clamp(x,-BUILD_HALF+footprint.w/2,BUILD_HALF-footprint.w/2);z=THREE.MathUtils.clamp(z,-BUILD_HALF+footprint.d/2,BUILD_HALF-footprint.d/2);const previous=p.root.position.clone(),rotation=p.rotation,deckHeight=p.deckHeight;snapPlacedInternal(p,x,z);if(!withinGrid(p)){const pending=p===placingCopy||placingCopies?.includes(p)||!placed.includes(p);p.placementValid=false;placementNotice('The build area ends at the edge of the grid.');if(!pending){p.root.position.copy(previous);p.rotation=rotation;p.root.rotation.y=rotation;p.deckHeight=deckHeight;p.placementValid=true;}else{const d=dimsFor(p),pos=placementCenter(p);setPlacementCenter(p,THREE.MathUtils.clamp(pos.x,-BUILD_HALF+d.w/2,BUILD_HALF-d.w/2),pos.y,THREE.MathUtils.clamp(pos.z,-BUILD_HALF+d.d/2,BUILD_HALF-d.d/2));}}}
 function snapPlacedInternal(p,x,z){
  if(transportKind(p.asset)||p.asset.cat==='Fences'){p.placementValid=specialPlacement(p,x,z);if(!p.placementValid)placementNotice(p.asset.cat==='Fences'?'Place the fence along a ground-tile edge.':transportKind(p.asset)==='train'?'Place the train on rails.':'Place the ship on water.');else placementNotice('');return;}
  if(needsGround(p.asset)){const old=p.root.position.clone(),pending=p===placingCopy||placingCopies?.includes(p)||!placed.includes(p);p.placementValid=standingTarget(p,x,z);if(!p.placementValid){if(pending)setPlacementCenter(p,x,5,z);else{p.root.position.copy(old);p.placementValid=true;}placementNotice('Place this on walkable terrain, a crosswalk or a clear house base plate.');}else placementNotice('');return;}
@@ -892,7 +903,9 @@ function snapPlacedInternal(p,x,z){
  p.placementValid=true;
 
  if(p.asset.noCollision&&!['Terrain','Streets'].includes(p.asset.cat)){const step=p.asset.snap||25,px=Math.round(x/step)*step,pz=Math.round(z/step)*step,surf=surfaceAt(px,pz,false);setPlacementCenter(p,px,surf?.y||0,pz);return}
- const before=p.root.position.clone(),d=dimsFor(p);setPlacementCenter(p,snapForSize(x,d.w),0,snapForSize(z,d.d));resolvePlacementCollisions(p);p.placementValid=!others.some(q=>collides(p,q));if(!p.placementValid){placementNotice('This ground position is occupied.');if(placed.includes(p)&&!pending.has(p)){p.root.position.copy(p.lastValidPosition||before);p.placementValid=true;}}else p.lastValidPosition=p.root.position.clone();
+ const before=p.root.position.clone(),d=dimsFor(p);const sx=snapForSize(x,d.w),sz=snapForSize(z,d.d);setPlacementCenter(p,sx,0,sz);
+ if(others.some(q=>collides(p,q))){const candidates=[];for(let ix=-1;ix<=1;ix++)for(let iz=-1;iz<=1;iz++)if(ix||iz)candidates.push({x:sx+ix*50,z:sz+iz*50});candidates.sort((a,b)=>(a.x-x)**2+(a.z-z)**2-((b.x-x)**2+(b.z-z)**2));for(const c of candidates){setPlacementCenter(p,c.x,0,c.z);if(withinGrid(p)&&!others.some(q=>collides(p,q)))break;}}
+ p.placementValid=withinGrid(p)&&!others.some(q=>collides(p,q));if(!p.placementValid){placementNotice('This ground position is occupied.');if(placed.includes(p)&&!pending.has(p)){p.root.position.copy(p.lastValidPosition||before);p.placementValid=true;}}else p.lastValidPosition=p.root.position.clone();
 }
 function crossingDestination(p,from,dx,dz){
  let entered=!!walkSurfaceAt(from.x,from.z,p)&&crosswalk(walkSurfaceAt(from.x,from.z,p).p);
@@ -1194,7 +1207,7 @@ renderer.domElement.addEventListener('pointerdown',e=>{
   if(e.shiftKey){select(p,true);return;}
   if(!selectedGroup.has(p))select(p);
   else{selected=p;refreshSelectionUI();}
-  if(e.pointerType!=='touch'&&!grabbedSelected){clearTimeout(desktopSelectHold);desktopSelectHold=setTimeout(()=>{if(!pointerGesture||pointerGesture.moved)return;dragging=null;draggingGroup=null;dragBefore=null;marqueeActive=true;marqueeMoved=false;marqueeStart={x:e.clientX,y:e.clientY};marquee.classList.add('show');hideInspector();drawMarquee(e);},350);}
+
   if(e.pointerType==='touch'){touchHoldStart={x:e.clientX,y:e.clientY};touchHoldObject=p;touchHoldTriggered=false;touchHoldTimer=setTimeout(()=>{if(!touchHoldObject)return;touchHoldTriggered=true;dragging=null;draggingGroup=null;dragBefore=null;pointerGesture=null;rotateObjectOrGroup(touchHoldObject);},560);}
   const items=currentSelection();if(items.some(q=>q.locked))return;
   const g=hitGround(e);
