@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "revision": 525,
+  "revision": 526,
   "assets": [
     {
       "name": "5x5 Grass Beam 5mm",
@@ -3894,16 +3894,16 @@
       "previewReady": true
     },
     {
-      "path": "Terrain/CUSTOM COLOR - brown sand, hellgrau etc",
+      "path": "Terrain/CUSTOM COLOR",
       "name": "CUSTOM COLOR - brown sand, hellgrau etc",
       "icon": "✨",
       "mode": "mosaic",
       "preview": "",
       "order": 12,
       "missing": false,
-      "previewFile": "assets/BROWSER/Terrain/CUSTOM COLOR - brown sand, hellgrau etc/_Previews/Folder-Preview.png",
+      "previewFile": "assets/BROWSER/Terrain/CUSTOM COLOR/_Previews/Folder-Preview.png",
       "thumbKey": "c6131eecb3253b4bf738a351",
-      "previewReady": true
+      "previewReady": false
     },
     {
       "path": "Bridges",
@@ -4132,16 +4132,28 @@
       "previewFile": "assets/BROWSER/Rails/_Previews/Folder-Preview.png",
       "thumbKey": "5f9ecea39a530785fb5a985c",
       "previewReady": true
+    },
+    {
+      "path": "Terrain/CUSTOM COLOR - brown sand, hellgrau etc",
+      "name": "CUSTOM COLOR - brown sand, hellgrau etc",
+      "icon": "✨",
+      "mode": "mosaic",
+      "preview": "",
+      "order": 12,
+      "missing": true,
+      "previewFile": "assets/BROWSER/Terrain/CUSTOM COLOR - brown sand, hellgrau etc/_Previews/Folder-Preview.png",
+      "thumbKey": "c6131eecb3253b4bf738a351",
+      "previewReady": true
     }
   ],
   "report": {
     "new": [],
-    "changed": [
-      "BROWSER/Houses/Work/fire middle.glb"
-    ],
+    "changed": [],
     "moved": [],
     "missing": [],
-    "newFolders": []
+    "newFolders": [
+      "Terrain/CUSTOM COLOR"
+    ]
   },
-  "updated": "2026-10-24T23:59:59+02:00"
+  "updated": "2026-10-25T00:06:43+02:00"
 }
