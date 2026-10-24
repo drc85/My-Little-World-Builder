@@ -115,6 +115,18 @@ def read_display(folder):
         except configparser.Error as e:raise ValueError(f'Display.ini in {folder}: {e}')
     return parser
 
+def default_asset_sound(item):
+    path=item.get('folder',item.get('file','')).lower()
+    name='House bell' if path.startswith('houses') else 'Animal meow' if path.startswith('animals') else 'Character babble' if path.startswith('figures') else ('Train whistle' if any(x in item.get('file','').lower() for x in ('train','locomotive','zug')) else 'Car horn') if path.startswith('vehicles') else 'Placement pop'
+    return 'assets/MUSIC/Effects/'+name+'.wav'
+
+def validate_asset_sound(value):
+    value=str(value).replace('\\','/')
+    if not value:return ''
+    base=(ROOT/'assets/MUSIC').resolve();target=(ROOT/value).resolve()
+    if not target.is_relative_to(base) or target.suffix.lower() not in AUDIO_TYPES or not target.is_file():raise ValueError('Choose an audio file from assets/MUSIC.')
+    return target.relative_to(ROOT).as_posix()
+
 def display_override(item, folder, section):
     parser=read_display(folder)
     if not parser.has_section(section):return
@@ -137,6 +149,8 @@ def display_override(item, folder, section):
             item['label']=' / '.join(values.get('Line'+str(i),'').strip() for i in range(1,4) if values.get('Line'+str(i),'').strip())
         for key in ('makerworld','snapmaker'):
             if key in values:item[key]=validate_link(values[key])
+        if 'Sound' in values:item['soundFile']=values['Sound'].strip()
+        if 'SoundVolume' in values:item['soundVolume']=max(0,min(1,float(values['SoundVolume'])))
         derive_name(item)
 
 def write_displays(data):
@@ -150,7 +164,7 @@ def write_displays(data):
         for a in data['assets']:
             if a['folder']!=folder or a.get('missing'):continue
             lines=a.get('label','').split(' / ')
-            parser['Model: '+Path(a['file']).name]={**{'Line'+str(i+1):lines[i] if i<len(lines) else '' for i in range(3)},'Image':a.get('preview',''),'makerworld':a.get('makerworld',''),'snapmaker':a.get('snapmaker','')}
+            parser['Model: '+Path(a['file']).name]={**{'Line'+str(i+1):lines[i] if i<len(lines) else '' for i in range(3)},'Image':a.get('preview',''),'makerworld':a.get('makerworld',''),'snapmaker':a.get('snapmaker',''),'Sound':a.get('soundFile',default_asset_sound(a)),'SoundVolume':str(a.get('soundVolume',1))}
         file=ROOT/'assets'/'BROWSER'/folder/'Display.ini'
         with file.open('w',encoding='utf-8-sig') as stream:
             stream.write('; Edit display names here. Model filenames stay unchanged.\n; Line1, Line2 and Line3: empty lines are omitted. All empty = automatic.\n; Then start Asset Manager or click Scan folders.\n; Choose custom images in Asset Manager.\n\n')
@@ -260,6 +274,7 @@ def scan():
             a.update(file=rel,folder=folder,signature=signature,stamp=stamp,size=stat.st_size,missing=False,type=file.suffix[1:].lower(),warning='')
             display_override(a,folder,'Model: '+file.name)
             derive_name(a)
+            a.setdefault('soundFile',default_asset_sound(a));a.setdefault('soundVolume',1)
             apply_geometry_rules(a,file,signature,previous)
             a.pop('mtl',None)
             if a['type']=='obj':
@@ -306,7 +321,7 @@ def save(payload):
             check=dict(item)
             if 'file' in item:display_override(check,item['folder'],'Model: '+Path(item['file']).name)
             else:display_override(check,item['path'],'Folder')
-            if any(check.get(k)!=item.get(k) for k in ('name','label','icon','mode','preview')):
+            if any(check.get(k)!=item.get(k) for k in ('name','label','icon','mode','preview','soundFile','soundVolume')):
                 raise ValueError('A Display.ini was edited outside the editor. Reload this page, then scan folders before saving.')
         for changed in payload.get('assets',[]):
             a=assets.get(changed.get('id'))
@@ -324,6 +339,11 @@ def save(payload):
                 a['rotationX']=n
             for key in ('makerworld','snapmaker'):
                 if key in changed:a[key]=validate_link(changed[key])
+            if 'soundFile' in changed:a['soundFile']=validate_asset_sound(changed['soundFile'])
+            if 'soundVolume' in changed:
+                volume=float(changed['soundVolume'])
+                if not 0<=volume<=1:raise ValueError('Sound volume must be between 0 and 100%.')
+                a['soundVolume']=volume
             if 'enabled' in changed:a['enabled']=bool(changed['enabled'])
             if 'order' in changed:a['order']=int(changed['order'])
         for changed in payload.get('folders',[]):

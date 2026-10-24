@@ -13,7 +13,8 @@ Groß- und Kleinschreibung ist egal. Hinter `_` darf ein beliebiger Zusatz stehe
 | Name | Wirkung |
 |---|---|
 | `LIGHT`, `LIGHTS`, `LIGHT_window`, `LIGHTS_front` | Nachtleuchten plus leichter Lichtschein. Material-/Vertexfarben bleiben maßgeblich. Fahrzeuge haben vordere/rote hintere Lichtstrahlen. |
-| `LAMP`, `LAMPS`, `LAMP_street` | Nachtleuchten plus nach unten gerichteter Lichtkegel. Nur das Leuchtmittel so nennen, nicht Rahmen oder ganzen Pfosten. |
+| `LAMP`, `LAMPS`, `LAMP_street` | Nachtleuchten plus weicher nach unten gerichteter Lichtschein. Nur das Leuchtmittel so nennen, nicht Rahmen oder ganzen Pfosten. |
+| `LIGHT_LAMP`, `light_lamp`, `LIGHT_LAMP_front` | Kombination: markierter Körper leuchtet in seiner Modellfarbe und erhält einen weichen nach unten gerichteten Schein. Nur den Leuchtkörper markieren; Stange und Gehäuse normal benennen. Gilt allgemein für neue Modelle. |
 | `SMOKE`, `smoke`, `SMOKE_chimney`, `smoke_exhaust` | Kleine weiße Rauchwolken steigen von der Oberseite des markierten Meshes oder der Komponente auf, tagsüber und nachts. Für Schornsteine und Auspuffe. Groß-/Kleinschreibung egal; Zusatz nach `_` frei. Der sichtbare Modellteil bleibt unverändert. |
 | `COLOR`, `COLOR_wall` | Diese Flächen dürfen über den Farbwähler im Objekt-Label umgefärbt werden. Auswahl gilt für das einzelne platzierte Objekt und wird gespeichert/kopiert. Alle markierten Flächen eines Objekts teilen sich eine gewählte Farbe. |
 | `PLACEMENT_PLATE`, `placement_plate_base` | Begrenzung der Bodenplatte bestimmt Raster und Belegung. Überstehende Dächer/Lampen zählen nicht. Sichtbare GLB-Geometrie wird nicht umgeformt. |
@@ -36,7 +37,7 @@ Gruppen haben immer eine kräftige Hot-Pink-Auswahlkontur. Der Farbwähler verä
 
 ## Lokale Dateien und Geräusche
 Bilder, Schrift, Hintergrundmusik und Three.js liegen unter `assets/`. Three.js 0.180.0 samt MIT-Lizenz liegt unter `assets/vendor/three/`.
-Klicks, Hover-Ticks, Hupen, Klingeln, Fantasie-Gemurmel, Katzen- und Zugtöne werden lokal per Web Audio im JavaScript erzeugt. Dafür gibt es keine herunterzuladende Audiodatei und keinen externen Sounddienst. Mute schaltet sie stumm.
+Im Asset Manager hat jedes Modell „Interaction sound“: Datei wählen, Lautstärke einstellen, vorhören oder eigene Audiodatei hochladen, dann Save changes. Die bisherigen Interaktionssounds sind als WAV unter assets/MUSIC/Effects gespeichert. Eigene Uploads liegen in assets/MUSIC. Auswählen und Platzieren nutzen diesen Sound; No sound schaltet ihn für dieses Asset aus. Bereits ausgewählte Objekte geben beim anschließenden Versetzen keinen zweiten Ton ab. Hintergrundgeräusche und UI-Klicks werden weiterhin lokal per Web Audio erzeugt. Mute gilt für alle Geräusche. Beim GitHub-Upload werden die Audiodateien mitgenommen.
 Nur Live-Wetter/Ortssuche benötigen Open-Meteo im Internet. Ausgehende MakerWorld-, Snapmaker-, Instagram- und DRC-Links führen ebenfalls ins Internet. Der Builder wird weiterhin über seinen lokalen Server gestartet, nicht durch Doppelklick auf index.html.
 
 ## Rauch vorbereiten

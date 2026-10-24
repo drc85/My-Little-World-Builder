@@ -1,4 +1,4 @@
-import {fitModel,gltfRoot} from '../model-rules.js?v=desktop-release-20261024-centered-clouds';
+import {fitModel,gltfRoot} from '../model-rules.js?v=desktop-release-20261024-asset-sounds';
 import * as THREE from 'three';
 import {OBJLoader} from 'three/addons/loaders/OBJLoader.js';
 import {MTLLoader} from 'three/addons/loaders/MTLLoader.js';

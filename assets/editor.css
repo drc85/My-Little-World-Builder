@@ -11,3 +11,7 @@ html,body,.helpModal,.partsTableWrap,.controlDrop,.weatherDrop{scrollbar-width:t
 .partsTableWrap::-webkit-scrollbar-thumb{background:#344550;border-radius:12px;}
 
 .arrangeNote{padding:14px 18px;margin:16px 0;border:1px solid #4b6774;border-radius:12px;background:#203943;color:#d1e7ef;line-height:1.6}.arrangeBar{display:flex;gap:6px;align-items:center;margin-bottom:10px}.arrangeHandle{cursor:grab;flex:1;color:#a9d7dd;font-weight:700}.preview[draggable=true]{cursor:grab}.arranging{opacity:.45}.dropTarget{outline:3px solid #60d8b8;outline-offset:2px}.arrangeBar button{padding:5px 12px}.arrangeBar button:disabled{opacity:.25}
+
+.card.missing{border:2px solid #ef5b67!important;}
+
+.assetSound{border:1px solid #526576;border-radius:12px;padding:12px;margin:10px 0;background:#24333d}.assetSound legend{color:#bce6ff;font-weight:700}.assetSound select{max-width:100%;color:#fff;background:#304552}.assetSound input[type=range]{width:100%;accent-color:#86cff4}

@@ -1,9 +1,9 @@
 import {LineSegments2} from 'three/addons/lines/LineSegments2.js';
 import {LineSegmentsGeometry} from 'three/addons/lines/LineSegmentsGeometry.js';
 import {LineMaterial} from 'three/addons/lines/LineMaterial.js';
-import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261024-centered-clouds';
-import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261024-centered-clouds';
-import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261024-centered-clouds';
+import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261024-asset-sounds';
+import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261024-asset-sounds';
+import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261024-asset-sounds';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
@@ -263,9 +263,9 @@ function modelLightColor(mesh,material){
  return color;
 }
 let lampGlowTexture;
-function addLampEffects(p,mesh,material,lamp=false){
+function addLampEffects(p,mesh,material,lamp=false,source=mesh){
  if(!lampGlowTexture){const c=document.createElement('canvas');c.width=c.height=64;const ctx=c.getContext('2d'),g=ctx.createRadialGradient(32,32,0,32,32,32);g.addColorStop(0,'rgba(255,255,255,.6)');g.addColorStop(.25,'rgba(255,255,255,.22)');g.addColorStop(1,'rgba(255,255,255,0)');ctx.fillStyle=g;ctx.fillRect(0,0,64,64);lampGlowTexture=new THREE.CanvasTexture(c);}
- p.root.updateMatrixWorld(true);const box=new THREE.Box3().setFromObject(mesh),center=box.getCenter(new THREE.Vector3()),size=box.getSize(new THREE.Vector3());p.root.worldToLocal(center);
+ p.root.updateMatrixWorld(true);const box=new THREE.Box3().setFromObject(source),center=box.getCenter(new THREE.Vector3()),size=box.getSize(new THREE.Vector3());p.root.worldToLocal(center);
  const color=modelLightColor(mesh,material),red=color.r>color.g*2&&color.r>color.b*2;
  const sprite=new THREE.Sprite(new THREE.SpriteMaterial({map:lampGlowTexture,color,transparent:true,opacity:0,depthWrite:false,blending:THREE.AdditiveBlending}));sprite.position.copy(center);sprite.scale.setScalar(Math.min(p.asset.cat==='Houses'?26:18,Math.max(4,size.length()*1.6)));sprite.userData.lightEffect=true;sprite.raycast=()=>{};p.root.add(sprite);
  const effects=p.root.userData.lampEffects||(p.root.userData.lampEffects=[]);effects.push({object:sprite,opacity:p.asset.cat==='Houses'?.72:.32});
@@ -273,11 +273,9 @@ function addLampEffects(p,mesh,material,lamp=false){
   const yaw=vehicleForward(p),dir=new THREE.Vector3(Math.sin(yaw),0,Math.cos(yaw)).multiplyScalar(red?-1:1),length=red?14:34;
   const beam=new THREE.Mesh(new THREE.ConeGeometry(red?3:7,length,16,1,true),new THREE.MeshBasicMaterial({color:red?0xff3024:0xfff5db,transparent:true,opacity:0,depthWrite:false,side:THREE.DoubleSide,blending:THREE.AdditiveBlending}));beam.position.copy(center).addScaledVector(dir,length/2);beam.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),dir.clone().negate());beam.userData.lightEffect=true;beam.raycast=()=>{};p.root.add(beam);effects.push({object:beam,opacity:red?.035:.055});
  }
- if(!isVehicle(p)){
-  const floor=(p.asset.placementBase?.bottom||0)+7,length=lamp?Math.max(5,Math.min(45,center.y-floor)):9;
-  const relative=center.clone().sub(new THREE.Vector3(p.asset.placementBase?.x||0,0,p.asset.placementBase?.z||0));
-  const dir=lamp?new THREE.Vector3(0,-1,0):size.x<size.z?new THREE.Vector3(Math.sign(relative.x)||1,0,0):new THREE.Vector3(0,0,Math.sign(relative.z)||1);
-  const cone=new THREE.Mesh(new THREE.ConeGeometry(lamp?length*.36:Math.min(7,size.length()*.4),length,12,1,true),new THREE.MeshBasicMaterial({color,transparent:true,opacity:0,depthWrite:false,side:THREE.DoubleSide,blending:THREE.AdditiveBlending}));cone.position.copy(center).addScaledVector(dir,length/2);cone.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),dir.clone().negate());cone.userData.lightEffect=true;cone.raycast=()=>{};p.root.add(cone);effects.push({object:cone,opacity:lamp?.065:.025});
+ if(!isVehicle(p)&&lamp){
+  const floor=(p.asset.placementBase?.bottom||0)+3,length=Math.max(5,Math.min(50,center.y-floor)),width=Math.max(5,Math.min(28,Math.max(size.x,size.z)*1.7));
+  const glow=new THREE.Sprite(new THREE.SpriteMaterial({map:lampGlowTexture,color,transparent:true,opacity:0,depthWrite:false,blending:THREE.AdditiveBlending}));glow.position.copy(center);glow.position.y-=length*.38;glow.scale.set(width,length*1.2,1);glow.userData.lightEffect=true;glow.raycast=()=>{};p.root.add(glow);effects.push({object:glow,opacity:.22});
  }
 
 }
@@ -291,24 +289,37 @@ function carHorn(ambient=false){
  for(const delay of [0,.22])for(const frequency of [380,480]){const o=audioCtx.createOscillator(),filter=audioCtx.createBiquadFilter(),g=audioCtx.createGain(),t=now+delay;o.type='sawtooth';o.frequency.setValueAtTime(frequency,t);o.frequency.linearRampToValueAtTime(frequency*.985,t+.17);filter.type='lowpass';filter.frequency.value=1800;g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(volume,t+.015);g.gain.setValueAtTime(volume*.85,t+.12);g.gain.exponentialRampToValueAtTime(.0001,t+.19);o.connect(filter).connect(g).connect(audioMaster);o.start(t);o.stop(t+.2);}
 }
 function houseBell(){worldTone(880,0,.65,.07);worldTone(659,.18,.8,.06);}
-function assetPlacementSound(items){if(items.some(p=>transportKind(p.asset)==='train'))trainWhistle();else if(items.some(p=>p.asset.cat==='Animals'))animalMeow();else if(items.some(isVehicle))carHorn();else if(items.some(p=>p.asset.cat==='Houses'))houseBell();else if(items.some(pedestrian))characterMurmur();else placementPop();}
+const assetSoundBuffers=new Map();let lastAssetSoundAt=-Infinity,lastAssetSoundFile='';
+function defaultAssetSound(p){return 'assets/MUSIC/Effects/'+(transportKind(p.asset)==='train'?'Train whistle':p.asset.cat==='Animals'?'Animal meow':isVehicle(p)?'Car horn':p.asset.cat==='Houses'?'House bell':pedestrian(p)?'Character babble':'Placement pop')+'.wav';}
+async function playAssetSound(p){
+ if(!soundOn||!p)return;const file=p.asset.soundFile??defaultAssetSound(p),volume=p.asset.soundVolume??1;if(!file||volume<=0)return;
+ if(!file.startsWith('assets/MUSIC/')||file.split('/').includes('..'))return;
+ const now=performance.now();if(file===lastAssetSoundFile&&now-lastAssetSoundAt<120)return;lastAssetSoundAt=now;lastAssetSoundFile=file;
+ try{if(!audioCtx)await startDefaultAudio();if(audioCtx.state==='suspended')await audioCtx.resume();
+ if(!assetSoundBuffers.has(file))assetSoundBuffers.set(file,fetch(file.split('/').map(encodeURIComponent).join('/')).then(r=>{if(!r.ok)throw Error('Sound unavailable');return r.arrayBuffer()}).then(data=>audioCtx.decodeAudioData(data)).catch(e=>{assetSoundBuffers.delete(file);throw e;}));
+ const buffer=await assetSoundBuffers.get(file);if(!soundOn||performance.now()-now>1500)return;const source=audioCtx.createBufferSource(),gain=audioCtx.createGain();source.buffer=buffer;gain.gain.value=THREE.MathUtils.clamp(volume,0,1)/.92;source.connect(gain).connect(audioMaster);source.onended=()=>{source.disconnect();gain.disconnect()};source.start();
+ }catch(error){console.warn('Asset sound unavailable',file,error);}
+}
+function assetPlacementSound(items){if(items.length)playAssetSound(items[0]);}
 let nextAmbientHorn=performance.now()+15000+Math.random()*30000;
 function ambientVehicleSound(){const now=performance.now();if(now<nextAmbientHorn)return;nextAmbientHorn=now+18000+Math.random()*45000;if(placed.some(isVehicle))carHorn(true);}
 
 function lightMarker(name){return /^LIGHTS?(?:[_\s]|$)/i.test(String(name||'').trim());}
-function lampMarker(name){return /^LAMPS?(?:[_\s]|$)/i.test(String(name||'').trim());}
+function lampMarker(name){return /^(?:LAMPS?|LIGHTS?_LAMPS?)(?:[_\s]|$)/i.test(String(name||'').trim());}
 function legacyWindow(name){return /^fenster[ _]light(?:[ _.]\d+)?$/i.test(String(name||'').trim());}
 function ensureNightLights(p){
  if(p.root.userData.nightReady)return;p.root.userData.nightReady=true;const materials=[],lamps=[];
  p.root.traverse(mesh=>{if(!mesh.isMesh||mesh.userData.lightEffect)return;let named=legacyWindow(mesh.name),lamp=false;
   for(let n=mesh;n&&n!==p.root;n=n.parent){named=named||lightMarker(n.name)||n.userData.lightMarker;lamp=lamp||lampMarker(n.name)||n.userData.lampMarker;}
+  // An explicit LIGHT inside a LAMP assembly is the bulb; housing/poles stay unlit.
+  if(lamp&&!named){let assembly=mesh;for(let n=mesh;n&&n!==p.root;n=n.parent)if(lampMarker(n.name)||n.userData.lampMarker)assembly=n;let hasBulb=false;assembly.traverse(n=>{if(lightMarker(n.name)||n.userData.lightMarker)hasBulb=true});if(hasBulb)return;}
   const src=Array.isArray(mesh.material)?mesh.material:[mesh.material];let effect=null;
   const out=src.map(m=>{const isLamp=lamp||lampMarker(m.name);if(!named&&!isLamp&&!lightMarker(m.name))return m;const clone=m.clone();if(!clone.emissive)return m;const base=clone.emissive.r+clone.emissive.g+clone.emissive.b>.001?(clone.emissiveIntensity||0):0,color=clone.emissive.clone();if(color.r+color.g+color.b<.001)color.copy(clone.color);clone.emissive.copy(color);
  // GLB vertex colours tint the surface, but Three does not apply them to emission automatically.
  if(clone.vertexColors&&mesh.geometry.getAttribute('color')){clone.onBeforeCompile=shader=>{shader.fragmentShader=shader.fragmentShader.replace('#include <emissivemap_fragment>','#include <emissivemap_fragment>\n#if defined( USE_COLOR ) || defined( USE_COLOR_ALPHA )\n totalEmissiveRadiance *= vColor.rgb;\n#endif');};clone.customProgramCacheKey=()=> 'model-colored-emission-v1';}
  if(!clone.emissiveMap&&clone.map)clone.emissiveMap=clone.map;
  clone.emissiveIntensity=0;clone.userData.nightBase=base;materials.push(clone);effect={mesh,material:clone,lamp:isLamp};return clone;});mesh.material=Array.isArray(mesh.material)?out:out[0];if(effect)lamps.push(effect);
- });p.root.userData.windowMaterials=materials;for(const item of lamps)addLampEffects(p,item.mesh,item.material,item.lamp);
+ });p.root.userData.windowMaterials=materials;const sources=new Set();for(const item of lamps){let source=item.mesh;if(item.lamp)for(let n=item.mesh;n&&n!==p.root;n=n.parent)if(lampMarker(n.name)||n.userData.lampMarker)source=n;if(sources.has(source))continue;sources.add(source);addLampEffects(p,item.mesh,item.material,item.lamp,item.mesh);}
 }
 function updateNightLights(night){const v=THREE.MathUtils.smoothstep(night,.28,.78);for(const p of placed){ensureNightLights(p);for(const m of p.root.userData.windowMaterials||[])m.emissiveIntensity=v*(.9+Math.min(1,m.userData.nightBase||0));for(const e of p.root.userData.lampEffects||[]){e.object.material.opacity=e.opacity*v;e.object.visible=v>.01;}}}
 function addCarLights(car){if(car.userData.lights)return;const front=new THREE.PointLight(0xfff1c7,0,62,2),rear=new THREE.PointLight(0xff2d24,0,34,2);front.position.set(10,8,0);rear.position.set(-10,8,0);car.add(front,rear);const fm=new THREE.MeshBasicMaterial({color:0xfff2bd,transparent:true,opacity:0}),rm=new THREE.MeshBasicMaterial({color:0xff2d24,transparent:true,opacity:0});const bulbs=[];for(const z of [-2.7,2.7]){const f=new THREE.Mesh(new THREE.SphereGeometry(1.15,8,6),fm);f.position.set(9.4,8.2,z);car.add(f);bulbs.push(f);const r=new THREE.Mesh(new THREE.SphereGeometry(.9,8,6),rm);r.position.set(-9.4,8.1,z);car.add(r);bulbs.push(r)}car.userData.lights=[front,rear];car.userData.lightBulbs=bulbs}
@@ -388,9 +399,12 @@ const outerCloudPass=new ShaderPass({
  uniforms:{tDiffuse:{value:null},inverseCamera:{value:new THREE.Matrix4()},revealMap:{value:townRevealTexture},nearMap:{value:townNearTexture},revealExtent:{value:townRevealExtent},density:{value:new THREE.Vector2(.48,.9)},time:{value:0}},
  vertexShader:`varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
  fragmentShader:`uniform sampler2D tDiffuse;uniform sampler2D revealMap;uniform sampler2D nearMap;uniform mat4 inverseCamera;uniform float revealExtent;uniform vec2 density;uniform float time;varying vec2 vUv;
+ vec2 cloudBank(vec2 p){vec2 cell=floor(p/240.),f=fract(p/240.);float cover=0.,height=0.;
+ for(int y=-1;y<=1;y++)for(int x=-1;x<=1;x++){vec2 n=vec2(float(x),float(y)),id=cell+n;float seed=fract(sin(dot(id,vec2(127.1,311.7)))*43758.5453);vec2 center=n+vec2(.28+.44*seed,.28+.44*fract(seed*7.13));vec2 q=f-center;float r=.48+.22*fract(seed*13.7);float d=min(length(q)/r,min(length(q-vec2(-.27,.12))/(r*.72),length(q-vec2(.24,.09))/(r*.78)));cover=max(cover,1.-smoothstep(.76,1.1,d));height=max(height,sqrt(max(0.,1.-d*d)));}
+ return vec2(cover,height);}
  void main(){vec2 clip=vUv*2.-1.;vec4 a=inverseCamera*vec4(clip,-1.,1.),b=inverseCamera*vec4(clip,1.,1.);vec3 start=a.xyz/a.w,end=b.xyz/b.w;float t=-start.y/(end.y-start.y);vec2 p=mix(start,end,t).xz;
  vec2 drift=vec2(sin(p.y*.022+time*.12),cos(p.x*.018-time*.09))*14.;vec2 uv=(p+drift)/(revealExtent*2.)+.5;float inside=step(0.,uv.x)*step(uv.x,1.)*step(0.,uv.y)*step(uv.y,1.);float reveal=texture2D(revealMap,vec2(clamp(uv.x,0.,1.),1.-clamp(uv.y,0.,1.))).a*inside;
- float edge=1.-reveal;float nearZone=texture2D(nearMap,vec2(clamp(uv.x,0.,1.),1.-clamp(uv.y,0.,1.))).a*inside;float opacity=mix(density.y,density.x,nearZone);float alpha=edge*clamp(opacity/.9,0.,1.);float puff=sin(p.x*.016+time*.035)*sin(p.y*.019-time*.025);vec3 white=vec3(.97,.98,1.)*(.985+.015*puff);vec4 world=texture2D(tDiffuse,vUv);gl_FragColor=vec4(mix(world.rgb,white,alpha),world.a);}`
+ float edge=1.-reveal;float nearZone=texture2D(nearMap,vec2(clamp(uv.x,0.,1.),1.-clamp(uv.y,0.,1.))).a*inside;float opacity=mix(density.y,density.x,nearZone);vec2 bank=cloudBank(p+vec2(time*12.,time*3.));float alpha=edge*clamp(opacity/.9,0.,1.)*(.86+.14*bank.x);vec3 white=mix(vec3(.78,.84,.91),vec3(.99,.995,1.),smoothstep(.0,.85,bank.y));vec4 world=texture2D(tDiffuse,vUv);gl_FragColor=vec4(mix(world.rgb,white,alpha),world.a);}`
 });outerCloudPass.uniforms.revealMap.value=townRevealTexture;outerCloudPass.uniforms.nearMap.value=townNearTexture;composer.addPass(outerCloudPass);
 // Keep the complete fixed world in front of the camera's clipping planes.
 // Moving an orthographic camera along its viewing axis preserves the framing.
@@ -957,9 +971,10 @@ function expandGroups(items){return [...new Set(items.flatMap(groupMembers))];}
 function oneGroup(items){return items.length>0&&!!items[0].groupId&&items.every(p=>p.groupId===items[0].groupId);}
 let inspectorFramingKey='',inspectorFramingActive=false;
 function hideInspector(){if(window.mlwPaletteReady&&!customPalette.hidden)paletteClose(false);inspectorFramingKey='';inspectorFramingActive=false;inspectorVisible=false;document.getElementById('selectionTools').classList.remove('show');document.getElementById('selectionBadge').style.display='none';document.getElementById('groupColorPanel').hidden=true;}
+function outlineMeshes(items){const result=[];for(const p of items)p.root.traverse(n=>{if(n.isMesh&&!n.userData.lightEffect)result.push(n)});return result;}
 function selectionOutlines(items){
- outlinePass.selectedObjects=items.filter(p=>!p.groupId).map(p=>p.root);
- const colors=new Map();for(const p of items){if(p.groupId){const color=colorValue(p.groupColor);if(!colors.has(color))colors.set(color,[]);colors.get(color).push(p.root);}}
+ outlinePass.selectedObjects=outlineMeshes(items.filter(p=>!p.groupId));
+ const colors=new Map();for(const p of items){if(p.groupId){const color=colorValue(p.groupColor);if(!colors.has(color))colors.set(color,[]);colors.get(color).push(...outlineMeshes([p]));}}
  let i=0;for(const [color,objects] of colors){let pass=groupOutlinePasses[i];if(!pass){pass=new OutlinePass(new THREE.Vector2(viewport.clientWidth,viewport.clientHeight),scene,camera);pass.edgeStrength=outlinePass.edgeStrength;pass.edgeGlow=outlinePass.edgeGlow;pass.edgeThickness=outlinePass.edgeThickness;pass.pulsePeriod=0;composer.addPass(pass);groupOutlinePasses.push(pass)}pass.enabled=true;pass.visibleEdgeColor.set(color);pass.hiddenEdgeColor.set(color);pass.selectedObjects=objects;i++;}
  for(;i<groupOutlinePasses.length;i++){groupOutlinePasses[i].enabled=false;groupOutlinePasses[i].selectedObjects=[];}
 }
@@ -1175,7 +1190,7 @@ renderer.domElement.addEventListener('pointerdown',e=>{
  const alreadyInspected=inspectorVisible&&selectedGroup.has(p);
  pointerGesture={x:e.clientX,y:e.clientY,moved:false,p,dockBack:!p&&assetDockEl.classList.contains('dock-open')&&!placingCopy&&!placingCopies&&!placementLoading};hideInspector();
  if(p){
-  if(!alreadyInspected){if(transportKind(p.asset)==='train')trainWhistle();else if(p.asset.cat==='Animals')animalMeow();else if(isVehicle(p))carHorn();else if(p.asset.cat==='Houses')houseBell();else if(pedestrian(p))characterMurmur();}
+  if(!alreadyInspected)playAssetSound(p);
   if(e.shiftKey){select(p,true);return;}
   if(!selectedGroup.has(p))select(p);
   else{selected=p;refreshSelectionUI();}
@@ -1813,7 +1828,7 @@ exampleButton.onclick=async()=>{if(exampleButton.disabled)return;if(placed.lengt
 const credit=document.getElementById('cornerBrandCredit');credit.querySelector('.brandMade')?.remove();const logos=credit.querySelector('.brandLogos');logos.insertAdjacentHTML('beforeend','<span title="DRC Grapix"><img src="assets/IMG/drc.svg" alt="DRC Grapix"></span><a href="https://www.instagram.com/3drc_grapix/" target="_blank" rel="noopener" title="Instagram"><svg width="24" height="24" viewBox="0 0 24 24" aria-label="Instagram" style="color:black"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg></a>');
 let nextAnimalSound=0,splashClock=0;
 const splashPool=Array.from({length:24},()=>{const o=new THREE.Mesh(new THREE.RingGeometry(.4,.7,8),new THREE.MeshBasicMaterial({color:0xcceeff,transparent:true,opacity:0,depthWrite:false,side:THREE.DoubleSide}));o.rotation.x=-Math.PI/2;o.visible=false;o.userData.lightEffect=true;scene.add(o);return {o,life:0};});
-function updateExtraEffects(dt,now){if(!window.mlwExtrasReady)return;if(now-(renderer.userDataShadowTime||0)>250){renderer.userDataShadowTime=now;renderer.shadowMap.needsUpdate=placed.length>0;}grid.material.resolution.set(viewport.clientWidth,viewport.clientHeight);
+function updateExtraEffects(dt,now){if(!window.mlwExtrasReady)return;if(now-(renderer.userDataShadowTime||0)>250){renderer.userDataShadowTime=now;renderer.shadowMap.needsUpdate=placed.length>0||renderer.userDataHadCasters===true;renderer.userDataHadCasters=placed.length>0;}grid.material.resolution.set(viewport.clientWidth,viewport.clientHeight);
  const night=nightAmountForHour(currentSkyHour(now));if(window.mlwNightShadowsReady)updateModelNightShadows(now,night);skySun.style.opacity=String((1-night)*(!worldSettings.live&&worldSettings.manualWeather?.sun===false?0:worldSettings.weatherCode===0?1:.25));skyMoon.style.opacity=String(worldSettings.manualWeather?.moon===false&&!worldSettings.live?0:night);manualWeather.disabled=!!worldSettings.live;
  for(const [button,panel] of [['cloudBtn','cloudDrop'],['partsBtn','partsOverlay'],['helpBtn','helpOverlay']])document.getElementById(button).classList.toggle('panel-active',document.getElementById(panel).classList.contains('open'));
  updateTransit(dt);if(now>nextAnimalSound){nextAnimalSound=now+22000+Math.random()*22000;const sounds=[];if(placed.some(p=>p.asset.cat==='Animals'))sounds.push(animalMeow);if(placed.some(p=>transportKind(p.asset)==='train'))sounds.push(trainWhistle);if(placed.some(p=>pedestrian(p)&&p.asset.cat!=='Animals'))sounds.push(characterMurmur);sounds[Math.floor(Math.random()*sounds.length)]?.();}

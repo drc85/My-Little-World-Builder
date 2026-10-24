@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "revision": 490,
+  "revision": 508,
   "assets": [
     {
       "name": "5x5 Grass Beam 5mm",
@@ -64,6 +64,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Bridges/BEAMS/5x5 Grass Beam 5mm.mtl"
     },
     {
@@ -128,6 +130,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Bridges/BEAMS/5x5 Sand Beam 6mm.mtl"
     },
     {
@@ -192,6 +196,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Bridges/BEAMS/5x5 Stone Beam 5mm.mtl"
     },
     {
@@ -256,6 +262,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Bridges/BEAMS/5x5 Water Beam 5mm.mtl"
     },
     {
@@ -322,6 +330,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Bridges/Bridge Streets/10x10 Bridge Street.mtl"
     },
     {
@@ -388,6 +398,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Bridges/Bridge Streets/10x20 Bridge Street.mtl"
     },
     {
@@ -455,6 +467,8 @@
       "bridgeAxis": 0,
       "highSide": -1,
       "deckHeight": 99.99984,
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Bridges/UP DOWN/10x20 Street Ramp.mtl"
     },
     {
@@ -484,7 +498,9 @@
       "previewFile": "assets/BROWSER/Figures/Work/_Previews/2x2 male farmer.ply.png",
       "previewReady": true,
       "makerworld": "",
-      "snapmaker": ""
+      "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Character babble.wav",
+      "soundVolume": 1
     },
     {
       "name": "10x10 house 2",
@@ -503,17 +519,19 @@
       "id": "asset-fc9760b136fbfd76",
       "file": "BROWSER/Houses/Social/10x10 house 2.glb",
       "folder": "Houses/Social",
-      "signature": "06cc9ca7a777e22a8ed817c7fc33e35972f4e97b406928acce234bcd2638448a",
-      "stamp": "12079020:1791846103118242900",
-      "size": 12079020,
+      "signature": "f9fabc2cae3b80538d3e8ae0ebe7b09b58653af77f090e155bcc7dc50e98c51b",
+      "stamp": "12425644:1792814825919876000",
+      "size": 12425644,
       "missing": false,
       "type": "glb",
       "warning": "",
-      "thumbKey": "6372237ea16c97442edf30f2",
+      "thumbKey": "6cdd13f3cf11cf95cda81034",
       "previewFile": "assets/BROWSER/Houses/Social/_Previews/10x10 house 2.glb.png",
       "previewReady": true,
       "makerworld": "",
-      "snapmaker": ""
+      "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/House bell.wav",
+      "soundVolume": 1
     },
     {
       "name": "fire print ",
@@ -542,7 +560,9 @@
       "previewFile": "assets/BROWSER/Houses/Work/_Previews/fire print .glb.png",
       "previewReady": true,
       "makerworld": "",
-      "snapmaker": ""
+      "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/House bell.wav",
+      "soundVolume": 1
     },
     {
       "name": "5x5 Street 90",
@@ -605,6 +625,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Streets/One Lane/5x5 Street 90.mtl"
     },
     {
@@ -668,6 +690,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Streets/One Lane/5x5 Street Crosswalk.mtl"
     },
     {
@@ -731,6 +755,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Streets/One Lane/5x5 Street End.mtl"
     },
     {
@@ -794,6 +820,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Streets/One Lane/5x5 Street Straight.mtl"
     },
     {
@@ -857,6 +885,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Streets/One Lane/5x5 Street Stripe.mtl"
     },
     {
@@ -920,6 +950,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Streets/One Lane/5x5 Street T.mtl"
     },
     {
@@ -983,6 +1015,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Streets/One Lane/5x5 Street X.mtl"
     },
     {
@@ -1046,6 +1080,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Streets/Two Lane/10x10 Street 90.mtl"
     },
     {
@@ -1109,6 +1145,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Streets/Two Lane/10x10 Street End.mtl"
     },
     {
@@ -1172,6 +1210,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Streets/Two Lane/10x10 Street Straight.mtl"
     },
     {
@@ -1235,6 +1275,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Streets/Two Lane/10x10 Street T.mtl"
     },
     {
@@ -1298,6 +1340,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Streets/Two Lane/10x10 Street To Grass.mtl"
     },
     {
@@ -1361,6 +1405,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Streets/Two Lane/10x10 Street To Sand.mtl"
     },
     {
@@ -1424,6 +1470,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Streets/Two Lane/10x10 Street X.mtl"
     },
     {
@@ -1487,6 +1535,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Streets/Two Lane/5x10 Street Crosswalk.mtl"
     },
     {
@@ -1550,6 +1600,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Streets/Two Lane/5x10 Street Stripe.mtl"
     },
     {
@@ -1613,6 +1665,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Streets/Two Lane/5x10 street T to small.mtl"
     },
     {
@@ -1676,6 +1730,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Streets/Two Lane/5x10 street X to small.mtl"
     },
     {
@@ -1739,6 +1795,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Streets/Two Lane/5x10 Street.mtl"
     },
     {
@@ -1802,6 +1860,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Grass on Sand/5x5 Grass On Sand Inner Corner.mtl"
     },
     {
@@ -1865,6 +1925,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Grass on Sand/5x5 Grass On Sand Outer Corner.mtl"
     },
     {
@@ -1928,6 +1990,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Grass on Sand/5x5 Grass On Sand Straight.mtl"
     },
     {
@@ -1991,6 +2055,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Grass on Water/5x5 Grass On Water Inner Corner.mtl"
     },
     {
@@ -2040,6 +2106,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Grass on Water/5x5 Grass On Water Outer Corner.mtl"
     },
     {
@@ -2089,6 +2157,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Grass on Water/5x5 Grass On Water Straight.mtl"
     },
     {
@@ -2152,6 +2222,8 @@
       ],
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Grass/10x10 Grass.mtl"
     },
     {
@@ -2215,6 +2287,8 @@
       ],
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Grass/5x10 Grass.mtl"
     },
     {
@@ -2278,6 +2352,8 @@
       ],
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Grass/5x5 Grass.mtl"
     },
     {
@@ -2341,6 +2417,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Pavement/10x10 Pavement.mtl"
     },
     {
@@ -2404,6 +2482,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Pavement/5x10 Pavement.mtl"
     },
     {
@@ -2467,6 +2547,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Pavement/5x5 Pavement 90.mtl"
     },
     {
@@ -2530,6 +2612,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Pavement/5x5 Pavement Outer Corner.mtl"
     },
     {
@@ -2593,6 +2677,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Pavement/5x5 Pavement Straight.mtl"
     },
     {
@@ -2656,6 +2742,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Pavement/5x5 Pavement.mtl"
     },
     {
@@ -2719,6 +2807,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Sand on Water/5x5 Sand On Water Inner Corner.mtl"
     },
     {
@@ -2768,6 +2858,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Sand on Water/5x5 Sand On Water Outer Corner.mtl"
     },
     {
@@ -2817,6 +2909,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Sand on Water/5x5 Sand On Water.mtl"
     },
     {
@@ -2880,6 +2974,8 @@
       ],
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Sand/10x10 Sand.mtl"
     },
     {
@@ -2943,6 +3039,8 @@
       ],
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Sand/5x10 Sand.mtl"
     },
     {
@@ -3006,6 +3104,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Sand/5x5 Sand.mtl"
     },
     {
@@ -3069,6 +3169,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Stone/10x10 Stone Area.mtl"
     },
     {
@@ -3132,6 +3234,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Stone/5x10 Stone Area.mtl"
     },
     {
@@ -3195,6 +3299,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Stone/5x5 Curb Inner Corner.mtl"
     },
     {
@@ -3258,6 +3364,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Stone/5x5 Curb Outer Corner.mtl"
     },
     {
@@ -3321,6 +3429,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Stone/5x5 Curb Straight.mtl"
     },
     {
@@ -3384,6 +3494,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Stone/5x5 Curb.mtl"
     },
     {
@@ -3433,6 +3545,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Water/10x10 Water.mtl"
     },
     {
@@ -3482,6 +3596,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Water/5x10 Water.mtl"
     },
     {
@@ -3531,6 +3647,8 @@
       "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
+      "soundFile": "assets/MUSIC/Effects/Placement pop.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Terrain/Water/5x5 Water.mtl"
     },
     {
@@ -3586,7 +3704,7 @@
       },
       "thumbKey": "3d2cc72fdbe7e73b81b119cd",
       "previewFile": "assets/BROWSER/Vehicles/_Previews/5x5 Vehicle.obj.png",
-      "previewReady": false,
+      "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
       "nativeGeometry": true,
@@ -3594,36 +3712,9 @@
         223.15820150000002,
         -584.511125
       ],
+      "soundFile": "assets/MUSIC/Effects/Car horn.wav",
+      "soundVolume": 1,
       "mtl": "BROWSER/Vehicles/5x5 Vehicle.mtl"
-    },
-    {
-      "name": "10x10 house 1",
-      "label": "",
-      "w": 100.0,
-      "d": 100.0,
-      "h": 100.0,
-      "level": 100,
-      "kind": "house",
-      "snap": 50,
-      "noCollision": false,
-      "walk": false,
-      "rotationX": 0.0,
-      "preview": "",
-      "enabled": true,
-      "id": "asset-5a2d5893c57b9c6e",
-      "file": "BROWSER/Houses/Social/10x10 house 1.glb",
-      "folder": "Houses/Social",
-      "signature": "ebbb2fdbdb9042d0e68e57110e593f6556662202ca875a1bfd7103d378f1162d",
-      "stamp": "12085824:1791846480042438600",
-      "size": 12085824,
-      "missing": true,
-      "type": "glb",
-      "warning": "",
-      "thumbKey": "629a74318cf7a54afbc26c35",
-      "previewFile": "assets/BROWSER/Houses/Social/_Previews/10x10 house 1.glb.png",
-      "previewReady": true,
-      "makerworld": "",
-      "snapmaker": ""
     }
   ],
   "folders": [
@@ -3900,8 +3991,8 @@
       "order": 14,
       "missing": false,
       "previewFile": "assets/BROWSER/Houses/Social/_Previews/Folder-Preview.png",
-      "thumbKey": "8ee68ba1fed72065e3661030",
-      "previewReady": false
+      "thumbKey": "657fcd159e0ec8bb2d336a37",
+      "previewReady": true
     },
     {
       "path": "Houses/Work",
@@ -3924,8 +4015,8 @@
       "order": 5,
       "missing": false,
       "previewFile": "assets/BROWSER/Houses/_Previews/Folder-Preview.png",
-      "thumbKey": "2db9e05d980b8eba3cb119a4",
-      "previewReady": false
+      "thumbKey": "cb911c939c2cbf9f53152a5e",
+      "previewReady": true
     },
     {
       "path": "Figures/Social",
@@ -3985,7 +4076,7 @@
       "missing": false,
       "previewFile": "assets/BROWSER/Vehicles/_Previews/Folder-Preview.png",
       "thumbKey": "2dfd61764eeb7845f9f73ffa",
-      "previewReady": false
+      "previewReady": true
     },
     {
       "path": "Objects",
@@ -4016,10 +4107,8 @@
     "new": [],
     "changed": [],
     "moved": [],
-    "missing": [
-      "BROWSER/Houses/Social/10x10 house 1.glb"
-    ],
+    "missing": [],
     "newFolders": []
   },
-  "updated": "2026-10-24T05:45:50+02:00"
+  "updated": "2026-10-24T06:12:13+02:00"
 }
