@@ -6,7 +6,7 @@
 |---|---|---|
 | Nur leuchtende Fläche und weicher Glow, ohne Strahl (Gebäude) | `LIGHT_` | `LIGHT_sign` |
 | Fenster / Scheinwerfer mit Schein nach außen | `LIGHT_H` | `LIGHT_H_window_front` |
-| Lampe mit Kegel nach unten | `LIGHT_V` | `LIGHT_V_streetlamp` |
+| Lampe mit Kegel nach unten | `LIGHT_V` | `LIGHT_V_streetlamp` |  auch `LAMP_`
 | Licht mit Kegel nach oben | `LIGHT_V_UP` | `LIGHT_V_UP_roof_H` |
 | Im Spiel umfärbbare Fläche | `COLOR_` | `COLOR_wall` |
 | Rauch-Auslass | `SMOKE_` | `SMOKE_chimney` |

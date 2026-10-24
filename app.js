@@ -1,9 +1,9 @@
 import {LineSegments2} from 'three/addons/lines/LineSegments2.js';
 import {LineSegmentsGeometry} from 'three/addons/lines/LineSegmentsGeometry.js';
 import {LineMaterial} from 'three/addons/lines/LineMaterial.js';
-import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261024-window-glow-half';
-import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261024-window-glow-half';
-import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261024-window-glow-half';
+import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261024-house-placement';
+import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261024-house-placement';
+import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261024-house-placement';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
@@ -923,7 +923,7 @@ function snapPlacedInternal(p,x,z){
 
  if(p.asset.noCollision&&!['Terrain','Streets'].includes(p.asset.cat)){const step=p.asset.snap||25,px=Math.round(x/step)*step,pz=Math.round(z/step)*step,surf=surfaceAt(px,pz,false);setPlacementCenter(p,px,surf?.y||0,pz);return}
  const before=p.root.position.clone(),d=dimsFor(p);const sx=snapForSize(x,d.w),sz=snapForSize(z,d.d);setPlacementCenter(p,sx,0,sz);
- if(others.some(q=>collides(p,q))){const candidates=[];for(let ix=-1;ix<=1;ix++)for(let iz=-1;iz<=1;iz++)if(ix||iz)candidates.push({x:sx+ix*50,z:sz+iz*50});candidates.sort((a,b)=>(a.x-x)**2+(a.z-z)**2-((b.x-x)**2+(b.z-z)**2));for(const c of candidates){setPlacementCenter(p,c.x,0,c.z);if(withinGrid(p)&&!others.some(q=>collides(p,q)))break;}}
+ if(others.some(q=>collides(p,q))){const candidates=[];const reach=Math.min(4,Math.max(1,Math.ceil(Math.max(d.w,d.d)/50)));for(let ix=-reach;ix<=reach;ix++)for(let iz=-reach;iz<=reach;iz++)if(ix||iz)candidates.push({x:sx+ix*50,z:sz+iz*50});candidates.sort((a,b)=>(a.x-x)**2+(a.z-z)**2-((b.x-x)**2+(b.z-z)**2));for(const c of candidates){setPlacementCenter(p,c.x,0,c.z);if(withinGrid(p)&&!others.some(q=>collides(p,q)))break;}}
  p.placementValid=withinGrid(p)&&!others.some(q=>collides(p,q));if(!p.placementValid){placementNotice('This ground position is occupied.');if(placed.includes(p)&&!pending.has(p)){p.root.position.copy(p.lastValidPosition||before);p.placementValid=true;}}else p.lastValidPosition=p.root.position.clone();
 }
 function crossingDestination(p,from,dx,dz){
@@ -981,7 +981,7 @@ function chooseCharacterTarget(p){
 }
 let walkTurn=0;
 function updateCharacters(dt){
- if(placementLoading)return;refreshWalkWorld();const deadline=performance.now()+3;walkPlanDeadline=deadline;
+ if(placementLoading||dragging||draggingGroup||placingCopy||placingCopies)return;refreshWalkWorld();const deadline=performance.now()+3;walkPlanDeadline=deadline;
  const walkers=placed.filter(p=>p.asset.walk),start=walkTurn++%Math.max(1,walkers.length);
  for(const p of [...walkers.slice(start),...walkers.slice(0,start)]){if(!p.asset.walk||p.locked||p.groupId||p===dragging||p===placingCopy||placingCopies?.includes(p))continue;
   const pos=placementCenter(p),surface=navSurface(p,pos.x,pos.z);
@@ -1216,8 +1216,8 @@ renderer.domElement.addEventListener('pointerdown',e=>{
  if(repeater&&(placingCopies||placingCopy)){startRoller(e);return;}
  if(placingCopies||placingCopy){commitPlacement(e);return;}
  pointer(e);const gestureHit=ray.intersectObjects(placed.map(p=>p.root),true).find(h=>!h.object.userData.lightEffect);const gestureObject=gestureHit?findPlacedObject(gestureHit.object):null;const grabbedSelected=currentSelection().includes(gestureObject);
- if(e.shiftKey||(multiMode&&gestureObject&&!grabbedSelected)){e.preventDefault();pointer(e);const hit=ray.intersectObjects(placed.map(p=>p.root),true).find(h=>!h.object.userData.lightEffect);marqueeClickTarget=hit?findPlacedObject(hit.object):null;hideInspector();marqueeActive=true;marqueeMoved=false;marqueeStart={x:e.clientX,y:e.clientY};marquee.classList.add('show');drawMarquee(e);renderer.domElement.setPointerCapture?.(e.pointerId);return;}
- dragBefore=sceneSnapshot();pointer(e);const hit=ray.intersectObjects(placed.map(p=>p.root),true)[0],p=hit?findPlacedObject(hit.object):null;
+ if(e.shiftKey||(multiMode&&gestureObject&&!grabbedSelected)){e.preventDefault();const hit=gestureHit;marqueeClickTarget=hit?findPlacedObject(hit.object):null;hideInspector();marqueeActive=true;marqueeMoved=false;marqueeStart={x:e.clientX,y:e.clientY};marquee.classList.add('show');drawMarquee(e);renderer.domElement.setPointerCapture?.(e.pointerId);return;}
+ dragBefore=sceneSnapshot();const p=gestureObject;
  if(!p&&assetDockEl.classList.contains('dock-open')){clearTimeout(dockHideTimer);dockHideTimer=null;}
  const alreadyInspected=inspectorVisible&&selectedGroup.has(p);
  pointerGesture={x:e.clientX,y:e.clientY,moved:false,p,dockBack:!p&&assetDockEl.classList.contains('dock-open')&&!placingCopy&&!placingCopies&&!placementLoading};hideInspector();
@@ -1534,7 +1534,7 @@ document.fonts?.ready.then(()=>positionDockBack());
 function terrainIcon(n){return ({Grass:'🌿',Water:'💧',Sand:'🏖️','Grass on Water':'🌿💧','Grass on Sand':'🌿🏖️','Sand on Water':'🏖️💧',Pavement:'🧱',Single:'🛣️',Double:'🛣️'})[n]||'✨'}
 dockBack.onclick=()=>{if(assetCatalog)dockPath.pop();else dockPath=[];dockTransitionOriginX=null;dockItems.style.transform='';renderDock()};
 // When a nested asset library is open, clicking anywhere outside the dock returns it to the main categories.
-document.addEventListener('pointerdown',e=>{if(e.target.closest?.('#assetDock')){dockIntro=false;return;}if(e.target!==renderer.domElement)return;dockIntro=false;pointer(e);if(!ray.intersectObjects(placed.map(p=>p.root),true).length&&!(e.button===0&&assetDockEl.classList.contains('dock-open')&&!placingCopy&&!placingCopies&&!placementLoading))closeAutoDockNow();},true);
+document.addEventListener('pointerdown',e=>{if(e.target.closest?.('#assetDock')){dockIntro=false;return;}if(e.target!==renderer.domElement)return;dockIntro=false;if(placingCopy||placingCopies||placementLoading)return;pointer(e);if(!ray.intersectObjects(placed.map(p=>p.root),true).length&&!(e.button===0&&assetDockEl.classList.contains('dock-open')&&!placingCopy&&!placingCopies&&!placementLoading))closeAutoDockNow();},true);
 renderDock();
 // Stable delayed autohide dock. Entering the bottom hotspot opens it; leaving waits before closing.
 const assetDockEl=document.getElementById('assetDock');
@@ -1866,7 +1866,7 @@ const credit=document.getElementById('cornerBrandCredit');credit.querySelector('
 let nextAnimalSound=0,splashClock=0;
 const splashPool=Array.from({length:24},()=>{const o=new THREE.Mesh(new THREE.RingGeometry(.4,.7,8),new THREE.MeshBasicMaterial({color:0xcceeff,transparent:true,opacity:0,depthWrite:false,side:THREE.DoubleSide}));o.rotation.x=-Math.PI/2;o.visible=false;o.userData.lightEffect=true;scene.add(o);return {o,life:0};});
 function updateExtraEffects(dt,now){if(!window.mlwExtrasReady)return;// Reuse the last shadow map while dragging; refresh immediately on release.
- const moving=!!(dragging||draggingGroup);if(moving){renderer.userDataShadowDragging=true;renderer.shadowMap.needsUpdate=false;}else if(renderer.userDataShadowDragging||now-(renderer.userDataShadowTime||0)>350){renderer.userDataShadowDragging=false;renderer.userDataShadowTime=now;renderer.shadowMap.needsUpdate=placed.length>0||renderer.userDataHadCasters===true;renderer.userDataHadCasters=placed.length>0;}grid.material.resolution.set(viewport.clientWidth,viewport.clientHeight);
+ const moving=!!(dragging||draggingGroup||placingCopy||placingCopies||placementLoading);if(moving){renderer.userDataShadowDragging=true;renderer.shadowMap.needsUpdate=false;}else if(renderer.userDataShadowDragging||now-(renderer.userDataShadowTime||0)>350){renderer.userDataShadowDragging=false;renderer.userDataShadowTime=now;renderer.shadowMap.needsUpdate=placed.length>0||renderer.userDataHadCasters===true;renderer.userDataHadCasters=placed.length>0;}grid.material.resolution.set(viewport.clientWidth,viewport.clientHeight);
  const night=nightAmountForHour(currentSkyHour(now));if(window.mlwNightShadowsReady)updateModelNightShadows(now,night);skySun.style.opacity=String((1-night)*(!worldSettings.live&&worldSettings.manualWeather?.sun===false?0:worldSettings.weatherCode===0?1:.25));skyMoon.style.opacity=String(worldSettings.manualWeather?.moon===false&&!worldSettings.live?0:night);manualWeather.disabled=!!worldSettings.live;
  for(const [button,panel] of [['cloudBtn','cloudDrop'],['partsBtn','partsOverlay'],['helpBtn','helpOverlay']])document.getElementById(button).classList.toggle('panel-active',document.getElementById(panel).classList.contains('open'));
  updateTransit(dt);if(now>nextAnimalSound){nextAnimalSound=now+22000+Math.random()*22000;const sounds=[];if(placed.some(p=>p.asset.cat==='Animals'))sounds.push(animalMeow);if(placed.some(p=>transportKind(p.asset)==='train'))sounds.push(trainWhistle);if(placed.some(p=>pedestrian(p)&&p.asset.cat!=='Animals'))sounds.push(characterMurmur);sounds[Math.floor(Math.random()*sounds.length)]?.();}

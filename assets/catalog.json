@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "revision": 521,
+  "revision": 525,
   "assets": [
     {
       "name": "5x5 Grass Beam 5mm",
@@ -527,11 +527,42 @@
       "warning": "",
       "thumbKey": "700514be33297631bf4c149b",
       "previewFile": "assets/BROWSER/Houses/Social/_Previews/10x10 house 2.glb.png",
-      "previewReady": false,
+      "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
       "soundFile": "assets/MUSIC/Effects/House bell.wav",
       "soundVolume": 1
+    },
+    {
+      "name": "fire middle",
+      "label": "",
+      "w": 50.0,
+      "d": 50.0,
+      "h": 100.0,
+      "level": 100,
+      "kind": "house",
+      "snap": 50,
+      "noCollision": false,
+      "walk": false,
+      "rotationX": 0.0,
+      "preview": "",
+      "enabled": true,
+      "id": "asset-a8490dabb42c5009",
+      "file": "BROWSER/Houses/Work/fire middle.glb",
+      "folder": "Houses/Work",
+      "signature": "8db0d4e6e5dacb94edce93f92bd5d5713de052758bb09234f6834a56eb87b34f",
+      "stamp": "3596932:1792870982490375600",
+      "size": 3596932,
+      "missing": false,
+      "type": "glb",
+      "warning": "",
+      "soundFile": "assets/MUSIC/Effects/Animal meow.wav",
+      "soundVolume": 1,
+      "thumbKey": "a2985ec5179f23d12c9b80a6",
+      "previewFile": "assets/BROWSER/Houses/Work/_Previews/fire middle.glb.png",
+      "previewReady": false,
+      "makerworld": "",
+      "snapmaker": ""
     },
     {
       "name": "fire print ",
@@ -558,7 +589,7 @@
       "warning": "",
       "thumbKey": "741cde808455ae5571803033",
       "previewFile": "assets/BROWSER/Houses/Work/_Previews/fire print .glb.png",
-      "previewReady": false,
+      "previewReady": true,
       "makerworld": "",
       "snapmaker": "",
       "soundFile": "assets/MUSIC/Effects/Animal meow.wav",
@@ -3992,7 +4023,7 @@
       "missing": false,
       "previewFile": "assets/BROWSER/Houses/Social/_Previews/Folder-Preview.png",
       "thumbKey": "8fef2ac6d7082db19dbf0777",
-      "previewReady": false
+      "previewReady": true
     },
     {
       "path": "Houses/Work",
@@ -4003,7 +4034,7 @@
       "order": 15,
       "missing": false,
       "previewFile": "assets/BROWSER/Houses/Work/_Previews/Folder-Preview.png",
-      "thumbKey": "dd9e2d4c3cf5a7210134735d",
+      "thumbKey": "6429677e9629d87e3811d698",
       "previewReady": false
     },
     {
@@ -4015,7 +4046,7 @@
       "order": 5,
       "missing": false,
       "previewFile": "assets/BROWSER/Houses/_Previews/Folder-Preview.png",
-      "thumbKey": "6bd910d5aa74183134fe32b4",
+      "thumbKey": "b9dd12a74f8419333560e3b6",
       "previewReady": false
     },
     {
@@ -4105,10 +4136,12 @@
   ],
   "report": {
     "new": [],
-    "changed": [],
+    "changed": [
+      "BROWSER/Houses/Work/fire middle.glb"
+    ],
     "moved": [],
     "missing": [],
     "newFolders": []
   },
-  "updated": "2026-10-24T19:28:48+02:00"
+  "updated": "2026-10-24T23:59:59+02:00"
 }
