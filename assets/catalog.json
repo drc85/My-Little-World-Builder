@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "revision": 513,
+  "revision": 514,
   "assets": [
     {
       "name": "5x5 Grass Beam 5mm",
@@ -519,15 +519,15 @@
       "id": "asset-fc9760b136fbfd76",
       "file": "BROWSER/Houses/Social/10x10 house 2.glb",
       "folder": "Houses/Social",
-      "signature": "f9fabc2cae3b80538d3e8ae0ebe7b09b58653af77f090e155bcc7dc50e98c51b",
-      "stamp": "12425644:1792814825919876000",
-      "size": 12425644,
+      "signature": "df7be867a0cf74fe5ef79966a18365413d5d858e5e427df4404a53414772890a",
+      "stamp": "12425560:1792833923302389100",
+      "size": 12425560,
       "missing": false,
       "type": "glb",
       "warning": "",
-      "thumbKey": "6cdd13f3cf11cf95cda81034",
+      "thumbKey": "a03f8b6a4f5796935f021baf",
       "previewFile": "assets/BROWSER/Houses/Social/_Previews/10x10 house 2.glb.png",
-      "previewReady": true,
+      "previewReady": false,
       "makerworld": "",
       "snapmaker": "",
       "soundFile": "assets/MUSIC/Effects/House bell.wav",
@@ -550,15 +550,15 @@
       "id": "asset-3941babdb644651c",
       "file": "BROWSER/Houses/Work/fire print .glb",
       "folder": "Houses/Work",
-      "signature": "454df8aa84e1a185b05f1715438ed58f908303324c7aff4b01093c938f3dd02d",
-      "stamp": "2459864:1792772743132751400",
-      "size": 2459864,
+      "signature": "d1c071ce4db6dec71f4ced9fb2c6c3ec5362c7a7b8257689b71e758ec04918ad",
+      "stamp": "2459888:1792833655443558200",
+      "size": 2459888,
       "missing": false,
       "type": "glb",
       "warning": "",
-      "thumbKey": "9c71506c7397c5eeac9b7c6f",
+      "thumbKey": "758f4144ea37c8054a4ca1c0",
       "previewFile": "assets/BROWSER/Houses/Work/_Previews/fire print .glb.png",
-      "previewReady": true,
+      "previewReady": false,
       "makerworld": "",
       "snapmaker": "",
       "soundFile": "assets/MUSIC/Effects/Animal meow.wav",
@@ -3991,8 +3991,8 @@
       "order": 14,
       "missing": false,
       "previewFile": "assets/BROWSER/Houses/Social/_Previews/Folder-Preview.png",
-      "thumbKey": "657fcd159e0ec8bb2d336a37",
-      "previewReady": true
+      "thumbKey": "22810145aa30f9d52dc5f405",
+      "previewReady": false
     },
     {
       "path": "Houses/Work",
@@ -4003,8 +4003,8 @@
       "order": 15,
       "missing": false,
       "previewFile": "assets/BROWSER/Houses/Work/_Previews/Folder-Preview.png",
-      "thumbKey": "9266319670af5a6ab750d0e3",
-      "previewReady": true
+      "thumbKey": "493fa155cd576a61d94afe42",
+      "previewReady": false
     },
     {
       "path": "Houses",
@@ -4015,8 +4015,8 @@
       "order": 5,
       "missing": false,
       "previewFile": "assets/BROWSER/Houses/_Previews/Folder-Preview.png",
-      "thumbKey": "cb911c939c2cbf9f53152a5e",
-      "previewReady": true
+      "thumbKey": "fc18f563c23ed52a7ddfb5ab",
+      "previewReady": false
     },
     {
       "path": "Figures/Social",
@@ -4105,10 +4105,13 @@
   ],
   "report": {
     "new": [],
-    "changed": [],
+    "changed": [
+      "BROWSER/Houses/Social/10x10 house 2.glb",
+      "BROWSER/Houses/Work/fire print .glb"
+    ],
     "moved": [],
     "missing": [],
     "newFolders": []
   },
-  "updated": "2026-10-24T11:12:15+02:00"
+  "updated": "2026-10-24T11:26:55+02:00"
 }

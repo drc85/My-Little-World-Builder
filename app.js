@@ -1,9 +1,9 @@
 import {LineSegments2} from 'three/addons/lines/LineSegments2.js';
 import {LineSegmentsGeometry} from 'three/addons/lines/LineSegmentsGeometry.js';
 import {LineMaterial} from 'three/addons/lines/LineMaterial.js';
-import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261024-light-h-v';
-import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261024-light-h-v';
-import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261024-light-h-v';
+import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261024-stable-anchors';
+import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261024-stable-anchors';
+import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261024-stable-anchors';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
@@ -1555,7 +1555,8 @@ const partsClose=document.getElementById('partsClose');
 function setParts(open){partsOverlay.classList.toggle('open',open);partsOverlay.setAttribute('aria-hidden',String(!open));if(open)updateParts()}
 partsBtn.addEventListener('click',()=>setParts(true));partsClose.addEventListener('click',()=>setParts(false));partsOverlay.addEventListener('click',e=>{if(e.target===partsOverlay)setParts(false)});
 document.getElementById('clearBtn').onclick=()=>{cancelPlacement();if(placed.length||unresolvedProjectAssets.length)remember();unresolvedProjectAssets=[];placed.forEach(p=>scene.remove(p.root));placed=[];select(null);updateParts()};
-function projectData(){return {version:3,placed:[...sceneSnapshot().map(({p})=>({assetId:p.asset.id,assetFile:p.asset.file||p.asset.glb||p.asset.obj||p.asset.ply,assetSignature:p.asset.signature,x:p.root.position.x,z:p.root.position.z,r:p.rotation,y:p.root.position.y,deckHeight:p.deckHeight,locked:!!p.locked,groupId:p.groupId||null,groupColor:p.groupColor||null,modelColor:p.modelColor||null})),...unresolvedProjectAssets]}}
+let projectPlacementHistory={};try{const response=await fetch('assets/placement-history.json');if(response.ok)projectPlacementHistory=await response.json();}catch(error){console.warn('Legacy placement history unavailable',error)}
+function projectData(){return {version:4,placed:[...sceneSnapshot().map(({p})=>({assetId:p.asset.id,assetFile:p.asset.file||p.asset.glb||p.asset.obj||p.asset.ply,assetSignature:p.asset.signature,placementCenter:placementCenter(p),x:p.root.position.x,z:p.root.position.z,r:p.rotation,y:p.root.position.y,deckHeight:p.deckHeight,locked:!!p.locked,groupId:p.groupId||null,groupColor:p.groupColor||null,modelColor:p.modelColor||null})),...unresolvedProjectAssets]}}
 function resolveProjectAsset(entry){
  if(byId[entry.assetId])return byId[entry.assetId];
  const old=assetCatalog?.assets?.find(a=>a.id===entry.assetId);
@@ -1569,7 +1570,11 @@ async function loadProjectData(d){
  if(!d||!Array.isArray(d.placed)||d.placed.some(p=>!p||typeof p.assetId!=='string'||![p.x,p.z,p.r].every(Number.isFinite)))throw Error('Invalid project');
  cancelPlacement();const before=sceneSnapshot();placementLoading=true;const epoch=++placementEpoch;updateUndo();
  try{placed.forEach(p=>scene.remove(p.root));placed=[];unresolvedProjectAssets=[];
- for(const p of d.placed){const asset=resolveProjectAsset(p);if(!asset){unresolvedProjectAssets.push({...p});continue;}let q;try{q=await addAsset(asset.id,p.x,p.z,p.r,false,false,true);}catch(error){console.warn('Project asset unavailable',asset.file,error);unresolvedProjectAssets.push({...p});continue;}q.locked=!!p.locked;if(p.modelColor)setModelColor(q,p.modelColor);q.groupId=typeof p.groupId==='string'?p.groupId:null;q.groupColor=q.groupId?colorValue(p.groupColor):null;if(Number.isFinite(p.y)&&role(q)!=='beam')q.root.position.y=p.y;if(Number.isFinite(p.deckHeight))q.deckHeight=p.deckHeight;q.lastValidPosition=q.root.position.clone();q.placementValid=true;}
+ for(const p of d.placed){const asset=resolveProjectAsset(p);if(!asset){unresolvedProjectAssets.push({...p});continue;}let q;try{q=await addAsset(asset.id,p.x,p.z,p.r,false,false,true);}catch(error){console.warn('Project asset unavailable',asset.file,error);unresolvedProjectAssets.push({...p});continue;}q.locked=!!p.locked;if(p.modelColor)setModelColor(q,p.modelColor);q.groupId=typeof p.groupId==='string'?p.groupId:null;q.groupColor=q.groupId?colorValue(p.groupColor):null;if(Number.isFinite(p.y)&&role(q)!=='beam')q.root.position.y=p.y;if(Number.isFinite(p.deckHeight))q.deckHeight=p.deckHeight;
+ const savedCenter=p.placementCenter,oldBase=projectPlacementHistory[p.assetSignature];
+ if(savedCenter&&[savedCenter.x,savedCenter.y,savedCenter.z].every(Number.isFinite))setPlacementCenter(q,savedCenter.x,savedCenter.y,savedCenter.z);
+ else if(oldBase&&!q.asset.bridgeRole){const c=Math.cos(p.r),s=Math.sin(p.r);setPlacementCenter(q,p.x+oldBase.x*c+oldBase.z*s,(p.y||0)+oldBase.bottom,p.z-oldBase.x*s+oldBase.z*c);}
+ q.lastValidPosition=q.root.position.clone();q.placementValid=true;}
  for(const q of placed.filter(p=>role(p)==='beam'))snapPlaced(q,q.root.position.x,q.root.position.z);
  // Reconnect moving actors only once the entire saved world exists.
  for(const q of placed){
