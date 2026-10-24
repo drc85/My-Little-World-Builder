@@ -1,9 +1,9 @@
 import {LineSegments2} from 'three/addons/lines/LineSegments2.js';
 import {LineSegmentsGeometry} from 'three/addons/lines/LineSegmentsGeometry.js';
 import {LineMaterial} from 'three/addons/lines/LineMaterial.js';
-import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261024-window-glow';
-import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261024-window-glow';
-import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261024-window-glow';
+import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261024-window-glow-half';
+import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261024-window-glow-half';
+import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261024-window-glow-half';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
@@ -305,7 +305,7 @@ function addLampEffects(p,mesh,material,lamp=false,source=mesh){
   const localBox=new THREE.Box3();mesh.updateWorldMatrix(true,false);const positions=mesh.geometry?.getAttribute('position'),point=new THREE.Vector3();if(positions)for(let i=0;i<positions.count;i++){point.fromBufferAttribute(positions,i).applyMatrix4(mesh.matrixWorld);p.root.worldToLocal(point);localBox.expandByPoint(point)}const dims=localBox.isEmpty()?size:localBox.getSize(new THREE.Vector3());
   const upward=kind==='vertical-up',vertical=lamp||kind==='vertical'||upward;const dir=vertical?new THREE.Vector3(0,upward?1:-1,0):horizontalLightDirection(p,mesh,center,dims);
   const width=vertical?Math.max(dims.x,dims.z):Math.max(dims.x,dims.z),height=Math.max(2,dims.y),length=vertical?(upward?Math.max(25,Math.min(60,width*1.2)):Math.max(5,Math.min(60,center.y-dims.y*.35-(p.asset.placementBase?.bottom||0)))):Math.max(42,Math.min(60,width*.85));
-  const beam=fadingLightBeam(color,Math.max(2,width),vertical?Math.max(2,dims.z):height,length,!vertical,vertical?0:.35),surface=vertical?null:extrudedLightSurface(mesh,p,dir,length);if(surface){beam.geometry.dispose();beam.geometry=surface;}else{beam.position.copy(center).addScaledVector(dir,vertical?dims.y*.35:Math.min(dims.x,dims.z)*.51);beam.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1),dir);}beam.material.blending=THREE.NormalBlending;beam.material.side=THREE.DoubleSide;beam.material.forceSinglePass=true;p.root.add(beam);effects.push({object:beam,opacity:vertical?.3:.70});
+  const beam=fadingLightBeam(color,Math.max(2,width),vertical?Math.max(2,dims.z):height,length,!vertical,vertical?0:.35),surface=vertical?null:extrudedLightSurface(mesh,p,dir,length);if(surface){beam.geometry.dispose();beam.geometry=surface;}else{beam.position.copy(center).addScaledVector(dir,vertical?dims.y*.35:Math.min(dims.x,dims.z)*.51);beam.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1),dir);}beam.material.blending=THREE.NormalBlending;beam.material.side=THREE.DoubleSide;beam.material.forceSinglePass=true;p.root.add(beam);effects.push({object:beam,opacity:vertical?.3:.35});
  }
 
 }
