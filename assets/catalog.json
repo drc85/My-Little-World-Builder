@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "revision": 514,
+  "revision": 515,
   "assets": [
     {
       "name": "5x5 Grass Beam 5mm",
@@ -519,13 +519,13 @@
       "id": "asset-fc9760b136fbfd76",
       "file": "BROWSER/Houses/Social/10x10 house 2.glb",
       "folder": "Houses/Social",
-      "signature": "df7be867a0cf74fe5ef79966a18365413d5d858e5e427df4404a53414772890a",
-      "stamp": "12425560:1792833923302389100",
-      "size": 12425560,
+      "signature": "f6672551f316aaddf75ff5445d17aebbbe881fccb015627e889b3e3b079b9cdc",
+      "stamp": "12425548:1792834426367110700",
+      "size": 12425548,
       "missing": false,
       "type": "glb",
       "warning": "",
-      "thumbKey": "a03f8b6a4f5796935f021baf",
+      "thumbKey": "700514be33297631bf4c149b",
       "previewFile": "assets/BROWSER/Houses/Social/_Previews/10x10 house 2.glb.png",
       "previewReady": false,
       "makerworld": "",
@@ -550,13 +550,13 @@
       "id": "asset-3941babdb644651c",
       "file": "BROWSER/Houses/Work/fire print .glb",
       "folder": "Houses/Work",
-      "signature": "d1c071ce4db6dec71f4ced9fb2c6c3ec5362c7a7b8257689b71e758ec04918ad",
-      "stamp": "2459888:1792833655443558200",
-      "size": 2459888,
+      "signature": "ad9c8ee356e74d425d168e2eab9c3b86df63ecc3d69f2398b51324a58c7eaef4",
+      "stamp": "2473320:1792860918325926400",
+      "size": 2473320,
       "missing": false,
       "type": "glb",
       "warning": "",
-      "thumbKey": "758f4144ea37c8054a4ca1c0",
+      "thumbKey": "ea944a909cd1bd861c726d04",
       "previewFile": "assets/BROWSER/Houses/Work/_Previews/fire print .glb.png",
       "previewReady": false,
       "makerworld": "",
@@ -3991,7 +3991,7 @@
       "order": 14,
       "missing": false,
       "previewFile": "assets/BROWSER/Houses/Social/_Previews/Folder-Preview.png",
-      "thumbKey": "22810145aa30f9d52dc5f405",
+      "thumbKey": "8fef2ac6d7082db19dbf0777",
       "previewReady": false
     },
     {
@@ -4003,7 +4003,7 @@
       "order": 15,
       "missing": false,
       "previewFile": "assets/BROWSER/Houses/Work/_Previews/Folder-Preview.png",
-      "thumbKey": "493fa155cd576a61d94afe42",
+      "thumbKey": "fab4bc4c9df38a93bf30b90f",
       "previewReady": false
     },
     {
@@ -4015,7 +4015,7 @@
       "order": 5,
       "missing": false,
       "previewFile": "assets/BROWSER/Houses/_Previews/Folder-Preview.png",
-      "thumbKey": "fc18f563c23ed52a7ddfb5ab",
+      "thumbKey": "d0b2b07fc8bad6b814b1db20",
       "previewReady": false
     },
     {
@@ -4113,5 +4113,5 @@
     "missing": [],
     "newFolders": []
   },
-  "updated": "2026-10-24T11:26:55+02:00"
+  "updated": "2026-10-24T18:56:28+02:00"
 }

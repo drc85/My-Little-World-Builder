@@ -13,7 +13,8 @@ Groß- und Kleinschreibung ist egal. Hinter `_` darf ein beliebiger Zusatz stehe
 | Name | Wirkung |
 |---|---|
 | `LIGHT_H`, `light_h`, `LIGHT_H_front` | Leuchtender Körper mit Glow und horizontalem Schein. Die ausgerichtete Außenfläche wird in ihrer Form verlängert: anfangs 30 % sichtbar (70 % transparent), am Ende unsichtbar. Modellfarbe bleibt erhalten. Für Fenster und Autoscheinwerfer. |
-| `LIGHT_V`, `light_v`, `LIGHT_V_street` | Leuchtender Körper mit Glow und entsprechendem Schein nach unten. Nur den Leuchtkörper markieren, nicht Stange oder Gehäuse. |
+| `LIGHT_V`, `light_v`, `LIGHT_V_street` | Leuchtender Körper mit Glow und breiter werdendem, weich auslaufendem Kegel nach unten. Nur den Leuchtkörper markieren, nicht Stange oder Gehäuse. |
+| `LIGHT_V_UP`, `light_v_up`, `LIGHT_V_UP_roof` | Leuchtender Körper mit Glow und einem nach oben breiter werdenden, weich auslaufenden Kegel. Für Dachzeichen und nach oben gerichtete Lampen. |
 | Ältere Namen: `LIGHT`, `LIGHTS`, `WINDOW`, `LIGHT_HORIZONTAL`, `LIGHT_VERTICAL`, `LAMP`, `LIGHT_LAMP` | Weiterhin unterstützt. Neue Modelle vorzugsweise mit LIGHT_H oder LIGHT_V benennen. |
 | `SMOKE`, `smoke`, `SMOKE_chimney`, `smoke_exhaust` | Kleine weiße Rauchwolken steigen von der Oberseite des markierten Meshes oder der Komponente auf, tagsüber und nachts. Für Schornsteine und Auspuffe. Groß-/Kleinschreibung egal; Zusatz nach `_` frei. Der sichtbare Modellteil bleibt unverändert. |
 | `COLOR`, `COLOR_wall` | Diese Flächen dürfen über den Farbwähler im Objekt-Label umgefärbt werden. Auswahl gilt für das einzelne platzierte Objekt und wird gespeichert/kopiert. Alle markierten Flächen eines Objekts teilen sich eine gewählte Farbe. |
@@ -42,3 +43,6 @@ Nur Live-Wetter/Ortssuche benötigen Open-Meteo im Internet. Ausgehende MakerWor
 
 ## Rauch vorbereiten
 Nur den gewünschten Rauch-Auslass `SMOKE_...` nennen, nicht das gesamte Haus oder Fahrzeug. Mehrere Auslässe sind möglich. Gruppen und GLB-Meshnamen werden erkannt; markierte Unterobjekte einer bereits markierten Gruppe erzeugen keine doppelten Quellen. Der Ursprung bewegt sich mit dem Modell; ausgestoßener Rauch steigt unabhängig davon weiter nach oben. Der Effekt wird auch nach Laden und Kopieren erkannt und benötigt keine externen Dateien. Insgesamt maximal 96 Rauchwolken, gemeinsam gezeichnet, unabhängig von den Wetter-Wolkenreglern.
+
+### Lichtschein und Ausrichtung
+`LIGHT_H` richtet den flächenförmigen Schein nach außen aus, relativ zum Gebäudekörper auf Fensterhöhe (nicht zur Grundplatte). Der Schein bleibt von beiden Seiten sichtbar. `LIGHT_V` erzeugt einen runden, nach unten breiter werdenden Kegel mit weichem Auslauf. Beide übernehmen die Farbe des Leuchtkörpers; der Schein beginnt mit 70 % Transparenz und wird zum Ende unsichtbar. Änderungen gelten auch für neu hinzugefügte Modelle.
