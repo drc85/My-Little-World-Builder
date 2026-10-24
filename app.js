@@ -1,9 +1,9 @@
 import {LineSegments2} from 'three/addons/lines/LineSegments2.js';
 import {LineSegmentsGeometry} from 'three/addons/lines/LineSegmentsGeometry.js';
 import {LineMaterial} from 'three/addons/lines/LineMaterial.js';
-import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261024-light-types';
-import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261024-light-types';
-import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261024-light-types';
+import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261024-light-h-v';
+import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261024-light-h-v';
+import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261024-light-h-v';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
@@ -262,7 +262,13 @@ function modelLightColor(mesh,material){
  if(material.vertexColors){const colors=mesh.geometry.getAttribute('color');if(colors?.count){const average=new THREE.Color(0,0,0);for(let i=0;i<colors.count;i++){average.r+=colors.getX(i);average.g+=colors.getY(i);average.b+=colors.getZ(i);}average.multiplyScalar(1/colors.count);color.multiply(average);}}
  return color;
 }
-function lightKind(mesh,p){for(let n=mesh;n&&n!==p.root;n=n.parent){const name=String(n.name||'');if(/^windows?(?:_|$)/i.test(name)||n.userData.windowMarker)return 'window';if(/^lights?_horizontal(?:_|$)/i.test(name)||n.userData.horizontalMarker)return 'horizontal';if(lampMarker(name)||n.userData.lampMarker)return 'vertical';}return '';}
+function lightKind(mesh,p){for(let n=mesh;n&&n!==p.root;n=n.parent){const name=String(n.name||'');if(/^windows?(?:_|$)/i.test(name)||n.userData.windowMarker)return 'window';if(/^lights?_(?:horizontal|h)(?:_|$)/i.test(name)||n.userData.horizontalMarker)return 'horizontal';if(lampMarker(name)||n.userData.lampMarker)return 'vertical';}return '';}
+function extrudedLightSurface(mesh,p,dir,length){
+ const attribute=mesh.geometry?.getAttribute('position');if(!attribute)return null;mesh.updateWorldMatrix(true,false);p.root.updateWorldMatrix(true,false);const matrix=new THREE.Matrix4().copy(p.root.matrixWorld).invert().multiply(mesh.matrixWorld),vertices=[];let front=-Infinity;for(let i=0;i<attribute.count;i++){const v=new THREE.Vector3().fromBufferAttribute(attribute,i).applyMatrix4(matrix);vertices.push(v);front=Math.max(front,v.dot(dir));}
+ const indices=mesh.geometry.index,edges=new Map(),normal=new THREE.Vector3(),ab=new THREE.Vector3(),ac=new THREE.Vector3();const key=v=>[v.x,v.y,v.z].map(x=>Math.round(x*1000)).join(',');
+ for(let i=0;i<(indices?indices.count:attribute.count);i+=3){const a=vertices[indices?indices.getX(i):i],b=vertices[indices?indices.getX(i+1):i+1],c=vertices[indices?indices.getX(i+2):i+2];normal.crossVectors(ab.subVectors(b,a),ac.subVectors(c,a)).normalize();if(Math.abs(normal.dot(dir))<.7||front-(a.dot(dir)+b.dot(dir)+c.dot(dir))/3>1.5)continue;for(const [v,w]of [[a,b],[b,c],[c,a]]){const k=[key(v),key(w)].sort().join('|');const edge=edges.get(k);if(edge)edge.count++;else edges.set(k,{v,w,count:1});}}
+ const points=[],fade=[];for(const {v,w,count}of edges.values()){if(count!==1)continue;const farV=v.clone().addScaledVector(dir,length),farW=w.clone().addScaledVector(dir,length);for(const [point,alpha]of [[v,1],[w,1],[farW,0],[v,1],[farW,0],[farV,0]]){points.push(point.x,point.y,point.z);fade.push(alpha)}}if(!points.length)return null;const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(points,3));geometry.setAttribute('beamFade',new THREE.Float32BufferAttribute(fade,1));geometry.computeVertexNormals();return geometry;
+}
 function fadingLightBeam(color,width,height,length,rectangular){
  let geometry;
  if(rectangular){const positions=[],fade=[];const corners=[[-width/2,-height/2],[width/2,-height/2],[width/2,height/2],[-width/2,height/2]];for(let i=0;i<4;i++){const a=corners[i],b=corners[(i+1)%4];const verts=[[...a,0],[...b,0],[b[0]*1.15,b[1]*1.15,length],[a[0]*1.15,a[1]*1.15,length]];for(const j of [0,1,2,0,2,3]){positions.push(...verts[j]);fade.push(j<2?1:0)}}geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));geometry.setAttribute('beamFade',new THREE.Float32BufferAttribute(fade,1));geometry.computeVertexNormals();}
@@ -278,15 +284,15 @@ function addLampEffects(p,mesh,material,lamp=false,source=mesh){
  const effects=p.root.userData.lampEffects||(p.root.userData.lampEffects=[]);effects.push({object:sprite,opacity:p.asset.cat==='Houses'?.72:.32});
  if(isVehicle(p)){
   const yaw=vehicleForward(p),dir=new THREE.Vector3(Math.sin(yaw),0,Math.cos(yaw)).multiplyScalar(red?-1:1),length=red?14:34;
-  const beam=new THREE.Mesh(new THREE.ConeGeometry(red?3:7,length,16,1,true),new THREE.MeshBasicMaterial({color:red?0xff3024:0xfff5db,transparent:true,opacity:0,depthWrite:false,side:THREE.DoubleSide,blending:THREE.AdditiveBlending}));beam.position.copy(center).addScaledVector(dir,length/2);beam.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),dir.clone().negate());beam.userData.lightEffect=true;beam.raycast=()=>{};p.root.add(beam);effects.push({object:beam,opacity:red?.035:.055});
+  const beam=fadingLightBeam(color,Math.max(2,size.x),Math.max(2,size.y),length,true),surface=extrudedLightSurface(mesh,p,dir,length);if(surface){beam.geometry.dispose();beam.geometry=surface;}else{beam.position.copy(center);beam.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1),dir);}beam.material.blending=THREE.NormalBlending;beam.material.side=THREE.FrontSide;p.root.add(beam);effects.push({object:beam,opacity:.3});
  }
- const kind=lightKind(mesh,p);
+ const kind=lightKind(mesh,p)||(/^lights?_(?:horizontal|h)(?:_|$)/i.test(material.name||'')?'horizontal':'');
  if(!isVehicle(p)&&(lamp||kind)){
   // Measure in model-local coordinates so rotation never changes the light shape.
   const localBox=new THREE.Box3();mesh.updateWorldMatrix(true,false);const positions=mesh.geometry?.getAttribute('position'),point=new THREE.Vector3();if(positions)for(let i=0;i<positions.count;i++){point.fromBufferAttribute(positions,i).applyMatrix4(mesh.matrixWorld);p.root.worldToLocal(point);localBox.expandByPoint(point)}const dims=localBox.isEmpty()?size:localBox.getSize(new THREE.Vector3());
   const vertical=lamp||kind==='vertical',relative=center.clone().sub(new THREE.Vector3(p.asset.placementBase?.x||0,0,p.asset.placementBase?.z||0));const dir=vertical?new THREE.Vector3(0,-1,0):dims.x<dims.z?new THREE.Vector3(Math.sign(relative.x)||1,0,0):new THREE.Vector3(0,0,Math.sign(relative.z)||1);
   const width=vertical?Math.max(dims.x,dims.z):Math.max(dims.x,dims.z),height=Math.max(2,dims.y),length=vertical?Math.max(5,Math.min(60,center.y-(p.asset.placementBase?.bottom||0))):Math.max(8,Math.min(45,width*.65));
-  const beam=fadingLightBeam(color,Math.max(2,width),height,length,kind==='window');beam.position.copy(center).addScaledVector(dir,vertical?0:Math.min(dims.x,dims.z)*.51);beam.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1),dir);p.root.add(beam);effects.push({object:beam,opacity:kind==='window'?.09:.12});
+  const beam=fadingLightBeam(color,Math.max(2,width),vertical?Math.max(2,dims.z):height,length,true),surface=extrudedLightSurface(mesh,p,dir,length);if(surface){beam.geometry.dispose();beam.geometry=surface;}else{beam.position.copy(center).addScaledVector(dir,vertical?0:Math.min(dims.x,dims.z)*.51);beam.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1),dir);}beam.material.blending=THREE.NormalBlending;beam.material.side=THREE.FrontSide;p.root.add(beam);effects.push({object:beam,opacity:.3});
  }
 
 }
@@ -316,7 +322,7 @@ let nextAmbientHorn=performance.now()+15000+Math.random()*30000;
 function ambientVehicleSound(){const now=performance.now();if(now<nextAmbientHorn)return;nextAmbientHorn=now+18000+Math.random()*45000;if(placed.some(isVehicle))carHorn(true);}
 
 function lightMarker(name){return /^(?:LIGHTS?|WINDOWS?)(?:[_\s]|$)/i.test(String(name||'').trim());}
-function lampMarker(name){return /^(?:LAMPS?|LIGHTS?_LAMPS?|LIGHTS?_VERTICAL)(?:[_\s]|$)/i.test(String(name||'').trim());}
+function lampMarker(name){return /^(?:LAMPS?|LIGHTS?_LAMPS?|LIGHTS?_(?:VERTICAL|V))(?:[_\s]|$)/i.test(String(name||'').trim());}
 function legacyWindow(name){return /^fenster[ _]light(?:[ _.]\d+)?$/i.test(String(name||'').trim());}
 function ensureNightLights(p){
  if(p.root.userData.nightReady)return;p.root.userData.nightReady=true;const materials=[],lamps=[];

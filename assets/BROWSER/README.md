@@ -12,12 +12,9 @@ Groß- und Kleinschreibung ist egal. Hinter `_` darf ein beliebiger Zusatz stehe
 
 | Name | Wirkung |
 |---|---|
-| `WINDOW`, `WINDOW_front` | Fenster leuchtet in Modellfarbe; rechteckiger, nach außen gerichteter Lichtkörper passt sich der Fensterbreite und -höhe an und läuft weich aus. Nur die Fensterfläche markieren. |
-| `LIGHT_HORIZONTAL`, `LIGHT_HORIZONTAL_front` | Leuchtkörper plus horizontaler, weich auslaufender Strahl in Modellfarbe. Bei Fahrzeugen bleiben Front-/Rücklichtregeln erhalten. |
-| `LIGHT_VERTICAL`, `LIGHT_VERTICAL_street` | Leuchtkörper plus nach unten gerichteter, weich auslaufender Kegel in Modellfarbe. |
-| `LIGHT`, `LIGHTS`, `LIGHT_window`, `LIGHTS_front` | Nachtleuchten plus leichter Lichtschein. Material-/Vertexfarben bleiben maßgeblich. Fahrzeuge haben vordere/rote hintere Lichtstrahlen. |
-| `LAMP`, `LAMPS`, `LAMP_street` | Nachtleuchten plus weicher nach unten gerichteter Lichtschein. Nur das Leuchtmittel so nennen, nicht Rahmen oder ganzen Pfosten. |
-| `LIGHT_LAMP`, `light_lamp`, `LIGHT_LAMP_front` | Kombination: markierter Körper leuchtet in seiner Modellfarbe und erhält einen weichen nach unten gerichteten Schein. Nur den Leuchtkörper markieren; Stange und Gehäuse normal benennen. Gilt allgemein für neue Modelle. |
+| `LIGHT_H`, `light_h`, `LIGHT_H_front` | Leuchtender Körper mit Glow und horizontalem Schein. Die ausgerichtete Außenfläche wird in ihrer Form verlängert: anfangs 30 % sichtbar (70 % transparent), am Ende unsichtbar. Modellfarbe bleibt erhalten. Für Fenster und Autoscheinwerfer. |
+| `LIGHT_V`, `light_v`, `LIGHT_V_street` | Leuchtender Körper mit Glow und entsprechendem Schein nach unten. Nur den Leuchtkörper markieren, nicht Stange oder Gehäuse. |
+| Ältere Namen: `LIGHT`, `LIGHTS`, `WINDOW`, `LIGHT_HORIZONTAL`, `LIGHT_VERTICAL`, `LAMP`, `LIGHT_LAMP` | Weiterhin unterstützt. Neue Modelle vorzugsweise mit LIGHT_H oder LIGHT_V benennen. |
 | `SMOKE`, `smoke`, `SMOKE_chimney`, `smoke_exhaust` | Kleine weiße Rauchwolken steigen von der Oberseite des markierten Meshes oder der Komponente auf, tagsüber und nachts. Für Schornsteine und Auspuffe. Groß-/Kleinschreibung egal; Zusatz nach `_` frei. Der sichtbare Modellteil bleibt unverändert. |
 | `COLOR`, `COLOR_wall` | Diese Flächen dürfen über den Farbwähler im Objekt-Label umgefärbt werden. Auswahl gilt für das einzelne platzierte Objekt und wird gespeichert/kopiert. Alle markierten Flächen eines Objekts teilen sich eine gewählte Farbe. |
 | `PLACEMENT_PLATE`, `placement_plate_base` | Begrenzung der Bodenplatte bestimmt Raster und Belegung. Überstehende Dächer/Lampen zählen nicht. Sichtbare GLB-Geometrie wird nicht umgeformt. |
