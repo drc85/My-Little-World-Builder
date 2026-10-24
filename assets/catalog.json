@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "revision": 526,
+  "revision": 527,
   "assets": [
     {
       "name": "5x5 Grass Beam 5mm",
@@ -4151,9 +4151,7 @@
     "changed": [],
     "moved": [],
     "missing": [],
-    "newFolders": [
-      "Terrain/CUSTOM COLOR"
-    ]
+    "newFolders": []
   },
-  "updated": "2026-10-25T00:06:43+02:00"
+  "updated": "2026-10-25T00:09:37+02:00"
 }

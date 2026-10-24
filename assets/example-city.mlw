@@ -170,10 +170,10 @@
       "placementCenter": {
         "x": 675,
         "y": 0,
-        "z": 149.99252
+        "z": 150
       },
       "x": 675,
-      "z": 149.99252,
+      "z": 150,
       "r": 0,
       "y": 0,
       "locked": false,
@@ -1050,31 +1050,13 @@
       "assetFile": "BROWSER/Figures/Work/2x2 Male Farmer.ply",
       "assetSignature": "b86406d36810dcae68e89e6bb878d728ff5ae051cc684ab67de6c79bffc038d1",
       "placementCenter": {
-        "x": 297.01307499979436,
-        "y": 5,
-        "z": 210
-      },
-      "x": 297.01307499979436,
-      "z": 210,
-      "r": 1.5707963267948966,
-      "y": 5,
-      "locked": false,
-      "groupId": null,
-      "groupColor": null,
-      "modelColor": null
-    },
-    {
-      "assetId": "character-worker",
-      "assetFile": "BROWSER/Figures/Work/2x2 Male Farmer.ply",
-      "assetSignature": "b86406d36810dcae68e89e6bb878d728ff5ae051cc684ab67de6c79bffc038d1",
-      "placementCenter": {
-        "x": 354.4238500004113,
+        "x": 20,
         "y": 7,
-        "z": 260
+        "z": 418.52578499952705
       },
-      "x": 354.4238500004113,
-      "z": 260,
-      "r": -1.5707963267948966,
+      "x": 20,
+      "z": 418.52578499952705,
+      "r": 0,
       "y": 7,
       "locked": false,
       "groupId": null,
@@ -1086,14 +1068,32 @@
       "assetFile": "BROWSER/Figures/Work/2x2 Male Farmer.ply",
       "assetSignature": "b86406d36810dcae68e89e6bb878d728ff5ae051cc684ab67de6c79bffc038d1",
       "placementCenter": {
-        "x": 424.4238500004113,
+        "x": 517.5840499996915,
         "y": 7,
         "z": 290
       },
-      "x": 424.4238500004113,
+      "x": 517.5840499996915,
       "z": 290,
-      "r": -1.5707963267948966,
+      "r": 1.5707963267948966,
       "y": 7,
+      "locked": false,
+      "groupId": null,
+      "groupColor": null,
+      "modelColor": null
+    },
+    {
+      "assetId": "character-worker",
+      "assetFile": "BROWSER/Figures/Work/2x2 Male Farmer.ply",
+      "assetSignature": "b86406d36810dcae68e89e6bb878d728ff5ae051cc684ab67de6c79bffc038d1",
+      "placementCenter": {
+        "x": 620,
+        "y": 5,
+        "z": 237.872125
+      },
+      "x": 620,
+      "z": 237.872125,
+      "r": 0,
+      "y": 5,
       "locked": false,
       "groupId": null,
       "groupColor": null,
@@ -1104,13 +1104,13 @@
       "assetFile": "BROWSER/Vehicles/5x5 Vehicle.obj",
       "assetSignature": "23f918178bfabe97cbd0cab92e9d07a3194a605225705a6e8917c9b8dfd7ca2e",
       "placementCenter": {
-        "x": -156.12025268755906,
+        "x": 694.5693759995174,
         "y": 5,
-        "z": -149.75582624152423
+        "z": 475
       },
-      "x": -156.12025268755906,
-      "z": -149.75582624152423,
-      "r": -3.8673164740065067,
+      "x": 694.5693759995174,
+      "z": 475,
+      "r": -1.570796268802507,
       "y": 5,
       "locked": false,
       "groupId": null,
@@ -1122,14 +1122,14 @@
       "assetFile": "BROWSER/Vehicles/5x5 Vehicle.obj",
       "assetSignature": "23f918178bfabe97cbd0cab92e9d07a3194a605225705a6e8917c9b8dfd7ca2e",
       "placementCenter": {
-        "x": 376.1140418471123,
-        "y": 5,
-        "z": 392.5976979931314
+        "x": 746.596940000096,
+        "y": 30.366410777506413,
+        "z": -125.00000000000001
       },
-      "x": 376.1140418471123,
-      "z": 392.5976979931314,
-      "r": -0.30019900576480296,
-      "y": 5,
+      "x": 746.596940000096,
+      "z": -125.00000000000001,
+      "r": -1.570796268802507,
+      "y": 30.366410777506413,
       "locked": false,
       "groupId": null,
       "groupColor": null,
@@ -2401,14 +2401,14 @@
     {
       "assetId": "asset-3941babdb644651c",
       "assetFile": "BROWSER/Houses/Work/fire print .glb",
-      "assetSignature": "891dacca42ccd9f19025d7f249804d86724c2ccedd8cf087f1317fb2028e6d7b",
+      "assetSignature": "352a5550428c33ddad87bb6053bfb669d53648e2ebe80596d1cceb0724dbc2b2",
       "placementCenter": {
         "x": -250,
         "y": 0,
-        "z": 350
+        "z": 650
       },
       "x": -249.99044036865237,
-      "z": 621.4151000976562,
+      "z": 921.4151000976562,
       "r": 1.5707963267948966,
       "y": -0.1192779541015625,
       "locked": false,
@@ -2599,7 +2599,7 @@
     {
       "assetId": "asset-3941babdb644651c",
       "assetFile": "BROWSER/Houses/Work/fire print .glb",
-      "assetSignature": "891dacca42ccd9f19025d7f249804d86724c2ccedd8cf087f1317fb2028e6d7b",
+      "assetSignature": "352a5550428c33ddad87bb6053bfb669d53648e2ebe80596d1cceb0724dbc2b2",
       "placementCenter": {
         "x": -250,
         "y": 0,
@@ -2621,10 +2621,10 @@
       "placementCenter": {
         "x": -150,
         "y": 0,
-        "z": 350
+        "z": 650
       },
       "x": -150,
-      "z": 350,
+      "z": 650,
       "r": 0,
       "y": 0,
       "locked": false,
@@ -2657,10 +2657,10 @@
       "placementCenter": {
         "x": -150,
         "y": 0,
-        "z": 550
+        "z": 350
       },
       "x": -150,
-      "z": 550,
+      "z": 350,
       "r": 1.5707963267948966,
       "y": 0,
       "locked": false,
@@ -2675,10 +2675,10 @@
       "placementCenter": {
         "x": -150,
         "y": 0,
-        "z": 650
+        "z": 550
       },
       "x": -150,
-      "z": 650,
+      "z": 550,
       "r": 1.5707963267948966,
       "y": 0,
       "locked": false,
@@ -2739,6 +2739,96 @@
       "groupId": null,
       "groupColor": null,
       "modelColor": "#faff00"
+    },
+    {
+      "assetId": "asset-a8490dabb42c5009",
+      "assetFile": "BROWSER/Houses/Work/fire middle.glb",
+      "assetSignature": "8db0d4e6e5dacb94edce93f92bd5d5713de052758bb09234f6834a56eb87b34f",
+      "placementCenter": {
+        "x": -250,
+        "y": 0,
+        "z": 550
+      },
+      "x": -249.92132568359378,
+      "z": 1083.2904510498047,
+      "r": 1.5707963267948966,
+      "y": 0.0002288818359375,
+      "locked": false,
+      "groupId": null,
+      "groupColor": null,
+      "modelColor": null
+    },
+    {
+      "assetId": "grass-5",
+      "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
+      "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 25,
+        "y": 0,
+        "z": 525
+      },
+      "x": 25,
+      "z": 525,
+      "r": 3.141592653589793,
+      "y": 0,
+      "locked": false,
+      "groupId": null,
+      "groupColor": null,
+      "modelColor": null
+    },
+    {
+      "assetId": "grass-5",
+      "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
+      "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": -225,
+        "y": 0,
+        "z": 275
+      },
+      "x": -225,
+      "z": 275,
+      "r": 3.141592653589793,
+      "y": 0,
+      "locked": false,
+      "groupId": null,
+      "groupColor": null,
+      "modelColor": null
+    },
+    {
+      "assetId": "grass-5",
+      "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
+      "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 775,
+        "y": 0,
+        "z": 525
+      },
+      "x": 775,
+      "z": 525,
+      "r": 3.141592653589793,
+      "y": 0,
+      "locked": false,
+      "groupId": null,
+      "groupColor": null,
+      "modelColor": null
+    },
+    {
+      "assetId": "grass-5",
+      "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
+      "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 1025,
+        "y": 0,
+        "z": 275
+      },
+      "x": 1025,
+      "z": 275,
+      "r": 3.141592653589793,
+      "y": 0,
+      "locked": false,
+      "groupId": null,
+      "groupColor": null,
+      "modelColor": null
     },
     {
       "assetId": "asset-021e9c8e6ba7eb36",
