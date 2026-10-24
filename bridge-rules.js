@@ -1,4 +1,4 @@
-import {placementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261024-project-loading';
+import {placementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261024-centered-clouds';
 export const role=p=>p.asset.bridgeRole||'';
 export const elevated=p=>['deck','rail'].includes(role(p));
 export function dimensions(p){const turn=Math.round(p.rotation/(Math.PI/2))%2;return turn?{w:p.asset.d,d:p.asset.w}:{w:p.asset.w,d:p.asset.d};}

@@ -1,9 +1,9 @@
 import {LineSegments2} from 'three/addons/lines/LineSegments2.js';
 import {LineSegmentsGeometry} from 'three/addons/lines/LineSegmentsGeometry.js';
 import {LineMaterial} from 'three/addons/lines/LineMaterial.js';
-import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261024-project-loading';
-import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261024-project-loading';
-import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261024-project-loading';
+import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261024-centered-clouds';
+import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261024-centered-clouds';
+import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261024-centered-clouds';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
@@ -374,15 +374,15 @@ function updateTownReveal(){
  ctx.clearRect(0,0,512,512);ctx.fillStyle='white';ctx.shadowColor='white';ctx.shadowBlur=14;
  if(!footprints.length){ctx.beginPath();ctx.arc(256,256,125*k,0,Math.PI*2);ctx.fill();}
  else for(const p of footprints){
-  // Include the projected roof as well as the plate, keeping tall models clear.
+  // Keep the opening centered on the plate; add roof clearance equally on both sides.
   const sx=-direction.x/direction.y*Math.max(0,p.top),sz=-direction.z/direction.y*Math.max(0,p.top),margin=85;
-  const x=p.x-p.w/2+Math.min(0,sx)-margin,z=p.z-p.d/2+Math.min(0,sz)-margin,w=p.w+Math.abs(sx)+margin*2,d=p.d+Math.abs(sz)+margin*2;
+  const x=p.x-p.w/2-Math.abs(sx)-margin,z=p.z-p.d/2-Math.abs(sz)-margin,w=p.w+Math.abs(sx)*2+margin*2,d=p.d+Math.abs(sz)*2+margin*2;
   ctx.beginPath();ctx.roundRect(pixel(x),pixel(z),w*k,d*k,Math.min(65*k,w*k/2,d*k/2));ctx.fill();
  }
  ctx.shadowBlur=0;townRevealTexture.needsUpdate=true;
  const near=townNearContext;near.clearRect(0,0,512,512);near.fillStyle='white';near.shadowColor='white';near.shadowBlur=20;
  if(!footprints.length){near.beginPath();near.arc(256,256,390*k,0,Math.PI*2);near.fill();}
- else for(const p of footprints){const sx=-direction.x/direction.y*Math.max(0,p.top),sz=-direction.z/direction.y*Math.max(0,p.top),margin=330,x=p.x-p.w/2+Math.min(0,sx)-margin,z=p.z-p.d/2+Math.min(0,sz)-margin,w=p.w+Math.abs(sx)+margin*2,d=p.d+Math.abs(sz)+margin*2;near.beginPath();near.roundRect(pixel(x),pixel(z),w*k,d*k,Math.min(220*k,w*k/2,d*k/2));near.fill();}near.shadowBlur=0;townNearTexture.needsUpdate=true;
+ else for(const p of footprints){const sx=-direction.x/direction.y*Math.max(0,p.top),sz=-direction.z/direction.y*Math.max(0,p.top),margin=330,x=p.x-p.w/2-Math.abs(sx)-margin,z=p.z-p.d/2-Math.abs(sz)-margin,w=p.w+Math.abs(sx)*2+margin*2,d=p.d+Math.abs(sz)*2+margin*2;near.beginPath();near.roundRect(pixel(x),pixel(z),w*k,d*k,Math.min(220*k,w*k/2,d*k/2));near.fill();}near.shadowBlur=0;townNearTexture.needsUpdate=true;
 }
 const outerCloudPass=new ShaderPass({
  uniforms:{tDiffuse:{value:null},inverseCamera:{value:new THREE.Matrix4()},revealMap:{value:townRevealTexture},nearMap:{value:townNearTexture},revealExtent:{value:townRevealExtent},density:{value:new THREE.Vector2(.48,.9)},time:{value:0}},
