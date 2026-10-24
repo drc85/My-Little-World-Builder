@@ -1,9 +1,9 @@
 import {LineSegments2} from 'three/addons/lines/LineSegments2.js';
 import {LineSegmentsGeometry} from 'three/addons/lines/LineSegmentsGeometry.js';
 import {LineMaterial} from 'three/addons/lines/LineMaterial.js';
-import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261024-light-directions';
-import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261024-light-directions';
-import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261024-light-directions';
+import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261024-shadow-drag';
+import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261024-shadow-drag';
+import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261024-shadow-drag';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
@@ -304,8 +304,8 @@ function addLampEffects(p,mesh,material,lamp=false,source=mesh){
   // Measure in model-local coordinates so rotation never changes the light shape.
   const localBox=new THREE.Box3();mesh.updateWorldMatrix(true,false);const positions=mesh.geometry?.getAttribute('position'),point=new THREE.Vector3();if(positions)for(let i=0;i<positions.count;i++){point.fromBufferAttribute(positions,i).applyMatrix4(mesh.matrixWorld);p.root.worldToLocal(point);localBox.expandByPoint(point)}const dims=localBox.isEmpty()?size:localBox.getSize(new THREE.Vector3());
   const upward=kind==='vertical-up',vertical=lamp||kind==='vertical'||upward;const dir=vertical?new THREE.Vector3(0,upward?1:-1,0):horizontalLightDirection(p,mesh,center,dims);
-  const width=vertical?Math.max(dims.x,dims.z):Math.max(dims.x,dims.z),height=Math.max(2,dims.y),length=vertical?(upward?Math.max(25,Math.min(60,width*1.2)):Math.max(5,Math.min(60,center.y-dims.y*.35-(p.asset.placementBase?.bottom||0)))):Math.max(24,Math.min(45,width*.65));
-  const beam=fadingLightBeam(color,Math.max(2,width),vertical?Math.max(2,dims.z):height,length,!vertical),surface=vertical?null:extrudedLightSurface(mesh,p,dir,length);if(surface){beam.geometry.dispose();beam.geometry=surface;}else{beam.position.copy(center).addScaledVector(dir,vertical?dims.y*.35:Math.min(dims.x,dims.z)*.51);beam.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1),dir);}beam.material.blending=THREE.NormalBlending;beam.material.side=THREE.DoubleSide;beam.material.forceSinglePass=true;p.root.add(beam);effects.push({object:beam,opacity:.3});
+  const width=vertical?Math.max(dims.x,dims.z):Math.max(dims.x,dims.z),height=Math.max(2,dims.y),length=vertical?(upward?Math.max(25,Math.min(60,width*1.2)):Math.max(5,Math.min(60,center.y-dims.y*.35-(p.asset.placementBase?.bottom||0)))):Math.max(30,Math.min(45,width*.65));
+  const beam=fadingLightBeam(color,Math.max(2,width),vertical?Math.max(2,dims.z):height,length,!vertical),surface=vertical?null:extrudedLightSurface(mesh,p,dir,length);if(surface){beam.geometry.dispose();beam.geometry=surface;}else{beam.position.copy(center).addScaledVector(dir,vertical?dims.y*.35:Math.min(dims.x,dims.z)*.51);beam.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1),dir);}beam.material.blending=THREE.NormalBlending;beam.material.side=THREE.DoubleSide;beam.material.forceSinglePass=true;p.root.add(beam);effects.push({object:beam,opacity:vertical?.3:.55});
  }
 
 }
@@ -1865,7 +1865,8 @@ exampleButton.onclick=async()=>{if(exampleButton.disabled)return;if(placed.lengt
 const credit=document.getElementById('cornerBrandCredit');credit.querySelector('.brandMade')?.remove();const logos=credit.querySelector('.brandLogos');logos.insertAdjacentHTML('beforeend','<span title="DRC Grapix"><img src="assets/IMG/drc.svg" alt="DRC Grapix"></span><a href="https://www.instagram.com/3drc_grapix/" target="_blank" rel="noopener" title="Instagram"><svg width="24" height="24" viewBox="0 0 24 24" aria-label="Instagram" style="color:black"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg></a>');
 let nextAnimalSound=0,splashClock=0;
 const splashPool=Array.from({length:24},()=>{const o=new THREE.Mesh(new THREE.RingGeometry(.4,.7,8),new THREE.MeshBasicMaterial({color:0xcceeff,transparent:true,opacity:0,depthWrite:false,side:THREE.DoubleSide}));o.rotation.x=-Math.PI/2;o.visible=false;o.userData.lightEffect=true;scene.add(o);return {o,life:0};});
-function updateExtraEffects(dt,now){if(!window.mlwExtrasReady)return;if(now-(renderer.userDataShadowTime||0)>250){renderer.userDataShadowTime=now;renderer.shadowMap.needsUpdate=placed.length>0||renderer.userDataHadCasters===true;renderer.userDataHadCasters=placed.length>0;}grid.material.resolution.set(viewport.clientWidth,viewport.clientHeight);
+function updateExtraEffects(dt,now){if(!window.mlwExtrasReady)return;// Reuse the last shadow map while dragging; refresh immediately on release.
+ const moving=!!(dragging||draggingGroup);if(moving){renderer.userDataShadowDragging=true;renderer.shadowMap.needsUpdate=false;}else if(renderer.userDataShadowDragging||now-(renderer.userDataShadowTime||0)>350){renderer.userDataShadowDragging=false;renderer.userDataShadowTime=now;renderer.shadowMap.needsUpdate=placed.length>0||renderer.userDataHadCasters===true;renderer.userDataHadCasters=placed.length>0;}grid.material.resolution.set(viewport.clientWidth,viewport.clientHeight);
  const night=nightAmountForHour(currentSkyHour(now));if(window.mlwNightShadowsReady)updateModelNightShadows(now,night);skySun.style.opacity=String((1-night)*(!worldSettings.live&&worldSettings.manualWeather?.sun===false?0:worldSettings.weatherCode===0?1:.25));skyMoon.style.opacity=String(worldSettings.manualWeather?.moon===false&&!worldSettings.live?0:night);manualWeather.disabled=!!worldSettings.live;
  for(const [button,panel] of [['cloudBtn','cloudDrop'],['partsBtn','partsOverlay'],['helpBtn','helpOverlay']])document.getElementById(button).classList.toggle('panel-active',document.getElementById(panel).classList.contains('open'));
  updateTransit(dt);if(now>nextAnimalSound){nextAnimalSound=now+22000+Math.random()*22000;const sounds=[];if(placed.some(p=>p.asset.cat==='Animals'))sounds.push(animalMeow);if(placed.some(p=>transportKind(p.asset)==='train'))sounds.push(trainWhistle);if(placed.some(p=>pedestrian(p)&&p.asset.cat!=='Animals'))sounds.push(characterMurmur);sounds[Math.floor(Math.random()*sounds.length)]?.();}
@@ -1875,7 +1876,7 @@ function updateExtraEffects(dt,now){if(!window.mlwExtrasReady)return;if(now-(ren
 
 window.mlwExtrasReady=true;
 
-sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);sun.shadow.camera.left=-2200;sun.shadow.camera.right=2200;sun.shadow.camera.top=2200;sun.shadow.camera.bottom=-2200;sun.shadow.camera.near=10;sun.shadow.camera.far=6500;sun.shadow.bias=-.0003;sun.shadow.normalBias=.5;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.shadowMap.autoUpdate=false;
+sun.castShadow=true;sun.shadow.mapSize.set(512,512);sun.shadow.camera.left=-2200;sun.shadow.camera.right=2200;sun.shadow.camera.top=2200;sun.shadow.camera.bottom=-2200;sun.shadow.camera.near=10;sun.shadow.camera.far=6500;sun.shadow.bias=-.0003;sun.shadow.normalBias=.5;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.shadowMap.autoUpdate=false;
 const shadowFloor=new THREE.Mesh(new THREE.PlaneGeometry(BUILD_HALF*2,BUILD_HALF*2),new THREE.ShadowMaterial({opacity:.34,depthWrite:false}));shadowFloor.rotation.x=-Math.PI/2;shadowFloor.position.y=.02;shadowFloor.receiveShadow=true;scene.add(shadowFloor);
 const windowShadow=new THREE.PointLight(0xffdab0,0,280,2);windowShadow.castShadow=true;windowShadow.shadow.mapSize.set(256,256);windowShadow.shadow.bias=-.001;scene.add(windowShadow);
 
@@ -2049,14 +2050,14 @@ visualFilter.addEventListener('change',syncLook);window.addEventListener('resize
 }
 // Two nearby model lights cast subtle night shadows, instead of one fixed world light.
 scene.remove(windowShadow);
-const nightShadowLights=Array.from({length:2},()=>{const light=new THREE.SpotLight(0xffd9a0,0,180,Math.PI/3,.65,1.5);light.castShadow=true;light.shadow.mapSize.set(256,256);light.shadow.bias=-.001;light.shadow.normalBias=.15;scene.add(light,light.target);return light;});
+const nightShadowLights=Array.from({length:2},()=>{const light=new THREE.SpotLight(0xffd9a0,0,180,Math.PI/3,.65,1.5);light.castShadow=true;light.shadow.mapSize.set(128,128);light.shadow.bias=-.001;light.shadow.normalBias=.15;scene.add(light,light.target);return light;});
 let nextNightShadow=0;
 function updateModelNightShadows(now,night){
  const strength=THREE.MathUtils.smoothstep(night,.4,.9);
- if(!strength){for(const l of nightShadowLights){l.intensity=0;l.shadow.intensity=0;}return;}
+ if(!strength){for(const l of nightShadowLights){l.intensity=0;l.shadow.intensity=0;l.visible=false;}return;}
  if(now<nextNightShadow)return;nextNightShadow=now+600;
  const candidates=placed.filter(p=>p.asset.cat==='Houses'&&p.root.userData.lampEffects?.length).sort((a,b)=>a.root.position.distanceToSquared(controls.target)-b.root.position.distanceToSquared(controls.target)).slice(0,2);
- nightShadowLights.forEach((light,i)=>{const p=candidates[i];light.visible=true;light.shadow.intensity=.35*strength;if(!p){light.intensity=0;light.shadow.intensity=0;return;}p.root.updateMatrixWorld(true);const emitter=p.root.userData.lampEffects.find(e=>e.object.isSprite)?.object;if(!emitter){light.intensity=0;return;}emitter.getWorldPosition(light.position);const center=placementCenter(p),out=new THREE.Vector3(light.position.x-center.x,0,light.position.z-center.z);if(out.lengthSq()<1)out.set(0,0,1);out.normalize();light.position.addScaledVector(out,2);light.target.position.set(light.position.x+out.x*24,p.root.position.y+5,light.position.z+out.z*24);light.color.copy(emitter.material.color);light.intensity=40*strength;});
+ nightShadowLights.forEach((light,i)=>{const p=candidates[i];light.visible=true;light.shadow.intensity=.35*strength;if(!p){light.visible=false;light.intensity=0;light.shadow.intensity=0;return;}p.root.updateMatrixWorld(true);const emitter=p.root.userData.lampEffects.find(e=>e.object.isSprite)?.object;if(!emitter){light.visible=false;light.intensity=0;return;}emitter.getWorldPosition(light.position);const center=placementCenter(p),out=new THREE.Vector3(light.position.x-center.x,0,light.position.z-center.z);if(out.lengthSq()<1)out.set(0,0,1);out.normalize();light.position.addScaledVector(out,2);light.target.position.set(light.position.x+out.x*24,p.root.position.y+5,light.position.z+out.z*24);light.color.copy(emitter.material.color);light.intensity=40*strength;});
 }
 window.mlwNightShadowsReady=true;
 
