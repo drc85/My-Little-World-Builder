@@ -5,6 +5,11 @@
       "assetId": "asset-63c47d553d694a67",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street.obj",
       "assetSignature": "7fc1ca822e99166648d70420e730d011ce058ac5b6eb9648122e456ecc133dc0",
+      "placementCenter": {
+        "x": 225,
+        "y": 0,
+        "z": -50
+      },
       "x": 225,
       "z": -50,
       "r": 0,
@@ -18,6 +23,11 @@
       "assetId": "asset-63c47d553d694a67",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street.obj",
       "assetSignature": "7fc1ca822e99166648d70420e730d011ce058ac5b6eb9648122e456ecc133dc0",
+      "placementCenter": {
+        "x": 225,
+        "y": 0,
+        "z": 50
+      },
       "x": 225,
       "z": 50,
       "r": 0,
@@ -31,6 +41,11 @@
       "assetId": "asset-63c47d553d694a67",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street.obj",
       "assetSignature": "7fc1ca822e99166648d70420e730d011ce058ac5b6eb9648122e456ecc133dc0",
+      "placementCenter": {
+        "x": 225,
+        "y": 0,
+        "z": 150
+      },
       "x": 225,
       "z": 150,
       "r": 0,
@@ -44,6 +59,11 @@
       "assetId": "asset-63c47d553d694a67",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street.obj",
       "assetSignature": "7fc1ca822e99166648d70420e730d011ce058ac5b6eb9648122e456ecc133dc0",
+      "placementCenter": {
+        "x": 375,
+        "y": 0,
+        "z": 150
+      },
       "x": 375,
       "z": 150,
       "r": 0,
@@ -57,6 +77,11 @@
       "assetId": "asset-63c47d553d694a67",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street.obj",
       "assetSignature": "7fc1ca822e99166648d70420e730d011ce058ac5b6eb9648122e456ecc133dc0",
+      "placementCenter": {
+        "x": 375,
+        "y": 0,
+        "z": 49.99813
+      },
       "x": 375,
       "z": 49.99813,
       "r": 0,
@@ -70,6 +95,11 @@
       "assetId": "asset-63c47d553d694a67",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street.obj",
       "assetSignature": "7fc1ca822e99166648d70420e730d011ce058ac5b6eb9648122e456ecc133dc0",
+      "placementCenter": {
+        "x": 375,
+        "y": 0,
+        "z": -50.00373999999999
+      },
       "x": 375,
       "z": -50.00373999999999,
       "r": 0,
@@ -83,6 +113,11 @@
       "assetId": "asset-63c47d553d694a67",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street.obj",
       "assetSignature": "7fc1ca822e99166648d70420e730d011ce058ac5b6eb9648122e456ecc133dc0",
+      "placementCenter": {
+        "x": 525,
+        "y": 0,
+        "z": 150
+      },
       "x": 525,
       "z": 150,
       "r": 0,
@@ -96,6 +131,11 @@
       "assetId": "asset-63c47d553d694a67",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street.obj",
       "assetSignature": "7fc1ca822e99166648d70420e730d011ce058ac5b6eb9648122e456ecc133dc0",
+      "placementCenter": {
+        "x": 525,
+        "y": 0,
+        "z": 49.99439000000001
+      },
       "x": 525,
       "z": 49.99439000000001,
       "r": 0,
@@ -109,6 +149,11 @@
       "assetId": "asset-63c47d553d694a67",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street.obj",
       "assetSignature": "7fc1ca822e99166648d70420e730d011ce058ac5b6eb9648122e456ecc133dc0",
+      "placementCenter": {
+        "x": 525,
+        "y": 0,
+        "z": -50.00747999999999
+      },
       "x": 525,
       "z": -50.00747999999999,
       "r": 0,
@@ -122,6 +167,11 @@
       "assetId": "asset-63c47d553d694a67",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street.obj",
       "assetSignature": "7fc1ca822e99166648d70420e730d011ce058ac5b6eb9648122e456ecc133dc0",
+      "placementCenter": {
+        "x": 675,
+        "y": 0,
+        "z": 149.99252
+      },
       "x": 675,
       "z": 149.99252,
       "r": 0,
@@ -135,6 +185,11 @@
       "assetId": "asset-63c47d553d694a67",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street.obj",
       "assetSignature": "7fc1ca822e99166648d70420e730d011ce058ac5b6eb9648122e456ecc133dc0",
+      "placementCenter": {
+        "x": 675,
+        "y": 0,
+        "z": 49.99065000000002
+      },
       "x": 675,
       "z": 49.99065000000002,
       "r": 0,
@@ -148,6 +203,11 @@
       "assetId": "asset-63c47d553d694a67",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street.obj",
       "assetSignature": "7fc1ca822e99166648d70420e730d011ce058ac5b6eb9648122e456ecc133dc0",
+      "placementCenter": {
+        "x": 675,
+        "y": 0,
+        "z": -50.01121999999998
+      },
       "x": 675,
       "z": -50.01121999999998,
       "r": 0,
@@ -161,6 +221,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 125,
+        "y": 0,
+        "z": 275
+      },
       "x": 125,
       "z": 275,
       "r": 0,
@@ -174,6 +239,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 175,
+        "y": 0,
+        "z": 275
+      },
       "x": 175,
       "z": 275,
       "r": 0,
@@ -187,6 +257,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 225,
+        "y": 0,
+        "z": 275
+      },
       "x": 225,
       "z": 275,
       "r": 0,
@@ -200,6 +275,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 275,
+        "y": 0,
+        "z": 275
+      },
       "x": 275,
       "z": 275,
       "r": 0,
@@ -213,6 +293,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 325,
+        "y": 0,
+        "z": 275
+      },
       "x": 325,
       "z": 275,
       "r": 0,
@@ -226,6 +311,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 375,
+        "y": 0,
+        "z": 275
+      },
       "x": 375,
       "z": 275,
       "r": 0,
@@ -239,6 +329,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 425,
+        "y": 0,
+        "z": 275
+      },
       "x": 425,
       "z": 275,
       "r": 0,
@@ -252,6 +347,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 475,
+        "y": 0,
+        "z": 275
+      },
       "x": 475,
       "z": 275,
       "r": 0,
@@ -265,6 +365,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 525,
+        "y": 0,
+        "z": 275
+      },
       "x": 525,
       "z": 275,
       "r": 0,
@@ -278,6 +383,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 575,
+        "y": 0,
+        "z": 275
+      },
       "x": 575,
       "z": 275,
       "r": 0,
@@ -291,6 +401,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 625,
+        "y": 0,
+        "z": 275
+      },
       "x": 625,
       "z": 275,
       "r": 0,
@@ -304,6 +419,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 675,
+        "y": 0,
+        "z": 275
+      },
       "x": 675,
       "z": 275,
       "r": 0,
@@ -317,6 +437,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 725,
+        "y": 0,
+        "z": 275
+      },
       "x": 725,
       "z": 275,
       "r": 0,
@@ -330,6 +455,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 775,
+        "y": 0,
+        "z": 275
+      },
       "x": 775,
       "z": 275,
       "r": 0,
@@ -343,6 +473,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 775,
+        "y": 0,
+        "z": 225
+      },
       "x": 775,
       "z": 225,
       "r": 0,
@@ -356,6 +491,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 775,
+        "y": 0,
+        "z": 175
+      },
       "x": 775,
       "z": 175,
       "r": 0,
@@ -369,6 +509,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 775,
+        "y": 0,
+        "z": 125
+      },
       "x": 775,
       "z": 125,
       "r": 0,
@@ -382,6 +527,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 775,
+        "y": 0,
+        "z": 75
+      },
       "x": 775,
       "z": 75,
       "r": 0,
@@ -395,6 +545,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 775,
+        "y": 0,
+        "z": 25
+      },
       "x": 775,
       "z": 25,
       "r": 0,
@@ -408,6 +563,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 775,
+        "y": 0,
+        "z": -25
+      },
       "x": 775,
       "z": -25,
       "r": 0,
@@ -421,6 +581,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 775,
+        "y": 0,
+        "z": -75
+      },
       "x": 775,
       "z": -75,
       "r": 0,
@@ -434,6 +599,11 @@
       "assetId": "asset-12f8aa6e08441e48",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street 90.obj",
       "assetSignature": "ab636f2fb266115dc2cde322dde0e12401358a1f3bdbb6e904016e9bfaf4d3cf",
+      "placementCenter": {
+        "x": 850,
+        "y": 0,
+        "z": 350
+      },
       "x": 850,
       "z": 350,
       "r": 1.5707963267948966,
@@ -447,6 +617,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": 250,
+        "y": 0,
+        "z": 450
+      },
       "x": 250,
       "z": 450,
       "r": 0,
@@ -460,6 +635,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": 550,
+        "y": 0,
+        "z": 450
+      },
       "x": 550,
       "z": 450,
       "r": 0,
@@ -473,6 +653,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": 650,
+        "y": 0,
+        "z": 450
+      },
       "x": 650,
       "z": 450,
       "r": 0,
@@ -486,6 +671,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": 250,
+        "y": 0,
+        "z": 350
+      },
       "x": 250,
       "z": 350,
       "r": 0,
@@ -499,6 +689,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": 550,
+        "y": 0,
+        "z": 350
+      },
       "x": 550,
       "z": 350,
       "r": 0,
@@ -512,6 +707,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": 650,
+        "y": 0,
+        "z": 350
+      },
       "x": 650,
       "z": 350,
       "r": 0,
@@ -525,6 +725,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": 850,
+        "y": 0,
+        "z": 150
+      },
       "x": 850,
       "z": 150,
       "r": 1.5707963267948966,
@@ -538,6 +743,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": 850,
+        "y": 0,
+        "z": -50
+      },
       "x": 850,
       "z": -50,
       "r": 1.5707963267948966,
@@ -551,6 +761,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": 950,
+        "y": 0,
+        "z": 350
+      },
       "x": 950,
       "z": 350,
       "r": 1.5707963267948966,
@@ -564,6 +779,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": 950,
+        "y": 0,
+        "z": 150
+      },
       "x": 950,
       "z": 150,
       "r": 1.5707963267948966,
@@ -577,6 +797,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": 950,
+        "y": 0,
+        "z": 50
+      },
       "x": 950,
       "z": 50,
       "r": 1.5707963267948966,
@@ -590,6 +815,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": 850,
+        "y": 0,
+        "z": 450
+      },
       "x": 850,
       "z": 450,
       "r": 3.141592653589793,
@@ -603,6 +833,11 @@
       "assetId": "asset-12f8aa6e08441e48",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street 90.obj",
       "assetSignature": "ab636f2fb266115dc2cde322dde0e12401358a1f3bdbb6e904016e9bfaf4d3cf",
+      "placementCenter": {
+        "x": 950,
+        "y": 0,
+        "z": 450
+      },
       "x": 950,
       "z": 450,
       "r": 1.5707963267948966,
@@ -616,6 +851,11 @@
       "assetId": "asset-ccce62a3e209205b",
       "assetFile": "BROWSER/Terrain/Pavement/5x10 Pavement.obj",
       "assetSignature": "66bcc96e24f1e7ba5061832f997f96ea744a156c91dabea7d549af08dc797722",
+      "placementCenter": {
+        "x": 725,
+        "y": 0,
+        "z": 50
+      },
       "x": 725,
       "z": 50,
       "r": 1.5707963267948966,
@@ -629,6 +869,11 @@
       "assetId": "asset-ccce62a3e209205b",
       "assetFile": "BROWSER/Terrain/Pavement/5x10 Pavement.obj",
       "assetSignature": "66bcc96e24f1e7ba5061832f997f96ea744a156c91dabea7d549af08dc797722",
+      "placementCenter": {
+        "x": 725,
+        "y": 0,
+        "z": 150
+      },
       "x": 725,
       "z": 150,
       "r": 1.5707963267948966,
@@ -642,6 +887,11 @@
       "assetId": "asset-ccce62a3e209205b",
       "assetFile": "BROWSER/Terrain/Pavement/5x10 Pavement.obj",
       "assetSignature": "66bcc96e24f1e7ba5061832f997f96ea744a156c91dabea7d549af08dc797722",
+      "placementCenter": {
+        "x": 700,
+        "y": 0,
+        "z": 225
+      },
       "x": 700,
       "z": 225,
       "r": 3.141592653589793,
@@ -655,6 +905,11 @@
       "assetId": "asset-ccce62a3e209205b",
       "assetFile": "BROWSER/Terrain/Pavement/5x10 Pavement.obj",
       "assetSignature": "66bcc96e24f1e7ba5061832f997f96ea744a156c91dabea7d549af08dc797722",
+      "placementCenter": {
+        "x": 600,
+        "y": 0,
+        "z": 225
+      },
       "x": 600,
       "z": 225,
       "r": 3.141592653589793,
@@ -668,6 +923,11 @@
       "assetId": "asset-ccce62a3e209205b",
       "assetFile": "BROWSER/Terrain/Pavement/5x10 Pavement.obj",
       "assetSignature": "66bcc96e24f1e7ba5061832f997f96ea744a156c91dabea7d549af08dc797722",
+      "placementCenter": {
+        "x": 500,
+        "y": 0,
+        "z": 225
+      },
       "x": 500,
       "z": 225,
       "r": 3.141592653589793,
@@ -681,6 +941,11 @@
       "assetId": "asset-ccce62a3e209205b",
       "assetFile": "BROWSER/Terrain/Pavement/5x10 Pavement.obj",
       "assetSignature": "66bcc96e24f1e7ba5061832f997f96ea744a156c91dabea7d549af08dc797722",
+      "placementCenter": {
+        "x": 400,
+        "y": 0,
+        "z": 225
+      },
       "x": 400,
       "z": 225,
       "r": 3.141592653589793,
@@ -694,6 +959,11 @@
       "assetId": "asset-ccce62a3e209205b",
       "assetFile": "BROWSER/Terrain/Pavement/5x10 Pavement.obj",
       "assetSignature": "66bcc96e24f1e7ba5061832f997f96ea744a156c91dabea7d549af08dc797722",
+      "placementCenter": {
+        "x": 300,
+        "y": 0,
+        "z": 225
+      },
       "x": 300,
       "z": 225,
       "r": 3.141592653589793,
@@ -707,6 +977,11 @@
       "assetId": "asset-ccce62a3e209205b",
       "assetFile": "BROWSER/Terrain/Pavement/5x10 Pavement.obj",
       "assetSignature": "66bcc96e24f1e7ba5061832f997f96ea744a156c91dabea7d549af08dc797722",
+      "placementCenter": {
+        "x": 200,
+        "y": 0,
+        "z": 225
+      },
       "x": 200,
       "z": 225,
       "r": 3.141592653589793,
@@ -720,6 +995,11 @@
       "assetId": "asset-b30a82d3c10978a7",
       "assetFile": "BROWSER/Terrain/Pavement/5x5 Pavement.obj",
       "assetSignature": "1758dc6494ae261f4431b60b5e32153347a71a361a26d20ee125499f40231a64",
+      "placementCenter": {
+        "x": 725,
+        "y": 0,
+        "z": -25
+      },
       "x": 725,
       "z": -25,
       "r": 0,
@@ -733,6 +1013,11 @@
       "assetId": "asset-b30a82d3c10978a7",
       "assetFile": "BROWSER/Terrain/Pavement/5x5 Pavement.obj",
       "assetSignature": "1758dc6494ae261f4431b60b5e32153347a71a361a26d20ee125499f40231a64",
+      "placementCenter": {
+        "x": 725,
+        "y": 0,
+        "z": -75
+      },
       "x": 725,
       "z": -75,
       "r": 0,
@@ -746,6 +1031,11 @@
       "assetId": "asset-b30a82d3c10978a7",
       "assetFile": "BROWSER/Terrain/Pavement/5x5 Pavement.obj",
       "assetSignature": "1758dc6494ae261f4431b60b5e32153347a71a361a26d20ee125499f40231a64",
+      "placementCenter": {
+        "x": 125,
+        "y": 0,
+        "z": 225
+      },
       "x": 125,
       "z": 225,
       "r": 0,
@@ -759,10 +1049,15 @@
       "assetId": "character-worker",
       "assetFile": "BROWSER/Figures/Work/2x2 Male Farmer.ply",
       "assetSignature": "b86406d36810dcae68e89e6bb878d728ff5ae051cc684ab67de6c79bffc038d1",
-      "x": 281.0850250001028,
-      "z": 290,
+      "placementCenter": {
+        "x": 297.01307499979436,
+        "y": 5,
+        "z": 210
+      },
+      "x": 297.01307499979436,
+      "z": 210,
       "r": 1.5707963267948966,
-      "y": 7,
+      "y": 5,
       "locked": false,
       "groupId": null,
       "groupColor": null,
@@ -772,8 +1067,13 @@
       "assetId": "character-worker",
       "assetFile": "BROWSER/Figures/Work/2x2 Male Farmer.ply",
       "assetSignature": "b86406d36810dcae68e89e6bb878d728ff5ae051cc684ab67de6c79bffc038d1",
-      "x": 400.446,
-      "z": 275,
+      "placementCenter": {
+        "x": 354.4238500004113,
+        "y": 7,
+        "z": 260
+      },
+      "x": 354.4238500004113,
+      "z": 260,
       "r": -1.5707963267948966,
       "y": 7,
       "locked": false,
@@ -785,10 +1085,15 @@
       "assetId": "character-worker",
       "assetFile": "BROWSER/Figures/Work/2x2 Male Farmer.ply",
       "assetSignature": "b86406d36810dcae68e89e6bb878d728ff5ae051cc684ab67de6c79bffc038d1",
-      "x": 451.0850250001028,
-      "z": 210,
-      "r": 1.5707963267948966,
-      "y": 5,
+      "placementCenter": {
+        "x": 424.4238500004113,
+        "y": 7,
+        "z": 290
+      },
+      "x": 424.4238500004113,
+      "z": 290,
+      "r": -1.5707963267948966,
+      "y": 7,
       "locked": false,
       "groupId": null,
       "groupColor": null,
@@ -798,10 +1103,15 @@
       "assetId": "asset-f4729d892d68f04c",
       "assetFile": "BROWSER/Vehicles/5x5 Vehicle.obj",
       "assetSignature": "23f918178bfabe97cbd0cab92e9d07a3194a605225705a6e8917c9b8dfd7ca2e",
-      "x": 56.672463999879525,
-      "z": -175,
-      "r": -4.712388922392305,
-      "y": 31.91937506197158,
+      "placementCenter": {
+        "x": -156.12025268755906,
+        "y": 5,
+        "z": -149.75582624152423
+      },
+      "x": -156.12025268755906,
+      "z": -149.75582624152423,
+      "r": -3.8673164740065067,
+      "y": 5,
       "locked": false,
       "groupId": null,
       "groupColor": null,
@@ -811,9 +1121,14 @@
       "assetId": "asset-f4729d892d68f04c",
       "assetFile": "BROWSER/Vehicles/5x5 Vehicle.obj",
       "assetSignature": "23f918178bfabe97cbd0cab92e9d07a3194a605225705a6e8917c9b8dfd7ca2e",
-      "x": 471.2918437978309,
-      "z": 330.69065324960025,
-      "r": -4.3193023625555895,
+      "placementCenter": {
+        "x": 376.1140418471123,
+        "y": 5,
+        "z": 392.5976979931314
+      },
+      "x": 376.1140418471123,
+      "z": 392.5976979931314,
+      "r": -0.30019900576480296,
       "y": 5,
       "locked": false,
       "groupId": null,
@@ -824,6 +1139,11 @@
       "assetId": "asset-12f8aa6e08441e48",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street 90.obj",
       "assetSignature": "ab636f2fb266115dc2cde322dde0e12401358a1f3bdbb6e904016e9bfaf4d3cf",
+      "placementCenter": {
+        "x": 950,
+        "y": 0,
+        "z": -150
+      },
       "x": 950,
       "z": -150,
       "r": 3.141592653589793,
@@ -837,6 +1157,11 @@
       "assetId": "asset-d86aa4f79ab91d44",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street Stripe.obj",
       "assetSignature": "638a6edb457771e05520f4ccd40c5f469c4cf157e24f28783202afc6cc7bcb2d",
+      "placementCenter": {
+        "x": 725,
+        "y": 0,
+        "z": 350
+      },
       "x": 725,
       "z": 350,
       "r": 0,
@@ -850,6 +1175,11 @@
       "assetId": "asset-d86aa4f79ab91d44",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street Stripe.obj",
       "assetSignature": "638a6edb457771e05520f4ccd40c5f469c4cf157e24f28783202afc6cc7bcb2d",
+      "placementCenter": {
+        "x": 725,
+        "y": 0,
+        "z": 450
+      },
       "x": 725,
       "z": 450,
       "r": 0,
@@ -863,6 +1193,11 @@
       "assetId": "asset-d86aa4f79ab91d44",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street Stripe.obj",
       "assetSignature": "638a6edb457771e05520f4ccd40c5f469c4cf157e24f28783202afc6cc7bcb2d",
+      "placementCenter": {
+        "x": 950,
+        "y": 0,
+        "z": 225
+      },
       "x": 950,
       "z": 225,
       "r": 1.5707963267948966,
@@ -876,6 +1211,11 @@
       "assetId": "asset-d86aa4f79ab91d44",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street Stripe.obj",
       "assetSignature": "638a6edb457771e05520f4ccd40c5f469c4cf157e24f28783202afc6cc7bcb2d",
+      "placementCenter": {
+        "x": 850,
+        "y": 0,
+        "z": 225
+      },
       "x": 850,
       "z": 225,
       "r": 1.5707963267948966,
@@ -889,6 +1229,11 @@
       "assetId": "asset-faa86e2128e0d223",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street Crosswalk.obj",
       "assetSignature": "ed4eb7ef2777ab1ec737ccbbbda51bc742917cb6b2ce1cd9ebb5963680e76658",
+      "placementCenter": {
+        "x": 775,
+        "y": 0,
+        "z": 350
+      },
       "x": 775,
       "z": 350,
       "r": 0,
@@ -902,6 +1247,11 @@
       "assetId": "asset-faa86e2128e0d223",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street Crosswalk.obj",
       "assetSignature": "ed4eb7ef2777ab1ec737ccbbbda51bc742917cb6b2ce1cd9ebb5963680e76658",
+      "placementCenter": {
+        "x": 775,
+        "y": 0,
+        "z": 450
+      },
       "x": 775,
       "z": 450,
       "r": 0,
@@ -915,6 +1265,11 @@
       "assetId": "asset-faa86e2128e0d223",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street Crosswalk.obj",
       "assetSignature": "ed4eb7ef2777ab1ec737ccbbbda51bc742917cb6b2ce1cd9ebb5963680e76658",
+      "placementCenter": {
+        "x": 850,
+        "y": 0,
+        "z": 275
+      },
       "x": 850,
       "z": 275,
       "r": 1.5707963267948966,
@@ -928,6 +1283,11 @@
       "assetId": "asset-faa86e2128e0d223",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street Crosswalk.obj",
       "assetSignature": "ed4eb7ef2777ab1ec737ccbbbda51bc742917cb6b2ce1cd9ebb5963680e76658",
+      "placementCenter": {
+        "x": 950,
+        "y": 0,
+        "z": 275
+      },
       "x": 950,
       "z": 275,
       "r": 1.5707963267948966,
@@ -941,6 +1301,11 @@
       "assetId": "asset-b41657fab8a8f5f5",
       "assetFile": "BROWSER/Bridges/UP DOWN/10x20 Street Ramp.obj",
       "assetSignature": "edb8684d17a9821d95cbc769dcfe19de9e7f4666a86ac080a20b1588408f0587",
+      "placementCenter": {
+        "x": 700,
+        "y": 0,
+        "z": -150
+      },
       "x": 700,
       "z": -150,
       "r": 0,
@@ -954,6 +1319,11 @@
       "assetId": "asset-cd0632498b279ce2",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street T.obj",
       "assetSignature": "9341f8cbd7d47d0f189c35b37f7079c65282382513a3855f9c48ea28bf5ccb83",
+      "placementCenter": {
+        "x": 850,
+        "y": 0,
+        "z": -150
+      },
       "x": 850,
       "z": -150,
       "r": 1.5707963267948966,
@@ -967,6 +1337,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": 950,
+        "y": 0,
+        "z": -50
+      },
       "x": 950,
       "z": -50,
       "r": 1.5707963267948966,
@@ -980,6 +1355,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": 850,
+        "y": 0,
+        "z": 50
+      },
       "x": 850,
       "z": 50,
       "r": 1.5707963267948966,
@@ -993,6 +1373,11 @@
       "assetId": "asset-e9458da2734c2667",
       "assetFile": "BROWSER/Bridges/Bridge Streets/10x20 Bridge Street.obj",
       "assetSignature": "3fb3c387de76aab9f16c27e641bdbd79aeb22093382e1a4e5fc440c7ac08e0a0",
+      "placementCenter": {
+        "x": 500,
+        "y": 94.99984,
+        "z": -150
+      },
       "x": 500,
       "z": -150,
       "r": 0,
@@ -1007,6 +1392,11 @@
       "assetId": "asset-adb3901afa2f7edd",
       "assetFile": "BROWSER/Bridges/Bridge Streets/10x10 Bridge Street.obj",
       "assetSignature": "d807c9e34ddcd74f178251e5c6beefb3627469c6b673d109aeca49db5a271905",
+      "placementCenter": {
+        "x": 350,
+        "y": 94.99984,
+        "z": -150
+      },
       "x": 350,
       "z": -150,
       "r": 0,
@@ -1021,6 +1411,11 @@
       "assetId": "asset-b41657fab8a8f5f5",
       "assetFile": "BROWSER/Bridges/UP DOWN/10x20 Street Ramp.obj",
       "assetSignature": "edb8684d17a9821d95cbc769dcfe19de9e7f4666a86ac080a20b1588408f0587",
+      "placementCenter": {
+        "x": 100,
+        "y": 0,
+        "z": -150
+      },
       "x": 100,
       "z": -150,
       "r": 3.141592653589793,
@@ -1034,6 +1429,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 75,
+        "y": 0,
+        "z": 275
+      },
       "x": 75,
       "z": 275,
       "r": 3.141592653589793,
@@ -1047,6 +1447,11 @@
       "assetId": "asset-ccce62a3e209205b",
       "assetFile": "BROWSER/Terrain/Pavement/5x10 Pavement.obj",
       "assetSignature": "66bcc96e24f1e7ba5061832f997f96ea744a156c91dabea7d549af08dc797722",
+      "placementCenter": {
+        "x": 75,
+        "y": 0,
+        "z": 0
+      },
       "x": 75,
       "z": 0,
       "r": 4.71238898038469,
@@ -1060,6 +1465,11 @@
       "assetId": "asset-ccce62a3e209205b",
       "assetFile": "BROWSER/Terrain/Pavement/5x10 Pavement.obj",
       "assetSignature": "66bcc96e24f1e7ba5061832f997f96ea744a156c91dabea7d549af08dc797722",
+      "placementCenter": {
+        "x": 75,
+        "y": 0,
+        "z": 100
+      },
       "x": 75,
       "z": 100,
       "r": 4.71238898038469,
@@ -1073,6 +1483,11 @@
       "assetId": "asset-b30a82d3c10978a7",
       "assetFile": "BROWSER/Terrain/Pavement/5x5 Pavement.obj",
       "assetSignature": "1758dc6494ae261f4431b60b5e32153347a71a361a26d20ee125499f40231a64",
+      "placementCenter": {
+        "x": 75,
+        "y": 0,
+        "z": 175
+      },
       "x": 75,
       "z": 175,
       "r": 3.141592653589793,
@@ -1086,6 +1501,11 @@
       "assetId": "asset-b30a82d3c10978a7",
       "assetFile": "BROWSER/Terrain/Pavement/5x5 Pavement.obj",
       "assetSignature": "1758dc6494ae261f4431b60b5e32153347a71a361a26d20ee125499f40231a64",
+      "placementCenter": {
+        "x": 75,
+        "y": 0,
+        "z": 225
+      },
       "x": 75,
       "z": 225,
       "r": 3.141592653589793,
@@ -1099,6 +1519,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 25,
+        "y": 0,
+        "z": 275
+      },
       "x": 25,
       "z": 275,
       "r": 3.141592653589793,
@@ -1112,6 +1537,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 25,
+        "y": 0,
+        "z": 225
+      },
       "x": 25,
       "z": 225,
       "r": 3.141592653589793,
@@ -1125,6 +1555,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 25,
+        "y": 0,
+        "z": 175
+      },
       "x": 25,
       "z": 175,
       "r": 3.141592653589793,
@@ -1138,6 +1573,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 25,
+        "y": 0,
+        "z": 125
+      },
       "x": 25,
       "z": 125,
       "r": 3.141592653589793,
@@ -1151,6 +1591,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 25,
+        "y": 0,
+        "z": 75
+      },
       "x": 25,
       "z": 75,
       "r": 3.141592653589793,
@@ -1164,6 +1609,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 25,
+        "y": 0,
+        "z": 25
+      },
       "x": 25,
       "z": 25,
       "r": 3.141592653589793,
@@ -1177,6 +1627,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 25,
+        "y": 0,
+        "z": -25
+      },
       "x": 25,
       "z": -25,
       "r": 3.141592653589793,
@@ -1190,6 +1645,11 @@
       "assetId": "grass-5",
       "assetFile": "BROWSER/Terrain/Grass/5x5 Grass.obj",
       "assetSignature": "f3209f302cb4b5c48c31f5205f0ecdfff36355d7de63eeeeddfed50d74da712d",
+      "placementCenter": {
+        "x": 25,
+        "y": 0,
+        "z": -75
+      },
       "x": 25,
       "z": -75,
       "r": 3.141592653589793,
@@ -1203,6 +1663,11 @@
       "assetId": "asset-adb3901afa2f7edd",
       "assetFile": "BROWSER/Bridges/Bridge Streets/10x10 Bridge Street.obj",
       "assetSignature": "d807c9e34ddcd74f178251e5c6beefb3627469c6b673d109aeca49db5a271905",
+      "placementCenter": {
+        "x": 250,
+        "y": 94.99984,
+        "z": -150
+      },
       "x": 250,
       "z": -150,
       "r": 0,
@@ -1217,6 +1682,11 @@
       "assetId": "asset-cd0632498b279ce2",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street T.obj",
       "assetSignature": "9341f8cbd7d47d0f189c35b37f7079c65282382513a3855f9c48ea28bf5ccb83",
+      "placementCenter": {
+        "x": -50,
+        "y": 0,
+        "z": -150
+      },
       "x": -50,
       "z": -150,
       "r": 1.5707963267948966,
@@ -1230,6 +1700,11 @@
       "assetId": "asset-12f8aa6e08441e48",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street 90.obj",
       "assetSignature": "ab636f2fb266115dc2cde322dde0e12401358a1f3bdbb6e904016e9bfaf4d3cf",
+      "placementCenter": {
+        "x": -150,
+        "y": 0,
+        "z": -150
+      },
       "x": -150,
       "z": -150,
       "r": 4.71238898038469,
@@ -1243,6 +1718,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": -150,
+        "y": 0,
+        "z": -50
+      },
       "x": -150,
       "z": -50,
       "r": 1.5707963267948966,
@@ -1256,6 +1736,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": -50,
+        "y": 0,
+        "z": -50
+      },
       "x": -50,
       "z": -50,
       "r": 1.5707963267948966,
@@ -1269,6 +1754,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": -50,
+        "y": 0,
+        "z": 50
+      },
       "x": -50,
       "z": 50,
       "r": 1.5707963267948966,
@@ -1282,6 +1772,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": -150,
+        "y": 0,
+        "z": 50
+      },
       "x": -150,
       "z": 50,
       "r": 1.5707963267948966,
@@ -1295,6 +1790,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": -150,
+        "y": 0,
+        "z": 150
+      },
       "x": -150,
       "z": 150,
       "r": 1.5707963267948966,
@@ -1308,6 +1808,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": -50,
+        "y": 0,
+        "z": 150
+      },
       "x": -50,
       "z": 150,
       "r": 1.5707963267948966,
@@ -1321,6 +1826,11 @@
       "assetId": "asset-faa86e2128e0d223",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street Crosswalk.obj",
       "assetSignature": "ed4eb7ef2777ab1ec737ccbbbda51bc742917cb6b2ce1cd9ebb5963680e76658",
+      "placementCenter": {
+        "x": -50,
+        "y": 0,
+        "z": 275
+      },
       "x": -50,
       "z": 275,
       "r": 1.5707963267948966,
@@ -1334,6 +1844,11 @@
       "assetId": "asset-d86aa4f79ab91d44",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street Stripe.obj",
       "assetSignature": "638a6edb457771e05520f4ccd40c5f469c4cf157e24f28783202afc6cc7bcb2d",
+      "placementCenter": {
+        "x": -50,
+        "y": 0,
+        "z": 225
+      },
       "x": -50,
       "z": 225,
       "r": 1.5707963267948966,
@@ -1347,6 +1862,11 @@
       "assetId": "asset-d86aa4f79ab91d44",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street Stripe.obj",
       "assetSignature": "638a6edb457771e05520f4ccd40c5f469c4cf157e24f28783202afc6cc7bcb2d",
+      "placementCenter": {
+        "x": -150,
+        "y": 0,
+        "z": 225
+      },
       "x": -150,
       "z": 225,
       "r": 1.5707963267948966,
@@ -1360,6 +1880,11 @@
       "assetId": "asset-faa86e2128e0d223",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street Crosswalk.obj",
       "assetSignature": "ed4eb7ef2777ab1ec737ccbbbda51bc742917cb6b2ce1cd9ebb5963680e76658",
+      "placementCenter": {
+        "x": -150,
+        "y": 0,
+        "z": 275
+      },
       "x": -150,
       "z": 275,
       "r": 1.5707963267948966,
@@ -1373,6 +1898,11 @@
       "assetId": "asset-d86aa4f79ab91d44",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street Stripe.obj",
       "assetSignature": "638a6edb457771e05520f4ccd40c5f469c4cf157e24f28783202afc6cc7bcb2d",
+      "placementCenter": {
+        "x": 75,
+        "y": 0,
+        "z": 350
+      },
       "x": 75,
       "z": 350,
       "r": 0,
@@ -1386,6 +1916,11 @@
       "assetId": "asset-faa86e2128e0d223",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street Crosswalk.obj",
       "assetSignature": "ed4eb7ef2777ab1ec737ccbbbda51bc742917cb6b2ce1cd9ebb5963680e76658",
+      "placementCenter": {
+        "x": 25,
+        "y": 0,
+        "z": 350
+      },
       "x": 25,
       "z": 350,
       "r": 0,
@@ -1399,6 +1934,11 @@
       "assetId": "asset-d86aa4f79ab91d44",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street Stripe.obj",
       "assetSignature": "638a6edb457771e05520f4ccd40c5f469c4cf157e24f28783202afc6cc7bcb2d",
+      "placementCenter": {
+        "x": 75,
+        "y": 0,
+        "z": 450
+      },
       "x": 75,
       "z": 450,
       "r": 0,
@@ -1412,6 +1952,11 @@
       "assetId": "asset-faa86e2128e0d223",
       "assetFile": "BROWSER/Streets/Two Lane/5x10 Street Crosswalk.obj",
       "assetSignature": "ed4eb7ef2777ab1ec737ccbbbda51bc742917cb6b2ce1cd9ebb5963680e76658",
+      "placementCenter": {
+        "x": 25,
+        "y": 0,
+        "z": 450
+      },
       "x": 25,
       "z": 450,
       "r": 0,
@@ -1425,6 +1970,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": 150,
+        "y": 0,
+        "z": 450
+      },
       "x": 150,
       "z": 450,
       "r": 0,
@@ -1438,6 +1988,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": 150,
+        "y": 0,
+        "z": 350
+      },
       "x": 150,
       "z": 350,
       "r": 0,
@@ -1451,6 +2006,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": -50,
+        "y": 0,
+        "z": 450
+      },
       "x": -50,
       "z": 450,
       "r": 0,
@@ -1464,6 +2024,11 @@
       "assetId": "asset-12f8aa6e08441e48",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street 90.obj",
       "assetSignature": "ab636f2fb266115dc2cde322dde0e12401358a1f3bdbb6e904016e9bfaf4d3cf",
+      "placementCenter": {
+        "x": -50,
+        "y": 0,
+        "z": 350
+      },
       "x": -50,
       "z": 350,
       "r": 0,
@@ -1477,6 +2042,11 @@
       "assetId": "asset-6f528d665788a197",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street X.obj",
       "assetSignature": "5b1bd395efeb422b28fbb86bbca1d2ed7daff6afc70e69468d00133b796bdb9f",
+      "placementCenter": {
+        "x": 350,
+        "y": 0,
+        "z": 450
+      },
       "x": 350,
       "z": 450,
       "r": 0,
@@ -1490,6 +2060,11 @@
       "assetId": "asset-6f528d665788a197",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street X.obj",
       "assetSignature": "5b1bd395efeb422b28fbb86bbca1d2ed7daff6afc70e69468d00133b796bdb9f",
+      "placementCenter": {
+        "x": 450,
+        "y": 0,
+        "z": 450
+      },
       "x": 450,
       "z": 450,
       "r": 0,
@@ -1503,6 +2078,11 @@
       "assetId": "asset-cd0632498b279ce2",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street T.obj",
       "assetSignature": "9341f8cbd7d47d0f189c35b37f7079c65282382513a3855f9c48ea28bf5ccb83",
+      "placementCenter": {
+        "x": 350,
+        "y": 0,
+        "z": 350
+      },
       "x": 350,
       "z": 350,
       "r": 1.5707963267948966,
@@ -1516,6 +2096,11 @@
       "assetId": "asset-cd0632498b279ce2",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street T.obj",
       "assetSignature": "9341f8cbd7d47d0f189c35b37f7079c65282382513a3855f9c48ea28bf5ccb83",
+      "placementCenter": {
+        "x": 450,
+        "y": 0,
+        "z": 350
+      },
       "x": 450,
       "z": 350,
       "r": 1.5707963267948966,
@@ -1529,6 +2114,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": 350,
+        "y": 0,
+        "z": 550
+      },
       "x": 350,
       "z": 550,
       "r": 1.5707963267948966,
@@ -1542,6 +2132,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": 450,
+        "y": 0,
+        "z": 550
+      },
       "x": 450,
       "z": 550,
       "r": 1.5707963267948966,
@@ -1555,6 +2150,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": 350,
+        "y": 0,
+        "z": 650
+      },
       "x": 350,
       "z": 650,
       "r": 1.5707963267948966,
@@ -1568,6 +2168,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": 450,
+        "y": 0,
+        "z": 650
+      },
       "x": 450,
       "z": 650,
       "r": 1.5707963267948966,
@@ -1581,6 +2186,11 @@
       "assetId": "asset-d277113a8ff67de7",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street To Grass.obj",
       "assetSignature": "17dce1d2ba9adbc7733e3d7155b1c24bfc9f6e6201b46f4a8f0493c5f4d7085f",
+      "placementCenter": {
+        "x": 350,
+        "y": 0,
+        "z": 750
+      },
       "x": 350,
       "z": 750,
       "r": 0,
@@ -1594,6 +2204,11 @@
       "assetId": "asset-d277113a8ff67de7",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street To Grass.obj",
       "assetSignature": "17dce1d2ba9adbc7733e3d7155b1c24bfc9f6e6201b46f4a8f0493c5f4d7085f",
+      "placementCenter": {
+        "x": 450,
+        "y": 0,
+        "z": 750
+      },
       "x": 450,
       "z": 750,
       "r": 0,
@@ -1607,6 +2222,11 @@
       "assetId": "asset-a4529b0cf34d6139",
       "assetFile": "BROWSER/Terrain/Grass on Sand/5x5 Grass On Sand Straight.obj",
       "assetSignature": "baa66d9a94f0ce0fbb992a7899ef4085ec103d4addf70709f3a893c086097161",
+      "placementCenter": {
+        "x": 475,
+        "y": 0,
+        "z": 825
+      },
       "x": 475,
       "z": 825,
       "r": 3.141592653589793,
@@ -1620,6 +2240,11 @@
       "assetId": "asset-a4529b0cf34d6139",
       "assetFile": "BROWSER/Terrain/Grass on Sand/5x5 Grass On Sand Straight.obj",
       "assetSignature": "baa66d9a94f0ce0fbb992a7899ef4085ec103d4addf70709f3a893c086097161",
+      "placementCenter": {
+        "x": 325,
+        "y": 0,
+        "z": 825
+      },
       "x": 325,
       "z": 825,
       "r": 3.141592653589793,
@@ -1633,6 +2258,11 @@
       "assetId": "asset-a4529b0cf34d6139",
       "assetFile": "BROWSER/Terrain/Grass on Sand/5x5 Grass On Sand Straight.obj",
       "assetSignature": "baa66d9a94f0ce0fbb992a7899ef4085ec103d4addf70709f3a893c086097161",
+      "placementCenter": {
+        "x": 375,
+        "y": 0,
+        "z": 825
+      },
       "x": 375,
       "z": 825,
       "r": 3.141592653589793,
@@ -1646,6 +2276,11 @@
       "assetId": "asset-a4529b0cf34d6139",
       "assetFile": "BROWSER/Terrain/Grass on Sand/5x5 Grass On Sand Straight.obj",
       "assetSignature": "baa66d9a94f0ce0fbb992a7899ef4085ec103d4addf70709f3a893c086097161",
+      "placementCenter": {
+        "x": 425,
+        "y": 0,
+        "z": 825
+      },
       "x": 425,
       "z": 825,
       "r": 3.141592653589793,
@@ -1659,6 +2294,11 @@
       "assetId": "asset-aac59c72712dd14f",
       "assetFile": "BROWSER/Terrain/Sand on Water/5x5 Sand On Water.obj",
       "assetSignature": "40af2894504eeb202286b2d8680bc30218fd5bf8c588570b023856249a9e4de1",
+      "placementCenter": {
+        "x": 325,
+        "y": 0,
+        "z": 875
+      },
       "x": 325,
       "z": 875,
       "r": 3.141592653589793,
@@ -1672,6 +2312,11 @@
       "assetId": "asset-aac59c72712dd14f",
       "assetFile": "BROWSER/Terrain/Sand on Water/5x5 Sand On Water.obj",
       "assetSignature": "40af2894504eeb202286b2d8680bc30218fd5bf8c588570b023856249a9e4de1",
+      "placementCenter": {
+        "x": 375,
+        "y": 0,
+        "z": 875
+      },
       "x": 375,
       "z": 875,
       "r": 3.141592653589793,
@@ -1685,6 +2330,11 @@
       "assetId": "asset-aac59c72712dd14f",
       "assetFile": "BROWSER/Terrain/Sand on Water/5x5 Sand On Water.obj",
       "assetSignature": "40af2894504eeb202286b2d8680bc30218fd5bf8c588570b023856249a9e4de1",
+      "placementCenter": {
+        "x": 425,
+        "y": 0,
+        "z": 875
+      },
       "x": 425,
       "z": 875,
       "r": 3.141592653589793,
@@ -1698,6 +2348,11 @@
       "assetId": "asset-aac59c72712dd14f",
       "assetFile": "BROWSER/Terrain/Sand on Water/5x5 Sand On Water.obj",
       "assetSignature": "40af2894504eeb202286b2d8680bc30218fd5bf8c588570b023856249a9e4de1",
+      "placementCenter": {
+        "x": 475,
+        "y": 0,
+        "z": 875
+      },
       "x": 475,
       "z": 875,
       "r": 3.141592653589793,
@@ -1711,6 +2366,11 @@
       "assetId": "asset-ce685ec733c52768",
       "assetFile": "BROWSER/Terrain/Water/5x10 Water.obj",
       "assetSignature": "6243b74371f2c3e792e52f242028f825459a458474a873de8671c4f23ec60ce0",
+      "placementCenter": {
+        "x": 350,
+        "y": 0,
+        "z": 925
+      },
       "x": 350,
       "z": 925,
       "r": 0,
@@ -1724,6 +2384,11 @@
       "assetId": "asset-ce685ec733c52768",
       "assetFile": "BROWSER/Terrain/Water/5x10 Water.obj",
       "assetSignature": "6243b74371f2c3e792e52f242028f825459a458474a873de8671c4f23ec60ce0",
+      "placementCenter": {
+        "x": 450,
+        "y": 0,
+        "z": 925
+      },
       "x": 450,
       "z": 925,
       "r": 0,
@@ -1736,9 +2401,14 @@
     {
       "assetId": "asset-3941babdb644651c",
       "assetFile": "BROWSER/Houses/Work/fire print .glb",
-      "assetSignature": "454df8aa84e1a185b05f1715438ed58f908303324c7aff4b01093c938f3dd02d",
-      "x": -249.99044036865234,
-      "z": 250.66949462890625,
+      "assetSignature": "891dacca42ccd9f19025d7f249804d86724c2ccedd8cf087f1317fb2028e6d7b",
+      "placementCenter": {
+        "x": -250,
+        "y": 0,
+        "z": 350
+      },
+      "x": -249.99044036865237,
+      "z": 621.4151000976562,
       "r": 1.5707963267948966,
       "y": -0.1192779541015625,
       "locked": false,
@@ -1749,169 +2419,174 @@
     {
       "assetId": "asset-fc9760b136fbfd76",
       "assetFile": "BROWSER/Houses/Social/10x10 house 2.glb",
-      "assetSignature": "06cc9ca7a777e22a8ed817c7fc33e35972f4e97b406928acce234bcd2638448a",
-      "x": 151.14633370722214,
-      "z": 359.4270147437856,
-      "r": 1.5707963267948966,
-      "y": 5.118585387710482,
-      "locked": false,
-      "groupId": null,
-      "groupColor": null,
-      "modelColor": "#cca844",
+      "assetSignature": "f6672551f316aaddf75ff5445d17aebbbe881fccb015627e889b3e3b079b9cdc",
       "placementCenter": {
-        "x": 150.0,
-        "y": 0.0,
+        "x": 150,
+        "y": 0,
         "z": 150.00165
-      }
+      },
+      "x": 155.67336834753434,
+      "z": 38.34385434339498,
+      "r": 1.5707963267948966,
+      "y": 0.6838930048979819,
+      "locked": false,
+      "groupId": null,
+      "groupColor": null,
+      "modelColor": "#cca844"
     },
     {
       "assetId": "asset-fc9760b136fbfd76",
       "assetFile": "BROWSER/Houses/Social/10x10 house 2.glb",
-      "assetSignature": "06cc9ca7a777e22a8ed817c7fc33e35972f4e97b406928acce234bcd2638448a",
-      "x": 301.14633370722214,
-      "z": 359.4270147437856,
-      "r": 1.5707963267948966,
-      "y": 5.118585387710482,
-      "locked": false,
-      "groupId": null,
-      "groupColor": null,
-      "modelColor": null,
+      "assetSignature": "f6672551f316aaddf75ff5445d17aebbbe881fccb015627e889b3e3b079b9cdc",
       "placementCenter": {
-        "x": 300.0,
-        "y": 0.0,
+        "x": 300,
+        "y": 0,
         "z": 150.00165
-      }
+      },
+      "x": 305.67336834753434,
+      "z": 38.34385434339498,
+      "r": 1.5707963267948966,
+      "y": 0.6838930048979819,
+      "locked": false,
+      "groupId": null,
+      "groupColor": null,
+      "modelColor": null
     },
     {
       "assetId": "asset-fc9760b136fbfd76",
       "assetFile": "BROWSER/Houses/Social/10x10 house 2.glb",
-      "assetSignature": "06cc9ca7a777e22a8ed817c7fc33e35972f4e97b406928acce234bcd2638448a",
-      "x": 301.14633370722214,
-      "z": 259.4270147437856,
-      "r": 1.5707963267948966,
-      "y": 5.118585387710482,
-      "locked": false,
-      "groupId": null,
-      "groupColor": null,
-      "modelColor": null,
+      "assetSignature": "f6672551f316aaddf75ff5445d17aebbbe881fccb015627e889b3e3b079b9cdc",
       "placementCenter": {
-        "x": 300.0,
-        "y": 0.0,
+        "x": 300,
+        "y": 0,
         "z": 50.00165000000001
-      }
+      },
+      "x": 305.67336834753434,
+      "z": -61.65614565660502,
+      "r": 1.5707963267948966,
+      "y": 0.6838930048979819,
+      "locked": false,
+      "groupId": null,
+      "groupColor": null,
+      "modelColor": null
     },
     {
       "assetId": "asset-fc9760b136fbfd76",
       "assetFile": "BROWSER/Houses/Social/10x10 house 2.glb",
-      "assetSignature": "06cc9ca7a777e22a8ed817c7fc33e35972f4e97b406928acce234bcd2638448a",
-      "x": 301.14633370722214,
-      "z": 159.4270147437856,
-      "r": 1.5707963267948966,
-      "y": 5.118585387710482,
-      "locked": false,
-      "groupId": null,
-      "groupColor": null,
-      "modelColor": null,
+      "assetSignature": "f6672551f316aaddf75ff5445d17aebbbe881fccb015627e889b3e3b079b9cdc",
       "placementCenter": {
-        "x": 300.0,
-        "y": 0.0,
+        "x": 300,
+        "y": 0,
         "z": -49.99834999999999
-      }
+      },
+      "x": 305.67336834753434,
+      "z": -161.65614565660502,
+      "r": 1.5707963267948966,
+      "y": 0.6838930048979819,
+      "locked": false,
+      "groupId": null,
+      "groupColor": null,
+      "modelColor": null
     },
     {
       "assetId": "asset-fc9760b136fbfd76",
       "assetFile": "BROWSER/Houses/Social/10x10 house 2.glb",
-      "assetSignature": "06cc9ca7a777e22a8ed817c7fc33e35972f4e97b406928acce234bcd2638448a",
-      "x": 151.14633370722214,
-      "z": 259.4270147437856,
-      "r": 1.5707963267948966,
-      "y": 5.118585387710482,
-      "locked": false,
-      "groupId": null,
-      "groupColor": null,
-      "modelColor": "#cca844",
+      "assetSignature": "f6672551f316aaddf75ff5445d17aebbbe881fccb015627e889b3e3b079b9cdc",
       "placementCenter": {
-        "x": 150.0,
-        "y": 0.0,
+        "x": 150,
+        "y": 0,
         "z": 50.00165000000001
-      }
+      },
+      "x": 155.67336834753434,
+      "z": -61.65614565660502,
+      "r": 1.5707963267948966,
+      "y": 0.6838930048979819,
+      "locked": false,
+      "groupId": null,
+      "groupColor": null,
+      "modelColor": "#cca844"
     },
     {
       "assetId": "asset-fc9760b136fbfd76",
       "assetFile": "BROWSER/Houses/Social/10x10 house 2.glb",
-      "assetSignature": "06cc9ca7a777e22a8ed817c7fc33e35972f4e97b406928acce234bcd2638448a",
-      "x": 151.14633370722214,
-      "z": 159.4270147437856,
-      "r": 1.5707963267948966,
-      "y": 5.118585387710482,
-      "locked": false,
-      "groupId": null,
-      "groupColor": null,
-      "modelColor": null,
+      "assetSignature": "f6672551f316aaddf75ff5445d17aebbbe881fccb015627e889b3e3b079b9cdc",
       "placementCenter": {
-        "x": 150.0,
-        "y": 0.0,
+        "x": 150,
+        "y": 0,
         "z": -49.99834999999999
-      }
+      },
+      "x": 155.67336834753434,
+      "z": -161.65614565660502,
+      "r": 1.5707963267948966,
+      "y": 0.6838930048979819,
+      "locked": false,
+      "groupId": null,
+      "groupColor": null,
+      "modelColor": null
     },
     {
       "assetId": "asset-fc9760b136fbfd76",
       "assetFile": "BROWSER/Houses/Social/10x10 house 2.glb",
-      "assetSignature": "06cc9ca7a777e22a8ed817c7fc33e35972f4e97b406928acce234bcd2638448a",
-      "x": 451.14633370722214,
-      "z": 359.4270147437856,
-      "r": 1.5707963267948966,
-      "y": 5.118585387710482,
-      "locked": false,
-      "groupId": null,
-      "groupColor": null,
-      "modelColor": "#ccceff",
+      "assetSignature": "f6672551f316aaddf75ff5445d17aebbbe881fccb015627e889b3e3b079b9cdc",
       "placementCenter": {
-        "x": 450.0,
-        "y": 0.0,
+        "x": 450,
+        "y": 0,
         "z": 150.00165
-      }
+      },
+      "x": 455.67336834753434,
+      "z": 38.34385434339498,
+      "r": 1.5707963267948966,
+      "y": 0.6838930048979819,
+      "locked": false,
+      "groupId": null,
+      "groupColor": null,
+      "modelColor": "#ccceff"
     },
     {
       "assetId": "asset-fc9760b136fbfd76",
       "assetFile": "BROWSER/Houses/Social/10x10 house 2.glb",
-      "assetSignature": "06cc9ca7a777e22a8ed817c7fc33e35972f4e97b406928acce234bcd2638448a",
-      "x": 451.14633370722214,
-      "z": 259.4270147437856,
-      "r": 1.5707963267948966,
-      "y": 5.118585387710482,
-      "locked": false,
-      "groupId": null,
-      "groupColor": null,
-      "modelColor": "#ccceff",
+      "assetSignature": "f6672551f316aaddf75ff5445d17aebbbe881fccb015627e889b3e3b079b9cdc",
       "placementCenter": {
-        "x": 450.0,
-        "y": 0.0,
+        "x": 450,
+        "y": 0,
         "z": 50.00165000000001
-      }
+      },
+      "x": 455.67336834753434,
+      "z": -61.65614565660502,
+      "r": 1.5707963267948966,
+      "y": 0.6838930048979819,
+      "locked": false,
+      "groupId": null,
+      "groupColor": null,
+      "modelColor": "#ccceff"
     },
     {
       "assetId": "asset-fc9760b136fbfd76",
       "assetFile": "BROWSER/Houses/Social/10x10 house 2.glb",
-      "assetSignature": "06cc9ca7a777e22a8ed817c7fc33e35972f4e97b406928acce234bcd2638448a",
-      "x": 451.14633370722214,
-      "z": 159.4270147437856,
+      "assetSignature": "f6672551f316aaddf75ff5445d17aebbbe881fccb015627e889b3e3b079b9cdc",
+      "placementCenter": {
+        "x": 450,
+        "y": 0,
+        "z": -49.99834999999999
+      },
+      "x": 455.67336834753434,
+      "z": -161.65614565660502,
       "r": 1.5707963267948966,
-      "y": 5.118585387710482,
+      "y": 0.6838930048979819,
       "locked": false,
       "groupId": null,
       "groupColor": null,
-      "modelColor": "#ccceff",
-      "placementCenter": {
-        "x": 450.0,
-        "y": 0.0,
-        "z": -49.99834999999999
-      }
+      "modelColor": "#ccceff"
     },
     {
       "assetId": "asset-d5b2db9593e1e0fd",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street End.obj",
       "assetSignature": "faac12cbea6462fe23b1e392523ef336e4209a82d55ce58272412254c4dc5669",
+      "placementCenter": {
+        "x": -150,
+        "y": 0,
+        "z": 750
+      },
       "x": -150,
       "z": 750,
       "r": 0,
@@ -1924,9 +2599,14 @@
     {
       "assetId": "asset-3941babdb644651c",
       "assetFile": "BROWSER/Houses/Work/fire print .glb",
-      "assetSignature": "454df8aa84e1a185b05f1715438ed58f908303324c7aff4b01093c938f3dd02d",
-      "x": -249.99044036865234,
-      "z": 350.66949462890625,
+      "assetSignature": "891dacca42ccd9f19025d7f249804d86724c2ccedd8cf087f1317fb2028e6d7b",
+      "placementCenter": {
+        "x": -250,
+        "y": 0,
+        "z": 450
+      },
+      "x": -249.99044036865237,
+      "z": 721.4151000976562,
       "r": 1.5707963267948966,
       "y": -0.1192779541015625,
       "locked": false,
@@ -1938,6 +2618,11 @@
       "assetId": "asset-cd0632498b279ce2",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street T.obj",
       "assetSignature": "9341f8cbd7d47d0f189c35b37f7079c65282382513a3855f9c48ea28bf5ccb83",
+      "placementCenter": {
+        "x": -150,
+        "y": 0,
+        "z": 350
+      },
       "x": -150,
       "z": 350,
       "r": 0,
@@ -1951,6 +2636,11 @@
       "assetId": "asset-6f528d665788a197",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street X.obj",
       "assetSignature": "5b1bd395efeb422b28fbb86bbca1d2ed7daff6afc70e69468d00133b796bdb9f",
+      "placementCenter": {
+        "x": -150,
+        "y": 0,
+        "z": 450
+      },
       "x": -150,
       "z": 450,
       "r": 0,
@@ -1964,6 +2654,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": -150,
+        "y": 0,
+        "z": 550
+      },
       "x": -150,
       "z": 550,
       "r": 1.5707963267948966,
@@ -1977,6 +2672,11 @@
       "assetId": "asset-e26d9509fdede456",
       "assetFile": "BROWSER/Streets/Two Lane/10x10 Street Straight.obj",
       "assetSignature": "576c2bfb129be0abb0135fbfdf26c9b90fb0219372dac914fc00f8309de619bc",
+      "placementCenter": {
+        "x": -150,
+        "y": 0,
+        "z": 650
+      },
       "x": -150,
       "z": 650,
       "r": 1.5707963267948966,
@@ -1989,56 +2689,56 @@
     {
       "assetId": "asset-fc9760b136fbfd76",
       "assetFile": "BROWSER/Houses/Social/10x10 house 2.glb",
-      "assetSignature": "06cc9ca7a777e22a8ed817c7fc33e35972f4e97b406928acce234bcd2638448a",
-      "x": 601.1463337072221,
-      "z": 359.4270147437856,
-      "r": 1.5707963267948966,
-      "y": 5.118585387710482,
-      "locked": false,
-      "groupId": null,
-      "groupColor": null,
-      "modelColor": "#faff00",
+      "assetSignature": "f6672551f316aaddf75ff5445d17aebbbe881fccb015627e889b3e3b079b9cdc",
       "placementCenter": {
         "x": 599.9999999999999,
-        "y": 0.0,
+        "y": 0,
         "z": 150.00165
-      }
+      },
+      "x": 605.6733683475343,
+      "z": 38.34385434339498,
+      "r": 1.5707963267948966,
+      "y": 0.6838930048979819,
+      "locked": false,
+      "groupId": null,
+      "groupColor": null,
+      "modelColor": "#faff00"
     },
     {
       "assetId": "asset-fc9760b136fbfd76",
       "assetFile": "BROWSER/Houses/Social/10x10 house 2.glb",
-      "assetSignature": "06cc9ca7a777e22a8ed817c7fc33e35972f4e97b406928acce234bcd2638448a",
-      "x": 601.1463337072221,
-      "z": 259.4270147437856,
-      "r": 1.5707963267948966,
-      "y": 5.118585387710482,
-      "locked": false,
-      "groupId": null,
-      "groupColor": null,
-      "modelColor": "#faff00",
+      "assetSignature": "f6672551f316aaddf75ff5445d17aebbbe881fccb015627e889b3e3b079b9cdc",
       "placementCenter": {
         "x": 599.9999999999999,
-        "y": 0.0,
+        "y": 0,
         "z": 50.00165000000001
-      }
+      },
+      "x": 605.6733683475343,
+      "z": -61.65614565660502,
+      "r": 1.5707963267948966,
+      "y": 0.6838930048979819,
+      "locked": false,
+      "groupId": null,
+      "groupColor": null,
+      "modelColor": "#faff00"
     },
     {
       "assetId": "asset-fc9760b136fbfd76",
       "assetFile": "BROWSER/Houses/Social/10x10 house 2.glb",
-      "assetSignature": "06cc9ca7a777e22a8ed817c7fc33e35972f4e97b406928acce234bcd2638448a",
-      "x": 601.1463337072221,
-      "z": 159.4270147437856,
+      "assetSignature": "f6672551f316aaddf75ff5445d17aebbbe881fccb015627e889b3e3b079b9cdc",
+      "placementCenter": {
+        "x": 599.9999999999999,
+        "y": 0,
+        "z": -49.99834999999999
+      },
+      "x": 605.6733683475343,
+      "z": -161.65614565660502,
       "r": 1.5707963267948966,
-      "y": 5.118585387710482,
+      "y": 0.6838930048979819,
       "locked": false,
       "groupId": null,
       "groupColor": null,
-      "modelColor": "#faff00",
-      "placementCenter": {
-        "x": 599.9999999999999,
-        "y": 0.0,
-        "z": -49.99834999999999
-      }
+      "modelColor": "#faff00"
     },
     {
       "assetId": "asset-021e9c8e6ba7eb36",

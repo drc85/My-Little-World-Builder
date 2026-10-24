@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "revision": 519,
+  "revision": 520,
   "assets": [
     {
       "name": "5x5 Grass Beam 5mm",
@@ -550,13 +550,13 @@
       "id": "asset-3941babdb644651c",
       "file": "BROWSER/Houses/Work/fire print .glb",
       "folder": "Houses/Work",
-      "signature": "891dacca42ccd9f19025d7f249804d86724c2ccedd8cf087f1317fb2028e6d7b",
-      "stamp": "2473316:1792862472457838300",
-      "size": 2473316,
+      "signature": "352a5550428c33ddad87bb6053bfb669d53648e2ebe80596d1cceb0724dbc2b2",
+      "stamp": "2473300:1792862693278353800",
+      "size": 2473300,
       "missing": false,
       "type": "glb",
       "warning": "",
-      "thumbKey": "bdc54de32d3334530f2ed6ad",
+      "thumbKey": "741cde808455ae5571803033",
       "previewFile": "assets/BROWSER/Houses/Work/_Previews/fire print .glb.png",
       "previewReady": false,
       "makerworld": "",
@@ -4003,7 +4003,7 @@
       "order": 15,
       "missing": false,
       "previewFile": "assets/BROWSER/Houses/Work/_Previews/Folder-Preview.png",
-      "thumbKey": "e5c238d0283feed108fbceef",
+      "thumbKey": "dd9e2d4c3cf5a7210134735d",
       "previewReady": false
     },
     {
@@ -4015,7 +4015,7 @@
       "order": 5,
       "missing": false,
       "previewFile": "assets/BROWSER/Houses/_Previews/Folder-Preview.png",
-      "thumbKey": "0858904bcc29c26bbcff65ea",
+      "thumbKey": "6bd910d5aa74183134fe32b4",
       "previewReady": false
     },
     {
@@ -4112,5 +4112,5 @@
     "missing": [],
     "newFolders": []
   },
-  "updated": "2026-10-24T19:22:26+02:00"
+  "updated": "2026-10-24T19:27:42+02:00"
 }
