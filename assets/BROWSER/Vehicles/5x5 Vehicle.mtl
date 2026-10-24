@@ -18,6 +18,9 @@ Kd 0.694118 0.137255 0.105882
 newmtl Pulverbeschichtung_(Gelb)_(2)_(2)_(2)
 Kd 0.396078 0.407843 0.411765
 
+newmtl Stahl_-_satiniert_1
+Kd 0.627451 0.627451 0.627451
+
 newmtl Pulverbeschichtung_(Gelb)_(2)_(1)_(1)_(1)_(1)
 Kd 0.984314 1.000000 0.019608
 

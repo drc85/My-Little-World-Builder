@@ -1,4 +1,4 @@
-import {fitModel,gltfRoot} from '../model-rules.js?v=desktop-release-20261023-colored-lights';
+import {fitModel,gltfRoot} from '../model-rules.js?v=desktop-release-20261024-project-loading';
 import * as THREE from 'three';
 import {OBJLoader} from 'three/addons/loaders/OBJLoader.js';
 import {MTLLoader} from 'three/addons/loaders/MTLLoader.js';

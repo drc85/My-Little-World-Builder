@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "revision": 476,
+  "revision": 489,
   "assets": [
     {
       "name": "5x5 Grass Beam 5mm",
@@ -487,35 +487,6 @@
       "snapmaker": ""
     },
     {
-      "name": "10x10 house 1",
-      "label": "",
-      "w": 100.0,
-      "d": 100.0,
-      "h": 100.0,
-      "level": 100,
-      "kind": "house",
-      "snap": 50,
-      "noCollision": false,
-      "walk": false,
-      "rotationX": 0.0,
-      "preview": "",
-      "enabled": true,
-      "id": "asset-5a2d5893c57b9c6e",
-      "file": "BROWSER/Houses/Social/10x10 house 1.glb",
-      "folder": "Houses/Social",
-      "signature": "ebbb2fdbdb9042d0e68e57110e593f6556662202ca875a1bfd7103d378f1162d",
-      "stamp": "12085824:1791846480042438600",
-      "size": 12085824,
-      "missing": false,
-      "type": "glb",
-      "warning": "",
-      "thumbKey": "629a74318cf7a54afbc26c35",
-      "previewFile": "assets/BROWSER/Houses/Social/_Previews/10x10 house 1.glb.png",
-      "previewReady": true,
-      "makerworld": "",
-      "snapmaker": ""
-    },
-    {
       "name": "10x10 house 2",
       "label": "",
       "w": 100.0,
@@ -547,15 +518,15 @@
     {
       "name": "fire print ",
       "label": "",
-      "w": 50,
-      "d": 50,
-      "h": 100,
+      "w": 100.0,
+      "d": 100.0,
+      "h": 229.88072204589844,
       "level": 100,
       "kind": "house",
       "snap": 50,
       "noCollision": false,
       "walk": false,
-      "rotationX": 0,
+      "rotationX": 0.0,
       "preview": "",
       "enabled": true,
       "id": "asset-3941babdb644651c",
@@ -567,7 +538,7 @@
       "missing": false,
       "type": "glb",
       "warning": "",
-      "thumbKey": "b5ddfaffa4d44c2efab35da1",
+      "thumbKey": "9c71506c7397c5eeac9b7c6f",
       "previewFile": "assets/BROWSER/Houses/Work/_Previews/fire print .glb.png",
       "previewReady": true,
       "makerworld": "",
@@ -3567,8 +3538,8 @@
       "label": "",
       "w": 50.0,
       "d": 50.0,
-      "h": 48.174282,
-      "level": 48.174282,
+      "h": 48.175801,
+      "level": 48.175801,
       "kind": "vehicle",
       "snap": 50,
       "noCollision": false,
@@ -3579,22 +3550,22 @@
       "id": "asset-f4729d892d68f04c",
       "file": "BROWSER/Vehicles/5x5 Vehicle.obj",
       "folder": "Vehicles",
-      "signature": "dd51e20abc6528e74941e5bc5380284944e4f4836c018144caf915c07b64dcfc",
-      "stamp": "1137293:1791595239000000000",
-      "size": 1137293,
+      "signature": "23f918178bfabe97cbd0cab92e9d07a3194a605225705a6e8917c9b8dfd7ca2e",
+      "stamp": "2103154:1792775106947476100",
+      "size": 2103154,
       "missing": false,
       "type": "obj",
       "warning": "",
       "geometryProfile": {
         "version": 2,
-        "signature": "dd51e20abc6528e74941e5bc5380284944e4f4836c018144caf915c07b64dcfc",
+        "signature": "23f918178bfabe97cbd0cab92e9d07a3194a605225705a6e8917c9b8dfd7ca2e",
         "low": [
-          206.003017,
-          10.001519,
+          204.003017,
+          10.0,
           -613.532035
         ],
         "high": [
-          240.313386,
+          242.313386,
           58.175801,
           -555.490215
         ],
@@ -3613,9 +3584,9 @@
           58.175801
         ]
       },
-      "thumbKey": "738705172a3aff705e917a92",
+      "thumbKey": "3d2cc72fdbe7e73b81b119cd",
       "previewFile": "assets/BROWSER/Vehicles/_Previews/5x5 Vehicle.obj.png",
-      "previewReady": true,
+      "previewReady": false,
       "makerworld": "",
       "snapmaker": "",
       "nativeGeometry": true,
@@ -3626,60 +3597,33 @@
       "mtl": "BROWSER/Vehicles/5x5 Vehicle.mtl"
     },
     {
-      "name": "game asset fire1",
+      "name": "10x10 house 1",
       "label": "",
-      "w": 50,
-      "d": 50,
-      "h": 100,
+      "w": 100.0,
+      "d": 100.0,
+      "h": 100.0,
       "level": 100,
       "kind": "house",
       "snap": 50,
       "noCollision": false,
       "walk": false,
-      "rotationX": 0,
+      "rotationX": 0.0,
       "preview": "",
       "enabled": true,
-      "id": "asset-f363e5b6a59b93b9",
-      "file": "BROWSER/Houses/Work/game asset fire1.obj",
-      "folder": "Houses/Work",
-      "signature": "d864d29af5926b6a9366a224938be21f6d3deb2a24ef26164195beb26e22e0d7",
-      "stamp": "7176398:1792772507888393700",
-      "size": 7176398,
+      "id": "asset-5a2d5893c57b9c6e",
+      "file": "BROWSER/Houses/Social/10x10 house 1.glb",
+      "folder": "Houses/Social",
+      "signature": "ebbb2fdbdb9042d0e68e57110e593f6556662202ca875a1bfd7103d378f1162d",
+      "stamp": "12085824:1791846480042438600",
+      "size": 12085824,
       "missing": true,
-      "type": "obj",
+      "type": "glb",
       "warning": "",
-      "geometryProfile": {
-        "version": 2,
-        "signature": "d864d29af5926b6a9366a224938be21f6d3deb2a24ef26164195beb26e22e0d7",
-        "low": [
-          -154.89285,
-          0.119277954,
-          -55.477448
-        ],
-        "high": [
-          -43.92502,
-          230.0,
-          50.00647
-        ],
-        "roadLow": [
-          -154.89285,
-          4.319278,
-          -53.027954
-        ],
-        "roadHigh": [
-          -43.92502,
-          230.0,
-          40.04088
-        ],
-        "roadEnds": [
-          230.0,
-          208.85786
-        ]
-      },
-      "mtl": "BROWSER/Houses/Work/game asset fire1.mtl",
-      "thumbKey": "a343faca5b99816b2652a7a2",
-      "previewFile": "assets/BROWSER/Houses/Work/_Previews/game asset fire1.obj.png",
-      "previewReady": true
+      "thumbKey": "629a74318cf7a54afbc26c35",
+      "previewFile": "assets/BROWSER/Houses/Social/_Previews/10x10 house 1.glb.png",
+      "previewReady": true,
+      "makerworld": "",
+      "snapmaker": ""
     }
   ],
   "folders": [
@@ -3956,8 +3900,8 @@
       "order": 14,
       "missing": false,
       "previewFile": "assets/BROWSER/Houses/Social/_Previews/Folder-Preview.png",
-      "thumbKey": "fcc7d2d554406314079a5561",
-      "previewReady": true
+      "thumbKey": "8ee68ba1fed72065e3661030",
+      "previewReady": false
     },
     {
       "path": "Houses/Work",
@@ -3968,8 +3912,8 @@
       "order": 15,
       "missing": false,
       "previewFile": "assets/BROWSER/Houses/Work/_Previews/Folder-Preview.png",
-      "thumbKey": "c0766a43af38995ff91a390b",
-      "previewReady": false
+      "thumbKey": "9266319670af5a6ab750d0e3",
+      "previewReady": true
     },
     {
       "path": "Houses",
@@ -3980,7 +3924,7 @@
       "order": 5,
       "missing": false,
       "previewFile": "assets/BROWSER/Houses/_Previews/Folder-Preview.png",
-      "thumbKey": "b1be09e983eb52bad0abb192",
+      "thumbKey": "2db9e05d980b8eba3cb119a4",
       "previewReady": false
     },
     {
@@ -4040,8 +3984,8 @@
       "order": 8,
       "missing": false,
       "previewFile": "assets/BROWSER/Vehicles/_Previews/Folder-Preview.png",
-      "thumbKey": "8674b824ce50175b905c7695",
-      "previewReady": true
+      "thumbKey": "2dfd61764eeb7845f9f73ffa",
+      "previewReady": false
     },
     {
       "path": "Objects",
@@ -4073,9 +4017,9 @@
     "changed": [],
     "moved": [],
     "missing": [
-      "BROWSER/Houses/Work/game asset fire1.obj"
+      "BROWSER/Houses/Social/10x10 house 1.glb"
     ],
     "newFolders": []
   },
-  "updated": "2026-10-23T18:43:44+02:00"
+  "updated": "2026-10-24T05:43:33+02:00"
 }

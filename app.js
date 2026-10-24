@@ -1,9 +1,9 @@
 import {LineSegments2} from 'three/addons/lines/LineSegments2.js';
 import {LineSegmentsGeometry} from 'three/addons/lines/LineSegmentsGeometry.js';
 import {LineMaterial} from 'three/addons/lines/LineMaterial.js';
-import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261023-colored-lights';
-import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261023-colored-lights';
-import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261023-colored-lights';
+import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261024-project-loading';
+import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261024-project-loading';
+import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261024-project-loading';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
@@ -341,6 +341,7 @@ function updateDayNight(now){const night=worldSettings.realtime?realTimeNightAmo
 const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.target.set(0,0,0);controls.enableRotate=false;controls.mouseButtons={LEFT:null,MIDDLE:null,RIGHT:null};controls.touches={ONE:null,TWO:THREE.TOUCH.DOLLY_PAN};
 const BUILD_HALF=1500;
 const gridSource=new THREE.GridHelper(BUILD_HALF*2,60),grid=new LineSegments2(new LineSegmentsGeometry().setPositions(gridSource.geometry.attributes.position.array),new LineMaterial({color:0x737b84,linewidth:2,transparent:true}));gridSource.geometry.dispose();gridSource.material.dispose();grid.material.transparent=true;grid.material.depthWrite=false;grid.renderOrder=-1;grid.material.opacity=.46;scene.add(grid);const ground=new THREE.Mesh(new THREE.PlaneGeometry(4000,4000),new THREE.MeshBasicMaterial({visible:false}));ground.rotation.x=-Math.PI/2;scene.add(ground);
+let unresolvedProjectAssets=[];
 let placed=[],selected=null,selectedGroup=new Set(),multiMode=false,clipboard=[],dragging=null,draggingGroup=null,dragGroupStart=null,placingCopy=null,placingCopies=null,placingGroupAnchor=null,panning=false,panLast=null,offset=new THREE.Vector3(),idSeq=1;const ray=new THREE.Raycaster(),mouse=new THREE.Vector2();
 
 // V6.7 animated cloud / fog-of-world layer. Built areas reveal automatically.
@@ -1047,11 +1048,11 @@ async function addAsset(assetId,x=0,z=0,rot=0,selectAfter=false,record=true,rest
 const undoStack=[],redoStack=[];
 let placementLoading=false,placementEpoch=0,repeater=false,dragBefore=null;
 let lastRepeatSelection=[],rollerStroke=null,bulldozerMode=false,bulldozerStroke=null;
-function sceneSnapshot(){const pending=new Set(placingCopies|| (placingCopy?[placingCopy]:[]));return placed.filter(p=>!pending.has(p)).map(p=>({p,pos:p.root.position.clone(),r:p.rotation,locked:p.locked,deckHeight:p.deckHeight,groupId:p.groupId||null,groupColor:p.groupColor||null,modelColor:p.modelColor||null}));}
+function sceneSnapshot(){const pending=new Set(placingCopies|| (placingCopy?[placingCopy]:[]));const snapshot=placed.filter(p=>!pending.has(p)).map(p=>({p,pos:p.root.position.clone(),r:p.rotation,locked:p.locked,deckHeight:p.deckHeight,groupId:p.groupId||null,groupColor:p.groupColor||null,modelColor:p.modelColor||null}));snapshot.unresolved=unresolvedProjectAssets.slice();return snapshot;}
 function updateUndo(){document.getElementById('undoBtn').disabled=!undoStack.length&&!placingCopy&&!placingCopies&&!placementLoading;const redoBtn=document.getElementById('redoBtn');if(redoBtn)redoBtn.disabled=!redoStack.length||!!placingCopy||!!placingCopies||placementLoading;}
 function remember(before=sceneSnapshot()){undoStack.push(before);if(undoStack.length>100)undoStack.shift();redoStack.length=0;updateUndo();}
 function sameSnapshot(a,b){return a.length===b.length&&a.every((x,i)=>x.p===b[i].p&&x.pos.distanceToSquared(b[i].pos)<.001&&x.r===b[i].r&&x.locked===b[i].locked&&x.groupId===b[i].groupId&&x.groupColor===b[i].groupColor&&x.modelColor===b[i].modelColor);}
-function restoreSnapshot(snapshot){for(const p of placed)scene.remove(p.root);placed=snapshot.map(x=>{x.p.root.position.copy(x.pos);x.p.rotation=x.r;x.p.root.rotation.y=x.r;x.p.locked=x.locked;x.p.groupId=x.groupId;x.p.groupColor=x.groupColor;setModelColor(x.p,x.modelColor);x.p.deckHeight=x.deckHeight;x.p.lastValidPosition=x.pos.clone();x.p.placementValid=true;x.p.walkTo=null;x.p.walkRoute=null;x.p.walkSearch=null;x.p.walkLastSafe=null;scene.add(x.p.root);return x.p});select(null);updateParts();}
+function restoreSnapshot(snapshot){unresolvedProjectAssets=(snapshot.unresolved||[]).slice();for(const p of placed)scene.remove(p.root);placed=snapshot.map(x=>{x.p.root.position.copy(x.pos);x.p.rotation=x.r;x.p.root.rotation.y=x.r;x.p.locked=x.locked;x.p.groupId=x.groupId;x.p.groupColor=x.groupColor;setModelColor(x.p,x.modelColor);x.p.deckHeight=x.deckHeight;x.p.lastValidPosition=x.pos.clone();x.p.placementValid=true;x.p.walkTo=null;x.p.walkRoute=null;x.p.walkSearch=null;x.p.walkLastSafe=null;scene.add(x.p.root);return x.p});select(null);updateParts();}
 function setRepeater(on){repeater=on;document.getElementById('repeatStatus').hidden=!on;renderer.domElement.style.cursor=on?'copy':'default';}
 function cancelPlacement(){finishRoller(true);finishBulldozer();const keep=repeater?lastRepeatSelection.filter(p=>placed.includes(p)):[];setBulldozer(false);placementNotice('');placementEpoch++;placementLoading=false;const pending=placingCopies||(placingCopy?[placingCopy]:[]);for(const p of pending)scene.remove(p.root);placed=placed.filter(p=>!pending.includes(p));placingCopy=null;placingCopies=null;placingGroupAnchor=null;setRepeater(false);select(null);if(keep.length){showCommitted(keep);hideInspector();}updateParts();updateUndo();}
 function undo(){if(placingCopy||placingCopies||placementLoading){cancelPlacement();return}setRepeater(false);const previous=undoStack.pop();if(previous){redoStack.push(sceneSnapshot());restoreSnapshot(previous)}dragging=null;draggingGroup=null;dragBefore=null;updateUndo();}
@@ -1168,7 +1169,7 @@ renderer.domElement.addEventListener('pointerdown',e=>{
  if(repeater&&(placingCopies||placingCopy)){startRoller(e);return;}
  if(placingCopies||placingCopy){commitPlacement(e);return;}
  pointer(e);const gestureHit=ray.intersectObjects(placed.map(p=>p.root),true).find(h=>!h.object.userData.lightEffect);const gestureObject=gestureHit?findPlacedObject(gestureHit.object):null;const grabbedSelected=currentSelection().includes(gestureObject);
- if(e.shiftKey||(multiMode&&!grabbedSelected)){e.preventDefault();pointer(e);const hit=ray.intersectObjects(placed.map(p=>p.root),true).find(h=>!h.object.userData.lightEffect);marqueeClickTarget=hit?findPlacedObject(hit.object):null;hideInspector();marqueeActive=true;marqueeMoved=false;marqueeStart={x:e.clientX,y:e.clientY};marquee.classList.add('show');drawMarquee(e);renderer.domElement.setPointerCapture?.(e.pointerId);return;}
+ if(e.shiftKey||(multiMode&&gestureObject&&!grabbedSelected)){e.preventDefault();pointer(e);const hit=ray.intersectObjects(placed.map(p=>p.root),true).find(h=>!h.object.userData.lightEffect);marqueeClickTarget=hit?findPlacedObject(hit.object):null;hideInspector();marqueeActive=true;marqueeMoved=false;marqueeStart={x:e.clientX,y:e.clientY};marquee.classList.add('show');drawMarquee(e);renderer.domElement.setPointerCapture?.(e.pointerId);return;}
  dragBefore=sceneSnapshot();pointer(e);const hit=ray.intersectObjects(placed.map(p=>p.root),true)[0],p=hit?findPlacedObject(hit.object):null;
  if(!p&&assetDockEl.classList.contains('dock-open')){clearTimeout(dockHideTimer);dockHideTimer=null;}
  const alreadyInspected=inspectorVisible&&selectedGroup.has(p);
@@ -1519,13 +1520,22 @@ const partsOverlay=document.getElementById('partsOverlay');
 const partsClose=document.getElementById('partsClose');
 function setParts(open){partsOverlay.classList.toggle('open',open);partsOverlay.setAttribute('aria-hidden',String(!open));if(open)updateParts()}
 partsBtn.addEventListener('click',()=>setParts(true));partsClose.addEventListener('click',()=>setParts(false));partsOverlay.addEventListener('click',e=>{if(e.target===partsOverlay)setParts(false)});
-document.getElementById('clearBtn').onclick=()=>{cancelPlacement();if(placed.length)remember();placed.forEach(p=>scene.remove(p.root));placed=[];select(null);updateParts()};
-function projectData(){return {version:2,placed:sceneSnapshot().map(({p})=>({assetId:p.asset.id,x:p.root.position.x,z:p.root.position.z,r:p.rotation,y:p.root.position.y,deckHeight:p.deckHeight,locked:!!p.locked,groupId:p.groupId||null,groupColor:p.groupColor||null,modelColor:p.modelColor||null}))}}
+document.getElementById('clearBtn').onclick=()=>{cancelPlacement();if(placed.length||unresolvedProjectAssets.length)remember();unresolvedProjectAssets=[];placed.forEach(p=>scene.remove(p.root));placed=[];select(null);updateParts()};
+function projectData(){return {version:3,placed:[...sceneSnapshot().map(({p})=>({assetId:p.asset.id,assetFile:p.asset.file||p.asset.glb||p.asset.obj||p.asset.ply,assetSignature:p.asset.signature,x:p.root.position.x,z:p.root.position.z,r:p.rotation,y:p.root.position.y,deckHeight:p.deckHeight,locked:!!p.locked,groupId:p.groupId||null,groupColor:p.groupColor||null,modelColor:p.modelColor||null})),...unresolvedProjectAssets]}}
+function resolveProjectAsset(entry){
+ if(byId[entry.assetId])return byId[entry.assetId];
+ const old=assetCatalog?.assets?.find(a=>a.id===entry.assetId);
+ const path=entry.assetFile||old?.file,signature=entry.assetSignature||old?.signature;
+ const normalize=p=>String(p||'').replaceAll('\\','/').replace(/^assets\//i,'').toLowerCase();
+ if(path){const matches=assets.filter(a=>normalize(a.file||a.glb||a.obj||a.ply)===normalize(path));if(matches.length===1)return matches[0];}
+ if(signature){const matches=assets.filter(a=>a.signature===signature);if(matches.length===1)return matches[0];}
+ return null;
+}
 async function loadProjectData(d){
- if(!d||!Array.isArray(d.placed)||d.placed.some(p=>!byId[p.assetId]))throw Error('Invalid project or missing assets');
+ if(!d||!Array.isArray(d.placed)||d.placed.some(p=>!p||typeof p.assetId!=='string'||![p.x,p.z,p.r].every(Number.isFinite)))throw Error('Invalid project');
  cancelPlacement();const before=sceneSnapshot();placementLoading=true;const epoch=++placementEpoch;updateUndo();
- try{placed.forEach(p=>scene.remove(p.root));placed=[];
- for(const p of d.placed){const q=await addAsset(p.assetId,p.x,p.z,p.r,false,false,true);q.locked=!!p.locked;if(p.modelColor)setModelColor(q,p.modelColor);q.groupId=typeof p.groupId==='string'?p.groupId:null;q.groupColor=q.groupId?colorValue(p.groupColor):null;if(Number.isFinite(p.y)&&role(q)!=='beam')q.root.position.y=p.y;if(Number.isFinite(p.deckHeight))q.deckHeight=p.deckHeight;q.lastValidPosition=q.root.position.clone();q.placementValid=true;}
+ try{placed.forEach(p=>scene.remove(p.root));placed=[];unresolvedProjectAssets=[];
+ for(const p of d.placed){const asset=resolveProjectAsset(p);if(!asset){unresolvedProjectAssets.push({...p});continue;}let q;try{q=await addAsset(asset.id,p.x,p.z,p.r,false,false,true);}catch(error){console.warn('Project asset unavailable',asset.file,error);unresolvedProjectAssets.push({...p});continue;}q.locked=!!p.locked;if(p.modelColor)setModelColor(q,p.modelColor);q.groupId=typeof p.groupId==='string'?p.groupId:null;q.groupColor=q.groupId?colorValue(p.groupColor):null;if(Number.isFinite(p.y)&&role(q)!=='beam')q.root.position.y=p.y;if(Number.isFinite(p.deckHeight))q.deckHeight=p.deckHeight;q.lastValidPosition=q.root.position.clone();q.placementValid=true;}
  for(const q of placed.filter(p=>role(p)==='beam'))snapPlaced(q,q.root.position.x,q.root.position.z);
  // Reconnect moving actors only once the entire saved world exists.
  for(const q of placed){
@@ -1535,7 +1545,7 @@ async function loadProjectData(d){
  }
 
  if(epoch!==placementEpoch){restoreSnapshot(before);return;}
- remember(before);select(null);
+ remember(before);select(null);if(unresolvedProjectAssets.length)placementNotice(`${unresolvedProjectAssets.length} unavailable asset(s). Other parts loaded; missing parts are retained when saving.`);
  }catch(error){restoreSnapshot(before);throw error;}finally{placementLoading=false;updateParts();updateUndo();}
 }
 
