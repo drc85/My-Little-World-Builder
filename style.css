@@ -1675,7 +1675,7 @@ header#imageToolbar button.imageTool:hover .toolArt,header#imageToolbar button.i
 #cloudDrop #visualFilter option:checked{color:#fff!important;background:#47738f!important;}
 
 /* Align text inside the clock artwork. */
-#weatherData .dataTime{top:45.5%!important;left:51%!important;width:40%!important;transform:translateY(-50%)!important;text-align:center!important;line-height:1!important;margin:0!important;}
+#weatherData .dataTime{top:46.75%!important;left:51%!important;width:40%!important;transform:translateY(-50%)!important;text-align:center!important;line-height:1!important;margin:0!important;}
 #weatherData .dataDate{top:60%!important;}
 #weatherData .dataTemp{top:67%!important;}
 

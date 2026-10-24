@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "revision": 527,
+  "revision": 528,
   "assets": [
     {
       "name": "5x5 Grass Beam 5mm",
@@ -560,7 +560,7 @@
       "soundVolume": 1,
       "thumbKey": "a2985ec5179f23d12c9b80a6",
       "previewFile": "assets/BROWSER/Houses/Work/_Previews/fire middle.glb.png",
-      "previewReady": false,
+      "previewReady": true,
       "makerworld": "",
       "snapmaker": ""
     },
@@ -4153,5 +4153,5 @@
     "missing": [],
     "newFolders": []
   },
-  "updated": "2026-10-25T00:09:37+02:00"
+  "updated": "2026-10-25T00:12:48+02:00"
 }
