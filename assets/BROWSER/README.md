@@ -32,7 +32,7 @@ Die folgende Tabelle beschreibt Gebäude und sonstige Nicht-Fahrzeuge. Die beson
 | `LIGHT`, `LIGHT_`, `LIGHTS`, `LIGHTS_` | Fläche leuchtet in ihrer Modellfarbe und erhält weichen Glow. **Kein extrudierter Strahl und kein Kegel.** Für Leuchtschilder oder reine Leuchtflächen. |
 | `LIGHT_H`, `LIGHT_H_...`, `LIGHT_HORIZONTAL` | Glow plus horizontaler, flächenförmiger Schein nach außen. Für Fenster. Die Außenkontur der Lichtfläche wird verlängert, sofern eine passende Fläche erkannt wird; sonst wird eine rechteckige Ersatzform verwendet. |
 | `LIGHT_V`, `LIGHT_V_...`, `LIGHT_VERTICAL` | Glow plus runder Kegel **nach unten**. Er wird nach unten breiter und läuft weich aus. V bedeutet hier nicht automatisch „zur Oberseite des Modells“. |
-| `LIGHT_V_UP`, `LIGHT_V_UP_...`, `LIGHT_VERTICAL_UP` | Glow plus runder Kegel **nach oben**. Für Dachzeichen, Bodenstrahler oder nach oben gerichtete Lampen. |
+| `LIGHT_V_UP`, `LIGHT_V_UP_...`, `LIGHT_VERTICAL_UP` | Glow plus runder Kegel **nach oben**. Für Dachzeichen, Bodenstrahler oder nach oben gerichtete Lampen. Der Kegel beginnt an der obersten Fläche des markierten Teils, auch wenn dessen Export-Geometrie weiter nach unten reicht. |
 | `WINDOW`, `WINDOW_...`, `WINDOWS`, `WINDOWS_...` | Entspricht bei Mesh-/Komponentennamen dem horizontalen Fensterschein, nicht einem reinen Glow. Für neue Modelle vorzugsweise `LIGHT_H` verwenden. |
 | `LAMP`, `LAMP_...`, `LAMPS`, `LAMPS_...` | Älterer Name für den nach unten gerichteten Lampenkegel mit Glow, wie `LIGHT_V`. |
 | `LIGHT_LAMP`, `LIGHT_LAMP_...` | Älterer kombinierter Name: leuchtender Körper mit Glow und Kegel nach unten, wie `LIGHT_V`. |

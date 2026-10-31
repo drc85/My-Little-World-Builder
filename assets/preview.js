@@ -1,4 +1,4 @@
-import {fitModel,gltfRoot} from '../model-rules.js?v=desktop-release-20261031-picker-progress';
+import {fitModel,gltfRoot} from '../model-rules.js?v=desktop-release-20261031-up-light-origin';
 import * as THREE from 'three';
 import {OBJLoader} from 'three/addons/loaders/OBJLoader.js';
 import {MTLLoader} from 'three/addons/loaders/MTLLoader.js';
