@@ -1,9 +1,9 @@
 import {LineSegments2} from 'three/addons/lines/LineSegments2.js';
 import {LineSegmentsGeometry} from 'three/addons/lines/LineSegmentsGeometry.js';
 import {LineMaterial} from 'three/addons/lines/LineMaterial.js';
-import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261031-up-light-origin';
-import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261031-up-light-origin';
-import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261031-up-light-origin';
+import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261031-quiet-load';
+import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261031-quiet-load';
+import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261031-quiet-load';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
@@ -1604,7 +1604,7 @@ async function loadProjectData(d){
  }
 
  if(epoch!==placementEpoch){restoreSnapshot(before);return;}
- remember(before);select(null);if(unresolvedProjectAssets.length)placementNotice(`${unresolvedProjectAssets.length} unavailable asset(s). Other parts loaded; missing parts are retained when saving.`);
+ remember(before);select(null);placementNotice('');
  showCityLoadProgress(100,'Ready');await paintCityLoadProgress();await new Promise(resolve=>setTimeout(resolve,160));
  }catch(error){restoreSnapshot(before);throw error;}finally{cityLoadProgress.hidden=true;placementLoading=false;updateParts();updateUndo();}
 }
