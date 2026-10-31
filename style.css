@@ -1720,3 +1720,15 @@ header#imageToolbar button.imageTool:hover .toolArt,header#imageToolbar button.i
  #cornerBrandCredit{bottom:calc(4px + env(safe-area-inset-bottom))!important;}
 }
 #assetDock .dockItem:is(.touch-glow,:active) :is(.dockIcon,.dockThumb),#assetDock .dockBack:is(.touch-glow,:active),header#imageToolbar button.imageTool.touch-glow .toolArt{filter:drop-shadow(.7px 0 0 #ffe600) drop-shadow(-.7px 0 0 #ffe600) drop-shadow(0 .7px 0 #ffe600) drop-shadow(0 -.7px 0 #ffe600) drop-shadow(0 0 5px #ffe600aa)!important;}
+
+/* Circular hue/saturation picker; no separate brightness slider. */
+#customPalette{grid-template-columns:1fr!important;}
+#customPalette .colorField{width:180px;height:180px;justify-self:center;border-radius:50%;background:radial-gradient(circle closest-side,#fff 0%,#ffffff00 100%),conic-gradient(#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00);filter:none;}
+#customPalette .colorHex{grid-column:1/-1;}
+#cityLoadProgress{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:#10182038;cursor:progress;}
+#cityLoadProgress[hidden]{display:none;}
+.cityLoadCard{display:grid;grid-template-columns:1fr auto;gap:12px;width:min(320px,calc(100vw - 36px));padding:20px;border:1px solid #d5e6ff55;border-radius:18px;background:#313d48f5;color:#fff;box-shadow:0 10px 35px #0005;font:13px system-ui;}
+.cityLoadCard strong{font-size:16px;}.cityLoadPercent{font-variant-numeric:tabular-nums;color:#a7dcff;}
+.cityLoadCard progress{grid-column:1/-1;width:100%;height:10px;border:0;border-radius:8px;overflow:hidden;accent-color:#91d4ff;background:#ffffff20;}
+.cityLoadCard progress::-webkit-progress-bar{background:#ffffff20;border-radius:8px;}.cityLoadCard progress::-webkit-progress-value{background:#91d4ff;border-radius:8px;}.cityLoadCard progress::-moz-progress-bar{background:#91d4ff;border-radius:8px;}
+.cityLoadCard small{grid-column:1/-1;color:#c9d6e0;}

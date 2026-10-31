@@ -1,9 +1,9 @@
 import {LineSegments2} from 'three/addons/lines/LineSegments2.js';
 import {LineSegmentsGeometry} from 'three/addons/lines/LineSegmentsGeometry.js';
 import {LineMaterial} from 'three/addons/lines/LineMaterial.js';
-import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261025-clock-fine';
-import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261025-clock-fine';
-import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261025-clock-fine';
+import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261031-picker-progress';
+import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261031-picker-progress';
+import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261031-picker-progress';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
@@ -1579,15 +1579,19 @@ function resolveProjectAsset(entry){
  if(signature){const matches=assets.filter(a=>a.signature===signature);if(matches.length===1)return matches[0];}
  return null;
 }
+const cityLoadProgress=document.createElement('div');cityLoadProgress.id='cityLoadProgress';cityLoadProgress.hidden=true;cityLoadProgress.innerHTML='<div class="cityLoadCard"><strong>Loading city</strong><span class="cityLoadPercent" role="status" aria-live="polite">0%</span><progress max="100" value="0" aria-label="City loading progress"></progress><small>Preparing models…</small></div>';document.body.append(cityLoadProgress);
+function showCityLoadProgress(percent,detail){const value=Math.max(0,Math.min(100,Math.round(percent)));cityLoadProgress.hidden=false;cityLoadProgress.querySelector('progress').value=value;cityLoadProgress.querySelector('.cityLoadPercent').textContent=value+'%';cityLoadProgress.querySelector('small').textContent=detail;}
+function paintCityLoadProgress(){return new Promise(resolve=>requestAnimationFrame(()=>setTimeout(resolve,0)));}
 async function loadProjectData(d){
  if(!d||!Array.isArray(d.placed)||d.placed.some(p=>!p||typeof p.assetId!=='string'||![p.x,p.z,p.r].every(Number.isFinite)))throw Error('Invalid project');
  cancelPlacement();const before=sceneSnapshot();placementLoading=true;const epoch=++placementEpoch;updateUndo();
- try{placed.forEach(p=>scene.remove(p.root));placed=[];unresolvedProjectAssets=[];
- for(const p of d.placed){const asset=resolveProjectAsset(p);if(!asset){unresolvedProjectAssets.push({...p});continue;}let q;try{q=await addAsset(asset.id,p.x,p.z,p.r,false,false,true);}catch(error){console.warn('Project asset unavailable',asset.file,error);unresolvedProjectAssets.push({...p});continue;}q.locked=!!p.locked;if(p.modelColor)setModelColor(q,p.modelColor);q.groupId=typeof p.groupId==='string'?p.groupId:null;q.groupColor=q.groupId?colorValue(p.groupColor):null;if(Number.isFinite(p.y)&&role(q)!=='beam')q.root.position.y=p.y;if(Number.isFinite(p.deckHeight))q.deckHeight=p.deckHeight;
+ try{showCityLoadProgress(0,'Preparing models…');await paintCityLoadProgress();placed.forEach(p=>scene.remove(p.root));placed=[];unresolvedProjectAssets=[];let loadedParts=0,lastProgressPaint=performance.now();
+ for(const p of d.placed){try{const asset=resolveProjectAsset(p);if(!asset){unresolvedProjectAssets.push({...p});continue;}let q;try{q=await addAsset(asset.id,p.x,p.z,p.r,false,false,true);}catch(error){console.warn('Project asset unavailable',asset.file,error);unresolvedProjectAssets.push({...p});continue;}q.locked=!!p.locked;if(p.modelColor)setModelColor(q,p.modelColor);q.groupId=typeof p.groupId==='string'?p.groupId:null;q.groupColor=q.groupId?colorValue(p.groupColor):null;if(Number.isFinite(p.y)&&role(q)!=='beam')q.root.position.y=p.y;if(Number.isFinite(p.deckHeight))q.deckHeight=p.deckHeight;
  const savedCenter=p.placementCenter,oldBase=projectPlacementHistory[p.assetSignature];
  if(savedCenter&&[savedCenter.x,savedCenter.y,savedCenter.z].every(Number.isFinite))setPlacementCenter(q,savedCenter.x,savedCenter.y,savedCenter.z);
  else if(oldBase&&!q.asset.bridgeRole){const c=Math.cos(p.r),s=Math.sin(p.r);setPlacementCenter(q,p.x+oldBase.x*c+oldBase.z*s,(p.y||0)+oldBase.bottom,p.z-oldBase.x*s+oldBase.z*c);}
- q.lastValidPosition=q.root.position.clone();q.placementValid=true;}
+ q.lastValidPosition=q.root.position.clone();q.placementValid=true;}finally{loadedParts++;showCityLoadProgress(95*loadedParts/Math.max(1,d.placed.length),loadedParts+' / '+d.placed.length+' parts');if(performance.now()-lastProgressPaint>40){await paintCityLoadProgress();lastProgressPaint=performance.now();}}}
+ showCityLoadProgress(96,'Connecting roads and moving objects…');await paintCityLoadProgress();
  for(const q of placed.filter(p=>role(p)==='beam'))snapPlaced(q,q.root.position.x,q.root.position.z);
  // Reconnect moving actors only once the entire saved world exists.
  for(const q of placed){
@@ -1598,7 +1602,8 @@ async function loadProjectData(d){
 
  if(epoch!==placementEpoch){restoreSnapshot(before);return;}
  remember(before);select(null);if(unresolvedProjectAssets.length)placementNotice(`${unresolvedProjectAssets.length} unavailable asset(s). Other parts loaded; missing parts are retained when saving.`);
- }catch(error){restoreSnapshot(before);throw error;}finally{placementLoading=false;updateParts();updateUndo();}
+ showCityLoadProgress(100,'Ready');await paintCityLoadProgress();await new Promise(resolve=>setTimeout(resolve,160));
+ }catch(error){restoreSnapshot(before);throw error;}finally{cityLoadProgress.hidden=true;placementLoading=false;updateParts();updateUndo();}
 }
 
 function safeProjectName(){return 'my-little-world'}
@@ -2001,23 +2006,22 @@ function selectionMaterialColors(p){
 }
 // Direct, live custom palette with commit/cancel and an inline screen eyedropper.
 const customPalette=document.createElement('div');customPalette.id='customPalette';customPalette.hidden=true;
-customPalette.innerHTML='<b>Custom color</b><div class="colorField" role="slider" aria-label="Color spectrum" tabindex="0"><i class="colorCursor"></i></div><label class="colorBrightnessLabel">Dark / Light<input class="colorHue" aria-label="Brightness" type="range" min="0" max="100" value="100"></label><input class="colorHex" aria-label="Hex color" maxlength="7" value="#ff0000">';
+customPalette.innerHTML='<b>Custom color</b><div class="colorField" role="slider" aria-label="Color spectrum" tabindex="0"><i class="colorCursor"></i></div><input class="colorHex" aria-label="Hex color" maxlength="7" value="#ff0000">';
 document.getElementById('selectionTools').append(customPalette);
 let paletteBefore=null,paletteTargets=[],paletteHue=0,paletteSaturation=1,paletteValue=1,paletteDragging=false;
 function palettePreview(hex){for(const p of paletteTargets)setModelColor(p,hex);document.getElementById('groupColorBtn').style.background=hex;customPalette.querySelector('.colorHex').value=hex;}
 function paletteClose(){if(!customPalette.hidden&&paletteBefore&&!sameSnapshot(paletteBefore,sceneSnapshot()))remember(paletteBefore);paletteBefore=null;paletteDragging=false;customPalette.hidden=true;refreshSelectionUI();}
-function paletteSync(){customPalette.querySelector('.colorCursor').style.left=(paletteHue/360*100)+'%';customPalette.querySelector('.colorCursor').style.top=((1-paletteSaturation)*100)+'%';customPalette.querySelector('.colorHue').value=Math.round(paletteValue*100);customPalette.querySelector('.colorField').style.setProperty('--brightness',paletteValue);}
+function paletteSync(){const angle=paletteHue*Math.PI/180,radius=paletteSaturation*50,cursor=customPalette.querySelector('.colorCursor');cursor.style.left=(50+Math.sin(angle)*radius)+'%';cursor.style.top=(50-Math.cos(angle)*radius)+'%';paletteField.setAttribute('aria-valuetext','Hue '+Math.round(paletteHue)+'°, saturation '+Math.round(paletteSaturation*100)+'%');}
 function paletteSet(hex){const hsl={};new THREE.Color(hex).getHSL(hsl,THREE.SRGBColorSpace);paletteHue=hsl.h*360;paletteValue=hsl.l+hsl.s*Math.min(hsl.l,1-hsl.l);paletteSaturation=paletteValue?2*(1-hsl.l/paletteValue):0;paletteSync();}
 function paletteApply(){const l=paletteValue*(1-paletteSaturation/2),sat=l===0||l===1?0:(paletteValue-l)/Math.min(l,1-l),c=new THREE.Color().setHSL(paletteHue/360,sat,l,THREE.SRGBColorSpace);palettePreview('#'+c.getHexString());paletteSync();}
 document.getElementById('groupColorBtn').onclick=()=>{if(!customPalette.hidden){paletteClose();return;}paletteBefore=sceneSnapshot();paletteTargets=currentSelection().filter(recolorable);customPalette.hidden=false;const hex=paletteTargets[0]?.modelColor||'#ffffff';customPalette.querySelector('.colorHex').value=hex;paletteSet(hex);};
 const paletteField=customPalette.querySelector('.colorField');
-function palettePick(e){const r=paletteField.getBoundingClientRect();paletteHue=THREE.MathUtils.clamp((e.clientX-r.left)/r.width,0,1)*360;paletteSaturation=1-THREE.MathUtils.clamp((e.clientY-r.top)/r.height,0,1);paletteApply();}
+function palettePick(e){const r=paletteField.getBoundingClientRect(),x=(e.clientX-r.left-r.width/2)/(r.width/2),y=(e.clientY-r.top-r.height/2)/(r.height/2);paletteHue=(Math.atan2(x,-y)*180/Math.PI+360)%360;paletteSaturation=Math.min(1,Math.hypot(x,y));paletteValue=1;paletteApply();}
 paletteField.onpointerdown=e=>{if(e.button!==0)return;e.preventDefault();paletteDragging=true;paletteField.setPointerCapture(e.pointerId);palettePick(e);};
 paletteField.onpointermove=e=>{if(paletteDragging)palettePick(e);};
 paletteField.onpointerup=e=>{paletteDragging=false;if(paletteField.hasPointerCapture(e.pointerId))paletteField.releasePointerCapture(e.pointerId);};
 paletteField.onpointercancel=()=>{paletteDragging=false;};
-paletteField.onkeydown=e=>{if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key))return;e.preventDefault();paletteHue=(paletteHue+(e.key==='ArrowRight'?3:e.key==='ArrowLeft'?-3:0)+360)%360;paletteSaturation=THREE.MathUtils.clamp(paletteSaturation+(e.key==='ArrowUp'?.02:e.key==='ArrowDown'?-.02:0),0,1);paletteApply();};
-customPalette.querySelector('.colorHue').oninput=e=>{paletteValue=Number(e.target.value)/100;paletteApply();};
+paletteField.onkeydown=e=>{if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key))return;e.preventDefault();paletteHue=(paletteHue+(e.key==='ArrowRight'?3:e.key==='ArrowLeft'?-3:0)+360)%360;paletteSaturation=THREE.MathUtils.clamp(paletteSaturation+(e.key==='ArrowUp'?.02:e.key==='ArrowDown'?-.02:0),0,1);paletteValue=1;paletteApply();};
 customPalette.querySelector('.colorHex').oninput=e=>{if(/^#[0-9a-f]{6}$/i.test(e.target.value)){palettePreview(e.target.value);paletteSet(e.target.value);}};
 customPalette.addEventListener('pointerdown',e=>e.stopPropagation());
 document.addEventListener('pointerdown',e=>{if(!customPalette.hidden&&!customPalette.contains(e.target)&&!e.target.closest('#groupColorBtn'))paletteClose();},true);

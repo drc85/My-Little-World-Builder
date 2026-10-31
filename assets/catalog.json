@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "revision": 528,
+  "revision": 529,
   "assets": [
     {
       "name": "5x5 Grass Beam 5mm",
@@ -581,15 +581,15 @@
       "id": "asset-3941babdb644651c",
       "file": "BROWSER/Houses/Work/fire print .glb",
       "folder": "Houses/Work",
-      "signature": "352a5550428c33ddad87bb6053bfb669d53648e2ebe80596d1cceb0724dbc2b2",
-      "stamp": "2473300:1792862693278353800",
-      "size": 2473300,
+      "signature": "949333c34917c5ff957c2028332670231e965561577ca4e061478a5acf0d2bb5",
+      "stamp": "1593892:1792924192065323800",
+      "size": 1593892,
       "missing": false,
       "type": "glb",
       "warning": "",
-      "thumbKey": "741cde808455ae5571803033",
+      "thumbKey": "0aaeef090941f136261f6123",
       "previewFile": "assets/BROWSER/Houses/Work/_Previews/fire print .glb.png",
-      "previewReady": true,
+      "previewReady": false,
       "makerworld": "",
       "snapmaker": "",
       "soundFile": "assets/MUSIC/Effects/Animal meow.wav",
@@ -4034,7 +4034,7 @@
       "order": 15,
       "missing": false,
       "previewFile": "assets/BROWSER/Houses/Work/_Previews/Folder-Preview.png",
-      "thumbKey": "6429677e9629d87e3811d698",
+      "thumbKey": "d666029370943d7887290227",
       "previewReady": false
     },
     {
@@ -4046,7 +4046,7 @@
       "order": 5,
       "missing": false,
       "previewFile": "assets/BROWSER/Houses/_Previews/Folder-Preview.png",
-      "thumbKey": "b9dd12a74f8419333560e3b6",
+      "thumbKey": "50daee7bf3449f1abd7c8e39",
       "previewReady": false
     },
     {
@@ -4148,10 +4148,12 @@
   ],
   "report": {
     "new": [],
-    "changed": [],
+    "changed": [
+      "BROWSER/Houses/Work/fire print .glb"
+    ],
     "moved": [],
     "missing": [],
     "newFolders": []
   },
-  "updated": "2026-10-25T00:12:48+02:00"
+  "updated": "2026-10-31T05:20:29+01:00"
 }
