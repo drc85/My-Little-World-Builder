@@ -1,9 +1,9 @@
 import {LineSegments2} from 'three/addons/lines/LineSegments2.js';
 import {LineSegmentsGeometry} from 'three/addons/lines/LineSegmentsGeometry.js';
 import {LineMaterial} from 'three/addons/lines/LineMaterial.js';
-import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261031-quiet-load';
-import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261031-quiet-load';
-import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261031-quiet-load';
+import {placementCenter,setPlacementCenter,verticalRange} from './placement-rules.js?v=desktop-release-20261031-save-loaded-parts';
+import {role,elevated,collides,bridgeTarget,beamTarget} from './bridge-rules.js?v=desktop-release-20261031-save-loaded-parts';
+import {fitModel,gltfRoot,placementMarker} from './model-rules.js?v=desktop-release-20261031-save-loaded-parts';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
@@ -1572,7 +1572,7 @@ function setParts(open){partsOverlay.classList.toggle('open',open);partsOverlay.
 partsBtn.addEventListener('click',()=>setParts(true));partsClose.addEventListener('click',()=>setParts(false));partsOverlay.addEventListener('click',e=>{if(e.target===partsOverlay)setParts(false)});
 document.getElementById('clearBtn').onclick=()=>{cancelPlacement();if(placed.length||unresolvedProjectAssets.length)remember();unresolvedProjectAssets=[];placed.forEach(p=>scene.remove(p.root));placed=[];select(null);updateParts()};
 let projectPlacementHistory={};try{const response=await fetch('assets/placement-history.json');if(response.ok)projectPlacementHistory=await response.json();}catch(error){console.warn('Legacy placement history unavailable',error)}
-function projectData(){return {version:4,placed:[...sceneSnapshot().map(({p})=>({assetId:p.asset.id,assetFile:p.asset.file||p.asset.glb||p.asset.obj||p.asset.ply,assetSignature:p.asset.signature,placementCenter:placementCenter(p),x:p.root.position.x,z:p.root.position.z,r:p.rotation,y:p.root.position.y,deckHeight:p.deckHeight,locked:!!p.locked,groupId:p.groupId||null,groupColor:p.groupColor||null,modelColor:p.modelColor||null})),...unresolvedProjectAssets]}}
+function projectData(){return {version:4,placed:[...sceneSnapshot().map(({p})=>({assetId:p.asset.id,assetFile:p.asset.file||p.asset.glb||p.asset.obj||p.asset.ply,assetSignature:p.asset.signature,placementCenter:placementCenter(p),x:p.root.position.x,z:p.root.position.z,r:p.rotation,y:p.root.position.y,deckHeight:p.deckHeight,locked:!!p.locked,groupId:p.groupId||null,groupColor:p.groupColor||null,modelColor:p.modelColor||null}))]}}
 function resolveProjectAsset(entry){
  if(byId[entry.assetId])return byId[entry.assetId];
  const old=assetCatalog?.assets?.find(a=>a.id===entry.assetId);
